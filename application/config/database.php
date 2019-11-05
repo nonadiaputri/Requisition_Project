@@ -75,11 +75,19 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => '',
-	'password' => '',
-	'database' => '',
+/*	
+    'hostname' => '10.8.34.244',
+    'username' => 'megadb',
+    'password' => 'm3g4p0rt4l',
+	'database' => 'kics_v2',
 	'dbdriver' => 'mysqli',
+*/	
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'test',
+	'dbdriver' => 'mysqli',
+	
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),

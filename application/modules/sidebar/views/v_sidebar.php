@@ -63,6 +63,24 @@
         </li>
         <li class="treeview">
           <a href="#">
+            <i class="fa fa-database"></i>
+            <span>Master</span>
+            <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href='<?php echo site_url('grocery_crud/master/customers_management')?>'>Customers</a></li>
+            <li><a href='<?php echo site_url('grocery_crud/master/orders_management')?>'>Orders</a></li>
+            <li><a href='<?php echo site_url('grocery_crud/master/products_management')?>'>Products</a></li>
+            <li><a href='<?php echo site_url('grocery_crud/master/offices_management')?>'>Offices</a></li>
+			<li><a href='<?php echo site_url('grocery_crud/master/employees_management')?>'>Employees</a></li>		 
+			<li><a href='<?php echo site_url('grocery_crud/master/film_management')?>'>Films</a></li>
+			<li><a href='<?php echo site_url('grocery_crud/master/multigrids')?>'>Multigrid [BETA]</a></li>			
+          </ul>
+        </li>		
+        <li class="treeview">
+          <a href="#">
             <i class="fa fa-pie-chart"></i>
             <span>Charts</span>
             <span class="pull-right-container">
