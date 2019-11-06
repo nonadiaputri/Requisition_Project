@@ -18,7 +18,7 @@ class Master extends MX_Controller {
 		try{
 			$crud = new grocery_CRUD();
 
-			$crud->set_theme('datatables');
+			//$crud->set_theme('datatables');
 			$crud->set_table('offices');
 			$crud->set_subject('Office');
 			$crud->required_fields('city');

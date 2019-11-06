@@ -70,13 +70,13 @@
                 </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href='<?php echo site_url('grocery_crud/master/customers_management')?>'>Customers</a></li>
-            <li><a href='<?php echo site_url('grocery_crud/master/orders_management')?>'>Orders</a></li>
-            <li><a href='<?php echo site_url('grocery_crud/master/products_management')?>'>Products</a></li>
-            <li><a href='<?php echo site_url('grocery_crud/master/offices_management')?>'>Offices</a></li>
-			<li><a href='<?php echo site_url('grocery_crud/master/employees_management')?>'>Employees</a></li>		 
-			<li><a href='<?php echo site_url('grocery_crud/master/film_management')?>'>Films</a></li>
-			<li><a href='<?php echo site_url('grocery_crud/master/multigrids')?>'>Multigrid [BETA]</a></li>			
+            <li><a href='<?php echo site_url('crud/master/customers_management')?>'>Customers</a></li>
+            <li><a href='<?php echo site_url('crud/master/orders_management')?>'>Orders</a></li>
+            <li><a href='<?php echo site_url('crud/master/products_management')?>'>Products</a></li>
+            <li><a href='<?php echo site_url('crud/master/offices_management')?>'>Offices</a></li>
+			<li><a href='<?php echo site_url('crud/master/employees_management')?>'>Employees</a></li>		 
+			<li><a href='<?php echo site_url('crud/master/film_management')?>'>Films</a></li>
+			<li><a href='<?php echo site_url('crud/master/multigrids')?>'>Multigrid [BETA]</a></li>			
           </ul>
         </li>		
         <li class="treeview">
