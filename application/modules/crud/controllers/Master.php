@@ -6,23 +6,25 @@ class Master extends MX_Controller {
 	{
 		parent::__construct();
 
-		$this->load->database();
+		
 		$this->load->helper('url');
-
 		$this->load->library('grocery_crud');
 	}
 	
 	//********** Contoh CRUD table office
-	public function officesx()
+	
+	public function organization()
 	{
+		$this->load->database('db1');
 		try{
 			$crud = new grocery_CRUD();
 
 			//$crud->set_theme('datatables');
-			$crud->set_table('offices');
-			$crud->set_subject('Office');
-			$crud->required_fields('city');
-			$crud->columns('city','country','phone','addressLine1','postalCode');
+			$crud->set_table('OrganizationUnit');
+			$crud->set_primary_key('ID','OrganizationUnit');
+			//$crud->set_subject('Office');
+			//$crud->required_fields('city');
+			//$crud->columns('city','country','phone','addressLine1','postalCode');
 
 			$output = $crud->render();
 			
@@ -37,6 +39,57 @@ class Master extends MX_Controller {
 		}				
 	}
 
+	public function person()
+	{
+		$this->load->database('db1');
+		try{
+			$crud = new grocery_CRUD();
+
+			//$crud->set_theme('datatables');
+			$crud->set_table('Personnel');
+			$crud->set_primary_key('ID','Personnel');
+			//$crud->set_subject('Office');
+			//$crud->required_fields('city');
+			//$crud->columns('city','country','phone','addressLine1','postalCode');
+
+			$output = $crud->render();
+			
+			$data["output"] = (array)$output;
+			$data["header"] = $this->load->view('header/v_header','',TRUE);
+			$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+			
+			$this->load->view('v_master',$data);			
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}				
+	}
+	
+	public function officesx()
+	{
+		$this->load->database('db2');
+		try{
+			$crud = new grocery_CRUD();
+
+			//$crud->set_theme('datatables');
+			$crud->set_table('offices');
+			//$crud->set_primary_key('ID','OrganizationUnit');
+			//$crud->set_subject('Office');
+			//$crud->required_fields('city');
+			//$crud->columns('city','country','phone','addressLine1','postalCode');
+
+			$output = $crud->render();
+			
+			$data["output"] = (array)$output;
+			$data["header"] = $this->load->view('header/v_header','',TRUE);
+			$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+			
+			$this->load->view('v_master',$data);			
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}				
+	}
 //***********************************************************//
 	public function _example_output($output = null)
 	{
