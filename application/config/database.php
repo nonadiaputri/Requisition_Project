@@ -71,6 +71,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | the query builder class.
 */
 $active_group = 'default';
+//$active_group = 'dbsqlsrv';
 $query_builder = TRUE;
 
 $db['db1'] = array(
@@ -124,4 +125,3 @@ $db['db2'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-
