@@ -19,13 +19,22 @@ class Master extends MX_Controller {
 		try{
 			$crud = new grocery_CRUD();
 
-			//$crud->set_theme('datatables');
+			$crud->set_theme('datatables');
 			$crud->set_table('OrganizationTable');
 			$crud->set_primary_key('ID','OrganizationTable');
 			//$crud->set_subject('Office');
-			//$crud->required_fields('city');
-			//$crud->columns('city','country','phone','addressLine1','postalCode');
-
+			$crud->required_fields('ID','Code','Name');
+			$crud->columns('ID',
+							'Code',
+							'Name',
+							'Description'
+						);
+			
+			$crud->fields('ID',
+						'Code',
+						'Name',
+						'Description'
+					);
 			$output = $crud->render();
 			
 			$data["output"] = (array)$output;
@@ -49,9 +58,9 @@ class Master extends MX_Controller {
 			$crud->set_table('PersonnelTable');
 			$crud->set_primary_key('ID','PersonnelTable');
 			//$crud->set_subject('Office');
-			//$crud->required_fields('city');
-			//$crud->columns('city','country','phone','addressLine1','postalCode');
-
+			$crud->required_fields('Code', 'FullName', 'PersonnelNumber');
+			$crud->columns('ID','Code','FullName','Description','PersonnelNumber');
+			$crud->fields('Code','FullName','Description','PersonnelNumber');
 			$output = $crud->render();
 			
 			$data["output"] = (array)$output;
@@ -71,12 +80,13 @@ class Master extends MX_Controller {
 		try{
 			$crud = new grocery_CRUD();
 
-			//$crud->set_theme('datatables');
+			$crud->set_theme('datatables');
 			$crud->set_table('CostCenterTable');
 			$crud->set_primary_key('ID','CostCenterTable');
 			//$crud->set_subject('Office');
-			//$crud->required_fields('city');
-			//$crud->columns('city','country','phone','addressLine1','postalCode');
+			$crud->required_fields('Code','Name');
+			$crud->columns('ID','Code','Name','Description');
+			$crud->fields('Code','Name','Description');
 
 			$output = $crud->render();
 			
@@ -97,12 +107,13 @@ class Master extends MX_Controller {
 		try{
 			$crud = new grocery_CRUD();
 
-			//$crud->set_theme('datatables');
+			$crud->set_theme('datatables');
 			$crud->set_table('PositionTable');
 			$crud->set_primary_key('ID','PositionTable');
 			//$crud->set_subject('Office');
-			//$crud->required_fields('city');
-			//$crud->columns('city','country','phone','addressLine1','postalCode');
+			$crud->required_fields('Code','Name');
+			$crud->columns('ID','Code','Name','Description','CostCenterID');
+			$crud->fields('Code','Name','Description');
 
 			$output = $crud->render();
 			
@@ -123,12 +134,13 @@ class Master extends MX_Controller {
 		try{
 			$crud = new grocery_CRUD();
 
-			//$crud->set_theme('datatables');
+			$crud->set_theme('datatables');
 			$crud->set_table('CompanyTable');
 			$crud->set_primary_key('ID','CompanyTable');
 			//$crud->set_subject('Office');
-			//$crud->required_fields('city');
-			//$crud->columns('city','country','phone','addressLine1','postalCode');
+			$crud->required_fields('Code','Name');
+			$crud->columns('ID','Code','Name','Description','CreatedDate');
+			$crud->fields('Code','Name','Description');
 
 			$output = $crud->render();
 			
