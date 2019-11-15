@@ -79,7 +79,7 @@ $db['db1'] = array(
 	'hostname' => '10.11.22.151,1433',
 	'username' => 'kgmedia_hris_appsvc',
 	'password' => 'appsvc@hris?!',
-	'database' => 'DEV_KGMedia_HRIS',
+	'database' => 'DEV_KGMedia_HRIS2',
 	'dbdriver' => 'sqlsrv',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -98,19 +98,11 @@ $db['db1'] = array(
 
 $db['db2'] = array(
 	'dsn'	=> '',
-/*	
-    'hostname' => '10.8.34.244',
-    'username' => 'megadb',
-    'password' => 'm3g4p0rt4l',
-	'database' => 'kics_v2',
-	'dbdriver' => 'mysqli',
-*/	
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'test',
-	'dbdriver' => 'mysqli',
-	
+	'hostname' => '10.11.22.151,1433',
+	'username' => 'kgmedia_hris_appsvc',
+	'password' => 'appsvc@hris?!',
+	'database' => 'DEV_KGMedia_HRIS',
+	'dbdriver' => 'sqlsrv',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),

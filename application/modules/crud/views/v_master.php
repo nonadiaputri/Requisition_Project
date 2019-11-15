@@ -33,7 +33,8 @@
 	<?php 
 	foreach($output['css_files'] as $file): ?>
 		<link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
-	<?php endforeach; ?>
+  <?php endforeach; ?>
+  
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
