@@ -19,12 +19,74 @@ class Master extends MX_Controller {
 		try{
 			$crud = new grocery_CRUD();
 
-			//$crud->set_theme('datatables');
-			$crud->set_table('OrganizationUnit');
-			$crud->set_primary_key('ID','OrganizationUnit');
+			$crud->set_theme('datatables');
+			$crud->set_table('OrganizationTable');
+			$crud->set_primary_key('ID','OrganizationTable');
 			//$crud->set_subject('Office');
-			//$crud->required_fields('city');
-			//$crud->columns('city','country','phone','addressLine1','postalCode');
+			$crud->required_fields('ID','Code','Name');
+			$crud->columns('ID',
+							'Code',
+							'Name',
+							'Description'
+						);
+			
+			$crud->fields('ID',
+						'Code',
+						'Name',
+						'Description'
+					);
+			$output = $crud->render();
+			
+			$data["output"] = (array)$output;
+			$data["header"] = $this->load->view('header/v_header','',TRUE);
+			$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+			
+			$this->load->view('v_master',$data);			
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}				
+	}
+
+	public function personnel()
+	{
+		$this->load->database('db1');
+		try{
+			$crud = new grocery_CRUD();
+
+			//$crud->set_theme('datatables');
+			$crud->set_table('PersonnelTable');
+			$crud->set_primary_key('ID','PersonnelTable');
+			//$crud->set_subject('Office');
+			$crud->required_fields('Code', 'FullName', 'PersonnelNumber');
+			$crud->columns('ID','Code','FullName','Description','PersonnelNumber');
+			$crud->fields('Code','FullName','Description','PersonnelNumber');
+			$output = $crud->render();
+			
+			$data["output"] = (array)$output;
+			$data["header"] = $this->load->view('header/v_header','',TRUE);
+			$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+			
+			$this->load->view('v_master',$data);			
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}				
+	}
+
+	public function costcenter()
+	{
+		$this->load->database('db1');
+		try{
+			$crud = new grocery_CRUD();
+
+			$crud->set_theme('datatables');
+			$crud->set_table('CostCenterTable');
+			$crud->set_primary_key('ID','CostCenterTable');
+			//$crud->set_subject('Office');
+			$crud->required_fields('Code','Name');
+			$crud->columns('ID','Code','Name','Description');
+			$crud->fields('Code','Name','Description');
 
 			$output = $crud->render();
 			
@@ -39,18 +101,46 @@ class Master extends MX_Controller {
 		}				
 	}
 
-	public function person()
+	public function position()
 	{
 		$this->load->database('db1');
 		try{
 			$crud = new grocery_CRUD();
 
-			//$crud->set_theme('datatables');
-			$crud->set_table('Personnel');
-			$crud->set_primary_key('ID','Personnel');
+			$crud->set_theme('datatables');
+			$crud->set_table('PositionTable');
+			$crud->set_primary_key('ID','PositionTable');
 			//$crud->set_subject('Office');
-			//$crud->required_fields('city');
-			//$crud->columns('city','country','phone','addressLine1','postalCode');
+			$crud->required_fields('Code','Name');
+			$crud->columns('ID','Code','Name','Description','CostCenterID');
+			$crud->fields('Code','Name','Description');
+
+			$output = $crud->render();
+			
+			$data["output"] = (array)$output;
+			$data["header"] = $this->load->view('header/v_header','',TRUE);
+			$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+			
+			$this->load->view('v_master',$data);			
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}				
+	}
+
+	public function company()
+	{
+		$this->load->database('db1');
+		try{
+			$crud = new grocery_CRUD();
+
+			$crud->set_theme('datatables');
+			$crud->set_table('CompanyTable');
+			$crud->set_primary_key('ID','CompanyTable');
+			//$crud->set_subject('Office');
+			$crud->required_fields('Code','Name');
+			$crud->columns('ID','Code','Name','Description','CreatedDate');
+			$crud->fields('Code','Name','Description');
 
 			$output = $crud->render();
 			

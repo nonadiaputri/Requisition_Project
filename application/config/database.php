@@ -79,7 +79,7 @@ $db['db1'] = array(
 	'hostname' => '10.11.22.151,1433',
 	'username' => 'kgmedia_hris_appsvc',
 	'password' => 'appsvc@hris?!',
-	'database' => 'DEV_KGMedia_HRIS',
+	'database' => 'DEV_KGMedia_HRIS2',
 	'dbdriver' => 'sqlsrv',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -110,7 +110,6 @@ $db['db2'] = array(
 	'password' => '',
 	'database' => 'ep-kgmedia',
 	'dbdriver' => 'mysqli',
-	
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),

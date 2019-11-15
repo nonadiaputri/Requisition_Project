@@ -252,5 +252,6 @@ class Modules
             next($arr);
 
             return $result;
-    } 	
+	} 	
+	
 }

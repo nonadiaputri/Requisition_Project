@@ -70,13 +70,13 @@
                 </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href='<?php echo site_url('crud/master/customers_management')?>'>Customers</a></li>
-            <li><a href='<?php echo site_url('crud/master/orders_management')?>'>Orders</a></li>
-            <li><a href='<?php echo site_url('crud/master/products_management')?>'>Products</a></li>
-            <li><a href='<?php echo site_url('crud/master/offices_management')?>'>Offices</a></li>
-			<li><a href='<?php echo site_url('crud/master/employees_management')?>'>Employees</a></li>		 
-			<li><a href='<?php echo site_url('crud/master/film_management')?>'>Films</a></li>
-			<li><a href='<?php echo site_url('crud/master/multigrids')?>'>Multigrid [BETA]</a></li>			
+            <li><a href='<?php echo site_url('crud/master/personnel')?>'><i class="fa fa-user"></i>Personnel</a></li>
+            <li><a href='<?php echo site_url('crud/master/company')?>'><i class="fa fa-institution"></i>Company</a></li>
+            <li><a href='<?php echo site_url('crud/master/organization')?>'><i class="fa fa-cubes"></i>Organization</a></li>
+            <li><a href='<?php echo site_url('crud/master/costcenter')?>'><i class="fa fa-cc"></i>Cost Center</a></li>
+			<li><a href='<?php echo site_url('crud/master/position')?>'><i class="fa fa-suitcase"></i>Position</a></li>		 
+			<!-- <li><a href='<?php echo site_url('crud/master/film_management')?>'>Films</a></li>
+			<li><a href='<?php echo site_url('crud/master/multigrids')?>'>Multigrid [BETA]</a></li>			 -->
           </ul>
         </li>		
         <li class="treeview">
@@ -88,7 +88,7 @@
                 </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="../charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
+            <li><a href='<?php echo base_url('assets/pages/charts/chartbaru.html');?>'><i class="fa fa-circle-o"></i> ChartGrid</a></li>
             <li><a href="../charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
             <li><a href="../charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
             <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
