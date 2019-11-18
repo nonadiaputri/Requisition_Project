@@ -32,18 +32,18 @@
 
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <a href="<?= base_url(); ?>">
-	<img src="<?= base_url(); ?>assets/images/kgmedia.png" alt="KGMedia Mission" width="250">
-	</a>
-    <p class="login-box-msg">Log in to start your mission</p>
 
+	<img src="<?= base_url(); ?>assets/images/kgmedia.png" alt="KGMedia Mission" width="200" align="center">
+
+    <p class="login-box-msg"><?php echo $this->session->flashdata('message'); ?>Log in to start your mission</p>
+	
     <form action="<?= base_url(); ?>login/do" method="post">
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email or NIK">
+        <input type="text" name="uid" class="form-control" placeholder="Email or NIK">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password">
+        <input type="password" name="pwd" class="form-control" placeholder="Password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">

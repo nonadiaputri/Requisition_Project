@@ -13,8 +13,8 @@ class Halo extends CI_Controller {
     
 	public function __construct() {
         parent::__construct();
-        //$this->load->library('Aauth');
-		$this->load->database('db1');
+        $this->load->library('Aauth');
+		//$this->load->database('db2');
 
     }
 	
@@ -43,7 +43,7 @@ class Halo extends CI_Controller {
 		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
 		$this->load->view('v_table',$data);
 	}	
-	/*
+	
 	function hobit()
 	{
 		if($this->aauth->is_group_allowed(4,'immortality')){
@@ -55,7 +55,7 @@ class Halo extends CI_Controller {
 	
 	function login()
 	{
-		$a = $this->aauth->login('aha@example.com', 'ahapass');
+		$a = $this->aauth->login('andi.hendradi@kompas.com', 'ahapass');
 		var_dump($a);
 	}
 	
@@ -68,6 +68,19 @@ class Halo extends CI_Controller {
 		$l = $this->aauth->is_loggedin();
 		var_dump($l);
 	}
+	
+	function update()
+	{
+		$a = $this->aauth->update_user('6', 'rahasia');
+		var_dump($a);
+	}
+	
+	function add_user()
+	{
+		$a = $this->aauth->create_user('frodo@example.com','frodopass','Frodo');
+		var_dump($a);
+		//$this->aauth->create_user('legolas@example.com','legolaspass','Legolas');
+	}	
 	
 	function control($perm_name_or_id){
 		$c = $this->aauth->control($perm_name_or_id);
@@ -106,6 +119,5 @@ class Halo extends CI_Controller {
 		//mendapatkan Id dari nama permision
 		$l = $this->aauth->remind_password('andi.hendradi@kompas.com');
 		var_dump($l);
-	}
-	*/
+	}	
 }
