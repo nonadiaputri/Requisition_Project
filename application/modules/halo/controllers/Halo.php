@@ -14,7 +14,7 @@ class Halo extends CI_Controller {
 	public function __construct() {
         parent::__construct();
         //$this->load->library('Aauth');
-		$this->load->database('db2');
+		//$this->load->database('db2');
 
     }
 	
