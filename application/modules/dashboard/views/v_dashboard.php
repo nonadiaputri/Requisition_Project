@@ -29,8 +29,8 @@
   <style>
         .full-container {
             background-color: red;
-            width: 100%;
-            height: 100%;
+            width: 50%;
+            height: 50%;
             font-family: 'Roboto', sans-serif;
         }
         /* ########################   DEPARTMENT INFO  ############################*/
