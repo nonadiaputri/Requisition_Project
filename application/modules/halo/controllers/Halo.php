@@ -13,7 +13,7 @@ class Halo extends CI_Controller {
     
 	public function __construct() {
         parent::__construct();
-        $this->load->library('Aauth');
+        //$this->load->library('Aauth');
 		$this->load->database('db2');
 
     }
@@ -43,7 +43,7 @@ class Halo extends CI_Controller {
 		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
 		$this->load->view('v_table',$data);
 	}	
-	
+	/*
 	function hobit()
 	{
 		if($this->aauth->is_group_allowed(4,'immortality')){
@@ -106,5 +106,6 @@ class Halo extends CI_Controller {
 		//mendapatkan Id dari nama permision
 		$l = $this->aauth->remind_password('andi.hendradi@kompas.com');
 		var_dump($l);
-	}	
+	}
+	*/
 }
