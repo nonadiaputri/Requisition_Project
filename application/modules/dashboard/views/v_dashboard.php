@@ -625,7 +625,7 @@
     <script>
         var params = {
             selector: "#svgChart",
-            dataLoadUrl: "<?php echo base_url('index.php/halo/dashboard/hirarkiAPInew.json');?>",
+            dataLoadUrl: "https://jsonblob.com/92d30b4f-09b0-11ea-8f13-89c6428ac8ed",
             chartWidth: window.innerWidth - 0,
             chartHeight: window.innerHeight - 0,
             funcs: {
