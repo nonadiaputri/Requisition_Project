@@ -6,6 +6,7 @@ class Halo extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->library('Aauth');
+		//$this->load->database();
 
     }
 	
@@ -26,6 +27,7 @@ class Halo extends CI_Controller {
 		$this->aauth->create_group('finance');
 		$this->aauth->create_group('tekno');
 	}
+	
 	
 	function hobit()
 	{

@@ -70,7 +70,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
 */
-$active_group = 'default';
+$active_group = 'db2';
 //$active_group = 'dbsqlsrv';
 $query_builder = TRUE;
 
@@ -98,11 +98,18 @@ $db['db1'] = array(
 
 $db['db2'] = array(
 	'dsn'	=> '',
-	'hostname' => '10.11.22.151,1433',
-	'username' => 'kgmedia_hris_appsvc',
-	'password' => 'appsvc@hris?!',
-	'database' => 'DEV_KGMedia_HRIS',
-	'dbdriver' => 'sqlsrv',
+/*	
+    'hostname' => '10.8.34.244',
+    'username' => 'megadb',
+    'password' => 'm3g4p0rt4l',
+	'database' => 'kics_v2',
+	'dbdriver' => 'mysqli',
+*/	
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'ep-kgmedia',
+	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
