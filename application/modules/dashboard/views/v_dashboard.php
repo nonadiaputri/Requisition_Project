@@ -29,8 +29,8 @@
   <style>
         .full-container {
             background-color: red;
-            width: 50%;
-            height: 50%;
+            width: 100%;
+            height: 100%;
             font-family: 'Roboto', sans-serif;
         }
         /* ########################   DEPARTMENT INFO  ############################*/
@@ -625,7 +625,7 @@
     <script>
         var params = {
             selector: "#svgChart",
-            dataLoadUrl: "hirarkiAPInew.json",
+            dataLoadUrl: "<?php echo base_url('hirarkiAPInew.json');?>",
             chartWidth: window.innerWidth - 0,
             chartHeight: window.innerHeight - 0,
             funcs: {
