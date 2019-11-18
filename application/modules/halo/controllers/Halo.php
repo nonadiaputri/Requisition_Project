@@ -14,7 +14,7 @@ class Halo extends CI_Controller {
 	public function __construct() {
         parent::__construct();
         //$this->load->library('Aauth');
-		//$this->load->database('db2');
+		//
 
     }
 	
@@ -25,6 +25,7 @@ class Halo extends CI_Controller {
 	
 	function dashboard()
 	{
+		$this->load->database('db2');
 		$data["header"] = $this->load->view('header/v_header','',TRUE);
 		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
 		$this->load->view('dashboard/v_dashboard',$data);
