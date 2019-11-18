@@ -35,7 +35,7 @@
 
 	<img src="<?= base_url(); ?>assets/images/kgmedia.png" alt="KGMedia Mission" width="200" align="center">
 
-    <p class="login-box-msg"><?php echo $this->session->flashdata('message'); ?>Log in to start your mission</p>
+    <p class="login-box-msg">Log in to start your mission</p>
 	
     <form action="<?= base_url(); ?>login/do" method="post">
       <div class="form-group has-feedback">
