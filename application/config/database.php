@@ -98,18 +98,19 @@ $db['db1'] = array(
 
 $db['db2'] = array(
 	'dsn'	=> '',
-/*	
+
     'hostname' => '10.8.34.244',
     'username' => 'megadb',
     'password' => 'm3g4p0rt4l',
 	'database' => 'kics_v2',
 	'dbdriver' => 'mysqli',
-*/	
+/*		
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'ep-kgmedia',
+	'database' => 'ep-kgmedia',	
 	'dbdriver' => 'mysqli',
+*/	
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
