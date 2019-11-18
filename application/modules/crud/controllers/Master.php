@@ -8,7 +8,7 @@ class Master extends MX_Controller {
 
 		
 		$this->load->helper('url');
-		$this->load->library('grocery_CRUD');
+		$this->load->library('grocery_crud');
 	}
 	
 	//********** Contoh CRUD table office
