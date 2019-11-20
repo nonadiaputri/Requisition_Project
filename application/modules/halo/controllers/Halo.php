@@ -71,13 +71,13 @@ class Halo extends CI_Controller {
 	
 	function update()
 	{
-		$a = $this->aauth->update_user('6', 'rahasia');
+		$a = $this->aauth->update_user('2', '','palmerah28','');
 		var_dump($a);
 	}
 	
 	function add_user()
 	{
-		$a = $this->aauth->create_user('frodo@example.com','frodopass','Frodo');
+		$a = $this->aauth->create_user('andi.hendradi@kompas.com','ahapass','003328');
 		var_dump($a);
 		//$this->aauth->create_user('legolas@example.com','legolaspass','Legolas');
 	}	
