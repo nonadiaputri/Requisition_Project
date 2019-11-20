@@ -625,7 +625,7 @@
     <script>
         var params = {
             selector: "#svgChart",
-            dataLoadUrl: "<?php echo base_url('hirarkiAPInew.json');?>",
+            dataLoadUrl: "https://codebeautify.org/online-json-editor/cb63068e",
             chartWidth: window.innerWidth - 0,
             chartHeight: window.innerHeight - 0,
             funcs: {
