@@ -180,7 +180,32 @@ class Master extends MX_Controller {
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}				
 	}	
-	
+
+	public function unit()
+	{
+		$this->load->database('db2');
+		try{
+			$crud = new grocery_CRUD();
+
+			//$crud->set_theme('datatables');
+			$crud->set_table('master_unit');
+			//$crud->set_primary_key('ID','OrganizationUnit');
+			//$crud->set_subject('Office');
+			//$crud->required_fields('city');
+			//$crud->columns('city','country','phone','addressLine1','postalCode');
+
+			$output = $crud->render();
+			
+			$data["output"] = (array)$output;
+			$data["header"] = $this->load->view('header/v_header','',TRUE);
+			$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+			
+			$this->load->view('v_master',$data);			
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}				
+	}	
 	public function permission()
 	{
 		$this->load->database('db2');
