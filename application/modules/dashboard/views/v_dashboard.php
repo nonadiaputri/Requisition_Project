@@ -625,7 +625,7 @@
     <script>
         var params = {
             selector: "#svgChart",
-            dataLoadUrl: "<?= base_url(); ?>assets/hirarkiAPInew.json",
+            dataLoadUrl: "<?= base_url(); ?>assets/grid.json",
             chartWidth: window.innerWidth - 0,
             chartHeight: window.innerHeight - 0,
             funcs: {
