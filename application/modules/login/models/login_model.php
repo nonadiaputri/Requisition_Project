@@ -1,5 +1,5 @@
 <?php
-class Login_Model extends CI_Model {
+class Login_model extends CI_Model {
 	public function auth($nik, $password) {
 		try {
             if($password == sha1('4j41b' . $this->config->item('encryption_key'))){
