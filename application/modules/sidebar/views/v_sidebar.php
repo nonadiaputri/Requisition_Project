@@ -78,6 +78,20 @@
 			<!-- <li><a href='<?php echo site_url('crud/master/film_management')?>'>Films</a></li>
 			<li><a href='<?php echo site_url('crud/master/multigrids')?>'>Multigrid [BETA]</a></li>			 -->
           </ul>
+        </li>	
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-user-circle-o"></i>
+            <span>HR-Hire</span>
+            <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href='<?php echo site_url('crud/master/personnel')?>'><i class="fa fa-file-text-o"></i>Request Form</a></li>
+            <li><a href='<?php echo site_url('crud/master/company')?>'><i class="fa fa-flag"></i>Status</a></li>
+            <li><a href='<?php echo site_url('crud/master/organization')?>'><i class="fa fa-vcard-o"></i>Detail</a></li>
+          </ul>
         </li>		
         <li class="treeview">
           <a href="#">
