@@ -19,7 +19,7 @@ class Master extends MX_Controller {
 		try{
 			$crud = new grocery_CRUD();
 
-			$crud->set_theme('datatables');
+			//$crud->set_theme('datatables');
 			$crud->set_table('OrganizationTable');
 			$crud->set_primary_key('ID','OrganizationTable');
 			//$crud->set_subject('Office');
