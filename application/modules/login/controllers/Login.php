@@ -6,7 +6,7 @@ class Login extends CI_Controller {
 	public function __construct() {
         parent::__construct();
         //$this->load->library("Aauth");
-		$this->load->database('db2');
+		$this->load->database('db1');
 		$this->load->model("Login_model");
     }
 	
@@ -23,9 +23,9 @@ class Login extends CI_Controller {
 		
 		if (count($login) == 1) {
 			$data = array(
-				'nik' 		=> $login->nik,
-				'name'		=> $login->name,
-				'email'		=> $login->email,
+				'nik' 		=> $login->NIK,
+				'name'		=> $login->Name,
+				'email'		=> $login->Email,
 				'is_login'	=> TRUE
 			);
 

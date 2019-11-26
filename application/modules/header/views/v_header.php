@@ -217,21 +217,21 @@
             </ul>
           </li>
           <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
+          <!-- <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="<?= base_url(); ?>assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <span class="hidden-xs"><?= $_SESSION['name'];?></span>
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu"> -->
               <!-- User image -->
-              <li class="user-header">
+              <!-- <li class="user-header">
                 <img src="<?= base_url(); ?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
                   <?= $_SESSION['name'];?> - <?= $_SESSION['nik'];?>
                   <small>Member since Nov. 2012</small>
                 </p>
-              </li>
+              </li> -->
               <!-- Menu Body 
               <li class="user-body">
                 <div class="row">
@@ -248,16 +248,6 @@
               </li>
 			  -->
               <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="<?= base_url(); ?>profile" class="btn btn-info btn-flat">Profile</a>
-                </div>
-                <div class="pull-right">
-                  <a href="<?= base_url(); ?>logout" class="btn btn-warning btn-flat">Sign out</a>
-                </div>
-              </li>
-            </ul>
-          </li>
           <!-- Control Sidebar Toggle Button -->
           <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
