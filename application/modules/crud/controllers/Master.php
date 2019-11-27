@@ -15,37 +15,40 @@ class Master extends MX_Controller {
 	
 	public function organization()
 	{
-		$this->load->database('db1');
-		try{
-			$crud = new grocery_CRUD();
+		$coba1 = $this->session->userdata('nik');
+		var_dump($coba1);
 
-			//$crud->set_theme('datatables');
-			$crud->set_table('OrganizationTable');
-			$crud->set_primary_key('ID','OrganizationTable');
-			//$crud->set_subject('Office');
-			$crud->required_fields('ID','Code','Name');
-			$crud->columns('ID',
-							'Code',
-							'Name',
-							'Description'
-						);
-			
-			$crud->fields('ID',
-						'Code',
-						'Name',
-						'Description'
-					);
-			$output = $crud->render();
-			
-			$data["output"] = (array)$output;
-			$data["header"] = $this->load->view('header/v_header','',TRUE);
-			$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-			
-			$this->load->view('v_master',$data);			
+		// $this->load->database('db1');
+		// try{
+		// 	$crud = new grocery_CRUD();
 
-		}catch(Exception $e){
-			show_error($e->getMessage().' --- '.$e->getTraceAsString());
-		}				
+		// 	//$crud->set_theme('datatables');
+		// 	$crud->set_table('OrganizationTable');
+		// 	$crud->set_primary_key('ID','OrganizationTable');
+		// 	//$crud->set_subject('Office');
+		// 	$crud->required_fields('ID','Code','Name');
+		// 	$crud->columns('ID',
+		// 					'Code',
+		// 					'Name',
+		// 					'Description'
+		// 				);
+			
+		// 	$crud->fields('ID',
+		// 				'Code',
+		// 				'Name',
+		// 				'Description'
+		// 			);
+		// 	$output = $crud->render();
+			
+		// 	$data["output"] = (array)$output;
+		// 	$data["header"] = $this->load->view('header/v_header','',TRUE);
+		// 	$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+			
+		// 	$this->load->view('v_master',$data);			
+
+		// }catch(Exception $e){
+		// 	show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		// }				
 	}
 
 	public function personnel()

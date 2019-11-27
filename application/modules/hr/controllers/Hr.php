@@ -19,10 +19,15 @@ class Hr extends CI_Controller {
 
     }
 	
-	function index()
+	public function index()
 	{
-		echo "Halo HR Hire ".CI_VERSION;
+    $data['result'] = $this->Hire_model->get_new_req();
+    $data['org'] = $this->Hire_model->choose_org();
+    $data['tot'] = count($data['result']);
+    //$data['sidebar']='level4/sidebar';
+    $this->load->view('hr/v_form',$data);
 	}
+
 	
 	public function hire_history()
 	{
@@ -32,7 +37,32 @@ class Hr extends CI_Controller {
 		
 		var_dump($data['table']);
 		
-		$this->load->view('halo/v_table',$data);		
+		$this->load->view('hr/v_form',$data);		
 	}
+
+	function chs_dep(){
+		$ID = $this->input->post('ID');
+		$where = array('ParentID'=>$ID);
+		$data = $this->Hire_model->chs_dep($where);
+		echo json_encode($data);
+	  }
+	
+	  function search_position(){
+		$ID = $this->input->post('ID');
+		//$where = array('ID'=>$ID);
+		$data = $this->Hire_model->search_PosInOrg($ID);
+		echo json_encode($data);
+	  }
+
+	  function select2(){
+		$json = [];
+		$this->load->database();
+		if(!empty($this->input->get("q"))){
+				$compClue = $this->input->get("q");
+				$data = $this->Hire_model->get_search_placement($compClue, 'Name');
+				
+			}
+			echo json_encode($data);
+	  }
 	
 }

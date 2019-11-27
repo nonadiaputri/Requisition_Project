@@ -196,5 +196,35 @@ class Hire_model extends CI_Model
             return $data->result_array();
   }
 
+  public function choose_org(){
+    $res = $this->db->query("select ID, Name from dbo.OrganizationTable where ParentID = 1");
+    return $res->result_array();
+  }
+
+  public function chs_dep($ID){
+    $this->db->select('ID,Name');
+    $this->db->from('dbo.OrganizationTable');
+    $this->db->where($ID);
+    $query = $this->db->get();
+    return $query->result_array();
+  }
+
+  public function search_PosInOrg($ID){
+    $res = $this->db->query("select a.OrganizationUnitID, b.Name as org,c.ID, c.Name as Position, d.PersonnelID, e.FullName
+      from dbo.PositionInOrganization a
+      join dbo.OrganizationTable b
+      on a.OrganizationUnitID = b.ID
+      join dbo.PositionTable c
+      on a.PositionID = c.ID
+      LEFT join dbo.PersonnelPosition d
+      on d.PositionID = a.ID
+      left join dbo.PersonnelTable e
+      on d.PersonnelID=e.ID
+      where OrganizationUnitID = $ID
+      order by OrganizationUnitID");
+    return $res->result_array();
+
+  }
+
 }
  ?>
