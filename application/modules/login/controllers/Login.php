@@ -30,10 +30,10 @@ class Login extends CI_Controller {
 			);
 
             $this->session->set_userdata($data);			
-			redirect('Dashboard');
+			redirect('dashboard');
 		}else{
 			$this->session->set_flashdata('message', '<p style="color:red">Email atau Password Anda Salah!</p>');
-			redirect('Login','refresh');
+			redirect('login','refresh');
 		}
 				
 	}
