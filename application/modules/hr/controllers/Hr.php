@@ -29,7 +29,7 @@ class Hr extends CI_Controller {
 			$data["header"] = $this->load->view('header/v_header','',TRUE);
 			$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
 			//var_dump($data['person']);
-			$this->load->view('hr/v_form2',$data);			
+			$this->load->view('hr/v_form',$data);			
 
 		
     // $data['result'] = $this->Hire_model->get_new_req();
