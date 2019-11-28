@@ -21,11 +21,22 @@ class Hr extends CI_Controller {
 	
 	public function index()
 	{
-    $data['result'] = $this->Hire_model->get_new_req();
-    $data['org'] = $this->Hire_model->choose_org();
-    $data['tot'] = count($data['result']);
-    //$data['sidebar']='level4/sidebar';
-    $this->load->view('hr/v_form',$data);
+			$ID = $this->session->userdata('nik');
+			$data['result'] = $this->Hire_model->get_new_req();
+			$data['person'] = $this->Hire_model->get_related_per($ID);
+			$data['org'] = $this->Hire_model->choose_org();
+			$data['tot'] = count($data['result']);
+			$data["header"] = $this->load->view('header/v_header','',TRUE);
+			$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+			//var_dump($data['person']);
+			$this->load->view('hr/v_form',$data);			
+
+		
+    // $data['result'] = $this->Hire_model->get_new_req();
+    // $data['org'] = $this->Hire_model->choose_org();
+    // $data['tot'] = count($data['result']);
+    // $data['sidebar']= 'sidebar/v_sidebar';
+    // $this->load->view('hr/v_form',$data);
 	}
 
 	
@@ -35,7 +46,7 @@ class Hr extends CI_Controller {
 		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
 		$data['table'] = $this->Hire_model->get_hire();
 		
-		var_dump($data['table']);
+		//var_dump($data['table']);
 		
 		$this->load->view('hr/v_form',$data);		
 	}

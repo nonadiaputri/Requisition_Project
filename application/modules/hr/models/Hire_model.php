@@ -175,6 +175,15 @@ class Hire_model extends CI_Model
     return $res->result_array();
   }
 
+  function get_related_per($ID){
+    $q = " select a.*, b.Name from 
+    [dbo].[PersonnelAuth] a join dbo.PersonnelTable b 
+    on a.PersonnelID = b.ID where a.PersonnelNumber = $ID ";
+    $query = $this->db->query($q);    
+     //$query = $this->db->get('dbo.RequisitionTable');
+     return $query->result_array();
+  }
+
   function get_search_placement($compClue){
             $this->db->select("*");
             $this->db->like('Name', $compClue);

@@ -14,12 +14,29 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/js/bootstrap-select.min.js"></script> -->
 
 
-    <!-- <script src="<?php echo base_url();?>assets/libs/ckeditor/ckeditor.js"></script>
-    <script src="<?php echo base_url();?>assets/libs/ckeditor/samples/js/sample.js"></script> -->
-    <script type="text/javascript" src="<?php echo base_url();?>assets/ckeditor/ckeditor.js"></script>
-    <script type="text/javascript" src="<?php echo base_url();?>assets/ckfinder/ckfinder.js"></script>
+    <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+    <!-- <script type="text/javascript" src="<?php echo base_url();?>assets/ckfinder/ckfinder.js"></script> -->
+
+    <!-- admin lte2 -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+        folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href=".<?php echo base_url();?>assets/dist/css/skins/_all-skins.min.css">
 </head>
 <body>
+<div class="wrapper">
+<?php echo $header;?>
+<?php echo $sidebar;?>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
    <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-xs-12 align-self-center">
@@ -60,11 +77,20 @@
                                     <div class="col-sm-3">
                                       <label class="control-label col-form-label">Requestor Name</label>
                                     </div>
-                                      <div class="col-md-7">
-                                        <input type="text" class="form-control" id="requestor" name="requestor" value = "<?php echo $this->session->userdata('PersonnelName'); ?>" required="required" readonly>
+                                    <div class="col-md-9">
+                                    <select class="form-control chs-select" name="chs-org" id="chs-org" style="width:80%" required="required">
+                                            <option default>Select Requestor</option>
+                                            <?php foreach ($person as $person) { ?>
+                                            <option value="<?php echo $person['PersonnelID'];?>"><?php echo $person['Name'];?></option>
+                                            <?php } ?>
+                                        </select>
+
+                                      </div>
+                                      <!-- <div class="col-md-7">
+                                        <input type="text" class="form-control" id="requestor" name="requestor" value = "<?php echo $this->session->userdata('name'); ?>" required="required" readonly>
                                         <input type="hidden" class="form-control" id="requestor_id" name="requestor_id" value = "<?php echo $this->session->userdata('PersonnelIDList'); ?>" required="required" readonly>
                                         <span id="error_requestor" class="text-danger"></span>
-                                      </div>
+                                      </div> -->
                                     </div>
 
                                     <div class="form-group row">
@@ -268,11 +294,17 @@
           </div>
         </div>
     </div>
+    </div>
+    </div>
 
             
                 
 
 </body>
+<!-- Bootstrap 3.3.7 -->
+<script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="<?php echo base_url();?>assets/dist/js/adminlte.min.js"></script>
 <script type="text/javascript">
 
 
