@@ -1,311 +1,320 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>KGMedia | <?php echo ucfirst($this->uri->segment(1))." ".ucfirst($this->uri->segment(2));?></title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+  	<script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap 3.3.7 -->
+	<script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/css/bootstrap-select.min.css" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-<!--    
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/js/bootstrap-select.min.js"></script> -->
-
-
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- jvectormap -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/jvectormap/jquery-jvectormap.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/css/skins/_all-skins.min.css">
+  
     <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
-    <!-- <script type="text/javascript" src="<?php echo base_url();?>assets/ckfinder/ckfinder.js"></script> -->
-
-    <!-- admin lte2 -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/font-awesome/css/font-awesome.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/Ionicons/css/ionicons.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/AdminLTE.min.css">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-        folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href=".<?php echo base_url();?>assets/dist/css/skins/_all-skins.min.css">
+ 
+  <!-- Google Font -->
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body>
-<div class="wrapper">
-<?php echo $header;?>
-<?php echo $sidebar;?>
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-   <div class="page-breadcrumb">
-                <div class="row">
-                    <div class="col-lg-3 col-md-4 col-xs-12 align-self-center">
-                        <h5 class="font-medium text-uppercase mb-0">Request Hiring Form</h5>
-                    </div>
-                    <div class="col-lg-9 col-md-8 col-xs-12 align-self-center">
-                        <!-- <button class="btn btn-danger text-white float-right ml-3 d-none d-md-block">Buy Ample Admin</button> -->
-                        <nav aria-label="breadcrumb" class="mt-2 float-md-right float-left">
-                            <ol class="breadcrumb mb-0 justify-content-end p-0">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Request Hiring Form</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="page-content container-fluid">
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                <!-- Row -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                              
-                                <h4 class="card-title">Requestor</h4>
-                                <div class="alert alert-danger print-error-msg" style="display:none">
-                                </div>               
-                                <form id="myform" method="POST" class="form-horizontal striped-rows b-form">
-                                  <div class="form-group row">
-                                    <div class="col-sm-3">
-                                      <label class="control-label col-form-label">Requestor Name</label>
-                                    </div>
-                                    <div class="col-md-9">
-                                    <select class="form-control chs-select" name="requestor" id="requestor" style="width:80%" required="required">
-                                            <option default>Select Requestor</option>
-                                            <?php foreach ($person as $person) { ?>
-                                            <option value="<?php echo $person['PersonnelID'];?>"><?php echo $person['Name'];?></option>
-                                            <?php } ?>
-                                        </select>
+<body class="hold-transition skin-blue sidebar-mini">
+ <div class="wrapper">
+    <?php echo $header;?>
+    <?php echo $sidebar;?>
+      <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      	<section class="content-header">
+	      <h1>
+	        Request Form Hire
+	        <small>Preview</small>
+	      </h1>
+	      <ol class="breadcrumb">
+	        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+	        <li><a href="#">Forms</a></li>
+	        <li class="active">Advanced Elements</li>
+	      </ol>
+	    </section>
+	    <section class="content">
 
-                                      </div>
-                                      <!-- <div class="col-md-7">
-                                        <input type="text" class="form-control" id="requestor" name="requestor" value = "<?php echo $this->session->userdata('name'); ?>" required="required" readonly>
-                                        <input type="hidden" class="form-control" id="requestor_id" name="requestor_id" value = "<?php echo $this->session->userdata('PersonnelIDList'); ?>" required="required" readonly>
-                                        <span id="error_requestor" class="text-danger"></span>
-                                      </div> -->
-                                    </div>
+      <!-- SELECT2 EXAMPLE -->
+      <div class="box box-default">
+        <!-- <div class="box-header with-border">
+          <h3 class="box-title">Request Hire Form</h3>
+        </div> -->
+        <!-- /.box-header -->
+        <div class="box-body">
+            <h4 class="card-title">Requestor Information</h4>
+            <hr class="mt-0 mb-5">
+	        <div class="row">
+	          	<div class="form-group">
+	                <div class="col-md-8">
+	                  <label class="control-label col-form-label">Requestor Name</label>
+	                  <select class="form-control chs-select" name="requestor" id="requestor" style="width:80%" required="required">
+	                        <option default>Select Requestor</option>
+	                        <?php foreach ($person as $person) { ?>
+	                        <option value="<?php echo $person['PersonnelID'];?>"><?php echo $person['Name'];?></option>
+	                        <?php } ?>
+	                </select>
+	                </div>
+	                  <!-- <div class="col-md-7">
+	                    <input type="text" class="form-control" id="requestor" name="requestor" value = "<?php echo $this->session->userdata('name'); ?>" required="required" readonly>
+	                    <input type="hidden" class="form-control" id="requestor_id" name="requestor_id" value = "<?php echo $this->session->userdata('PersonnelIDList'); ?>" required="required" readonly>
+	                    <span id="error_requestor" class="text-danger"></span>
+	                  </div> -->
+	            </div>
+	            </div>
+	        <div class="row">
+	          	<div class="col-md-8">
+	                <label class="control-label">Organization Name</label>
+	                <input type="text" class="form-control" name="req_org_id" id="req_org_id" value = "<?php echo $this->session->userdata('organization'); ?>" required="required" readonly>
+	                <input type="hidden" class="form-control" name="org_id" id="org_id" value = "<?php echo $this->session->userdata('OrganizationID'); ?>" required="required" readonly>
+	                <span id="error_req_org" class="text-danger"></span>
+	          </div>
+	        </div>
 
-                                    <div class="form-group row">
-                                      <div class="col-sm-3">
-                                        <label class="control-label col-form-label">Organization Name</label>
-                                      </div>
-                                        <div class="col-md-7">
-                                          <input type="text" class="form-control" name="req_org_id" id="req_org_id" value = "<?php echo $this->session->userdata('organization'); ?>" required="required" readonly>
-                                          <input type="hidden" class="form-control" name="org_id" id="org_id" value = "<?php echo $this->session->userdata('OrganizationID'); ?>" required="required" readonly>
-                                          <span id="error_req_org" class="text-danger"></span>
-                                        </div>
-                                    </div>
+	        <div class="row">
+	         	<div class="form-group">
+		              <div class="col-md-8">
+		                <label class="control-label col-form-label">Position Name</label>
+		                  <input type="text" class="form-control" name="req_position" id="req_position" value = "<?php echo $this->session->userdata('position'); ?>" required="required" readonly>
+		                  <input type="hidden" class="form-control" name="req_position_id" id="req_position_id" value = "<?php echo $this->session->userdata('PositionID'); ?>" required="required" readonly>
+		                  <span id="error_req_position" class="text-danger"></span>
+		                </div>
+		            </div>
+			</div>
+			<br>
+			
+            <h4 class="card-title">Request Information</h4>
+            <hr class="mt-0 mb-5">
 
-                                    <div class="form-group row">
-                                      <div class="col-sm-3">
-                                        <label class="control-label col-form-label">Position Name</label>
-                                      </div>
-                                        <div class="col-md-7">
-                                          <input type="text" class="form-control" name="req_position" id="req_position" value = "<?php echo $this->session->userdata('position'); ?>" required="required" readonly>
-                                          <input type="hidden" class="form-control" name="req_position_id" id="req_position_id" value = "<?php echo $this->session->userdata('PositionID'); ?>" required="required" readonly>
-                                          <span id="error_req_position" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                    
-                                    <hr class="mt-0 mb-5">
-                                    <h4 class="card-title">Request</h4>
+            <div class="row">
+            	<div class="form-group">
+	                <div class="col-md-8">
+	                  <label class="control-label col-form-label">Choose Organization</label>
+	                  <div id="chs-container">
+	                    <select class="form-control chs-select" id="chs-div-template" style="width:80%; display: none">
+	                        <option default>Select</option>
+	                    </select>
 
-                                    <div class="form-group row">
+	                    <select class="form-control chs-select" name="chs-org" id="chs-org" style="width:80%" required="required">
+	                        <option default>Select Organization</option>
+	                        <?php foreach ($org as $org) { ?>
+	                        <option value="<?php echo $org['ID'];?>"><?php echo $org['Name'];?></option>
+	                        <?php } ?>
+	                    </select>
+	                    <br>
 
-                                    <div class="col-sm-3">
-                                      <label class="control-label col-form-label">Choose Organization</label>
-                                    </div>
-                                    <div class="col-md-9">
-                                     
+	                    <select class="form-control chs-select" name="chs-dep" id="chs-dep" style="width:80%;display: none" required="required">
+	                        <option default>Select</option>
+	                    </select>
+	                    <br>
+	                </div>
+	                    <span id="error_position" class="text-danger"></span>
+	                </div>
+	                <div class="col-sm-12 offset-3">
+			            <button type="button" id="display-btn">Display Position in This Unit</button>
+			            <br>
+			        </div>
+	            </div>
+	        </div>
 
-                                      <div id="chs-container">
-                                        <select class="form-control chs-select" id="chs-div-template" style="width:80%; display: none">
-                                            <option default>Select</option>
-                                        </select>
-
-                                        <select class="form-control chs-select" name="chs-org" id="chs-org" style="width:80%" required="required">
-                                            <option default>Select Organization</option>
-                                            <?php foreach ($org as $org) { ?>
-                                            <option value="<?php echo $org['ID'];?>"><?php echo $org['Name'];?></option>
-                                            <?php } ?>
-                                        </select>
-                                        <br>
-
-                                        <select class="form-control chs-select" name="chs-dep" id="chs-dep" style="width:80%;display: none" required="required">
-                                            <option default>Select</option>
-                                        </select>
-                                        <br>
-                                    </div>
-                                        <span id="error_position" class="text-danger"></span>
-                                 </div>
-                                 <div class="col-sm-12 offset-3">
-                                  <button type="button" id="display-btn">Display Position in This Unit</button>
-                                  <br>
-                                 </div>
-                               </div>
-                            
-
-
-                                  <div class="form-group row">
-                                    <div class="col-sm-3">
-                                      <label class="control-label col-form-label">Position</label>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <select class="form-control selectpicker" data-show-subtext="true" data-size="5" name="position" id="position" style="width:80%;"  required="required">
-                                          <option value=""></option>
-                                        </select>
-                                        <span id="error_position" class="text-danger"></span>
-                                      </div>
-                                    </div>
-                                    
-                                      <div class="form-group row">
-                                      <div class="col-sm-3">
-                                        <label class="control-label col-form-label">Total Need</label>
-                                      </div>
-                                      <div class="col-sm-7">
-                                        <select class="form-control" name="ttl" id="ttl" required="required">
-                                          <option value="" selected>Pilih</option>
-                                          <option value="1" data-subtext="aaa">1</option>
-                                          <option value="2">2</option>
-                                          <option value="3">3</option>
-                                          <option value="4">4</option>
-                                          <option value="5">5</option>
-                                          <option value="6">6</option>
-                                          <option value="7">7</option>
-                                          <option value="8">8</option>
-                                          <option value="9">9</option>
-                                          <option value="10">10</option>  
-                                   
-                                        </select>  
-                                        <span id="error_ttl" class="text-danger"></span>     
-                                      </div>
-                                    </div>
-                                    <div class="form-group row">
-                                      <div class="col-sm-3">
-                                        <label class="control-label col-form-label">Placement</label>
-                                      </div>
-                                      <div class="col-sm-7">
-                                        <select class="searching form-control" name="placement" id="placement" style="width:80%;"  required="required">
-                                          <option value=""></option>
-                                        </select>
-                                        <span id="error_placement" class="text-danger"></span>
-                                      </div>
-                                    </div>
-                                        <div class="form-group row">
-                                          <div class="col-sm-3">
-                                            <label class="control-label col-form-label">Status</label>
-                                          </div>
-                                          <div class="col-sm-7">
-                                        <select class="form-control" name="status" id="status" required="required">
-                                          <option value="" selected>Pilih</option>
-                                          <option value="1">Additional</option>
-                                          <option value="2">Replacement</option>
-                                          <option value="5">Profesional Contract</option>
-                                          <option value="6">Freelence</option>
-                                          <option value="7">Internship</option>
-                                          <option value="8">Outsourcing</option>  
-                                        </select>
-                                        <span id="error_status" class="text-danger"></span>
-                                      </div>
-                                    </div>
-                                    <div class="form-group row" style="display: none" id="repname">
-                                      <div class="col-sm-3">
-                                        <label class="control-label col-form-label">Replacement Name</label>
-                                      </div>
-                                      <div class="col-sm-9">
-                                       <select class="rep-name form-control" name="ReplacementName" id="ReplacementName" style="width:80%;"  required="required">
-                                          <option value=""></option>
-                                        </select>
-                                        <span id="error_replacementName" class="text-danger"></span>
-                                      </div>
-                                    </div>
-                                    <div class="form-group row">
-                                      <div class="col-sm-3">
-                                        <label class="control-label col-form-label">Expected Work Date</label>
-                                      </div>
-                                      <div class="col-sm-9">
-                                        <input type="date" id="workdate" name="workdate" min="2018-01-01" max="2030-12-31" required="required">
-                                        <span id="error_workdate" class="text-danger"></span>
-                                      </div>
-                                    </div>
-                                    <div class="form-group row">
-                                      <div class="col-sm-3">
-                                        <label class="control-label col-form-label">Responsibilities</label>
-                                      </div>
-                                      <div class="col-sm-7">
-                                        ​<!-- <textarea id="responsibility" name="responsibility" rows="7" cols="70" required="required"></textarea> -->
-                                        <textarea class="ckeditor" id="responsibility"></textarea>
-                                        <span id="error_responsibility" class="text-danger"></span>
-                                      </div>
-                                    </div>
-                                    <div class="form-group row">
-                                      <div class="col-sm-3">
-                                        <label class="control-label col-form-label">Requirement</label>
-                                      </div>
-                                      <div class="col-sm-7">
-                                        <div class="form-group">
-                                          <!-- <textarea id="requirement" name="requirement" rows="7" cols="70" required="required"></textarea> -->
-                                          <textarea class="ckeditor" id="requirement"></textarea>
-                                        <span id="error_requirement" class="text-danger"></span>
-                                        </div>
-                                        
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  <div class="form-group row">
-                                  <div style="width:100%;height:100%;vertical-align:middle;text-align:center;">
-                                    <button type="button" id="btn-submit" style="margin: auto;" class="btn waves-effect waves-light btn-primary">Request</button>
-                                    <button type="button" id="btn-save" style="margin: auto;" class="btn waves-effect waves-light btn-dark">Save as Draft</button>
-                                  </div>
-                                </div>
-                                </form>
-                        </div>
-          
-                        </div>
-                    </div>
-                </div>
-                <!-- End Row -->
-                <!-- Row -->
-             
-      <div>
-            <div class="modal fade" role="dialog" id="myModal">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  </div>
-                  <div class="modal-body">
-                <p align="center">Are you sure you want to request ?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" id="button-smt" class="btn btn-primary mr-auto" >Yes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-    </div>
-    </div>
-
-            
+	        <div class="row">
+	        	<div class="form-group">
+                    <div class="col-md-8">
+                    	<label class="control-label col-form-label">Position</label>
                 
+                      	<select class="form-control selectpicker" data-show-subtext="true" data-size="5" name="position" id="position" style="width:80%;"  required="required">
+                          <option value=""></option>
+                        </select>
+                        <span id="error_position" class="text-danger"></span>
+                      </div>
+                </div>
+	        </div>
+
+	        <div class="row">
+	        	<div class="form-group">
+                  <div class="col-md-8">
+                    <label class="control-label col-form-label">Total Need</label>
+          
+                    <select class="form-control" name="ttl" id="ttl" required="required">
+                      <option value="" selected>Pilih</option>
+                      <option value="1" data-subtext="aaa">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>  
+               
+                    </select>  
+                    <span id="error_ttl" class="text-danger"></span>     
+                  </div>
+                </div>
+	        </div>
+
+	        <div class="row">
+	        	<div class="form-group">
+                  <div class="col-md-8">
+                    <label class="control-label col-form-label">Placement</label>
+                  
+                    <select class="searching form-control" name="placement" id="placement" style="width:80%;"  required="required">
+                      <option value=""></option>
+                    </select>
+                    <span id="error_placement" class="text-danger"></span>
+                  </div>
+                </div>
+	        </div>
+
+	        <div class="row">
+	        	<div class="form-group ">
+                    <div class="col-md-8">
+                        <label class="control-label col-form-label">Status</label>
+                      
+	                    <select class="form-control" name="status" id="status" required="required">
+	                      <option value="" selected>Pilih</option>
+	                      <option value="1">Additional</option>
+	                      <option value="2">Replacement</option>
+	                      <option value="5">Profesional Contract</option>
+	                      <option value="6">Freelence</option>
+	                      <option value="7">Internship</option>
+	                      <option value="8">Outsourcing</option>  
+	                    </select>
+                    <span id="error_status" class="text-danger"></span>
+                  </div>
+                </div>
+	        </div>
+
+	        <div class="row">
+	        	<div class="form-group" style="display: none" id="repname">
+                  <div class="col-md-8">
+                    <label class="control-label col-form-label">Replacement Name</label>
+                  
+                   <select class="rep-name form-control" name="ReplacementName" id="ReplacementName" style="width:80%;"  required="required">
+                      <option value=""></option>
+                    </select>
+                    <span id="error_replacementName" class="text-danger"></span>
+                  </div>
+                </div>
+	        </div>
+	        <br>
+
+	        <div class="row">
+	        	<div class="form-group">
+                    <div class="col-md-8">
+                        <label class="control-label col-form-label">Expected Work Date</label>
+                      
+                        <input type="date" id="workdate" name="workdate" min="2018-01-01" max="2030-12-31" required="required" >
+                        <span id="error_workdate" class="text-danger"></span>
+                      </div>
+                    </div>
+	        </div>
+
+	        <div class="row">
+	        	<div class="form-group">
+                    <div class="col-md-8">
+                        <label class="control-label col-form-label">Responsibilities</label>
+                    </div>
+                    <div class="col-sm-8">
+                        ​<!-- <textarea id="responsibility" name="responsibility" rows="7" cols="70" required="required"></textarea> -->
+                        <textarea class="ckeditor" id="responsibility"></textarea>
+                        <span id="error_responsibility" class="text-danger"></span>
+                      </div>
+                </div>
+	        </div>
+
+	        <div class="row">
+	        	<div class="form-group">
+                    <div class="col-md-8">
+                        <label class="control-label col-form-label">Requirement</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <div class="form-group">
+                          <!-- <textarea id="requirement" name="requirement" rows="7" cols="70" required="required"></textarea> -->
+                          <textarea class="ckeditor" id="requirement"></textarea>
+                        <span id="error_requirement" class="text-danger"></span>
+                        </div>
+                        
+                      </div>
+                </div>
+	        </div>
+
+	        <div class="row">
+	        	<div class="form-group">
+                  	<div style="width:100%;height:100%;vertical-align:middle;text-align:center;">
+	                    <button type="button" id="btn-submit" style="margin: auto;" class="btn waves-effect waves-light btn-primary">Request</button>
+	                    <button type="button" id="btn-save" style="margin: auto;" class="btn waves-effect waves-light btn-dark">Save as Draft</button>
+                  </div>
+                </div>  	
+	        </div>
+	        
+
+
+        </div>
+          <!-- /.row -->
+       </div>
+    </div>
+      
+  </section>
+</div>
+
+<div class="modal fade" role="dialog" id="myModal">
+  	<div class="modal-dialog">
+    	<div class="modal-content">
+      		<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+     	<div class="modal-body">
+    	<p align="center">Are you sure you want to request ?</p>
+  	</div>
+  	<div class="modal-footer">
+    	<button type="button" id="button-smt" class="btn btn-primary mr-auto" >Yes</button>
+    	<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+  	</div>
+		</div>
+	</div>
+</div>
+      <!-- /.box -->
+
+    </section>
+   
+            <!-- ============================================================== -->
+            
+</body>
+<footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 2.4.18
+    </div>
+    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
+    reserved.
+  </footer>
+<!-- ./wrapper -->
+
 
 </body>
-<!-- Bootstrap 3.3.7 -->
-<script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url();?>assets/dist/js/adminlte.min.js"></script>
+
 <script type="text/javascript">
+
 
 
    var option_value;

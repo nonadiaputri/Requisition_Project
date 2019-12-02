@@ -1,19 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-	/**
-	 * Class Hr-hire.
-	 * Fungsi
-	 * 1. index, param null return 
-	 * 2. ci, param null return Halo CI
-	 *
-	 */
-
 class Hr extends CI_Controller {
-    
+  
 	public function __construct() {
         parent::__construct();
-        $this->load->library('Aauth');
+        // $this->load->library('Aauth');
 		$this->load->database('db1');
 		$this->load->model('Hire_model');
 
@@ -28,9 +20,7 @@ class Hr extends CI_Controller {
 			$data['tot'] = count($data['result']);
 			$data["header"] = $this->load->view('header/v_header','',TRUE);
 			$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-			//var_dump($data['person']);
-			$this->load->view('hr/v_form',$data);			
-
+			$this->load->view('v_form',$data);
 		
     // $data['result'] = $this->Hire_model->get_new_req();
     // $data['org'] = $this->Hire_model->choose_org();
