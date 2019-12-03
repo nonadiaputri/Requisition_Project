@@ -26,6 +26,7 @@ class Hr_movement extends CI_Controller {
 			$data['person'] = $this->Promotion_model->get_related_per($ID);
 			$data['org'] = $this->Promotion_model->choose_org();
 			$data['type'] = $this->Promotion_model->choose_move_type($ID);
+			// $data['req'] = $this->Promotion_model->choose_request_name($ID);
 			$data['req'] = $this->Promotion_model->choose_request_name($ID);
 			$data['pos'] = $this->Promotion_model->choose_move_position($ID);
 			$data['tot'] = count($data['result']);
@@ -56,21 +57,43 @@ class Hr_movement extends CI_Controller {
 	  }
 	
 	  function search_position(){
-		$ID = $this->input->post('ID');
+		$ID = $this->input->get('ID');
 		//$where = array('ID'=>$ID);
-		$data = $this->Promotion_model->search_PosInOrg($ID);
+		$data = $this->Promotion_model-> choose_request_name($ID);
 		echo json_encode($data);
 	  }
 
-	  function select2(){
+	  function get_request(){
+        $Request=$this->input->get('ID');
+        $data=$this->Promotion_model->choose_request_name($Request);
+        echo json_encode($data);
+	}
+	
+	function search_requestor_pro(){
+		$Request = $this->input->get('Request');
+		$data = $this->Promotion_model->search_requestor_pro($Request);
+		echo json_encode($data);
+	}
+
+	function request(){
 		$json = [];
 		$this->load->database();
 		if(!empty($this->input->get("q"))){
 				$compClue = $this->input->get("q");
-				$data = $this->Promotion_model->get_search_placement($compClue, 'Name');
-				
+				$data = $this->Promotion_model->get_search_request($compClue, 'FullName');
 			}
 			echo json_encode($data);
 	  }
+
+	//   function select2(){
+	// 	$json = [];
+	// 	$this->load->database();
+	// 	if(!empty($this->input->get("q"))){
+	// 			$compClue = $this->input->get("q");
+	// 			$data = $this->Promotion_model->get_search_placement($compClue, 'Name');
+				
+	// 		}
+	// 		echo json_encode($data);
+	//   }
 	
 }

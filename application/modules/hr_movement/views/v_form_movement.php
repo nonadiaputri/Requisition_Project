@@ -1,154 +1,128 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>KGMedia | <?php echo ucfirst($this->uri->segment(1))." ".ucfirst($this->uri->segment(2));?></title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+  	<script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap 3.3.7 -->
+	<script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/css/bootstrap-select.min.css" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-<!--    
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/js/bootstrap-select.min.js"></script> -->
-
-
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- jvectormap -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/jvectormap/jquery-jvectormap.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/css/skins/_all-skins.min.css">
+  
     <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
-    <!-- <script type="text/javascript" src="<?php echo base_url();?>assets/ckfinder/ckfinder.js"></script> -->
-
-    <!-- admin lte2 -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/font-awesome/css/font-awesome.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/Ionicons/css/ionicons.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/AdminLTE.min.css">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-        folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href=".<?php echo base_url();?>assets/dist/css/skins/_all-skins.min.css">
-
+ 
+  <!-- Google Font -->
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body>
-<div class="wrapper">
-<?php echo $header;?>
-<?php echo $sidebar;?>
- <!-- Content Wrapper. Contains page content -->
- <div class="content-wrapper">
-      <div class="page-breadcrumb">
-                <div class="row">
-                    <div class="col-lg-3 col-md-4 col-xs-12 align-self-center">
-                        <h5 class="font-medium text-uppercase mb-0">Request Promotion Form</h5>
-                    </div>
-                    <div class="col-lg-9 col-md-8 col-xs-12 align-self-center">
-                        <!-- <button class="btn btn-danger text-white float-right ml-3 d-none d-md-block">Buy Ample Admin</button> -->
-                        <nav aria-label="breadcrumb" class="mt-2 float-md-right float-left">
-                            <ol class="breadcrumb mb-0 justify-content-end p-0">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Request Promotion Form</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="page-content container-fluid">
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                <!-- Row -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                            <h4 class="card-title">Requestor</h4>
-                                <div class="alert alert-danger print-error-msg" style="display:none">
-                                </div>                          
-                                <form id="myform" method="POST" class="form-horizontal striped-rows b-form">
-                                  <div class="form-group row">
-                                    <div class="col-sm-3">
-                                      <label class="control-label col-form-label">Requestor Name</label>
-                                    </div>
-                                      <div class="col-md-9">
-                                        <select class="form-control chs-select" name="requestor" id="requestor" style="width:80%" required="required">
-                                              <option default>Select Requestor</option>
-                                              <?php foreach ($person as $person) { ?>
-                                              <option value="<?php echo $person['PersonnelID'];?>"><?php echo $person['Name'];?></option>
-                                              <?php } ?>
-                                          </select>
-                                        
-                                        <span id="error_requestor" class="text-danger"></span>
-                                      </div>
-                                    </div>
+<body class="hold-transition skin-blue sidebar-mini">
+ <div class="wrapper">
+    <?php echo $header;?>
+    <?php echo $sidebar;?>
+      <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      	<section class="content-header">
+	      <h1>
+	        Request Form Movement
+	        <small>Preview</small>
+	      </h1>
+	      <ol class="breadcrumb">
+	        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+	        <li><a href="#">Forms</a></li>
+	        <li class="active">Advanced Elements</li>
+	      </ol>
+	    </section>
+	    <section class="content">
 
+      <!-- SELECT2 EXAMPLE -->
+      <div class="box box-default">
+        <!-- <div class="box-header with-border">
+          <h3 class="box-title">Request Hire Form</h3>
+        </div> -->
+        <!-- /.box-header -->
+        <div class="box-body">
+            <h4 class="card-title">Requestor Information</h4>
+            <hr class="mt-0 mb-5">
+	        <div class="row">
+	          	<div class="form-group">
+	                <div class="col-md-8">
+	                  <label class="control-label col-form-label">Requestor Name</label>
+	                  <select class="form-control chs-select" name="requestor" id="requestor" style="width:80%" required="required">
+	                        <option default>Select Requestor</option>
+	                        <?php foreach ($person as $person) { ?>
+	                        <option value="<?php echo $person['PersonnelID'];?>"><?php echo $person['Name'];?></option>
+	                        <?php } ?>
+	                </select>
+	                </div>
+	                  <!-- <div class="col-md-7">
+	                    <input type="text" class="form-control" id="requestor" name="requestor" value = "<?php echo $this->session->userdata('name'); ?>" required="required" readonly>
+	                    <input type="hidden" class="form-control" id="requestor_id" name="requestor_id" value = "<?php echo $this->session->userdata('PersonnelIDList'); ?>" required="required" readonly>
+	                    <span id="error_requestor" class="text-danger"></span>
+	                  </div> -->
+	            </div>
+	            </div>
+	        <div class="row">
+	          	<div class="col-md-8">
+	                <label class="control-label">Organization Name</label>
+	                <input type="text" class="form-control" name="req_org_id" id="req_org_id" value = "<?php echo $this->session->userdata('organization'); ?>" required="required" readonly>
+	                <input type="hidden" class="form-control" name="org_id" id="org_id" value = "<?php echo $this->session->userdata('OrganizationID'); ?>" required="required" readonly>
+	                <span id="error_req_org" class="text-danger"></span>
+	          </div>
+	        </div>
 
+	        <div class="row">
+	         	<div class="form-group">
+		              <div class="col-md-8">
+		                <label class="control-label col-form-label">Position Name</label>
+		                  <input type="text" class="form-control" name="req_position" id="req_position" value = "<?php echo $this->session->userdata('position'); ?>" required="required" readonly>
+		                  <input type="hidden" class="form-control" name="req_position_id" id="req_position_id" value = "<?php echo $this->session->userdata('PositionID'); ?>" required="required" readonly>
+		                  <span id="error_req_position" class="text-danger"></span>
+		                </div>
+		            </div>
+			</div>
+			<br>
+			
+            <h4 class="card-title">Request Movement Information</h4>
+            <hr class="mt-0 mb-5">
 
-                                    <div class="form-group row">
-                                      <div class="col-sm-3">
-                                        <label class="control-label col-form-label">Organization Name</label>
-                                      </div>
-                                        <div class="col-md-9">
-                                          <input type="text" class="form-control" name="req_org" id="req_org" value = "<?php echo $this->session->userdata('OrganizationName'); ?>" required="required" readonly>
-                                          <input type="hidden" name="req_org_id" id="req_org_id"  value = "<?php echo $this->session->userdata('OrganizationID'); ?>" required="required" class="form-control">
-                                          <!-- <select class="requestor form-control" name="requestor" id="requestor" style="width:700px"  required="required">
-                                            <option value=""></option>
-                                          </select> -->
-                                          
-                                          <span id="error_req_org" class="text-danger"></span>
-                                        </div>
-                                    </div>
+            <div class="row">
+            	<div class="form-group">
+	                <div class="col-md-8">
+	                  <label class="control-label col-form-label">Movement Request Type</label>
+	                  <div id="chs-container">
+	                    <select class="form-control chs-select" id="request_type" style="width:80%; display: none">
+	                        <option default>Select</option>
+	                    </select>
 
+	                    <select class="form-control chs-select" name="chs-org" id="chs-org" style="width:80%" required="required">
+	                        <option default>Select Movement Request Type</option>
+	                        <?php foreach ($type as $type) { ?>
+	                        <option value="<?php echo $type['ID'];?>"><?php echo $type['Name'];?></option>
+	                        <?php } ?>
+	                    </select>
+	                    <br>
 
-                                    <div class="form-group row">
-                                      <div class="col-sm-3">
-                                        <label class="control-label col-form-label">Position Name</label>
-                                      </div>
-                                        <div class="col-md-9">
-                                          <input type="text" class="form-control" name="req_position" id="req_position" value = "<?php echo $this->session->userdata('PositionName'); ?>" required="required" readonly>
-                                          <input type="hidden" name="req_position_id" id="req_position_id"  value = "<?php echo $this->session->userdata('PositionID'); ?>" required="required" class="form-control">
-                                          <!-- <select class="requestor form-control" name="requestor" id="requestor" style="width:700px"  required="required">
-                                            <option value=""></option>
-                                          </select> -->
-                                          
-                                          <span id="error_req_position" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                 <br>
-                                 <hr /> <br>
-                                 <h4 class="card-title">Movement</h4>
-
-                                 <div class="form-group row">
-                                      <div class="col-sm-3">
-                                        <label class="control-label col-form-label">Movement Request Type</label>
-                                      </div>
-                                      
-                                    </div>
-
-                                    <div class="form-group row">
-                                      
-                                      <div class="col-sm-6">
-                                        <!-- <select class="request_type form-control" name="request_type" id="request_type" style="width:500px"  required="required">
-                                          <option value=""></option>
-                                        </select> -->
-                                        <select class="form-control chs-select" name="request_type" id="request_type" style="width:80%" required="required">
-                                              <option default>Select Movement Request Type</option>
-                                              <?php foreach ($type as $type) { ?>
-                                              <option value="<?php echo $type['ID'];?>"><?php echo $type['Name'];?></option>
-                                              <?php } ?>
-                                          </select>
-                                        <span id="error_request_type" class="text-danger"></span>
-                                      </div>
-                                    </div>
-
-                                 <div class="form-group row">
+	                    <div class="form-group row">
                                       <div class="col-sm-3">
                                         <label class="control-label col-form-label">Request Name</label>
                                       </div>
@@ -158,15 +132,10 @@
                                     <div class="form-group row">
                                       
                                       <div class="col-sm-6">
-                                        <!-- <select class="request form-control" name="request_name" id="request_name" style="width:500px"  required="required">
+                                        <select class="request form-control" name="request_name" id="request_name" style="width:500px"  required="required">
                                           <option value=""></option>
-                                        </select> -->
-                                        <select class="form-control chs-select" name="request_name" id="request_name" style="width:500px" required="required">
-                                                  <option default>Select Request Name</option>
-                                                  <?php foreach ($req as $req) { ?>
-                                                  <option value="<?php echo $req['ID'];?>"><?php echo $req['Name'];?></option>
-                                                  <?php } ?>
-                                              </select>
+                                        </select>
+                                        
                                         <span id="error_request" class="text-danger"></span>
                                       </div>
                                     </div>
@@ -189,16 +158,10 @@
                                       
                                       <div class="col-sm-3">
                                              <label class="control-label col-form-label">New Position</label>
-                                             <!-- <select class="new-position form-control" name="new_position" id="new_position" style="width:500px"  required="required">
+                                             <select class="new-position form-control" name="new_position" id="new_position" style="width:500px"  required="required">
                                                 <option value=""></option>
                                               </select>
-                                              <input type="hidden" name="new_org_id" id="new_org_id" required="required" class="form-control"> -->
-                                                <select class="form-control chs-select" name="new_position" id="new_position" style="width:500px" required="required">
-                                                  <option default>Select New Position</option>
-                                                  <?php foreach ($pos as $position) { ?>
-                                                  <option value="<?php echo $position['ID'];?>"><?php echo $position['Name'];?></option>
-                                                  <?php } ?>
-                                              </select>
+                                              <input type="hidden" name="new_org_id" id="new_org_id" required="required" class="form-control">
                                               <span id="error_new_position" class="text-danger"></span>
                                       </div>
 
@@ -278,103 +241,116 @@
           </div>
         </div>
     </div>
-    </div>
 
             
                 
 
 </body>
+
+<script src="<?= base_url(); ?>assets/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="<?= base_url(); ?>assets/dist/js/adminlte.min.js"></script>
+<!-- Sparkline -->
+<script src="<?= base_url(); ?>assets/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+<!-- jvectormap  -->
+<script src="<?= base_url(); ?>assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="<?= base_url(); ?>assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<!-- SlimScroll -->
+<script src="<?= base_url(); ?>assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- ChartJS -->
+<script src="<?= base_url(); ?>assets/bower_components/chart.js/Chart.js"></script>
+
 <script type="text/javascript">
    var option_value;
 
-   $('.requestor').select2({
-                placeholder: 'Enter The Requestor Name',
-                ajax:{
-                    url: "<?php echo base_url('Promotion_4/requestor'); ?>",
-                    dataType: "json",
-                    delay: 250,
-          processResults: function(data){
-                        var results = [];
+  //  $('.requestor').select2({
+  //               placeholder: 'Enter The Requestor Name',
+  //               ajax:{
+  //                   url: "<?php echo base_url('Promotion_4/requestor'); ?>",
+  //                   dataType: "json",
+  //                   delay: 250,
+  //         processResults: function(data){
+  //                       var results = [];
 
-                        $.each(data, function(index, item){
-                            results.push({
-                                id: item.ID,
-                                text: item.FullName,
-                                option_value:item.ID
-                            });
-                        });
-                        return{
-                            results: results,
-                            cache: true,
-                        };
-                    },
-                }
+  //                       $.each(data, function(index, item){
+  //                           results.push({
+  //                               id: item.ID,
+  //                               text: item.FullName,
+  //                               option_value:item.ID
+  //                           });
+  //                       });
+  //                       return{
+  //                           results: results,
+  //                           cache: true,
+  //                       };
+  //                   },
+  //               }
 
-            });
+  //           });
 
-   $('#requestor_name').on('select2:select', function (e) {
-              var name = $('#requestor :selected').text();
-              console.log($('#requestor :selected').text());
-              console.log(name);
-              if ($('#requestor_name :selected').text() != '') {
-                $.ajax({
-                    url:"<?php echo base_url('Promotion_4/search_info');?>",
-                    method:"GET",
-                    dataType:'json',
-                    data:{ 'Name':name },
+  //  $('#requestor_name').on('select2:select', function (e) {
+  //             var name = $('#requestor :selected').text();
+  //             console.log($('#requestor :selected').text());
+  //             console.log(name);
+  //             if ($('#requestor_name :selected').text() != '') {
+  //               $.ajax({
+  //                   url:"<?php echo base_url('Promotion_4/search_info');?>",
+  //                   method:"GET",
+  //                   dataType:'json',
+  //                   data:{ 'Name':name },
 
-                    success:function(data){
-                      if (data) {
-                        $('#dis-pos').show();
-                        $('#dis-org').show();
-                        console.log(data);
-                        console.log(data.PositionName);
-                        $('#req_position_id').val(data.PositionID);
-                        $('#req_org_id').val(data.Organization);
-                        $('#req_position').val(data.PositionName);
-                        $('#req_org').val(data.OrganizationName);
+  //                   success:function(data){
+  //                     if (data) {
+  //                       $('#dis-pos').show();
+  //                       $('#dis-org').show();
+  //                       console.log(data);
+  //                       console.log(data.PositionName);
+  //                       $('#req_position_id').val(data.PositionID);
+  //                       $('#req_org_id').val(data.Organization);
+  //                       $('#req_position').val(data.PositionName);
+  //                       $('#req_org').val(data.OrganizationName);
                         
-                        }
-                      },
-                    error:function(){
-                            alert('error ... ');
-                    }
-                });
+  //                       }
+  //                     },
+  //                   error:function(){
+  //                           alert('error ... ');
+  //                   }
+  //               });
              
-            }
-          });
+  //           }
+  //         });
 
 
-        $('.position').select2({
-                placeholder: 'Enter The Requestor Position',
-                ajax:{
-                    url: "<?php echo base_url('Promotion_4/position'); ?>",
-                    dataType: "json",
-                    delay: 250,
-          processResults: function(data){
-                        var results = [];
+        // $('.position').select2({
+        //         placeholder: 'Enter The Requestor Position',
+        //         ajax:{
+        //             url: "<?php echo base_url('Promotion_4/position'); ?>",
+        //             dataType: "json",
+        //             delay: 250,
+        //   processResults: function(data){
+        //                 var results = [];
 
-                        $.each(data, function(index, item){
-                            results.push({
-                                id: item.ID,
-                                text: item.Name,
-                                option_value:item.ID
-                            });
-                        });
-                        return{
-                            results: results,
-                            cache: true,
-                        };
-                    },
-                }
+        //                 $.each(data, function(index, item){
+        //                     results.push({
+        //                         id: item.ID,
+        //                         text: item.Name,
+        //                         option_value:item.ID
+        //                     });
+        //                 });
+        //                 return{
+        //                     results: results,
+        //                     cache: true,
+        //                 };
+        //             },
+        //         }
 
-            });
+        //     });
 
             
          $('.request').select2({
                 placeholder: 'Enter The Request Name',
                 ajax:{
-                    url: "<?php echo base_url('Promotion_4/request'); ?>",
+                    url: "<?php echo base_url('Hr_movement/request'); ?>",
                     dataType: "json",
                     delay: 250,
           processResults: function(data){
@@ -396,30 +372,30 @@
 
             });
 
-            $('.request_type').select2({
-                placeholder: 'Enter The Movement Request Type',
-                ajax:{
-                    url: "<?php echo base_url('Promotion_4/request_type'); ?>",
-                    dataType: "json",
-                    delay: 250,
-          processResults: function(data){
-                        var results = [];
+          //   $('.request_type').select2({
+          //       placeholder: 'Enter The Movement Request Type',
+          //       ajax:{
+          //           url: "<?php echo base_url('Promotion_4/request_type'); ?>",
+          //           dataType: "json",
+          //           delay: 250,
+          // processResults: function(data){
+          //               var results = [];
 
-                        $.each(data, function(index, item){
-                            results.push({
-                                id: item.ID,
-                                text: item.Name,
-                                option_value:item.ID
-                            });
-                        });
-                        return{
-                            results: results,
-                            cache: true,
-                        };
-                    },
-                }
+          //               $.each(data, function(index, item){
+          //                   results.push({
+          //                       id: item.ID,
+          //                       text: item.Name,
+          //                       option_value:item.ID
+          //                   });
+          //               });
+          //               return{
+          //                   results: results,
+          //                   cache: true,
+          //               };
+          //           },
+          //       }
 
-            });
+          //   });
 
             $('#request_name').on('select2:select', function (e) {
               var req = $('#request_name :selected').text();
@@ -427,7 +403,7 @@
 
               if ($('#request_name :selected').text() != '') {
                 $.ajax({
-                    url:"<?php echo base_url('Promotion_4/search_requestor_pro');?>",
+                    url:"<?php echo base_url('Hr_movement/search_requestor_pro');?>",
                     method:"GET",
                     dataType:'json',
                     data:{ 'Request': req },
@@ -487,71 +463,71 @@
 
             });
 
-            $('#new_position').on('select2:select', function (e) {
-              var newpos = $('#new_position :selected').text();
-              console.log($('#new_position :selected').text());
+          //   $('#new_position').on('select2:select', function (e) {
+          //     var newpos = $('#new_position :selected').text();
+          //     console.log($('#new_position :selected').text());
 
-              if ($('#new_position :selected').text() != '') {
-                $.ajax({
-                    url:"<?php echo base_url('Promotion_4/search_new_position');?>",
-                    method:"GET",
-                    dataType:'json',
-                    data:{ 'Position': newpos },
+          //     if ($('#new_position :selected').text() != '') {
+          //       $.ajax({
+          //           url:"<?php echo base_url('Promotion_4/search_new_position');?>",
+          //           method:"GET",
+          //           dataType:'json',
+          //           data:{ 'Position': newpos },
                 
-                    success:function(data){
-                      if (data) {
-                        // $('#dis-pos').show();
-                        //$('#c-position').show();
-                        console.log(data);
-                       // console.log(data.NewPosition);
-                        console.log(data.NewPositionID);
+          //           success:function(data){
+          //             if (data) {
+          //               // $('#dis-pos').show();
+          //               //$('#c-position').show();
+          //               console.log(data);
+          //              // console.log(data.NewPosition);
+          //               console.log(data.NewPositionID);
                         
-                      //  $('#req_position_id').val(data.PositionID);
-                        $('#new_position_id').val(data.NewPositionID);
-                     //   $('#req_position').val(data.PositionName);
-                      //  $('#new_position').val(data.NewPosition);
-                        $('#new_org_id').val(data.NewOrganizationID);
+          //             //  $('#req_position_id').val(data.PositionID);
+          //               $('#new_position_id').val(data.NewPositionID);
+          //            //   $('#req_position').val(data.PositionName);
+          //             //  $('#new_position').val(data.NewPosition);
+          //               $('#new_org_id').val(data.NewOrganizationID);
                         
-                        }
-                      },
-                    error:function(){
-                            alert('error ... ');
-                    }
-                });
+          //               }
+          //             },
+          //           error:function(){
+          //                   alert('error ... ');
+          //           }
+          //       });
              
-            }
-          });
+          //   }
+          // });
 
-            $('.new-position').select2({
-                placeholder: 'Enter The New Position',
-                ajax:{
-                    url: "<?php echo base_url('Promotion_4/new_position'); ?>",
-                    dataType: "json",
-                    delay: 250,
-          //           processResults: function (param) {
-          //   return {
-          //     compClue: param.term,
+          //   $('.new-position').select2({
+          //       placeholder: 'Enter The New Position',
+          //       ajax:{
+          //           url: "<?php echo base_url('Promotion_4/new_position'); ?>",
+          //           dataType: "json",
+          //           delay: 250,
+          // //           processResults: function (param) {
+          // //   return {
+          // //     compClue: param.term,
               
-          //   };
-          // },
-          processResults: function(data){
-                        var results = [];
+          // //   };
+          // // },
+          // processResults: function(data){
+          //               var results = [];
 
-                        $.each(data, function(index, item){
-                            results.push({
-                                id: item.ID,
-                                text: item.Name,
-                                option_value:item.ID
-                            });
-                        });
-                        return{
-                            results: results,
-                            cache: true,
-                        };
-                    },
-                }
+          //               $.each(data, function(index, item){
+          //                   results.push({
+          //                       id: item.ID,
+          //                       text: item.Name,
+          //                       option_value:item.ID
+          //                   });
+          //               });
+          //               return{
+          //                   results: results,
+          //                   cache: true,
+          //               };
+          //           },
+          //       }
 
-            });
+          //   });
 
         
             
@@ -872,9 +848,11 @@
        $('#myModal').hide();
           $('.modal-fade').hide();
           $(".modal-backdrop").remove();
-           window.location.href = '<?php echo base_url('Promotion_4/promotion_history');?>';
+          // window.location.href = '<?php echo base_url('Promotion_4/promotion_history');?>';
     });
 
   });
+
+    
 </script>
 </html>
