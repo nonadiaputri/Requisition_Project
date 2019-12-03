@@ -109,8 +109,9 @@ class Promotion_model extends CI_Model
         return $res->result_array();
       }
 
-      function choose_request_name($ID){
-        $q = " select a.ID, a.FullName as Name, c.Name as PositionName, e.Name as OrganizationName 
+      function choose_request_name($Request){
+        $q = " select distinct a.ID as ID, a.FullName as Name, c.Name as PositionName,  c.ID PositionID,
+                  e.ID as OrganizationID
                   from dbo.PersonnelTable a
                   join dbo.PersonnelPosition b on a.ID = b.PersonnelID
                   join dbo.PositionTable c on b.PositionID = c.ID
@@ -118,6 +119,28 @@ class Promotion_model extends CI_Model
                   join dbo.OrganizationTable e on d.OrganizationUnitID = e.ID";
         $query = $this->db->query($q);    
          return $query->result_array();
+
+    //     $this->db->select('a.ID as ID, a.FullName as Name, c.Name as PositionName,  c.ID PositionID, e.ID as OrganizationID');
+    //     $this->db->from('dbo.PersonnelTable a');
+    //     $this->db->join('dbo.PersonnelPosition b','a.ID = b.PersonnelID');
+    //     $this->db->join('dbo.PositionTable c','b.PositionID = c.ID');
+    //     $this->db->join('dbo.PositionInOrganization d','c.ID = d.OrganizationUnitID');
+    //     $this->db->join('dbo.OrganizationTable e','d.OrganizationUnitID = e.ID');
+    //      $this->db->like('a.FullName',$Request);
+    //     $query = $this->db->get();
+    // return $query->row_array();
+        
+      }
+      function search_requestor_pro($Request){
+        $this->db->select('a.ID as PositionID, a.Name as Position , c.FullName, C.ID as PersonnelID, e.Name as Organization, , e.ID as OrganizationID');
+        $this->db->from('dbo.PositionTable a');
+        $this->db->join('dbo.PersonnelPosition b','a.ID = b.PositionID');
+        $this->db->join('dbo.PersonnelTable c','c.ID = b.PersonnelID');
+        $this->db->join('dbo.PositionInOrganization d','a.ID = d.PositionID');
+        $this->db->join('dbo.OrganizationTable e','d.OrganizationUnitID = e.ID');
+        $this->db->like('c.FullName',$Request);
+        $query = $this->db->get();
+    return $query->row_array();
       }
 
       function choose_move_position($ID){
@@ -187,17 +210,6 @@ class Promotion_model extends CI_Model
         return $query->row_array();
       }
     
-      function search_requestor_pro($Request){
-        $this->db->select('a.ID as PositionID, a.Name as Position , c.FullName, C.ID as PersonnelID, e.Name as Organization, , e.ID as OrganizationID');
-        $this->db->from('dbo.PositionTable a');
-        $this->db->join('dbo.PersonnelPosition b','a.ID = b.PositionID');
-        $this->db->join('dbo.PersonnelTable c','c.ID = b.PersonnelID');
-        $this->db->join('dbo.PositionInOrganization d','a.ID = d.PositionID');
-        $this->db->join('dbo.OrganizationTable e','d.OrganizationUnitID = e.ID');
-        $this->db->like('c.FullName',$Request);
-        $query = $this->db->get();
-        return $query->row_array();
-      }
     
       function search_new_position($Position){
         $this->db->select('a.Name, b.PositionID as NewPositionID, c.ID as NewOrganizationID');
