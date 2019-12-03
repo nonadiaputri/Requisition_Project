@@ -20,9 +20,11 @@ class Login extends CI_Controller {
 		$uid = $this->input->post('uid');		
         $pwd = sha1($this->input->post('pwd') . $this->config->item('encryption_key'));
         $login = $this->Login_model->auth($uid, $pwd);
+        var_dump($login);
 		
 		if (count($login) == 1) {
 			$data = array(
+				'ID'		=> $login->ID,
 				'nik' 		=> $login->NIK,
 				'name'		=> $login->Name,
 				'email'		=> $login->Email,

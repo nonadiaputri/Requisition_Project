@@ -12,6 +12,24 @@ class Hire_model extends CI_Model
     $this->load->database();
   }
 */
+   public function get_your_request($ID){
+    $q = "select a.*, b.Name as Department,  c.FullName,d.Name as DeptName
+           from dbo.RequisitionTable a
+           left join dbo.CostCenterTable b
+           on a.PlacementID = b.ID
+           left join dbo.PersonnelTable c
+           on a.RequestorID = c.ID
+           left join dbo.OrganizationTable d
+           on a.RequestorDepartmentID = d.ID
+           where a.ID in (select ID from dbo.RequisitionTable where IsProcessedToHire = 0 or IsProcessedToHire = 2)
+           and a.RequestorID='$ID'
+           and a.IsHold = 0
+           and a.IsRejected= 0
+           order by IsProcessedToHire DESC";
+    $query = $this->db->query($q);    
+     return $query->result_array();
+   }
+
   public function get_hire(){
     $q = 'select a.*, b.Name as Department,  c.FullName
            from dbo.RequisitionTable a
@@ -176,9 +194,9 @@ class Hire_model extends CI_Model
   }
 
   function get_related_per($ID){
-    $q = " select a.*, b.Name from 
+    $q = 'select a.*, b.Name from 
     [dbo].[PersonnelAuth] a join dbo.PersonnelTable b 
-    on a.PersonnelID = b.ID where a.PersonnelNumber = $ID ";
+    on a.PersonnelID = b.ID where a.PersonnelNumber ='.$ID ;
     $query = $this->db->query($q);    
      //$query = $this->db->get('dbo.RequisitionTable');
      return $query->result_array();

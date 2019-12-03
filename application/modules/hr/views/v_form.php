@@ -67,7 +67,7 @@
 	          	<div class="form-group">
 	                <div class="col-md-8">
 	                  <label class="control-label col-form-label">Requestor Name</label>
-	                  <select class="form-control chs-select" name="requestor" id="requestor" style="width:80%" required="required">
+	                  <select class="form-control chs-select" name="requestor" id="requestor" style="width:100%" required="required">
 	                        <option default>Select Requestor</option>
 	                        <?php foreach ($person as $person) { ?>
 	                        <option value="<?php echo $person['PersonnelID'];?>"><?php echo $person['Name'];?></option>
@@ -110,11 +110,11 @@
 	                <div class="col-md-8">
 	                  <label class="control-label col-form-label">Choose Organization</label>
 	                  <div id="chs-container">
-	                    <select class="form-control chs-select" id="chs-div-template" style="width:80%; display: none">
+	                    <select class="form-control chs-select" id="chs-div-template" style="width:100%; display: none">
 	                        <option default>Select</option>
 	                    </select>
 
-	                    <select class="form-control chs-select" name="chs-org" id="chs-org" style="width:80%" required="required">
+	                    <select class="form-control chs-select" name="chs-org" id="chs-org" style="width:100%" required="required">
 	                        <option default>Select Organization</option>
 	                        <?php foreach ($org as $org) { ?>
 	                        <option value="<?php echo $org['ID'];?>"><?php echo $org['Name'];?></option>
@@ -122,7 +122,7 @@
 	                    </select>
 	                    <br>
 
-	                    <select class="form-control chs-select" name="chs-dep" id="chs-dep" style="width:80%;display: none" required="required">
+	                    <select class="form-control chs-select" name="chs-dep" id="chs-dep" style="width:100%;display: none" required="required">
 	                        <option default>Select</option>
 	                    </select>
 	                    <br>
@@ -141,7 +141,7 @@
                     <div class="col-md-8">
                     	<label class="control-label col-form-label">Position</label>
                 
-                      	<select class="form-control selectpicker" data-show-subtext="true" data-size="5" name="position" id="position" style="width:80%;"  required="required">
+                      	<select class="form-control selectpicker" data-show-subtext="true" data-size="5" name="position" id="position" style="width:100%;"  required="required">
                           <option value=""></option>
                         </select>
                         <span id="error_position" class="text-danger"></span>
@@ -153,10 +153,9 @@
 	        	<div class="form-group">
                   <div class="col-md-8">
                     <label class="control-label col-form-label">Total Need</label>
-          
                     <select class="form-control" name="ttl" id="ttl" required="required">
                       <option value="" selected>Pilih</option>
-                      <option value="1" data-subtext="aaa">1</option>
+                      <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
                       <option value="4">4</option>
@@ -178,7 +177,7 @@
                   <div class="col-md-8">
                     <label class="control-label col-form-label">Placement</label>
                   
-                    <select class="searching form-control" name="placement" id="placement" style="width:80%;"  required="required">
+                    <select class="searching form-control" name="placement" id="placement" style="width:100%;"  required="required">
                       <option value=""></option>
                     </select>
                     <span id="error_placement" class="text-danger"></span>
@@ -210,7 +209,7 @@
                   <div class="col-md-8">
                     <label class="control-label col-form-label">Replacement Name</label>
                   
-                   <select class="rep-name form-control" name="ReplacementName" id="ReplacementName" style="width:80%;"  required="required">
+                   <select class="rep-name form-control" name="ReplacementName" id="ReplacementName" style="width:100%;"  required="required">
                       <option value=""></option>
                     </select>
                     <span id="error_replacementName" class="text-danger"></span>
@@ -223,12 +222,13 @@
 	        	<div class="form-group">
                     <div class="col-md-8">
                         <label class="control-label col-form-label">Expected Work Date</label>
-                      
-                        <input type="date" id="workdate" name="workdate" min="2018-01-01" max="2030-12-31" required="required" >
-                        <span id="error_workdate" class="text-danger"></span>
-                      </div>
                     </div>
-	        </div>
+                    <div class="col-md-8">
+                    	<input class="form-control" type="date" id="workdate" name="workdate" min="2018-01-01" max="2030-12-31" required="required" >
+                    </div>
+                        <span id="error_workdate" class="text-danger"></span>
+                </div>
+            </div>
 
 	        <div class="row">
 	        	<div class="form-group">
@@ -312,6 +312,18 @@
 
 
 </body>
+<script src="<?= base_url(); ?>assets/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="<?= base_url(); ?>assets/dist/js/adminlte.min.js"></script>
+<!-- Sparkline -->
+<script src="<?= base_url(); ?>assets/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+<!-- jvectormap  -->
+<script src="<?= base_url(); ?>assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="<?= base_url(); ?>assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<!-- SlimScroll -->
+<script src="<?= base_url(); ?>assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- ChartJS -->
+<script src="<?= base_url(); ?>assets/bower_components/chart.js/Chart.js"></script>
 
 <script type="text/javascript">
 
