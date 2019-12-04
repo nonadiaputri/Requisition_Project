@@ -3,6 +3,7 @@
 class Hire_model extends CI_Model
 {
 
+<<<<<<< HEAD
   public function get_hire(){
     $q = '  select a.*, b.Name as Department,  c.FullName
            from dbo.RequisitionTable a
@@ -27,6 +28,20 @@ class Hire_model extends CI_Model
     $query = $this->db->query($q);    
      return $query->result_array();
    }
+=======
+  function __construct()
+  {
+    $this->load->database();
+  }
+*/
+/**
+ * FUNCTION TO CALL STORE PROCEDURE
+ */
+//    public function auto_register(){
+//         $this->db->query("")
+//    }
+
+>>>>>>> d3966c9bd01641cf50dd0a0fac5dae07f4184e14
 
    public function get_your_request($ID){
     $q = "  select a.*, b.Name as Department,  c.FullName,d.Name as DeptName

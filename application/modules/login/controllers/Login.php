@@ -6,7 +6,7 @@ class Login extends CI_Controller {
 	public function __construct() {
         parent::__construct();
         //$this->load->library("Aauth");
-		$this->load->database('db1');
+		$this->load->database('db2');
 		$this->load->model("Login_model");
     }
 	
@@ -24,15 +24,21 @@ class Login extends CI_Controller {
 		
 		if (count($login) == 1) {
 			$data = array(
-				'ID'		=> $login->ID,
-				'nik' 		=> $login->NIK,
-				'name'		=> $login->Name,
-				'email'		=> $login->Email,
+				'ID'		=> $login->no,
+				'nik' 		=> $login->nik,
+				'name'		=> $login->name,
+				'email'		=> $login->email,
+				'created_date' => $login->created_date,
+				'nik_atasan' =>$login->nik_atasan,
+				'dept_id' =>$login->dept_id,
+				'id_position' =>$login->id_position,
+				'position' => $login->position,
+				'phone' =>$login->phone,
 				'is_login'	=> TRUE
 			);
 
-            $this->session->set_userdata($data);			
-			redirect('dashboard');
+            // $this->session->set_userdata($data);			
+			// redirect('dashboard');
 		}else{
 			$this->session->set_flashdata('message', '<p style="color:red">Email atau Password Anda Salah!</p>');
 			redirect('login','refresh');
