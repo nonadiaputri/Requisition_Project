@@ -38,15 +38,22 @@ class Hr_movement extends CI_Controller {
 	}
 
 	
-	public function hire_history()
+	public function promotion_history()
 	{
+		$requestor_id = $this->session->userdata('PersonnelIDList');
+		//$data['hire'] = $this->Hire_model->get_new_req();
+		$data['prom'] = $this->Promotion_model->get_new_promotion();
+		$data['all'] = count($data['prom']);
+		//$data['tot'] = count($data['hire']);
+	  $data['res'] = $this->Promotion_model->get_promotion($requestor_id);
+		$data['myreq'] = $this->Promotion_model->get_your_request($requestor_id);
 		$data["header"] = $this->load->view('header/v_header','',TRUE);
 		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-		$data['table'] = $this->Promotion_model->get_hire();
+	//	$data['table'] = $this->Promotion_model->get_hire();
 		
 		//var_dump($data['table']);
 		
-		$this->load->view('hr/v_form',$data);		
+		$this->load->view('hr_movement/v_promotion_history',$data);		
 	}
 
 	function chs_dep(){
