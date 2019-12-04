@@ -32,6 +32,7 @@ class Login extends CI_Controller {
 				'nik_atasan' =>$login->nik_atasan,
 				'dept_id' =>$login->dept_id,
 				'id_position' =>$login->id_position,
+				'position' => $login->position,
 				'phone' =>$login->phone,
 				'is_login'	=> TRUE
 			);
