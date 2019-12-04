@@ -21,6 +21,11 @@ class Hr extends CI_Controller {
 		$data["header"] = $this->load->view('header/v_header','',TRUE);
 		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
 		$this->load->view('hr/v_form',$data);
+		/** 
+		 * declaration store procedure from model
+		 * */
+		 
+
 	}
 
 	function chs_dep(){

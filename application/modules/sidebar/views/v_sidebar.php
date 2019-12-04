@@ -8,7 +8,8 @@
           <img src="<?= base_url(); ?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p><?= $_SESSION['name'];?></p>
+          <p><?= $_SESSION['name'];?> </br> <?= $_SESSION['email'];?></p>
+          <p></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
                 

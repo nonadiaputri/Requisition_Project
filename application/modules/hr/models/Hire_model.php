@@ -12,6 +12,14 @@ class Hire_model extends CI_Model
     $this->load->database();
   }
 */
+/**
+ * FUNCTION TO CALL STORE PROCEDURE
+ */
+//    public function auto_register(){
+//         $this->db->query("")
+//    }
+
+
    public function get_your_request($ID){
     $q = "select a.*, b.Name as Department,  c.FullName,d.Name as DeptName
            from dbo.RequisitionTable a
