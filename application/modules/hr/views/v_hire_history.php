@@ -34,7 +34,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 	<?php echo $header;?>
-    <?php echo $sidebar;?>
+  <?php echo $sidebar;?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -71,7 +71,7 @@
                 </thead>
                 <tbody>
                     <?php $num=1; ?>
-                    <?php foreach($res as $row){ ?>
+                    <?php foreach($myreq as $row){ ?>
                     <tr>
                         <td width="10%"><?php echo $num; ?></td>
                         <td width="20%"><?php echo $row['FullName']; ?></td>
@@ -90,7 +90,16 @@
                           
                          ?></td>
                         <td width="20%" align="center">
-                             <a href ="<?php echo base_url('Hire_3/View/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
+                             <?php
+                              if ($row['IsProcessedToHire'] == 2) { ?>
+                                  <a href ="<?php echo base_url('Hr/Edit/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-warning" role="button" aria-pressed="true">Edit</a>
+                                  <a href ="<?php echo base_url('Hr/Delete/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-danger" role="button" aria-pressed="true">Delete</a>
+                                   
+                               <?php }else{
+                                  ?>
+                                  <a href ="<?php echo base_url('Hr/View/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
+
+                              <?php }  ?>
                         </td>
                     </tr>
                     <?php $num++; } ?>

@@ -329,6 +329,21 @@ class Hr extends CI_Controller {
 	    }
 	}
 
+	public function hire_history(){
+	    $requestor_id = $this->session->userdata('ID');
+
+	    //notif
+	    //$data['hire'] = $this->Hire_model->get_new_req();
+	    //$data['prom'] = $this->Promotion_model->get_new_promotion();
+	    // $data['all'] = count($data['prom']);
+	    // $data['tot'] = count($data['hire']);
+	    //$data['res'] = $this->Hire_model->get_hire();
+	    $data['myreq'] = $this->Hire_model->get_your_request($requestor_id);
+		$data["header"] = $this->load->view('header/v_header','',TRUE);
+		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+		$this->load->view('hr/v_hire_history',$data);
+	}
+
 	function save_data(){
 	    $requestor_id = $this->input->post('requestor_id');
 	    $req_position_id = $this->input->post('req_position_id');
@@ -369,20 +384,129 @@ class Hr extends CI_Controller {
 	      }
 	}
 
-	public function hire_history(){
-	    $requestor_id = $this->session->userdata('ID');
+	
 
-	    //notif
-	    //$data['hire'] = $this->Hire_model->get_new_req();
-	    //$data['prom'] = $this->Promotion_model->get_new_promotion();
+	public function View($ID){
+    //notif
+    // $data['hire'] = $this->Hire_model->get_new_req();
+    // $data['prom'] = $this->Promotion3_model->get_new_promotion();
+    // $data['all'] = count($data['prom']);
+    // $data['tot'] = count($data['hire']);
+    //$where = array('a.ID' => $ID);
+    $data['req'] = $this->Hire_model->get_hire_id($ID);
+    $data['info'] = $this->Hire_model->get_apv_info($ID);
+    $data['latest'] = $this->Hire_model->get_latest_apv($ID);
+    
+    //$data['requestor'] = $this->Hire_model->get_req($ID);
+    //var_dump($data['latest']);
+    $data["header"] = $this->load->view('header/v_header','',TRUE);
+	$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+	$this->load->view('hr/v_view',$data);
+ 	}
+
+ 	function edit($ID){
+	 	$ID2 = $this->session->userdata('nik');
+		$data['person'] = $this->Hire_model->get_related_per($ID2);
+	    // $data['hire'] = $this->Hire_model->get_new_req();
+	    // $data['prom'] = $this->Promotion3_model->get_new_promotion();
 	    // $data['all'] = count($data['prom']);
 	    // $data['tot'] = count($data['hire']);
-	    $data['res'] = $this->Hire_model->get_hire();
-	    $data['myreq'] = $this->Hire_model->get_your_request($requestor_id);
-		$data["header"] = $this->load->view('header/v_header','',TRUE);
+	    $data['row']= $this->Hire_model->get_hire_id($ID);
+	    //var_dump($data['row']);
+	    $data["header"] = $this->load->view('header/v_header','',TRUE);
 		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-		$this->load->view('hr/v_hire_history',$data);
+		$this->load->view('hr/v_edit_hire',$data);
 	}
+
+  function delete($ID){
+  $this->Hire_model->hapus($ID);
+  return $this->hire_history();
+  }
+
+  function do_update(){
+    $ID = $this->input->post('id_req');
+    $req_id = $this->input->post('req_id');
+    $req_position_id = $this->input->post('req_position_id');
+    $org_id = $this->input->post('org_id');
+    $position = $this->input->post('position');
+    $total = $this->input->post('total');
+    $placement = $this->input->post('placement');
+    $status = $this->input->post('status');
+    $workdate = $this->input->post('workdate');
+    $ReplacementName = $this->input->post('ReplacementName');
+    $requirement = $this->input->post('requirement');
+    $responsibility = $this->input->post('responsibility');
+    $IsProcessedToHire = '0';
+
+    $data = array(
+      'RequestedPositionID' => $position,
+      'ReplacementPersonnelID' => $ReplacementName,
+      'NumberOfPlacement' => $total,
+      'ExpectedWorkStartDate' => $workdate,
+      'RequisitionTypeID' => $status,
+      'RequirementDescription' => $requirement,
+      'DuttiesAndResponsibilities' => $responsibility,
+      'PlacementID' => $placement,
+      'IsProcessedToHire' => $IsProcessedToHire
+      );
+
+    $data1 = array(
+        'RequisitionID' => $ID,
+        'EmployeeID' => $req_id,
+        'PositionID' => $req_position_id,
+        'OrganizationID' => $org_id);
+
+    print_r($data1);
+    //echo $data['IsProcessedToHire'];
+    $res =$this->Hire_model->Update_data($data, $ID);
+    $res2 = $this->Hire_model->Insert_to_Approval($data1);
+    if ($res > 0 && $res2 > 0 ) {
+       echo json_encode(array('status'=>true));
+      }else{
+      echo json_encode(array('status'=>false));
+      }
+  }
+
+  function save_data2(){
+    $ID = $this->input->post('id_req');
+    $req_position_id = $this->input->post('req_position_id');
+    $req_org_id = $this->input->post('req_org_id');
+    $position = $this->input->post('position');
+    $total = $this->input->post('total');
+    $placement = $this->input->post('placement');
+    $status = $this->input->post('status');
+    $workdate = $this->input->post('workdate');
+    $ReplacementName = $this->input->post('ReplacementName');
+    $requirement = $this->input->post('requirement');
+    $responsibility = $this->input->post('responsibility');
+    $IsProcessedToHire = '2';
+    
+
+    $data = array(
+      // 'RequestorPositionID' => $req_position_id,
+      // 'RequestorDepartmentID' => $req_org_id,
+      'RequestedPositionID' => $position,
+      'ReplacementPersonnelID' => $ReplacementName,
+      'NumberOfPlacement' => $total,
+      'ExpectedWorkStartDate' => $workdate,
+      'RequisitionTypeID' => $status,
+      'RequirementDescription' => $requirement,
+      'DuttiesAndResponsibilities' => $responsibility,
+      'PlacementID' => $placement,
+      'IsProcessedToHire' => $IsProcessedToHire
+      );
+    var_dump($data);
+    //.var_dump($data);
+
+    // $res = $this->Hire_model->update_saved_data($data, $ID);
+    // //var_dump($res);
+    //   if ($res > 0 ) {
+    //     $this->hire_history();
+    //   }else{
+    //   echo json_encode(array('status'=>false));
+    //   }
+  }
 
 }
 ?>
+
