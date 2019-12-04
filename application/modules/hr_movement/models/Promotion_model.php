@@ -45,6 +45,47 @@ class Promotion_model extends CI_Model
          
       }
 
+      public function get_new_promotion(){
+       
+        $query = 'select a.*, b.FullName as RequestorName from dbo.MovementRequestTable a
+                  join dbo.PersonnelTable b
+                  on b.ID=a.RequestorID
+                  where RequestorID in 
+                    (Select PersonnelIDList from 
+                      (select a.ID, a.PersonnelIDList, c.OrganizationUnitID from dbo.UserTable a
+                        join dbo.PersonnelPosition b
+                        on a.PersonnelIDList = b.PersonnelID
+                        join dbo.PositionInOrganization c
+                        on c.PositionID = b.PositionID
+                        where a.ID in 
+                          (select userID from dbo.UserXUserGroup where UserGroupID=5)
+                        )X)
+                  and IsProcessed=0 
+                  and IsHold = 0
+                  and IsRejected = 0';
+        $query = $this->db->query($query);
+        return $query->result_array();
+        
+      }
+
+      public function get_your_request($requestor_id){
+        $q = "select a.*, b.Name as Department,  c.FullName as RequestorName
+                from dbo.MovementRequestTable a
+                join dbo.OrganizationTable b
+                on a.RequestorDepartmentID = b.ID
+                join dbo.PersonnelTable c
+                on a.RequestorID = c.ID
+                where a.ID in (
+                      select ID from dbo.MovementRequestTable 
+                      where IsProcessed = 0 or IsProcessed =2)
+                      and a.RequestorID = '$requestor_id'
+                      and a.IsHold = 0 and a.IsRejected = 0
+                      order by IsProcessed DESC";
+        $query = $this->db->query($q);    
+         return $query->result_array();
+       }
+    
+
       public function get_new_req(){
         $where = array('IsProcessedToHire' => '0', 'IsHold' => '0', 'IsRejected' => '0');
         $this->db->select('a.*, b.FullName');

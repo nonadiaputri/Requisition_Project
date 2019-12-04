@@ -43,12 +43,12 @@
     <div class="content-wrapper">
       	<section class="content-header">
 	      <h1>
-	        Request Form Movement
+	        Promotion History
 	        <small>Preview</small>
 	      </h1>
 	      <ol class="breadcrumb">
 	        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-	        <li><a href="#">Forms</a></li>
+	        <li><a href="#">History</a></li>
 	        <li class="active">Advanced Elements</li>
 	      </ol>
 	    </section>
@@ -61,194 +61,69 @@
         </div> -->
         <!-- /.box-header -->
         <div class="box-body">
-            <h4 class="card-title">Requestor Information</h4>
-            <hr class="mt-0 mb-5">
-	        <div class="row">
-	          	<div class="form-group">
-	                <div class="col-md-8">
-	                  <label class="control-label col-form-label">Requestor Name</label>
-	                  <select class="form-control chs-select" name="requestor" id="requestor" style="width:80%" required="required">
-	                        <option default>Select Requestor</option>
-	                        <?php foreach ($person as $person) { ?>
-	                        <option value="<?php echo $person['PersonnelID'];?>"><?php echo $person['Name'];?></option>
-	                        <?php } ?>
-	                </select>
-	                </div>
-	                  <!-- <div class="col-md-7">
-	                    <input type="text" class="form-control" id="requestor" name="requestor" value = "<?php echo $this->session->userdata('name'); ?>" required="required" readonly>
-	                    <input type="hidden" class="form-control" id="requestor_id" name="requestor_id" value = "<?php echo $this->session->userdata('PersonnelIDList'); ?>" required="required" readonly>
-	                    <span id="error_requestor" class="text-danger"></span>
-	                  </div> -->
-	            </div>
-	            </div>
-	        <div class="row">
-	          	<div class="col-md-8">
-	                <label class="control-label">Organization Name</label>
-	                <input type="text" class="form-control" name="req_org_id" id="req_org_id" value = "<?php echo $this->session->userdata('organization'); ?>" required="required" readonly>
-	                <input type="hidden" class="form-control" name="org_id" id="org_id" value = "<?php echo $this->session->userdata('OrganizationID'); ?>" required="required" readonly>
-	                <span id="error_req_org" class="text-danger"></span>
-	          </div>
-	        </div>
+            
 
-	        <div class="row">
-	         	<div class="form-group">
-		              <div class="col-md-8">
-		                <label class="control-label col-form-label">Position Name</label>
-		                  <input type="text" class="form-control" name="req_position" id="req_position" value = "<?php echo $this->session->userdata('position'); ?>" required="required" readonly>
-		                  <input type="hidden" class="form-control" name="req_position_id" id="req_position_id" value = "<?php echo $this->session->userdata('PositionID'); ?>" required="required" readonly>
-		                  <span id="error_req_position" class="text-danger"></span>
-		                </div>
-		            </div>
-			</div>
-			<br>
-			
-            <h4 class="card-title">Request Movement Information</h4>
-            <hr class="mt-0 mb-5">
+        <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table product-overview" id="zero_config">
+                                        <thead>
+                                            <tr align="center">
+                                                <th>No.</th>
+                                                <!-- <th>Code</th> -->
+                                                <th>Requestor Name</th>
+                                                <!-- <th>Current Dutties</th> -->
+                                                <th>Department</th>
+                                                <th>Date</th>
+                                                <th>Status</th>
+                                                <!-- <th>Description</th>
+                                                <th>Created By</th>
+                                                <th>Last Modified On</th> -->
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- <tr> -->
+                                                <?php $num=1; ?>
+                                                <?php foreach($res as $row){ ?>
+                                                    <tr align="center">
+                                                <td width="5%"><?php echo $num; ?></td>
+                                                <td width="10%"><?php echo $row['FullName'];?></td>  
+                                                <!-- <td width="20%"><?php echo $row['current_position'];?></td> -->
+                                                <td width="20%"><?php echo $row['RequestorDepartmentID'];?></td>
+                                                <td width="20%"><?php echo $row['CreatedDate'];?></td>
+                                                <td><?php
+                                                if ($row['IsProcessed']=='' && $row['IsHold']=='' && $row['IsRejected']=='' ) {
+                                                    echo "Waiting for approval";
+                                                 }else if($row['IsProcessed']=='1' && $row['IsHold']=='' && $row['IsRejected']==''){
+                                                    echo "Approved";
+                                                 }else if ($row['IsProcessed']=='' && $row['IsHold']=='1' && $row['IsRejected']=='') {
+                                                    echo "Hold";
+                                                 }else if ($row['IsProcessed']=='' && $row['IsHold']=='' && $row['IsRejected']=='1') {
+                                                    echo "Rejected";
+                                                }
+                                                  
+                                                 ?></td>
+                                                <td width="20%">
+                                                     <a href ="<?php echo base_url('Promotion_3/View/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
+                                                </td>
 
-            <div class="row">
-            	<div class="form-group">
-	                <div class="col-md-8">
-	                  <label class="control-label col-form-label">Movement Request Type</label>
-	                  <div id="chs-container">
-	                    <select class="form-control chs-select" id="request_type" style="width:80%; display: none">
-	                        <option default>Select</option>
-	                    </select>
-
-	                    <select class="form-control chs-select" name="chs-org" id="chs-org" style="width:80%" required="required">
-	                        <option default>Select Movement Request Type</option>
-	                        <?php foreach ($type as $type) { ?>
-	                        <option value="<?php echo $type['ID'];?>"><?php echo $type['Name'];?></option>
-	                        <?php } ?>
-	                    </select>
-	                    <br>
-
-	                    <div class="form-group row">
-                                      <div class="col-sm-3">
-                                        <label class="control-label col-form-label">Request Name</label>
-                                      </div>
-                                      
-                                    </div>
-
-                                    <div class="form-group row">
-                                      
-                                      <div class="col-sm-6">
-                                        <select class="request form-control" name="request_name" id="request_name" style="width:500px"  required="required">
-                                          <option value=""></option>
-                                        </select>
-                                        
-                                        <span id="error_request" class="text-danger"></span>
-                                      </div>
-                                    </div>
-
-                                    <br> <br>
-
-                                    
-                                    
-
-
-                                    <div class="form-group row";>
-                                      <div class="col-sm-6">
-                                        <label class="control-label col-form-label">Current Position</label>
-                                        
-                                        <input type="text" name="current_position" id="current_position" required="required" class="form-control" readonly>
-                                        <input type="hidden" name="current_position_id" id="current_position_id" required="required" class="form-control">
-                                        <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control">
-                                        <span id="error_current_position" class="text-danger"></span>
-                                      </div>
-                                      
-                                      <div class="col-sm-3">
-                                             <label class="control-label col-form-label">New Position</label>
-                                             <select class="new-position form-control" name="new_position" id="new_position" style="width:500px"  required="required">
-                                                <option value=""></option>
-                                              </select>
-
-                                              <select class="new-position form-control" name="new_position" id="new_position" style="width:80%" required="required">
-                                                  <option default>Select New Position</option>
-                                                  <?php foreach ($pos as $pos) { ?>
-                                                  <option value="<?php echo $pos['ID'];?>"><?php echo $pos['Name'];?></option>
-                                                  <?php } ?>
-                                              </select>
-                                              <input type="hidden" name="new_org_id" id="new_org_id" required="required" class="form-control">
-                                              <span id="error_new_position" class="text-danger"></span>
-                                      </div>
-
-                                      
-                                    </div>
-
-
-                                     
-                                    <div class="form-group row">
-                                      <div class="col-sm-6">
-                                        <label class="control-label col-form-label">Started Work Date from Current Position</label>
-                                        <input type="date" id="startdate" name="startdate" min="2018-01-01" max="2030-12-31" required="required" class="form-control">
-                                        <span id="error_startdate" class="text-danger"></span>
-                                      </div>
-                                      <div class="col-sm-3">
-                                        <label class="control-label col-form-label">Expected Work Date for New Position</label>
-                                        <input type="date" id="workdate" name="workdate" min="2018-01-01" max="2030-12-31" required="required" class="form-control">
-                                        <span id="error_workdate" class="text-danger"></span>
-                                      </div>
-                                    </div>
-                                    <div class="form-group row">
-                                      <div class="col-sm-6">
-                                        <label class="control-label col-form-label">Current Responsibilities</label>
-                                        ​<textarea class="ckeditor" id="current_responsibilities" name="current_responsibilities"></textarea>
-                                        <span id="error_current_responsibilities" class="text-danger"></span>
-                                      </div>
-                                      <div class="col-sm-6">
-                                        <label class="control-label col-form-label"> New Responsibilities</label>
-                                        ​<textarea class="ckeditor" id="new_responsibilities" name="new_responsibilities"></textarea>
-                                        <span id="error_new_responsibilities" class="text-danger"></span>
-                                      </div>
-                                    </div>
-                                    <!-- <div class="form-group row">
-                                      <div class="col-sm-6">
-                                        
-                                      </div>
-                                      <div class="col-sm-6">
-                                         <label class="control-label col-form-label">New Requirement</label>
-                                         ​<textarea class="ckeditor" id="new_requirement" name="new_requirement"></textarea>
-                                        <span id="error_new_requirement" class="text-danger"></span>
-                                      </div>
-                                    </div>
-                                  </div> -->
-                                  <div class="form-group row">
-                                  <div style="width:100%;height:100%;vertical-align:middle;text-align:center;">
-                                    <button type="button" id="btn-submit" style="margin: auto;" class="btn waves-effect waves-light btn-primary">Request</button>
-                                    <button type="button" id="btn-save" style="margin: auto;" class="btn waves-effect waves-light btn-dark">Save as Draft</button>
-                                  </div>
+                                            </tr>
+                                             <?php $num++; } ?>
+                                        </tbody>
+                                    </table>
                                 </div>
-
-                                </div>
-                                
-                                </form>
-                        </div>
-          
+                            </div>
                         </div>
                     </div>
+                    <!-- Column -->
                 </div>
-                <!-- End Row -->
-                <!-- Row -->
-             
-      <div>
-            <div class="modal fade" role="dialog" id="myModal">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  </div>
-                  <div class="modal-body">
-                <p align="center">Are you sure you want to request ?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" id="button-smt" class="btn btn-primary mr-auto" >Yes</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
 
+                </div>
+                </div>
             
                 
 
