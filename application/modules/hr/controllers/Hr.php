@@ -13,6 +13,7 @@ class Hr extends CI_Controller {
 	
 	public function index()
 	{
+		$nik = $this->session->userdata('nik');
 		$ID = $this->session->userdata('nik');
 		// $data['result'] = $this->Hire_model->get_new_req();
 		// $data['tot'] = count($data['result']);
@@ -24,6 +25,7 @@ class Hr extends CI_Controller {
 		/** 
 		 * declaration store procedure from model
 		 * */
+		$this->Hire_model->auto_register($nik);
 		 
 
 	}

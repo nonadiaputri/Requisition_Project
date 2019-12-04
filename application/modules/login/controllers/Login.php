@@ -20,7 +20,7 @@ class Login extends CI_Controller {
 		$uid = $this->input->post('uid');		
         $pwd = sha1($this->input->post('pwd') . $this->config->item('encryption_key'));
         $login = $this->Login_model->auth($uid, $pwd);
-        var_dump($login);
+        //var_dump($login);
 		
 		if (count($login) == 1) {
 			$data = array(
@@ -37,8 +37,8 @@ class Login extends CI_Controller {
 				'is_login'	=> TRUE
 			);
 
-            // $this->session->set_userdata($data);			
-			// redirect('dashboard');
+            $this->session->set_userdata($data);			
+			redirect('dashboard');
 		}else{
 			$this->session->set_flashdata('message', '<p style="color:red">Email atau Password Anda Salah!</p>');
 			redirect('login','refresh');

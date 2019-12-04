@@ -15,9 +15,9 @@ class Hire_model extends CI_Model
 /**
  * FUNCTION TO CALL STORE PROCEDURE
  */
-//    public function auto_register(){
-//         $this->db->query("")
-//    }
+   public function auto_register($nik){
+        $this->db->query("spAutoRegister @PersonnelNumber = '$nik'");
+   }
 
 
    public function get_your_request($ID){
