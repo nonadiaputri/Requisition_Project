@@ -9,6 +9,7 @@
         </div>
         <div class="pull-left info">
           <p><?= $_SESSION['name'];?></p>
+          <p><?= $_SESSION['nik'];?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
                 

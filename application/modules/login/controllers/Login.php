@@ -6,7 +6,7 @@ class Login extends CI_Controller {
 	public function __construct() {
         parent::__construct();
         //$this->load->library("Aauth");
-		$this->load->database('db1');
+		$this->load->database('db2');
 		$this->load->model("Login_model");
     }
 	
@@ -20,14 +20,18 @@ class Login extends CI_Controller {
 		$uid = $this->input->post('uid');		
         $pwd = sha1($this->input->post('pwd') . $this->config->item('encryption_key'));
         $login = $this->Login_model->auth($uid, $pwd);
-        var_dump($login);
+        //var_dump($login);
 		
 		if (count($login) == 1) {
 			$data = array(
-				'ID'		=> $login->ID,
-				'nik' 		=> $login->NIK,
-				'name'		=> $login->Name,
-				'email'		=> $login->Email,
+				'ID'		=> $login->no,
+				'nik' 		=> $login->nik,
+				'name'		=> $login->name,
+				'email'		=> $login->email,
+				'created_date' => $login->created_date,
+				'nik_atasan' =>$login->nik_atasan,
+				'dept_id' =>$login->dept_id,
+				'id_position' =>$login->id_position,
 				'is_login'	=> TRUE
 			);
 
