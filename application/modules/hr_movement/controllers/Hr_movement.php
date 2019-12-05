@@ -33,7 +33,7 @@ class Hr_movement extends CI_Controller {
 			$data["header"] = $this->load->view('header/v_header','',TRUE);
 			$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
 			//var_dump($data['person']);
-			$this->load->view('hr_movement/v_form_movement',$data);			
+			$this->load->view('Hr_movement/v_form_movement',$data);			
 
 	}
 
