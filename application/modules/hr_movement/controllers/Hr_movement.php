@@ -46,7 +46,8 @@ class Hr_movement extends CI_Controller {
 		$data['all'] = count($data['prom']);
 		//$data['tot'] = count($data['hire']);
 	  $data['res'] = $this->Promotion_model->get_promotion($requestor_id);
-		$data['myreq'] = $this->Promotion_model->get_your_request($requestor_id);
+		// $data['myreq'] = $this->Promotion_model->get_your_request($requestor_id);
+		$data['myreq'] = $this->Promotion_model->get_your_request();
 		$data["header"] = $this->load->view('header/v_header','',TRUE);
 		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
 	//	$data['table'] = $this->Promotion_model->get_hire();
