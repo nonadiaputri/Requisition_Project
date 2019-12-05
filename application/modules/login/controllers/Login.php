@@ -34,6 +34,7 @@ class Login extends CI_Controller {
 				'id_position' =>$login->id_position,
 				'position' => $login->position,
 				'phone' =>$login->phone,
+				'password'=>$login->password,
 				'is_login'	=> TRUE
 			);
 
