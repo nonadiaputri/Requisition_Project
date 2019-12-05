@@ -492,6 +492,6 @@ class Hire_model extends CI_Model
      //$query = $this->db->get('dbo.RequisitionTable');
      return $query->result_array();
   }
-
 }
+
  ?>
