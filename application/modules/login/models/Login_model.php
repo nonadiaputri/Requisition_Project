@@ -25,7 +25,6 @@ class Login_model extends CI_Model {
                 $this->db->where("(a.email = '$nik' OR a.nik = '$nik') AND a.password = '$password' AND a.active = 'Y'");
                 $query = $this->db->get();
             }
-			
 			if (!$query)
 				throw new Exception();
 				
