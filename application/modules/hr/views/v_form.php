@@ -68,7 +68,7 @@
 	                <div class="col-md-8">
 	                  <label class="control-label col-form-label">Requestor Name</label>
 	                  <select class="form-control chs-select" name="requestor" id="requestor" style="width:100%" required="required">
-	                        <option default>Select Requestor</option>
+	                        <option value="">Select Requestor</option>
 	                        <?php foreach ($person as $person) { ?>
 	                        <option value="<?php echo $person['PersonnelID'];?>"><?php echo $person['Name'];?></option>
 	                        <?php } ?>
