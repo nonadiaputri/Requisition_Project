@@ -3,6 +3,23 @@
 class Hire_model extends CI_Model
 {
 
+  function __construct()
+  {
+    $this->load->database();
+  }
+
+   public function auto_register($data1, $no){
+     $this->db->where('UniqueID',$no);
+     $q = $this->db->get('dbo.UserTable');
+
+     if ( $q->num_rows() == 0 ) {
+        $this->db->insert('dbo.UserTable',$data1);
+     }else {
+       $this->db->where('UniqueID',$no);
+       $this->db->update('dbo.UserTable',$data1);      
+     }
+   }
+
   public function get_hire(){
     $q = '  select a.*, b.Name as Department,  c.FullName
            from dbo.RequisitionTable a
@@ -28,20 +45,10 @@ class Hire_model extends CI_Model
      return $query->result_array();
    }
 
-  function __construct()
-  {
-    $this->load->database();
-  }
-*/
-/**
- * FUNCTION TO CALL STORE PROCEDURE
- */
-   public function auto_register($nik){
-        $this->db->query("spAutoRegister @PersonnelNumber = '$nik'");
-   }
+  
 
    public function get_your_request($ID){
-    $q = "  select a.*, b.Name as Department,  c.FullName,d.Name as DeptName
+    $q = " select a.*, b.Name as Department,  c.FullName,d.Name as DeptName
            from dbo.RequisitionTable a
            left join dbo.CostCenterTable b
            on a.PlacementID = b.ID
