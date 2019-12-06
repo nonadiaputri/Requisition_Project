@@ -66,7 +66,7 @@ class Hire_model extends CI_Model
      return $query->result_array();
    }
 
-  
+  //halo
 
    public function get_your_request($ID){
     $q = " select a.*, b.Name as Department,  c.FullName,d.Name as DeptName

@@ -8,8 +8,8 @@ class Login_model extends CI_Model {
                 // $this->db->from("PersonnelTable");
                 // $this->db->where('nik', $nik);
                 // $query = $this->db->get();
-                $this->db->select('a.*, b.position');
-                $this->db->from("master_employee a");
+                $this->db->select('*, b.position');
+                $this->db->from("master_employee_0 a");
                 $this->db->join("master_position b", "b.id = a.id_position", "left");
                 $this->db->where("a.nik", $nik);
                 $this->db->where("a.active", "Y");
@@ -20,12 +20,11 @@ class Login_model extends CI_Model {
                 // $this->db->where("(email = '$nik' OR nik = '$nik') AND password = '$password'");
                 // $query = $this->db->get();
                 $this->db->select('a.*, b.position');
-                $this->db->from("master_employee a");
+                $this->db->from("master_employee_0 a");
                 $this->db->join("master_position b", "b.id = a.id_position", "left");
                 $this->db->where("(a.email = '$nik' OR a.nik = '$nik') AND a.password = '$password' AND a.active = 'Y'");
                 $query = $this->db->get();
             }
-			
 			if (!$query)
 				throw new Exception();
 				
