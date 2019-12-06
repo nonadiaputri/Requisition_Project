@@ -8,17 +8,38 @@ class Hire_model extends CI_Model
     $this->load->database();
   }
 
-   public function auto_register($data1, $no){
-     $this->db->where('UniqueID',$no);
+   public function auto_register($data1, $nik){
+     $this->db->where('PersonnelNumber',$nik);
      $q = $this->db->get('dbo.UserTable');
 
      if ( $q->num_rows() == 0 ) {
         $this->db->insert('dbo.UserTable',$data1);
+        $last_id = $this->db->insert_id();
+        return $last_id;
      }else {
-       $this->db->where('UniqueID',$no);
+       $this->db->where('PersonnelNumber',$nik);
        $this->db->update('dbo.UserTable',$data1);      
      }
    }
+
+  public function get_id_personnel($name){
+    $this->db->select('ID');
+    $this->db->like('Fullname', $name);
+    $data = $this->db->from('dbo.PersonnelTable')->get();
+    return $data->result_array();
+  }
+
+  public function auto_register2($data2, $no){
+    $this->db->where('UserID',$no);
+     $q = $this->db->get('dbo.UserXPersonnel');
+
+     if ( $q->num_rows() == 0 ) {
+        $this->db->insert('dbo.UserXPersonnel',$data2);
+     }else {
+       $this->db->where('UserID',$no);
+       $this->db->update('dbo.UserXPersonnel',$data2);      
+     }
+  }
 
   public function get_hire(){
     $q = '  select a.*, b.Name as Department,  c.FullName

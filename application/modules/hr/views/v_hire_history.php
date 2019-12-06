@@ -74,8 +74,8 @@
                     <?php foreach($myreq as $row){ ?>
                     <tr>
                         <td width="10%"><?php echo $num; ?></td>
-                        <td width="20%"><?php echo $row['FullName']; ?></td>
-                        <td width="20%"><?php echo $row['RequestorDirectorateID']; ?></td>
+                        <td width="20%"><?php echo $row['Name']; ?></td>
+                        <td width="20%"><?php echo $row['DeptName']; ?></td>
                         <td width="20%"><?php echo $row['ProcessStartDate']; ?></td>
                         <td><?php
                         if ($row['IsProcessedToHire']=='' && $row['IsHold']=='' && $row['IsRejected']=='' ) {

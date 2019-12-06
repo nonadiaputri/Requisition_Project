@@ -67,13 +67,14 @@
 	          	<div class="form-group">
 	                <div class="col-md-8">
 	                  <label class="control-label col-form-label">Requestor Name</label>
-	                  <select class="form-control chs-select" name="requestor" id="requestor" style="width:100%" required="required">
+	                  <!-- <select class="form-control chs-select" name="requestor" id="requestor" style="width:100%" required="required">
 	                        <option default>Select Requestor</option>
 	                        <?php foreach ($person as $person) { ?>
 	                        <option value="<?php echo $person['PersonnelID'];?>"><?php echo $person['Name'];?></option>
 	                        <?php } ?>
-	                </select>
-                   <input type="text" class="form-control" id="id-req" name="id-req" value = "<?php echo $row['ID'];?>" required="required" readonly>
+	                </select> -->
+                  <input type="text" class="form-control" id="requestor" name="requestor" value = "" required="required" readonly>
+                 <!--  <input type="hidden" class="form-control" id="id-req" name="id-req" value = "<?php echo $row['ID'];?>" required="required" readonly> -->
 	                </div>
 	                  <!-- <div class="col-md-7">
 	                    <input type="text" class="form-control" id="requestor" name="requestor" value = "<?php echo $this->session->userdata('name'); ?>" required="required" readonly>
@@ -331,7 +332,10 @@
         var id = " <?php echo $row['ID'];?>";
         if (id != '' ) {
 
-          $('#requestor').val("<?php echo $row['RequestorID']; ?>")
+          $('#requestor').val("<?php echo $row['Requestor']; ?>");
+
+          $('#req_org_id').val("<?php echo $row['DeptName']; ?>");
+
 
           $('#position')
           .empty()
