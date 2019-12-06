@@ -14,39 +14,40 @@ class Hr extends CI_Controller {
 	{
 		$ID = $this->session->userdata('nik');
 		$no = $this->session->userdata('ID');
-		var_dump($no);
-		// $email = $this->session->userdata('email');
-		// $name = $this->session->userdata('name');
-		// $nik = $this->session->userdata('nik');
-		// $Password = $this->session->userdata('password');
-		// $dept_id = $this->session->userdata('dept_id');
-		// $data1 = array(
-	 //      'Email' => $email,
-	 //      'Name' => $name,
-	 //      'PersonnelNumber' => $nik,
-	 //      'OrganizationID' => $dept_id,
-	 //      'Password'=>$Password
-	 //      );
+		//var_dump($no);
+		$email = $this->session->userdata('email');
+		$name = $this->session->userdata('name');
+		$nik = $this->session->userdata('nik');
+		$Password = $this->session->userdata('password');
+		$dept_id = $this->session->userdata('dept_id');
+		$data1 = array(
+	      'Email' => $email,
+	      'Name' => $name,
+	      'PersonnelNumber' => $nik,
+	      'OrganizationID' => $dept_id,
+	      'Password'=>$Password
+	      );
 
 		
-		// // $data['result'] = $this->Hire_model->get_new_req();
-		// // $data['tot'] = count($data['result']);
-		// $last_id = $this->Hire_model->auto_register($data1, $nik);
-		// // $id_personnel = $this->Hire_model->get_id_personnel($name);
-		// //var_dump($last_id);
-		// // $dt = $id_personnel[0]['ID'];
-		// //var_dump($dt);
-		// $data2 = array(
-		// 	'UserID' => $no,
-		// 	'PersonnelID' => $last_id
-		// );
-		// $this->Hire_model->auto_register2($data2, $nik);
-
-		// $data['person'] = $this->Hire_model->get_related_per($ID);
-		// $data['org'] = $this->Hire_model->choose_org();	
-		// $data["header"] = $this->load->view('header/v_header','',TRUE);
-		// $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-		// $this->load->view('hr/v_form',$data);
+		// $data['result'] = $this->Hire_model->get_new_req();
+		// $data['tot'] = count($data['result']);
+		$last_id = $this->Hire_model->auto_register($data1, $nik);
+		// $id_personnel = $this->Hire_model->get_id_personnel($name);
+		//var_dump($last_id);
+		// $dt = $id_personnel[0]['ID'];
+		//var_dump($dt);
+		$data2 = array(
+			'UserID' => $no,
+			'PersonnelID' => $last_id
+		);
+		if ($last_id != '') {
+			$this->Hire_model->auto_register2($data2, $no);
+		}
+		$data['person'] = $this->Hire_model->get_related_per($ID);
+		$data['org'] = $this->Hire_model->choose_org();	
+		$data["header"] = $this->load->view('header/v_header','',TRUE);
+		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+		$this->load->view('hr/v_form',$data);
 	}
 
 	function chs_dep(){
