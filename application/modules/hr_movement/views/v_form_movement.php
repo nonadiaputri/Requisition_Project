@@ -67,12 +67,14 @@
 	          	<div class="form-group">
 	                <div class="col-md-8">
 	                  <label class="control-label col-form-label">Requestor Name</label>
-	                  <select class="form-control chs-select" name="requestor" id="requestor" style="width:80%" required="required">
+	                  <!-- <select class="form-control chs-select" name="requestor" id="requestor" style="width:80%" required="required">
 	                        <option default>Select Requestor</option>
 	                        <?php foreach ($person as $person) { ?>
 	                        <option value="<?php echo $person['PersonnelID'];?>"><?php echo $person['Name'];?></option>
 	                        <?php } ?>
-	                </select>
+	                </select> -->
+                  <input type="text" class="form-control" id="requestor" name="requestor" value = "<?php echo $this->session->userdata('name'); ?>" required="required" readonly>
+	                    <input type="hidden" class="form-control" id="requestor_id" name="requestor_id" value = "<?php echo $this->session->userdata('ID'); ?>" required="required" readonly>
 	                </div>
 	                  <!-- <div class="col-md-7">
 	                    <input type="text" class="form-control" id="requestor" name="requestor" value = "<?php echo $this->session->userdata('name'); ?>" required="required" readonly>
@@ -110,9 +112,9 @@
 	                <div class="col-md-8">
 	                  <label class="control-label col-form-label">Movement Request Type</label>
 	                  <div id="chs-container">
-	                    <select class="form-control chs-select" id="request_type" style="width:80%; display: none">
+	                    <!-- <select class="form-control chs-select" id="request_type" style="width:80%; display: none">
 	                        <option default>Select</option>
-	                    </select>
+	                    </select> -->
 
 	                    <select class="form-control chs-select" name="chs-org" id="chs-org" style="width:80%" required="required">
 	                        <option default>Select Movement Request Type</option>
@@ -155,14 +157,12 @@
                                         <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control">
                                         <span id="error_current_position" class="text-danger"></span>
                                       </div>
-                                      
-                                      <div class="col-sm-3">
-                                             <label class="control-label col-form-label">New Position</label>
-                                             <select class="new-position form-control" name="new_position" id="new_position" style="width:500px"  required="required">
-                                                <option value=""></option>
-                                              </select>
 
-                                              <select class="new-position form-control" name="new_position" id="new_position" style="width:80%" required="required">
+                                      <div class="col-sm-6">
+                                             <label class="control-label col-form-label">New Position</label>
+                                            
+
+                                              <select class="form-control chs-select" name="new_position" id="new_position" style="width:90%" required="required">
                                                   <option default>Select New Position</option>
                                                   <?php foreach ($pos as $pos) { ?>
                                                   <option value="<?php echo $pos['ID'];?>"><?php echo $pos['Name'];?></option>
