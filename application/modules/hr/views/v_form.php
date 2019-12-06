@@ -823,7 +823,7 @@
        $('#myModal').hide();
           $('.modal-fade').hide();
           $(".modal-backdrop").remove();
-          //window.location.href = '<?php echo base_url('hr/Hire_history');?>';
+          window.location.href = '<?php echo base_url('hr/hire_history');?>';
     });
 
 
