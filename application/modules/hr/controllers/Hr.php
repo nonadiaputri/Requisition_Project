@@ -53,7 +53,11 @@ class Hr extends CI_Controller {
 	public function add()
 	{
 		$ID = $this->session->userdata('nik');
-		$data['member'] = $this->Hire_model->get_member_organization($ID);
+		$no = $this->session->userdata('ID');
+		$name = $this->session->userdata('name');
+		$nik = $this->session->userdata('nik');
+		$dept_id = $this->session->userdata('dept_id');
+		$data['member'] = $this->Hire_model->get_member_organization($dept_id);
 		// $data['person'] = $this->Hire_model->get_related_per($ID);
 		// $data['org'] = $this->Hire_model->choose_org();	
 		$data["header"] = $this->load->view('header/v_header','',TRUE);
