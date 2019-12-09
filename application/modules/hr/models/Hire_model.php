@@ -17,8 +17,12 @@ class Hire_model extends CI_Model
         $last_id = $this->db->insert_id();
         return $last_id;
      }else {
-       $this->db->where('PersonnelNumber',$nik);
-       $this->db->update('dbo.UserTable',$data1);      
+        $this->db->select('ID');
+        $this->db->where('PersonnelNumber', $nik);
+        $id = $this->db->from('dbo.UserTable')->get();
+        return $id->result_array();
+       // $this->db->where('PersonnelNumber',$nik);
+       // $this->db->update('dbo.UserTable',$data1);      
      }
    }
 
@@ -35,10 +39,16 @@ class Hire_model extends CI_Model
 
      if ( $q->num_rows() == 0 ) {
         $this->db->insert('dbo.UserXPersonnel',$data2);
-     }else {
-       $this->db->where('UserID',$no);
-       $this->db->update('dbo.UserXPersonnel',$data2);      
+     // }
+        // else {
+     //   $this->db->where('UserID',$no);
+     //   $this->db->update('dbo.UserXPersonnel',$data2);      
      }
+  }
+
+  public function auto_regist_position($last_id, $position){
+    $res = $this->db->query("EXEC dbo.spAutoRegistPosition @Position  = '$position' , @UserID= '$last_id'");
+    return $res->result();
   }
 
   public function get_hire(){

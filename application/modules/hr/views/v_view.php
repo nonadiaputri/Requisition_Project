@@ -311,7 +311,7 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>
                         <div class="modal-body">
-                          <form class="form-horizontal process" method="POST" action="<?php echo base_url('Hire_3/process/'.$req['ID']);?>">                
+                          <form class="form-horizontal process" method="POST" action="<?php echo base_url('Hr/process/'.$req['ID']);?>">                
                             <div class="form-group row">
                                     <div class="col-md-3">
                                         <label>Start Date </label>
@@ -339,7 +339,7 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>
                         <div class="modal-body">
-                        <form class="form-horizontal hold" method="POST" action="<?php echo base_url('Hire_3/hold/'.$req['ID']);?>">                
+                        <form class="form-horizontal hold" method="POST" action="<?php echo base_url('Hr/hold/'.$req['ID']);?>">                
                             <div class="form-group row">
                                     <div class="col-md-3">
                                         <label>Hold Until </label>
@@ -367,7 +367,7 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal reject" method="POST" action="<?php echo base_url('Hire_3/reject/'.$req['ID']);?>">
+                            <form class="form-horizontal reject" method="POST" action="<?php echo base_url('Hr/reject/'.$req['ID']);?>">
                                 <div class="form-group row">
                                     <div class="col-md-3">
                                         <label>Reason </label>
@@ -395,7 +395,7 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal" method="POST" action="<?php echo base_url('Hire_3/sent_back/'.$req['ID']);?>">
+                            <form class="form-horizontal" method="POST" action="<?php echo base_url('Hr/sent_back/'.$req['ID']);?>">
                                 <div class="form-group row">
                                     <div class="col-md-3">
                                         <label>Reason </label>
@@ -549,12 +549,12 @@
             var form_data = $('.process').serialize();
             $.ajax({
             method: 'POST',
-            url: '<?php echo base_url('Hire_3/Process/');?>'+id_req,
+            url: '<?php echo base_url('Hr/Process/');?>'+id_req,
             data: form_data,
             success: function(data) {
                 if (status) {
                    
-                    window.location.href = '<?php echo base_url('Hire_3/hire_history');?>';
+                    window.location.href = '<?php echo base_url('Hr/hire_history');?>';
                     alert('Approval success');
                     }   
                },
@@ -588,12 +588,12 @@
             var form_data = $('.hold').serialize();
             $.ajax({
             method: 'POST',
-            url: '<?php echo base_url('Hire_3/hold/');?>'+id_req,
+            url: '<?php echo base_url('Hr/hold/');?>'+id_req,
             data: form_data,
             success: function(data) {
                 if (status) {
                       alert('Hold Request success');
-                       window.location.href = '<?php echo base_url('Hire_3/hire_history');?>';
+                       window.location.href = '<?php echo base_url('Hr/hire_history');?>';
                     }   
                },
             error: function() {
@@ -627,12 +627,12 @@
             var form_data = $('.reject').serialize();
             $.ajax({
             method: 'POST',
-            url: '<?php echo base_url('Hire_3/reject/');?>'+id_req,
+            url: '<?php echo base_url('Hr/reject/');?>'+id_req,
             data: form_data,
             success: function(data) {
                 if (status) {
                       alert('Reject Request success');
-                       window.location.href = '<?php echo base_url('Hire_3/hire_history');?>';
+                       window.location.href = '<?php echo base_url('Hr/hire_history');?>';
                     }   
                },
             error: function() {
