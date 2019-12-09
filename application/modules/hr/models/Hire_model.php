@@ -121,6 +121,19 @@ class Hire_model extends CI_Model
     return $query->row_array();
   }
 
+  public function get_member_organization($ID)
+  {
+      $q = 'select a.*, c.Name as PositionName, e.Name as OrganizationName, e.id as OrganizationID
+            from dbo.UserTable a
+            join dbo.PersonnelPosition b on a.ID= b.PersonnelID
+            join dbo.PositionTable c on b.PositionID = c.ID
+            join dbo.PositionInOrganization d on c.ID = d.PositionID
+            join dbo.OrganizationTable e on a.OrganizationID = e.ID
+            where e.ID ='.$ID;
+      $query = $this->db->query($q);
+      return $query->row_array();
+  }
+
   public function process_data($data,$where){
     $this->db->where($where);
     $this->db->update('dbo.RequisitionTable', $data);

@@ -855,7 +855,7 @@
        $('#myModal').hide();
           $('.modal-fade').hide();
           $(".modal-backdrop").remove();
-          // window.location.href = '<?php echo base_url('Promotion_4/promotion_history');?>';
+          // window.location.href = '<?php echo base_url('hr_movement/promotion_history');?>';
     });
 
   });

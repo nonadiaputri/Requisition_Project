@@ -50,6 +50,17 @@ class Hr extends CI_Controller {
 		$this->load->view('hr/v_form',$data);
 	}
 
+	public function add()
+	{
+		$ID = $this->session->userdata('nik');
+		$data['member'] = $this->Hire_model->get_member_organization($ID);
+		// $data['person'] = $this->Hire_model->get_related_per($ID);
+		// $data['org'] = $this->Hire_model->choose_org();	
+		$data["header"] = $this->load->view('header/v_header','',TRUE);
+		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+		$this->load->view('hr/v_add',$data);
+	}
+
 	function chs_dep(){
 		$ID = $this->input->post('ID');
 		$where = array('ParentID'=>$ID);
