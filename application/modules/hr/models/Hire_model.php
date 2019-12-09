@@ -79,14 +79,12 @@ class Hire_model extends CI_Model
   //halo
 
    public function get_your_request($ID){
-    $q = " select a.*, b.Name as Department,  d.Name as requestor,e.Name as DeptName
+    $q = " select a.*, b.Name as Department,  c.Name as requestor,e.Name as DeptName
            from dbo.RequisitionTable a
            left join dbo.CostCenterTable b
            on a.PlacementID = b.ID
-           left join dbo.UserXPersonnel c
-           on a.RequestorID = c.UserID
-           left join dbo.UserTable d
-           on c.PersonnelID = d.ID
+           left join dbo.UserTable c
+           on a.RequestorID = c.ID
            left join dbo.OrganizationTable e
            on a.RequestorDepartmentID = e.ID
            where a.ID in (select ID from dbo.RequisitionTable where IsProcessedToHire = 0 or IsProcessedToHire = 2)
@@ -107,17 +105,15 @@ class Hire_model extends CI_Model
   public function get_hire_id($ID)
   {
     $q = 'select a.*, b.Name as Department, c.Name as Status, 
-      i.Name as Requestor, e.Name as req_position,
+      d.Name as Requestor, e.Name as req_position,
       f.FullName as RepName, g.Name as requested_pos, h.Name as DeptName
       from dbo.RequisitionTable a
       left join dbo.CostCenterTable b
       on a.PlacementID = b.ID
       left join dbo.RequisitionTypeTable c
       on a.RequisitionTypeID = c.ID
-      left join dbo.UserXPersonnel d
-      on a.RequestorID = d.UserID
-      left join dbo.UserTable i
-      on d.PersonnelID = i.ID
+      left join dbo.UserTable d
+      on a.RequestorID = d.ID
       left join dbo.PositionTable e
       on a.RequestorPositionID = e.ID
       left join dbo.PersonnelTable f

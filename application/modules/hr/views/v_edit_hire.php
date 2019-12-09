@@ -74,7 +74,7 @@
 	                        <?php } ?>
 	                </select> -->
                   <input type="text" class="form-control" id="requestor" name="requestor" value = "" required="required" readonly>
-                   <input type="hidden" class="form-control" id="requestor_id" name="requestor_id" value = "<?php echo $this->session->userdata('ID'); ?>" required="required" readonly>
+                   <input type="hidden" class="form-control" id="requestor_id" name="requestor_id" value = "<?php echo $this->session->userdata('new_id'); ?>" required="required" readonly>
                    <span id="error_requestor" class="text-danger"></span>
                  <!--  <input type="hidden" class="form-control" id="id-req" name="id-req" value = "<?php echo $row['ID'];?>" required="required" readonly> -->
 	                </div>

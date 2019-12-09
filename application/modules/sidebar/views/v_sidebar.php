@@ -93,7 +93,7 @@
           <ul class="treeview-menu">
             <li><a href='<?php echo site_url('hr/index')?>'><i class="fa fa-file-text-o"></i>Request Form</a></li>
             <li><a href='<?php echo site_url('hr/hire_history')?>'><i class="fa fa-flag"></i>Hire History</a></li>
-            <li><a href='<?php echo site_url('crud/master/organization')?>'><i class="fa fa-vcard-o"></i>Hire Status</a></li>
+            <li><a href='<?php echo site_url('hr/hire_status')?>'><i class="fa fa-vcard-o"></i>Hire Status</a></li>
           </ul>
         </li>
         <li class="treeview">
