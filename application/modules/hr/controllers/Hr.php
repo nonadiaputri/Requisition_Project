@@ -20,6 +20,7 @@ class Hr extends CI_Controller {
 		$nik = $this->session->userdata('nik');
 		$Password = $this->session->userdata('password');
 		$dept_id = $this->session->userdata('dept_id');
+    $position = $this->session->userdata('position');
 		$data1 = array(
 	      'Email' => $email,
 	      'Name' => $name,
@@ -34,7 +35,7 @@ class Hr extends CI_Controller {
 		$last_id = $this->Hire_model->auto_register($data1, $nik);
 		// $id_personnel = $this->Hire_model->get_id_personnel($name);
 		//var_dump($last_id);
-		// $dt = $id_personnel[0]['ID'];
+		$dt = $last_id[0]['ID'];
 		//var_dump($dt);
 		$data2 = array(
 			'UserID' => $no,
@@ -42,7 +43,11 @@ class Hr extends CI_Controller {
 		);
 		if ($last_id != '') {
 			$this->Hire_model->auto_register2($data2, $no);
+      $res = $this->Hire_model->auto_regist_position($dt, $position);
 		}
+    $new_sess = array(
+        'new_id'    => $dt);
+    $this->session->set_userdata($new_sess);
 		$data['person'] = $this->Hire_model->get_related_per($ID);
 		$data['org'] = $this->Hire_model->choose_org();	
 		$data["header"] = $this->load->view('header/v_header','',TRUE);
@@ -91,7 +96,7 @@ class Hr extends CI_Controller {
 	}
 
 	public function hire_history(){
-	    $requestor_id = $this->session->userdata('ID');
+	    $requestor_id = $this->session->userdata('new_id');
 
 	    //notif
 	    //$data['hire'] = $this->Hire_model->get_new_req();
@@ -315,6 +320,111 @@ class Hr extends CI_Controller {
     //   }else{
     //   echo json_encode(array('status'=>false));
     //   }
+  }
+
+  public function process($ID){
+    $process = $this->input->post('process');
+    $apv_id = $this->input->post('ApprovalStatusID');
+    $where = array('ID' => $ID);
+    $where1 = array('RequisitionID' => $ID);
+    $status = '1';
+    $apv_id_new = $apv_id + 1 ;
+
+    $data = array(
+      'ProcessStartDate' => $process,
+      'IsProcessedToHire' => $status
+      );
+
+    $data1 = array(
+      'ProcessStartDate' => $process,
+      'IsProcessedToHire' => $status,
+      'ApprovalStatusID' => $apv_id_new,
+      'EmployeeID' => $this->session->userdata('new_id'),
+      'RequisitionID' => $ID,
+      'OrganizationID' => $this->session->userdata('dept_id'),
+      'PositionID' => $this->session->userdata('id_position')
+    );
+    //var_dump($data1);
+    $res = $this->Hire_model->process_data($data, $where);
+    $res1 = $this->Hire_model->process_data_approval($data1);
+      if ($res > 0 & $res1 > 0) {
+        echo json_encode(array('status'=>true));
+      }else{
+      echo json_encode(array('status'=>false));
+    }
+  }
+
+  public function hold($ID){
+    $hold = $this->input->post('hold');
+    $apv_id = $this->input->post('ApprovalStatusID');
+    $where = array('ID' => $ID);
+    $where1 = array('RequisitionID' => $ID);
+    $status = '1';
+    $apv_id_new = $apv_id + 1 ;
+
+    $data = array(
+      'HoldEndDate' => $hold,
+      'IsHold' => $status
+      );
+
+    $data1 = array(
+      'HoldEndDate' => $hold,
+      'IsHold' => $status,
+      'ApprovalStatusID' => $apv_id_new,
+      'EmployeeID' => $this->session->userdata('new_id'),
+      'RequisitionID' => $ID,
+      'OrganizationID' => $this->session->userdata('dept_id'),
+      'PositionID' => $this->session->userdata('id_position')
+      );
+
+    $res = $this->Hire_model->hold_data($data, $where);
+    $res1 = $this->Hire_model->hold_data_approval($data1);
+      if ($res > 0 & $res1 > 0) {
+        echo json_encode(array('status'=>true));
+      }else{
+      echo json_encode(array('status'=>false));
+    }
+
+  }
+
+  public function reject($ID){
+    $reject = $this->input->post('reason_reject');
+    $apv_id = $this->input->post('ApprovalStatusID');
+    $where = array('ID' => $ID);
+    $where1 = array('RequisitionID' => $ID);
+    $status = '1';
+    $apv_id_new = $apv_id + 1 ;
+
+    $data = array(
+      'RejectReason' => $reject,
+      'IsRejected' => $status
+      );
+
+    $data1 = array(
+      'RejectReason' => $reject,
+      'IsRejected' => $status,
+      'ApprovalStatusID' => $apv_id_new,
+      'EmployeeID' => $this->session->userdata('new_id'),
+      'RequisitionID' => $ID,
+      'OrganizationID' => $this->session->userdata('dept_id'),
+      'PositionID' => $this->session->userdata('id_position')
+      );
+
+    $res = $this->Hire_model->reject_data($data, $where);
+    $res1= $this->Hire_model->reject_data_approval($data1);
+      if ($res > 0 & $res1 > 0) {
+        echo json_encode(array('status'=>true));
+      }else{
+      echo json_encode(array('status'=>false));
+    }
+  }
+
+  function hire_status(){
+    $requestor_id = $this->session->userdata('new_id');
+    $data['row']= $this->Hire_model->get_hire_id($requestor_id);
+    $data["header"] = $this->load->view('header/v_header','',TRUE);
+    $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+    $this->load->view('hr/v_hire_status',$data);
   }
 
 }
