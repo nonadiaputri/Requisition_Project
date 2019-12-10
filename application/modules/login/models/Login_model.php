@@ -8,7 +8,7 @@ class Login_model extends CI_Model {
                 // $this->db->from("PersonnelTable");
                 // $this->db->where('nik', $nik);
                 // $query = $this->db->get();
-                $this->db->select('*, b.position');
+                $this->db->select('a.*, b.*');
                 $this->db->from("master_employee_0 a");
                 $this->db->join("master_position b", "b.id = a.id_position", "left");
                 $this->db->where("a.nik", $nik);
@@ -19,7 +19,7 @@ class Login_model extends CI_Model {
                 // $this->db->from("PersonnelTable");
                 // $this->db->where("(email = '$nik' OR nik = '$nik') AND password = '$password'");
                 // $query = $this->db->get();
-                $this->db->select('a.*, b.position');
+                $this->db->select('a.*, b.*');
                 $this->db->from("master_employee_0 a");
                 $this->db->join("master_position b", "b.id = a.id_position", "left");
                 $this->db->where("(a.email = '$nik' OR a.nik = '$nik') AND a.password = '$password' AND a.active = 'Y'");
@@ -34,12 +34,8 @@ class Login_model extends CI_Model {
 			$errNo = $this->db->_error_number();
 			return error_message($errNo);
 		}
-	}
 
-    public function get_new_id($nik){
-        $this->db->select('ID');
-        $this->db->from("dbo.UserTable");
-        $this->db->where("PersonnelNumber", $nik);
-        $query = $this->db->get();
     }
+
+
 }

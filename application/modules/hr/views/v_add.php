@@ -43,7 +43,7 @@
     <div class="content-wrapper">
       	<section class="content-header">
 	      <h1>
-	        Request Form Hire
+	        Add Member Organization Form
 	        <small>Preview</small>
 	      </h1>
 	      <ol class="breadcrumb">
@@ -63,33 +63,43 @@
         <div class="box-body">
             <h4 class="card-title">Requestor Information</h4>
             <hr class="mt-0 mb-5">
+
+            <div class="row">
+	          	<div class="col-md-8">
+	                <label class="control-label">Organization Name</label>
+	                <input type="text" class="form-control" name="req_org_id" id="req_org_id" value = "<?php echo $this->session->userdata('organization'); ?>" required="required" readonly>
+	                <input type="text" class="form-control" name="org_id" id="org_id" value = "<?php echo $this->session->userdata('dept_id'); ?>" required="required" readonly>
+	                <span id="error_req_org" class="text-danger"></span>
+	          </div>
+	        </div>
+
+
 	        <div class="row">
 	          	<div class="form-group">
 	                <div class="col-md-8">
-	                  <label class="control-label col-form-label">Requestor Name</label>
+	                  <label class="control-label col-form-label">Member Name</label>
 
-	                  <!-- <select class="form-control chs-select" name="requestor" id="requestor" style="width:100%" required="required">
-	                        <option value="">Select Requestor</option>
-	                        <?php foreach ($person as $person) { ?>
-	                        <option value="<?php echo $person['PersonnelID'];?>"><?php echo $person['Name'];?></option>
+	                  <select class="form-control chs-select" name="chs-member" id="chs-member" style="width:100%" required="required">
+	                        <option default>Select Member Name</option>
+	                        <?php foreach ($member as $member) { ?>
+	                        <option value="<?php echo $member['ID'];?>"><?php echo $member['PersonnelName'];?></option>
 	                        <?php } ?>
-	                </select> -->
-                      <input type="text" class="form-control" id="requestor" name="requestor" value = "<?php echo $this->session->userdata('name'); ?>" required="required" readonly>
-                      <input type="text" class="form-control" id="requestor_id" name="requestor_id" value = "<?php echo $this->session->userdata('new_id'); ?>" required="required" readonly>
+	                    </select>
+                      <!-- <input type="text" class="form-control" id="member_name" name="member_name" required="required">
+                      <input type="hidden" class="form-control" id="member_id" name="member_id" required="required" > -->
+                     
+                      <!-- <select class="member form-control" name="member_name" id="member_name" style="width:500px"  required="required">
+                          <option value=""></option>
+                       </select> -->
+                     
+                     
                       <span id="error_requestor" class="text-danger"></span>
                     
 	                </div>
 	                  
 	            </div>
 	            </div>
-	        <div class="row">
-	          	<div class="col-md-8">
-	                <label class="control-label">Organization Name</label>
-	                <input type="text" class="form-control" name="req_org_id" id="req_org_id" value = "<?php echo $this->session->userdata('organization'); ?>" required="required" readonly>
-	                <input type="hidden" class="form-control" name="org_id" id="org_id" value = "<?php echo $this->session->userdata('dept_id'); ?>" required="required" readonly>
-	                <span id="error_req_org" class="text-danger"></span>
-	          </div>
-	        </div>
+	        
 
 	        <div class="row">
 	         	<div class="form-group">
@@ -102,169 +112,13 @@
 		            </div>
 			</div>
 			<br>
-			
-            <h4 class="card-title">Request Information</h4>
-            <hr class="mt-0 mb-5">
 
-            <div class="row">
-            	<div class="form-group">
-	                <div class="col-md-8">
-	                  <label class="control-label col-form-label">Choose Organization</label>
-	                  <div id="chs-container">
-	                    <select class="form-control chs-select" id="chs-div-template" style="width:100%; display: none">
-	                        <option default>Select</option>
-	                    </select>
 
-	                    <select class="form-control chs-select" name="chs-org" id="chs-org" style="width:100%" required="required">
-	                        <option default>Select Organization</option>
-	                        <?php foreach ($org as $org) { ?>
-	                        <option value="<?php echo $org['ID'];?>"><?php echo $org['Name'];?></option>
-	                        <?php } ?>
-	                    </select>
-	                    <br>
-
-	                    <select class="form-control chs-select" name="chs-dep" id="chs-dep" style="width:100%;display: none" required="required">
-	                        <option default>Select</option>
-	                    </select>
-	                    <br>
-	                </div>
-	                    <span id="error_position" class="text-danger"></span>
-	                </div>
-	                <div class="col-sm-12 offset-3">
-			            <button type="button" id="display-btn">Display Position in This Unit</button>
-			            <br>
-			        </div>
-	            </div>
-	        </div>
-
-	        <div class="row">
-	        	<div class="form-group">
-                    <div class="col-md-8">
-                    	<label class="control-label col-form-label">Position</label>
-                
-                      	<select class="form-control selectpicker" data-show-subtext="true" data-size="5" name="position" id="position" style="width:100%;"  required="required">
-                          <option value=""></option>
-                        </select>
-                        <span id="error_position" class="text-danger"></span>
-                      </div>
-                </div>
-	        </div>
-
-	        <div class="row">
-	        	<div class="form-group">
-                  <div class="col-md-8">
-                    <label class="control-label col-form-label">Total Need</label>
-                    <select class="form-control" name="ttl" id="ttl" required="required">
-                      <option value="" selected>Pilih</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                      <option value="7">7</option>
-                      <option value="8">8</option>
-                      <option value="9">9</option>
-                      <option value="10">10</option>  
-               
-                    </select>  
-                    <span id="error_ttl" class="text-danger"></span>     
-                  </div>
-                </div>
-	        </div>
-
-	        <div class="row">
-	        	<div class="form-group">
-                  <div class="col-md-8">
-                    <label class="control-label col-form-label">Placement</label>
-                  
-                    <select class="searching form-control" name="placement" id="placement" style="width:100%;"  required="required">
-                      <option value=""></option>
-                    </select>
-                    <span id="error_placement" class="text-danger"></span>
-                  </div>
-                </div>
-	        </div>
-
-	        <div class="row">
-	        	<div class="form-group ">
-                    <div class="col-md-8">
-                        <label class="control-label col-form-label">Status</label>
-                      
-	                    <select class="form-control" name="status" id="status" required="required">
-	                      <option value="" selected>Pilih</option>
-	                      <option value="1">Additional</option>
-	                      <option value="2">Replacement</option>
-	                      <option value="5">Profesional Contract</option>
-	                      <option value="6">Freelence</option>
-	                      <option value="7">Internship</option>
-	                      <option value="8">Outsourcing</option>  
-	                    </select>
-                    <span id="error_status" class="text-danger"></span>
-                  </div>
-                </div>
-	        </div>
-
-	        <div class="row">
-	        	<div class="form-group" style="display: none" id="repname">
-                  <div class="col-md-8">
-                    <label class="control-label col-form-label">Replacement Name</label>
-                  
-                   <select class="rep-name form-control" name="ReplacementName" id="ReplacementName" style="width:100%;"  required="required">
-                      <option value=""></option>
-                    </select>
-                    <span id="error_replacementName" class="text-danger"></span>
-                  </div>
-                </div>
-	        </div>
-	        <br>
-
-	        <div class="row">
-	        	<div class="form-group">
-                    <div class="col-md-8">
-                        <label class="control-label col-form-label">Expected Work Date</label>
-                    </div>
-                    <div class="col-md-8">
-                    	<input class="form-control" type="date" id="workdate" name="workdate" min="2018-01-01" max="2030-12-31" required="required" >
-                    </div>
-                        <span id="error_workdate" class="text-danger"></span>
-                </div>
-            </div>
-
-	        <div class="row">
-	        	<div class="form-group">
-                    <div class="col-md-8">
-                        <label class="control-label col-form-label">Responsibilities</label>
-                    </div>
-                    <div class="col-sm-8">
-                        ​<!-- <textarea id="responsibility" name="responsibility" rows="7" cols="70" required="required"></textarea> -->
-                        <textarea class="ckeditor" id="responsibility"></textarea>
-                        <span id="error_responsibility" class="text-danger"></span>
-                      </div>
-                </div>
-	        </div>
-
-	        <div class="row">
-	        	<div class="form-group">
-                    <div class="col-md-8">
-                        <label class="control-label col-form-label">Requirement</label>
-                      </div>
-                      <div class="col-sm-8">
-                        <div class="form-group">
-                          <!-- <textarea id="requirement" name="requirement" rows="7" cols="70" required="required"></textarea> -->
-                          <textarea class="ckeditor" id="requirement"></textarea>
-                        <span id="error_requirement" class="text-danger"></span>
-                        </div>
-                        
-                      </div>
-                </div>
-	        </div>
 
 	        <div class="row">
 	        	<div class="form-group">
                   	<div style="width:100%;height:100%;vertical-align:middle;text-align:center;">
-	                    <button type="button" id="btn-submit" style="margin: auto;" class="btn waves-effect waves-light btn-primary">Request</button>
-	                    <button type="button" id="btn-save" style="margin: auto;" class="btn waves-effect waves-light btn-dark">Save as Draft</button>
+	                    <button type="button" id="btn-submit" style="margin: auto;" class="btn waves-effect waves-light btn-primary">Save</button>
                   </div>
                 </div>  	
 	        </div>
@@ -410,110 +264,72 @@
             //     }
             // });
 
-            $('.rep-name').select2({
-                placeholder: 'Replacement Name',
-                ajax:{
-                    url: "<?php echo base_url('hr/select_personnel1'); ?>",
-                    dataType: "json",
-                    delay: 250,
-                    processResults: function(data){
-                        var results = [];
+          //   $('.member').select2({
+          //       placeholder: 'Enter The Request Name',
+          //       ajax:{
+          //           url: "<?php echo base_url('Hr/member'); ?>",
+          //           dataType: "json",
+          //           delay: 250,
+          //      processResults: function(data){
+          //               var results = [];
 
-                        $.each(data, function(index, item){
-                            results.push({
-                                id: item.ID,
-                                text: item.FullName,
-                                option_value:item.ID
-                            });     
-                        });
-                        return{
-                            results: results,
-                            cache: true,
-                        };
-                    },
-                }
-            });
+          //               $.each(data, function(index, item){
+          //                   results.push({
+          //                       id: item.ID,
+          //                       text: item.Name,
+          //                       option_value:item.ID
+          //                   });
+          //               });
+          //               return{
+          //                   results: results,
+          //                   cache: true,
+          //               };
+          //           },
+          //       }
+
+          //   });
+
+          //   $('#member_name').on('select2:select', function (e) {
+          //     var member = $('#member_name :selected').text();
+          //     console.log($('#member_name :selected').text());
+
+          //     if ($('#member_name :selected').text() != '') {
+          //       $.ajax({
+          //           url:"<?php echo base_url('Hr/search_member');?>",
+          //           method:"GET",
+          //           dataType:'json',
+          //           data:{ 'dept_id': member },
+                
+          //           success:function(data){
+          //             if (data) {
+          //               // $('#dis-pos').show();
+          //              // $('#c-position').show();
+          //               console.log(data);
+          //               console.log(data.Position);
+          //               console.log(data.PositionID);
+                        
+          //             //  $('#req_position_id').val(data.PositionID);
+          //               $('#current_position_id').val(data.PositionID);
+          //            //   $('#req_position').val(data.PositionName);
+          //               $('#current_position').val(data.Position);
+          //               $('#current_org_id').val(data.OrganizationID);
+                        
+          //               }
+          //             },
+          //           error:function(){
+          //                   alert('error ... ');
+          //           }
+          //       });
+             
+          //   }
+          // });
             
   $(document).ready(function(){
     // To allow the dynamic element to able to use this change event
     // See here for more info, https://stackoverflow.com/questions/1359018/how-do-i-attach-events-to-dynamic-html-elements-with-jquery
     var arr_id=[];
     var temp;
-    $('body').on('change', '.chs-select', function(){
-
-        // Get the id dynamically
-        //var id = $('#chs-org').val();
-        const id = $(this).val();
-        const select_id = $(this).attr('id');
-
-        console.log(id);
-        var i = 0;
-        $.ajax({
-            url: "<?php echo base_url('hr/chs_dep');?>",
-            type: "POST",
-            dataType: "json",
-            data: {
-                'ID': id
-            },
-            success: function (data) {
-
-                //console.log(data);
-                // console.log(data[0]['Name']);
-
-                if (data.length != 0) {
-                    var output = '';
-                    //output += '<option default>Select</option>';
-                    $.each(data, function (key, value) {
-                        output += '<option value="' + data[key]['ID'] + '">' + data[key]['Name'] + '<br></option>';
-                    });
-                    if(select_id == 'chs-org'){
-                        // Show the chs-dep
-                        $('#chs-dep').show();
-                        $('#chs-dep').append(output);
-                    }else if(select_id == 'chs-dep'){
-                        // Get the template
-                        var new_chs_div = $('#chs-div-template').clone();
-                        const chs_div_count = i + 1;
-                        new_chs_div.attr('name', 'chs-div' + chs_div_count);
-                        new_chs_div.attr('id', 'chs-div' + chs_div_count);
-                        // Remove the none value.
-                        // Just change it to your desire value.
-                        new_chs_div.css('display', '');
-                        new_chs_div.append(output);
-                        //Insert next to the last of .chs-select
-                        $('#chs-container').append(new_chs_div);
-                        $('#chs-container').append('<br/>');
-                        //$(new_chs_div).insertAfter('.chs-select');
-                        //$('<br/>').insertAfter('.chs-select');
-                    }else if(select_id.includes('chs-div')){
-                        // Get the template
-                        var new_chs_div = $('#chs-div-template').clone();
-                        const chs_div_count = i + 1;
-
-                        new_chs_div.attr('name', 'chs-div' + chs_div_count);
-                        new_chs_div.attr('id', 'chs-div' + chs_div_count);
-                        // Remove the none value.
-                        // Just change it to your desire value.
-                        new_chs_div.css('display', '');
-                        new_chs_div.append(output);
-                        //Insert next to the last of .chs-select
-                        $('#chs-container').append(new_chs_div);
-                        $('#chs-container').append('<br/>');
-                        //$(new_chs_div).insertAfter('.chs-select');
-                        //$('<br/>').insertAfter('.chs-select');
-                    }
-                }
-            },
-            error: function () {
-                alert('error ... ');
-            }
-        });
-        arr_id.push(id);
-        console.log(arr_id);
-        console.log(arr_id.length);
-         
-    });
-
+    
    var rep;
    $('#display-btn').click(function(e){
      for (var i = 0; i <= arr_id.length-1; i++) {
@@ -823,7 +639,7 @@
        $('#myModal').hide();
           $('.modal-fade').hide();
           $(".modal-backdrop").remove();
-          window.location.href = '<?php echo base_url('hr/hire_history');?>';
+         // window.location.href = '<?php echo base_url('hr/hire_history');?>';
     });
 
 

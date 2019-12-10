@@ -75,6 +75,21 @@ class Hr extends CI_Controller {
 		// $this->load->view('hr/v_form',$data);
 	}
 
+	public function add()
+	{
+		$ID = $this->session->userdata('nik');
+		$no = $this->session->userdata('ID');
+		$name = $this->session->userdata('name');
+		$nik = $this->session->userdata('nik');
+		$dept_id = $this->session->userdata('dept_id');
+		$data['member'] = $this->Hire_model->get_member_organization($dept_id);
+		// $data['person'] = $this->Hire_model->get_related_per($ID);
+		// $data['org'] = $this->Hire_model->choose_org();	
+		$data["header"] = $this->load->view('header/v_header','',TRUE);
+		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+		$this->load->view('hr/v_add',$data);
+	}
+
 	function chs_dep(){
 		$ID = $this->input->post('ID');
 		$where = array('ParentID'=>$ID);
@@ -434,6 +449,21 @@ class Hr extends CI_Controller {
     $this->load->view('hr/v_hire_status',$data);
   }
 
+  // function search_member(){
+	// 	$dept_id = $this->input->get('dept_id');
+	// 	$data = $this->Hire_model->get_member_organization($dept_id);
+	// 	echo json_encode($data);
+  // }
+
+  // function member(){
+	// 	$json = [];
+	// 	$this->load->database();
+	// 	if(!empty($this->input->get("q"))){
+	// 			$compClue = $this->input->get("q");
+	// 			$data = $this->Hire_model->get_search_member($compClue, 'Name');
+	// 		}
+	// 		echo json_encode($data);
+	//   }
 }
 ?>
 
