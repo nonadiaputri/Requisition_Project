@@ -87,6 +87,12 @@
 	                    </select>
                       <!-- <input type="text" class="form-control" id="member_name" name="member_name" required="required">
                       <input type="hidden" class="form-control" id="member_id" name="member_id" required="required" > -->
+                     
+                      <!-- <select class="member form-control" name="member_name" id="member_name" style="width:500px"  required="required">
+                          <option value=""></option>
+                       </select> -->
+                     
+                     
                       <span id="error_requestor" class="text-danger"></span>
                     
 	                </div>
@@ -258,29 +264,65 @@
             //     }
             // });
 
-            $('.rep-name').select2({
-                placeholder: 'Replacement Name',
-                ajax:{
-                    url: "<?php echo base_url('hr/select_personnel1'); ?>",
-                    dataType: "json",
-                    delay: 250,
-                    processResults: function(data){
-                        var results = [];
+          //   $('.member').select2({
+          //       placeholder: 'Enter The Request Name',
+          //       ajax:{
+          //           url: "<?php echo base_url('Hr/member'); ?>",
+          //           dataType: "json",
+          //           delay: 250,
+          //      processResults: function(data){
+          //               var results = [];
 
-                        $.each(data, function(index, item){
-                            results.push({
-                                id: item.ID,
-                                text: item.FullName,
-                                option_value:item.ID
-                            });     
-                        });
-                        return{
-                            results: results,
-                            cache: true,
-                        };
-                    },
-                }
-            });
+          //               $.each(data, function(index, item){
+          //                   results.push({
+          //                       id: item.ID,
+          //                       text: item.Name,
+          //                       option_value:item.ID
+          //                   });
+          //               });
+          //               return{
+          //                   results: results,
+          //                   cache: true,
+          //               };
+          //           },
+          //       }
+
+          //   });
+
+          //   $('#member_name').on('select2:select', function (e) {
+          //     var member = $('#member_name :selected').text();
+          //     console.log($('#member_name :selected').text());
+
+          //     if ($('#member_name :selected').text() != '') {
+          //       $.ajax({
+          //           url:"<?php echo base_url('Hr/search_member');?>",
+          //           method:"GET",
+          //           dataType:'json',
+          //           data:{ 'dept_id': member },
+                
+          //           success:function(data){
+          //             if (data) {
+          //               // $('#dis-pos').show();
+          //              // $('#c-position').show();
+          //               console.log(data);
+          //               console.log(data.Position);
+          //               console.log(data.PositionID);
+                        
+          //             //  $('#req_position_id').val(data.PositionID);
+          //               $('#current_position_id').val(data.PositionID);
+          //            //   $('#req_position').val(data.PositionName);
+          //               $('#current_position').val(data.Position);
+          //               $('#current_org_id').val(data.OrganizationID);
+                        
+          //               }
+          //             },
+          //           error:function(){
+          //                   alert('error ... ');
+          //           }
+          //       });
+             
+          //   }
+          // });
             
   $(document).ready(function(){
     // To allow the dynamic element to able to use this change event

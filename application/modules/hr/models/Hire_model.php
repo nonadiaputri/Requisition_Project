@@ -138,6 +138,24 @@ class Hire_model extends CI_Model
                               join dbo.OrganizationTable e on a.OrganizationID = e.ID
                               where e.ID =".$dept_id);
         return $res->result_array();
+
+      // $this->db->select('select a.ID, a.Name, 
+      //                  c.Name as PositionName, e.Name as OrganizationName, e.ID as OrganizationID');
+      //   $this->db->from('dbo.UserTable a');
+      //   $this->db->join('dbo.PersonnelPosition b','a.ID= b.PersonnelID');
+      //   $this->db->join('dbo.PositionTable c','b.PositionID = c.ID');
+      //   $this->db->join('dbo.PositionInOrganization d','c.ID = d.PositionID');
+      //   $this->db->join('dbo.OrganizationTable e','a.OrganizationID = e.ID');
+      //   $this->db->like('a.Name',$dept_id);
+      //   $query = $this->db->get();
+      //   return $query->row_array();
+  }
+
+  function get_search_member($compClue){
+    $this->db->select('*');
+    $this->db->like('Name', $compClue);
+    $data = $this->db->from('dbo.UserTable')->get();
+    return $data->result_array();
   }
 
   public function process_data($data,$where){

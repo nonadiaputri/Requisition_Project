@@ -427,6 +427,21 @@ class Hr extends CI_Controller {
     $this->load->view('hr/v_hire_status',$data);
   }
 
+  // function search_member(){
+	// 	$dept_id = $this->input->get('dept_id');
+	// 	$data = $this->Hire_model->get_member_organization($dept_id);
+	// 	echo json_encode($data);
+  // }
+
+  // function member(){
+	// 	$json = [];
+	// 	$this->load->database();
+	// 	if(!empty($this->input->get("q"))){
+	// 			$compClue = $this->input->get("q");
+	// 			$data = $this->Hire_model->get_search_member($compClue, 'Name');
+	// 		}
+	// 		echo json_encode($data);
+	//   }
 }
 ?>
 
