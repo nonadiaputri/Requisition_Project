@@ -52,6 +52,7 @@
     </section>
 
     <!-- Main content -->
+    <?php echo $this->session->userdata('nik_atasan');?>
     <section class="content">
       <div class="row">
         <div class="col-xs-12">

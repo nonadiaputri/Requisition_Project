@@ -35,4 +35,11 @@ class Login_model extends CI_Model {
 			return error_message($errNo);
 		}
 	}
+
+    public function get_new_id($nik){
+        $this->db->select('ID');
+        $this->db->from("dbo.UserTable");
+        $this->db->where("PersonnelNumber", $nik);
+        $query = $this->db->get();
+    }
 }

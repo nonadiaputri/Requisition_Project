@@ -21,38 +21,58 @@ class Hr extends CI_Controller {
 		$Password = $this->session->userdata('password');
 		$dept_id = $this->session->userdata('dept_id');
     $position = $this->session->userdata('position');
-		$data1 = array(
-	      'Email' => $email,
-	      'Name' => $name,
-	      'PersonnelNumber' => $nik,
-	      'OrganizationID' => $dept_id,
-	      'Password'=>$Password
-	      );
+
+    $check = $this->Hire_model->check_personnel($ID);
+    //var_dump($check);
+    $per_id = $check[0]['ID'];
+    //var_dump($per_id);
+    if ($check == 0) {
+      //redirect page
+    }else{
+      $check2 = $this->Hire_model->auto_register($ID);
+      $dt = $check2[0]['ID'];
+      //var_dump($dt);
+      $check3 = $this->Hire_model->auto_register2($dt, $per_id);
+      $data['person'] = $this->Hire_model->get_related_per($ID);
+      $data['org'] = $this->Hire_model->choose_org();  
+      $data["header"] = $this->load->view('header/v_header','',TRUE);
+      $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+      $this->load->view('hr/v_form',$data);
+    }
+    
+		//$data1 = array(
+	 //      'Email' => $email,
+	 //      'Name' => $name,
+	 //      'PersonnelNumber' => $nik,
+	 //      'OrganizationID' => $dept_id,
+	 //      'Password'=>$Password
+	 //      );
 
 		
-		// $data['result'] = $this->Hire_model->get_new_req();
-		// $data['tot'] = count($data['result']);
-		$last_id = $this->Hire_model->auto_register($data1, $nik);
-		// $id_personnel = $this->Hire_model->get_id_personnel($name);
-		//var_dump($last_id);
-		$dt = $last_id[0]['ID'];
-		//var_dump($dt);
-		$data2 = array(
-			'UserID' => $no,
-			'PersonnelID' => $last_id
-		);
-		if ($last_id != '') {
-			$this->Hire_model->auto_register2($data2, $no);
-      $res = $this->Hire_model->auto_regist_position($dt, $position);
-		}
-    $new_sess = array(
-        'new_id'    => $dt);
-    $this->session->set_userdata($new_sess);
-		$data['person'] = $this->Hire_model->get_related_per($ID);
-		$data['org'] = $this->Hire_model->choose_org();	
-		$data["header"] = $this->load->view('header/v_header','',TRUE);
-		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-		$this->load->view('hr/v_form',$data);
+		// // $data['result'] = $this->Hire_model->get_new_req();
+		// // $data['tot'] = count($data['result']);
+		// $last_id = $this->Hire_model->auto_register($data1, $nik);
+		// // $id_personnel = $this->Hire_model->get_id_personnel($name);
+		// //var_dump($last_id);
+
+		// $dt = $last_id[0]['ID'];
+		// //var_dump($dt);
+		// $data2 = array(
+		// 	'UserID' => $no,
+		// 	'PersonnelID' => $last_id
+		// );
+		// if ($last_id != '') {
+		// 	$this->Hire_model->auto_register2($data2, $no);
+  //     $res = $this->Hire_model->auto_regist_position($dt, $position);
+		// }
+  //   $new_sess = array(
+  //       'new_id'    => $dt);
+  //   $this->session->set_userdata($new_sess);
+		// $data['person'] = $this->Hire_model->get_related_per($ID);
+		// $data['org'] = $this->Hire_model->choose_org();	
+		// $data["header"] = $this->load->view('header/v_header','',TRUE);
+		// $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+		// $this->load->view('hr/v_form',$data);
 	}
 
 	function chs_dep(){
@@ -82,6 +102,7 @@ class Hr extends CI_Controller {
 
 	public function hire_history(){
 	    $requestor_id = $this->session->userdata('new_id');
+      //var_dump($requestor_id);
 
 	    //notif
 	    //$data['hire'] = $this->Hire_model->get_new_req();
@@ -90,10 +111,10 @@ class Hr extends CI_Controller {
 	    // $data['tot'] = count($data['hire']);
 	    //$data['res'] = $this->Hire_model->get_hire();
 	    //var_dump($requestor_id);
-	    $data['myreq'] = $this->Hire_model->get_your_request($requestor_id);
-		$data["header"] = $this->load->view('header/v_header','',TRUE);
-		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-		$this->load->view('hr/v_hire_history',$data);
+	   //  $data['myreq'] = $this->Hire_model->get_your_request($requestor_id);
+  		// $data["header"] = $this->load->view('header/v_header','',TRUE);
+  		// $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+  		// $this->load->view('hr/v_hire_history',$data);
 	}
 	
 	public function submit_hire(){
@@ -406,6 +427,7 @@ class Hr extends CI_Controller {
 
   function hire_status(){
     $requestor_id = $this->session->userdata('new_id');
+    $data['myreq'] = $this->Hire_model->get_your_request($requestor_id);
     $data['row']= $this->Hire_model->get_hire_id($requestor_id);
     $data["header"] = $this->load->view('header/v_header','',TRUE);
     $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);

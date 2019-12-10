@@ -8,14 +8,33 @@ class Hire_model extends CI_Model
     $this->load->database();
   }
 
-   public function auto_register($data1, $nik){
+  public function check_personnel($ID){
+    $this->db->where('PersonnelNumber',$ID);
+    $q = $this->db->get('dbo.PersonnelTable');
+
+    if ( $q->num_rows() == 0 ) {
+      return 0;
+        //$this->db->insert('dbo.PersonnelTable',$data1);
+        // $last_id = $this->db->insert_id();
+        // return $last_id;
+     }else {
+        $this->db->select('ID');
+        $this->db->where('PersonnelNumber', $ID);
+        $id = $this->db->from('dbo.PersonnelTable')->get();
+        return $id->result_array();
+       // $this->db->where('PersonnelNumber',$nik);
+       // $this->db->update('dbo.UserTable',$data1);      
+     }
+  }
+
+   public function auto_register($nik){
      $this->db->where('PersonnelNumber',$nik);
      $q = $this->db->get('dbo.UserTable');
 
      if ( $q->num_rows() == 0 ) {
-        $this->db->insert('dbo.UserTable',$data1);
-        $last_id = $this->db->insert_id();
-        return $last_id;
+          $res = $this->db->query("INSERT INTO dbo.UserTable (Email, Name, PersonnelNumber) SELECT Email, Name, PersonnelNumber from dbo.PersonnelTable where PersonnelNumber = $nik");
+          return $res->result();
+          
      }else {
         $this->db->select('ID');
         $this->db->where('PersonnelNumber', $nik);
@@ -33,12 +52,19 @@ class Hire_model extends CI_Model
     return $data->result_array();
   }
 
-  public function auto_register2($data2, $no){
-    $this->db->where('UserID',$no);
+  public function auto_register2($UserID, $PersonnelID){
+    $this->db->where('UserID',$UserID);
      $q = $this->db->get('dbo.UserXPersonnel');
+     $data = array (
+                'UserID' => $UserID);
 
      if ( $q->num_rows() == 0 ) {
-        $this->db->insert('dbo.UserXPersonnel',$data2);
+          $this->db->insert('dbo.UserXPersonnel',$data);
+          $last_id = $this->db->insert_id();
+          // return $last_id;
+          $res = $this->db->query("UPDATE dbo.UserXPersonnel SET PersonnelID = $PersonnelID where ID = $last_id");
+          return $res->result_array();
+        //$this->db->insert('dbo.UserXPersonnel',$data2);
      // }
         // else {
      //   $this->db->where('UserID',$no);

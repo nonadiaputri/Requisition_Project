@@ -38,7 +38,12 @@ class Login extends CI_Controller {
 				'is_login'	=> TRUE
 			);
 
-            $this->session->set_userdata($data);			
+            $this->session->set_userdata($data);
+            if ($this->session->userdata('new_id') == '') {
+            	// $this->load->database('db1');
+            	// $new_id = $this->Login_model->get_new_id($uid);
+            	// var_dump($new_id);
+            }			
 			redirect('dashboard');
 		}else{
 			$this->session->set_flashdata('message', '<p style="color:red">Email atau Password Anda Salah!</p>');

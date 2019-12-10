@@ -291,12 +291,12 @@
       <div class="row no-print">
         <div class="col-xs-12">
           <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-          <button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#reject"  style="margin-right: 5px;">
+          <button type="button" class="btn btn-danger pull-right" id="button-process" data-toggle="modal" data-target="#reject"  style="margin-right: 5px;">
             Reject
           </button>
-          <button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#hold"  style="margin-right: 5px;" > Hold
+          <button type="button" class="btn btn-warning pull-right" id="button-hold" data-toggle="modal" data-target="#hold"  style="margin-right: 5px;" > Hold
           </button>
-          <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#process"  style="margin-right: 5px;">
+          <button type="button" class="btn btn-success pull-right" id="button-reject" data-toggle="modal" data-target="#process"  style="margin-right: 5px;">
             Approve
           </button>
         </div>
@@ -444,7 +444,7 @@
         var app_process = '<?php echo $req['IsProcessedToHire']; ?>';
         var app_hold = "<?php echo $req['IsHold'] ;?>"
         var app_reject = "<?php echo $req['IsRejected'] ;?>";
-        var reqstor = "<?php echo $this->session->userdata('PersonnelIDList'); ?>";
+        var reqstor = "<?php echo $this->session->userdata('new_id'); ?>";
         var appstatus2 = "<?php echo $latest['ApprovalStatusID']; ?>";
         var app_process2 = "<?php echo $latest['IsProcessedToHire']; ?>";
         var app_hold2 = "<?php echo $latest['IsHold']; ?>";
