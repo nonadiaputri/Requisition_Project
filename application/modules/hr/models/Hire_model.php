@@ -33,7 +33,7 @@ class Hire_model extends CI_Model
 
      if ( $q->num_rows() == 0 ) {
           $res = $this->db->query("INSERT INTO dbo.UserTable (Email, Name, PersonnelNumber) SELECT Email, Name, PersonnelNumber from dbo.PersonnelTable where PersonnelNumber = $nik");
-          return $res->result();
+          return $res->result_array();
           
      }else {
         $this->db->select('ID');
@@ -63,13 +63,14 @@ class Hire_model extends CI_Model
           $last_id = $this->db->insert_id();
           // return $last_id;
           $res = $this->db->query("UPDATE dbo.UserXPersonnel SET PersonnelID = $PersonnelID where ID = $last_id");
-          return $res->result();
-        //$this->db->insert('dbo.UserXPersonnel',$data2);
-     // }
-        // else {
-     //   $this->db->where('UserID',$no);
-     //   $this->db->update('dbo.UserXPersonnel',$data2);      
+          return $res->row_array();    
      }
+  }
+
+  public function make_session($nik){
+    $this->db->where('PersonnelNumber',$nik);
+    $q = $this->db->get('dbo.PersonnelHierarchy');
+    return $q->row_array();
   }
 
   public function auto_regist_position($last_id, $position){
