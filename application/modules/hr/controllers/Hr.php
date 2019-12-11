@@ -16,7 +16,32 @@ class Hr extends CI_Controller {
 
     $check = $this->Hire_model->check_personnel($nik);
     $sess = $this->Hire_model->make_session($nik);
-    var_dump($sess);
+    $object = json_decode(json_encode($sess));
+    //var_dump($object->Postion);
+    //var_dump($count($sess));
+    if ($sess != '') {
+      $data = array(
+        'Name2'    => $object->FullName,
+        'NIK2'     => $object->PersonnelNumber,
+        'ID2'    => $object->ID,
+        'Position'   => $object->Postion,
+        'PositionID' => $object->PostionID,
+        'Organization' =>$object->Organization,
+        'OrganizationID' =>$object->OrganizationID,
+        'ParentOrganization' =>$object->ParentOrganization,
+        'ParentOrganizationID' => $object->ParentOrganizationID,
+        'ParentPosition' =>$object->ParentPosition,
+        'ParentPositionID'=>$object->ParentPositionID,
+        'ParentPersonnel' => $object->ParentPersonnel,
+        'ParentPersonnelID' => $object->ParentPersonnelID
+      );
+      //var_dump($data);
+      
+
+    $this->session->set_userdata($data);
+     
+    }
+
     //var_dump($check);
     $per_id = $check[0]['ID'];
     //var_dump($per_id);
