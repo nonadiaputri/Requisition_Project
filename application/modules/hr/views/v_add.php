@@ -67,9 +67,11 @@
             <div class="row">
 	          	<div class="col-md-8">
 	                <label class="control-label">Organization Name</label>
-	                <input type="text" class="form-control" name="req_org_id" id="req_org_id" value = "<?php echo $this->session->userdata('organization'); ?>" required="required" readonly>
-	                <input type="text" class="form-control" name="org_id" id="org_id" value = "<?php echo $this->session->userdata('dept_id'); ?>" required="required" readonly>
-	                <span id="error_req_org" class="text-danger"></span>
+                  <?php foreach($org as $org){ ?>
+	                <input type="text" class="form-control" name="req_org_id" id="req_org_id" value = "<?php echo $org['OrganizationName']; ?>" required="required" readonly>
+                  <!-- <input type="text" class="form-control" name="org_id" id="org_id" value = "<?php echo $this->session->userdata('dept_id'); ?>" required="required" readonly> -->
+	               <?php } ?>
+                  <span id="error_req_org" class="text-danger"></span>
 	          </div>
 	        </div>
 
@@ -77,10 +79,10 @@
 	        <div class="row">
 	          	<div class="form-group">
 	                <div class="col-md-8">
-	                  <label class="control-label col-form-label">Member Name</label>
+	                  <label class="control-label col-form-label">Employee Name</label>
 
-	                  <select class="form-control chs-select" name="chs-member" id="chs-member" style="width:100%" required="required">
-	                        <option default>Select Member Name</option>
+	                  <select onchange="cek_database()" class="form-control chs-select" name="member" id="member" style="width:100%" required="required">
+	                        <option default>Select Employee Name</option>
 	                        <?php foreach ($member as $member) { ?>
 	                        <option value="<?php echo $member['ID'];?>"><?php echo $member['PersonnelName'];?></option>
 	                        <?php } ?>
@@ -105,8 +107,8 @@
 	         	<div class="form-group">
 		              <div class="col-md-8">
 		                <label class="control-label col-form-label">Position Name</label>
-		                  <input type="text" class="form-control" name="req_position" id="req_position" value = "<?php echo $this->session->userdata('position'); ?>" required="required" readonly>
-		                  <input type="hidden" class="form-control" name="req_position_id" id="req_position_id" value = "<?php echo $this->session->userdata('id_position'); ?>" required="required" readonly>
+		                  <input type="text" class="form-control" name="req_position" id="req_position" required="required" readonly>
+		                  <input type="hidden" class="form-control" name="req_position_id" id="req_position_id"  required="required" readonly>
 		                  <span id="error_req_position" class="text-danger"></span>
 		                </div>
 		            </div>
@@ -264,30 +266,43 @@
             //     }
             // });
 
-          //   $('.member').select2({
-          //       placeholder: 'Enter The Request Name',
-          //       ajax:{
-          //           url: "<?php echo base_url('Hr/member'); ?>",
-          //           dataType: "json",
-          //           delay: 250,
-          //      processResults: function(data){
-          //               var results = [];
+            function cek_database(){
+                  var member = $("#member").val();
+                  $.ajax({
+                      url: "<?php echo base_url('Hr/search_member');?>",
+                      data:"member="+member ,
+                  }).success(function (data) {
+                      var json = data,
+                      obj = JSON.parse(json);
+                      $('#req_position').val(obj.PositionName);
+                      
+          
+              }
 
-          //               $.each(data, function(index, item){
-          //                   results.push({
-          //                       id: item.ID,
-          //                       text: item.Name,
-          //                       option_value:item.ID
-          //                   });
-          //               });
-          //               return{
-          //                   results: results,
-          //                   cache: true,
-          //               };
-          //           },
-          //       }
+            $('.member').select2({
+                placeholder: 'Enter The Request Name',
+                ajax:{
+                    url: "<?php echo base_url('Hr/member'); ?>",
+                    dataType: "json",
+                    delay: 250,
+               processResults: function(data){
+                        var results = [];
 
-          //   });
+                        $.each(data, function(index, item){
+                            results.push({
+                                id: item.ID,
+                                text: item.Name,
+                                option_value:item.ID
+                            });
+                        });
+                        return{
+                            results: results,
+                            cache: true,
+                        };
+                    },
+                }
+
+            });
 
           //   $('#member_name').on('select2:select', function (e) {
           //     var member = $('#member_name :selected').text();

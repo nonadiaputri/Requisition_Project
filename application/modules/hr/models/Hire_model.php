@@ -153,6 +153,28 @@ class Hire_model extends CI_Model
     return $query->row_array();
   }
 
+  public function get_organization($dept_id)
+  { 
+      $res = $this->db->query("select distinct a.OrganizationID, e.Name as OrganizationName from dbo.UserTable a
+                              join dbo.PersonnelPosition b on a.ID= b.PersonnelID
+                              join dbo.PositionTable c on b.PositionID = c.ID
+                              join dbo.PositionInOrganization d on c.ID = d.PositionID
+                              join dbo.OrganizationTable e on a.OrganizationID = e.ID
+                              where a.OrganizationID =".$dept_id);
+        return $res->result_array();
+
+      // $this->db->select('select a.ID, a.Name, 
+      //                  c.Name as PositionName, e.Name as OrganizationName, e.ID as OrganizationID');
+      //   $this->db->from('dbo.UserTable a');
+      //   $this->db->join('dbo.PersonnelPosition b','a.ID= b.PersonnelID');
+      //   $this->db->join('dbo.PositionTable c','b.PositionID = c.ID');
+      //   $this->db->join('dbo.PositionInOrganization d','c.ID = d.PositionID');
+      //   $this->db->join('dbo.OrganizationTable e','a.OrganizationID = e.ID');
+      //   $this->db->like('a.Name',$dept_id);
+      //   $query = $this->db->get();
+      //   return $query->row_array();
+  }
+
   public function get_member_organization($dept_id)
   { 
       $res = $this->db->query("select a.ID as ID, a.Name as PersonnelName, 
@@ -177,8 +199,15 @@ class Hire_model extends CI_Model
       //   return $query->row_array();
   }
 
-  function get_search_member($compClue){
+  // function get_search_member($compClue){
+  //   $this->db->select('*');
+  //   $this->db->like('Name', $compClue);
+  //   $data = $this->db->from('dbo.UserTable')->get();
+  //   return $data->result_array();
+  // }
+  function get_search_member($dept_id,$compClue){
     $this->db->select('*');
+    $this->db->where('OrganizationID',$dept_id);
     $this->db->like('Name', $compClue);
     $data = $this->db->from('dbo.UserTable')->get();
     return $data->result_array();
