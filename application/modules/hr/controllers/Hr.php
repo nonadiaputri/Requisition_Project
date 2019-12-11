@@ -124,15 +124,15 @@ class Hr extends CI_Controller {
 
 	    //notif
 	    //$data['hire'] = $this->Hire_model->get_new_req();
-	    //$data['prom'] = $this->Promotion_model->get_new_promotion();
+	    //$data['prom'] = $this->Hire_model->get_new_promotion();
 	    // $data['all'] = count($data['prom']);
 	    // $data['tot'] = count($data['hire']);
-	    //$data['res'] = $this->Hire_model->get_hire();
-	    //var_dump($requestor_id);
-	   //  $data['myreq'] = $this->Hire_model->get_your_request($requestor_id);
-  		// $data["header"] = $this->load->view('header/v_header','',TRUE);
-  		// $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-  		// $this->load->view('hr/v_hire_history',$data);
+	    // $data['res'] = $this->Hire_model->get_hire();
+	    // var_dump($requestor_id);
+	    //$data['myreq'] = $this->Hire_model->get_your_request($requestor_id);
+  		$data["header"] = $this->load->view('header/v_header','',TRUE);
+  		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+  		$this->load->view('hr/v_hire_history',$data);
 	}
 	
 	public function submit_hire(){
