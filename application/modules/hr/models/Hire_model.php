@@ -69,8 +69,8 @@ class Hire_model extends CI_Model
 
   public function make_session($nik){
     $this->db->where('PersonnelNumber',$nik);
-    $q = $this->db->get('dbo.PersonnelTable');
-    return $q->result_array();
+    $q = $this->db->get('dbo.PersonnelHierarchy');
+    return $q->row_array();
   }
 
   public function auto_regist_position($last_id, $position){

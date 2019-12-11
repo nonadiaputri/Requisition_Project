@@ -74,8 +74,8 @@
 	                        <option value="<?php echo $person['PersonnelID'];?>"><?php echo $person['Name'];?></option>
 	                        <?php } ?>
 	                </select> -->
-                      <input type="text" class="form-control" id="requestor" name="requestor" value = "<?php echo $this->session->userdata('name'); ?>" required="required" readonly>
-                      <input type="text" class="form-control" id="requestor_id" name="requestor_id" value = "<?php echo $this->session->userdata('new_id'); ?>" required="required" readonly>
+                      <input type="text" class="form-control" id="requestor" name="requestor" value = "<?php echo $this->session->userdata('Name2'); ?>" required="required" readonly>
+                      <input type="hidden" class="form-control" id="requestor_id" name="requestor_id" value = "<?php echo $this->session->userdata('ID2'); ?>" required="required" readonly>
                       <span id="error_requestor" class="text-danger"></span>
                     
 	                </div>
@@ -85,8 +85,8 @@
 	        <div class="row">
 	          	<div class="col-md-8">
 	                <label class="control-label">Organization Name</label>
-	                <input type="text" class="form-control" name="req_org_id" id="req_org_id" value = "<?php echo $this->session->userdata('organization'); ?>" required="required" readonly>
-	                <input type="hidden" class="form-control" name="org_id" id="org_id" value = "<?php echo $this->session->userdata('dept_id'); ?>" required="required" readonly>
+	                <input type="text" class="form-control" name="req_org_id" id="req_org_id" value = "<?php echo $this->session->userdata('Organization'); ?>" required="required" readonly>
+	                <input type="hidden" class="form-control" name="org_id" id="org_id" value = "<?php echo $this->session->userdata('OrganizationID'); ?>" required="required" readonly>
 	                <span id="error_req_org" class="text-danger"></span>
 	          </div>
 	        </div>
@@ -95,8 +95,8 @@
 	         	<div class="form-group">
 		              <div class="col-md-8">
 		                <label class="control-label col-form-label">Position Name</label>
-		                  <input type="text" class="form-control" name="req_position" id="req_position" value = "<?php echo $this->session->userdata('position'); ?>" required="required" readonly>
-		                  <input type="hidden" class="form-control" name="req_position_id" id="req_position_id" value = "<?php echo $this->session->userdata('id_position'); ?>" required="required" readonly>
+		                  <input type="text" class="form-control" name="req_position" id="req_position" value = "<?php echo $this->session->userdata('Position'); ?>" required="required" readonly>
+		                  <input type="hidden" class="form-control" name="req_position_id" id="req_position_id" value = "<?php echo $this->session->userdata('PositionID'); ?>" required="required" readonly>
 		                  <span id="error_req_position" class="text-danger"></span>
 		                </div>
 		            </div>
