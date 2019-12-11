@@ -273,7 +273,9 @@
 
         </div>
           <!-- /.row -->
-          <link rel="stylesheet" href="http://apps.kmn.kompas.com/static/kompas-intranet/latest/kompas-intranet.css" />
+          
+       </div>
+       <link rel="stylesheet" href="http://apps.kmn.kompas.com/static/kompas-intranet/latest/kompas-intranet.css" />
 
 <!--- FOOTER SECTION --->
 <div class="no-break">
@@ -324,9 +326,6 @@
     </div>
 </div>
 <!-- END OF FOOTER SECTION-->
-</div>
-
-       </div>
     </div>
       
   </section>
