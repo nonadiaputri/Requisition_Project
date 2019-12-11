@@ -12,30 +12,24 @@ class Hr extends CI_Controller {
 	
 	public function index()
 	{
-		$ID = $this->session->userdata('nik');
-		$no = $this->session->userdata('ID');
-		//var_dump($no);
-		$email = $this->session->userdata('email');
-		$name = $this->session->userdata('name');
 		$nik = $this->session->userdata('nik');
-		$Password = $this->session->userdata('password');
-		$dept_id = $this->session->userdata('dept_id');
-    $position = $this->session->userdata('position');
 
-    $check = $this->Hire_model->check_personnel($ID);
+    $check = $this->Hire_model->check_personnel($nik);
+    $sess = $this->Hire_model->make_session($nik);
+    var_dump($sess);
     //var_dump($check);
     $per_id = $check[0]['ID'];
     //var_dump($per_id);
     if ($check == 0) {
       $data["header"] = $this->load->view('header/v_header','',TRUE);
-		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+		  $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
       $this->load->view('hr/v_error_hris', $data);
     }else{
-      $check2 = $this->Hire_model->auto_register($ID);
+      $check2 = $this->Hire_model->auto_register($nik);
       $dt = $check2[0]['ID'];
       //var_dump($dt);
       $check3 = $this->Hire_model->auto_register2($dt, $per_id);
-      $data['person'] = $this->Hire_model->get_related_per($ID);
+      //$data['person'] = $this->Hire_model->get_related_per($ID);
       $data['org'] = $this->Hire_model->choose_org();  
       $data["header"] = $this->load->view('header/v_header','',TRUE);
       $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
