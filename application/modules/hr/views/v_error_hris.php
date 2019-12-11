@@ -41,8 +41,8 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="box-body">
-              <div class="alert alert-danger alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <div class="callout callout-danger">
+                
                 <h4><i class="icon fa fa-ban"></i> Access Forbidden!</h4>
                 Your Personnel Info is not registered! Please contact HR to resolve the problem
               </div>
