@@ -63,7 +63,7 @@ class Hire_model extends CI_Model
           $last_id = $this->db->insert_id();
           // return $last_id;
           $res = $this->db->query("UPDATE dbo.UserXPersonnel SET PersonnelID = $PersonnelID where ID = $last_id");
-          return $res->result();
+          return $res->row_array();
         //$this->db->insert('dbo.UserXPersonnel',$data2);
      // }
         // else {
