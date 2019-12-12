@@ -98,13 +98,39 @@ class Hr extends CI_Controller {
 
 	public function add()
 	{
-		$ID = $this->session->userdata('nik');
-		$no = $this->session->userdata('ID');
-		$name = $this->session->userdata('name');
 		$nik = $this->session->userdata('nik');
-    $dept_id = $this->session->userdata('dept_id');
-    $data['org'] = $this->Hire_model->get_organization($dept_id);
-		$data['member'] = $this->Hire_model->get_member_organization($dept_id);
+
+    $check = $this->Hire_model->check_personnel($nik);
+    $sess = $this->Hire_model->make_session($nik);
+    $object = json_decode(json_encode($sess));
+    //var_dump($object->Postion);
+    //var_dump($count($sess));
+    if ($sess != '') {
+      $data = array(
+        'Name2'    => $object->FullName,
+        'NIK2'     => $object->PersonnelNumber,
+        'ID2'    => $object->ID,
+        'Position'   => $object->Postion,
+        'PositionID' => $object->PostionID,
+        'Organization' =>$object->Organization,
+        'OrganizationID' =>$object->OrganizationID,
+        'ParentOrganization' =>$object->ParentOrganization,
+        'ParentOrganizationID' => $object->ParentOrganizationID,
+        'ParentPosition' =>$object->ParentPosition,
+        'ParentPositionID'=>$object->ParentPositionID,
+        'ParentPersonnel' => $object->ParentPersonnel,
+        'ParentPersonnelID' => $object->ParentPersonnelID
+      );
+      //var_dump($data);
+
+    $this->session->set_userdata($data);
+    }
+
+    $OrganizationID = $this->session->userdata('OrganizationID');
+    $ID = $this->session->userdata('ID2');
+    $data['org'] = $this->Hire_model->get_organization($OrganizationID);
+    // var_dump($data['org']);
+		$data['member'] = $this->Hire_model->get_member_organization($OrganizationID);
 		// $data['person'] = $this->Hire_model->get_related_per($ID);
 		// $data['org'] = $this->Hire_model->choose_org();	
 		$data["header"] = $this->load->view('header/v_header','',TRUE);

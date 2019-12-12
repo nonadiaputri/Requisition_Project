@@ -154,29 +154,18 @@ class Hire_model extends CI_Model
     return $query->row_array();
   }
 
-  public function get_organization($dept_id)
+  public function get_organization($OrganizationID)
   { 
-      $res = $this->db->query("select distinct a.OrganizationID, e.Name as OrganizationName from dbo.UserTable a
-                              join dbo.PersonnelPosition b on a.ID= b.PersonnelID
-                              join dbo.PositionTable c on b.PositionID = c.ID
-                              join dbo.PositionInOrganization d on c.ID = d.PositionID
-                              join dbo.OrganizationTable e on a.OrganizationID = e.ID
-                              where a.OrganizationID =".$dept_id);
+    
 
-      // $res = $this->db->query("select ps.FullName, ps.PersonnelNumber, ps.ID, 
-      //                         pt.Name as Postion, pt.ID as PostionID, 
-      //                         og.Name as Organization, og.ID as OrganizationID,
-      //                         * from PersonnelTable ps
-      //                         inner join PersonnelPosition pp on ps.ID = pp.PersonnelID
-      //                         inner join PositionTable pt on pp.PositionID = pt.ID
-      //                         inner join PositionInOrganization po on po.PositionID = pt.ID
-      //                         inner join OrganizationTable og on og.ID = po.OrganizationUnitID
-      //                         where og.ID =".$dept_id);
+      $res = $this->db->query("select distinct a.OrganizationID, b.Name as OrganizationName from dbo.UserTable a
+                              join dbo.OrganizationTable b on a.OrganizationID = b.ID
+                              where a.OrganizationID =".$OrganizationID);
         return $res->result_array();
 
   }
 
-  public function get_member_organization($dept_id)
+  public function get_member_organization($OrganizationID)
   { 
       $res = $this->db->query("select a.ID as ID, a.Name as PersonnelName, 
                               c.Name as PositionName, e.Name as OrganizationName, e.id as OrganizationID
@@ -185,19 +174,8 @@ class Hire_model extends CI_Model
                               join dbo.PositionTable c on b.PositionID = c.ID
                               join dbo.PositionInOrganization d on c.ID = d.PositionID
                               join dbo.OrganizationTable e on a.OrganizationID = e.ID
-                              where e.ID =".$dept_id);
+                              where e.ID =".$OrganizationID);
         return $res->result_array();
-
-      // $this->db->select('select a.ID, a.Name, 
-      //                  c.Name as PositionName, e.Name as OrganizationName, e.ID as OrganizationID');
-      //   $this->db->from('dbo.UserTable a');
-      //   $this->db->join('dbo.PersonnelPosition b','a.ID= b.PersonnelID');
-      //   $this->db->join('dbo.PositionTable c','b.PositionID = c.ID');
-      //   $this->db->join('dbo.PositionInOrganization d','c.ID = d.PositionID');
-      //   $this->db->join('dbo.OrganizationTable e','a.OrganizationID = e.ID');
-      //   $this->db->like('a.Name',$dept_id);
-      //   $query = $this->db->get();
-      //   return $query->row_array();
   }
 
   // function get_search_member($compClue){
