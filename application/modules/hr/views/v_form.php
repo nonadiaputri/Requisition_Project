@@ -74,8 +74,8 @@
 	                        <option value="<?php echo $person['PersonnelID'];?>"><?php echo $person['Name'];?></option>
 	                        <?php } ?>
 	                </select>
-                      <input type="text" class="form-control" id="requestor" name="requestor" value = "<?php echo $this->session->userdata('Name2'); ?>" required="required" readonly>
-                      <input type="hidden" class="form-control" id="requestor_id" name="requestor_id" value = "<?php echo $this->session->userdata('ID2'); ?>" required="required" readonly>
+                     <!--  <input type="text" class="form-control" id="requestor" name="requestor" value = "<?php echo $this->session->userdata('Name2'); ?>" required="required" readonly>
+                      <input type="hidden" class="form-control" id="requestor_id" name="requestor_id" value = "<?php echo $this->session->userdata('ID2'); ?>" required="required" readonly> -->
                       <span id="error_requestor" class="text-danger"></span>
                     
 	                </div>
@@ -401,35 +401,68 @@
                 }
             });
 
-          //   $('#requestor').on('select2:select', function (e) {
-          //     var name = $('#requestor :selected').text();
-          //     console.log($('#requestor :selected').text());
-          //     console.log(name);
-          //     if ($('#requestor :selected').text() != '') {
-          //       $.ajax({
-          //           url:"<?php echo base_url('hr/search_info');?>",
-          //           method:"GET",
-          //           dataType:'json',
-          //           data:{ 'Name':name },
+            $('#requestor').on('change', function() {
+              var value = $('#requestor :selected').val();
+              //console.log($('#requestor :selected').text());
+              console.log(value);
+              if ($('#requestor :selected').text() != '') {
+                alert(value);
+                $.ajax({
+                    url:"<?php echo base_url('Hr/search_info');?>",
+                    method:"GET",
+                    dataType:'json',
+                    data:{ 'ID': value },
 
-          //           success:function(data){
-          //             if (data) {
-          //               $('#dis-pos').show();
-          //               $('#dis-org').show();
-          //               $('#req_position_id').val(data.PositionID);
-          //               $('#req_org_id').val(data.Organization);
-          //               $('#req_position').val(data.PositionName);
-          //               $('#req_org').val(data.OrganizationName);
+                    success:function(data){
+                      if (data) {
+                        console.log(data);
+                        // $('#dis-pos').show();
+                        // $('#dis-org').show();
+                        $('#req_position_id').val(data.PositionID);
+                        $('#req_org_id').val(data.Organization);
+                        $('#req_position').val(data.PositionName);
+                        $('#req_org').val(data.OrganizationName);
                         
-          //               }
-          //             },
-          //           error:function(){
-          //                   alert('error ... ');
-          //           }
-          //       });
+                        }
+                      },
+                    error:function(){
+                            alert('error ... ');
+                    }
+                });
              
-          //   }
-          // });
+            }
+            });
+
+            $('#requestor').on('select2:select', function (e) {
+              var name = $('#requestor :selected').text();
+              alert("test");
+              console.log($('#requestor :selected').text());
+              console.log(name);
+              if ($('#requestor :selected').text() != '') {
+                $.ajax({
+                    url:"<?php echo base_url('hr/search_info');?>",
+                    method:"GET",
+                    dataType:'json',
+                    data:{ 'Name':name },
+
+                    success:function(data){
+                      if (data) {
+                        // $('#dis-pos').show();
+                        // $('#dis-org').show();
+                        $('#req_position_id').val(data.PositionID);
+                        $('#req_org_id').val(data.Organization);
+                        $('#req_position').val(data.PositionName);
+                        $('#req_org').val(data.OrganizationName);
+                        
+                        }
+                      },
+                    error:function(){
+                            alert('error ... ');
+                    }
+                });
+             
+            }
+          });
 
             // $('.position').select2({
             //     placeholder: 'Requested Position',
