@@ -82,6 +82,7 @@
 	                  
 	            </div>
 	            </div>
+              <br>
 	        <div class="row">
 	          	<div class="col-md-8">
 	                <label class="control-label">Organization Name</label>
@@ -90,7 +91,7 @@
 	                <span id="error_req_org" class="text-danger"></span>
 	          </div>
 	        </div>
-
+          <br>
 	        <div class="row">
 	         	<div class="form-group">
 		              <div class="col-md-8">

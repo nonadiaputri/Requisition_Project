@@ -33,16 +33,26 @@ class Hire_model extends CI_Model
 
      if ( $q->num_rows() == 0 ) {
           $res = $this->db->query("INSERT INTO dbo.UserTable (Email, Name, PersonnelNumber) SELECT Email, Name, PersonnelNumber from dbo.PersonnelTable where PersonnelNumber = $nik");
-          return $res->result_array();
+          $last_id = $this->db->query("SELECT SCOPE_IDENTITY()");
+          $this->db->select('ID');
+          $this->db->where('PersonnelNumber', $nik);
+          $id = $this->db->from('dbo.UserTable')->get();
+          //return $res->result_array();
           
      }else {
         $this->db->select('ID');
         $this->db->where('PersonnelNumber', $nik);
         $id = $this->db->from('dbo.UserTable')->get();
-        return $id->result_array();
+        //return $id->result_array();
        // $this->db->where('PersonnelNumber',$nik);
        // $this->db->update('dbo.UserTable',$data1);      
      }
+     $data = array();
+      if($id !== FALSE && $id != ''){
+          $data = $id->row_array();
+      }
+
+      return $data;
    }
 
   public function get_id_personnel($name){
@@ -63,7 +73,7 @@ class Hire_model extends CI_Model
           $last_id = $this->db->insert_id();
           // return $last_id;
           $res = $this->db->query("UPDATE dbo.UserXPersonnel SET PersonnelID = $PersonnelID where ID = $last_id");
-          return $res->row_array();    
+          return $res;    
      }
   }
 
@@ -162,18 +172,18 @@ class Hire_model extends CI_Model
                               join dbo.PositionInOrganization d on c.ID = d.PositionID
                               join dbo.OrganizationTable e on a.OrganizationID = e.ID
                               where a.OrganizationID =".$dept_id);
-
-      // $res = $this->db->query("select ps.FullName, ps.PersonnelNumber, ps.ID, 
-      //                         pt.Name as Postion, pt.ID as PostionID, 
-      //                         og.Name as Organization, og.ID as OrganizationID,
-      //                         * from PersonnelTable ps
-      //                         inner join PersonnelPosition pp on ps.ID = pp.PersonnelID
-      //                         inner join PositionTable pt on pp.PositionID = pt.ID
-      //                         inner join PositionInOrganization po on po.PositionID = pt.ID
-      //                         inner join OrganizationTable og on og.ID = po.OrganizationUnitID
-      //                         where og.ID =".$dept_id);
         return $res->result_array();
 
+      // $this->db->select('select a.ID, a.Name, 
+      //                  c.Name as PositionName, e.Name as OrganizationName, e.ID as OrganizationID');
+      //   $this->db->from('dbo.UserTable a');
+      //   $this->db->join('dbo.PersonnelPosition b','a.ID= b.PersonnelID');
+      //   $this->db->join('dbo.PositionTable c','b.PositionID = c.ID');
+      //   $this->db->join('dbo.PositionInOrganization d','c.ID = d.PositionID');
+      //   $this->db->join('dbo.OrganizationTable e','a.OrganizationID = e.ID');
+      //   $this->db->like('a.Name',$dept_id);
+      //   $query = $this->db->get();
+      //   return $query->row_array();
   }
 
   public function get_member_organization($dept_id)
