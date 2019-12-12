@@ -68,12 +68,12 @@
 	                <div class="col-md-8">
 	                  <label class="control-label col-form-label">Requestor Name</label>
 
-	                  <!-- <select class="form-control chs-select" name="requestor" id="requestor" style="width:100%" required="required">
+	                  <select class="form-control chs-select" name="requestor" id="requestor" style="width:100%" required="required">
 	                        <option value="">Select Requestor</option>
 	                        <?php foreach ($person as $person) { ?>
 	                        <option value="<?php echo $person['PersonnelID'];?>"><?php echo $person['Name'];?></option>
 	                        <?php } ?>
-	                </select> -->
+	                </select>
                       <input type="text" class="form-control" id="requestor" name="requestor" value = "<?php echo $this->session->userdata('Name2'); ?>" required="required" readonly>
                       <input type="hidden" class="form-control" id="requestor_id" name="requestor_id" value = "<?php echo $this->session->userdata('ID2'); ?>" required="required" readonly>
                       <span id="error_requestor" class="text-danger"></span>
