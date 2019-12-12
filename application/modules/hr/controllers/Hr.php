@@ -51,12 +51,10 @@ class Hr extends CI_Controller {
       $this->load->view('hr/v_error_hris', $data);
     }else{
       $check2 = $this->Hire_model->auto_register($nik);
-      //var_dump($check2);
-      $dt = $check2['ID'];
+      $dt = $check2[0]['ID'];
       //var_dump($dt);
       $check3 = $this->Hire_model->auto_register2($dt, $per_id);
-      $data['person'] = $this->Hire_model->get_related_per($dt);
-      //var_dump($data['person']);
+      //$data['person'] = $this->Hire_model->get_related_per($ID);
       $data['org'] = $this->Hire_model->choose_org();  
       $data["header"] = $this->load->view('header/v_header','',TRUE);
       $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
@@ -227,12 +225,6 @@ class Hr extends CI_Controller {
 	    }
 	    }
 	}
-
-  function search_info(){
-    $ID = $this->input->post('ID');
-    $data = $this->Hire_model->search_info($ID);
-    echo json_encode($data);
-  }
 
 	
 
