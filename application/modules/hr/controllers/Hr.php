@@ -55,7 +55,8 @@ class Hr extends CI_Controller {
       $dt = $check2['ID'];
       //var_dump($dt);
       $check3 = $this->Hire_model->auto_register2($dt, $per_id);
-      //$data['person'] = $this->Hire_model->get_related_per($ID);
+      $data['person'] = $this->Hire_model->get_related_per($dt);
+      var_dump($data['person']);
       $data['org'] = $this->Hire_model->choose_org();  
       $data["header"] = $this->load->view('header/v_header','',TRUE);
       $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);

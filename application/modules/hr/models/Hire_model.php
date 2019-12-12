@@ -613,9 +613,11 @@ class Hire_model extends CI_Model
   }
 
   function get_related_per($ID){
-    $q = 'select a.*, b.Name from 
-    [dbo].[PersonnelAuth] a join dbo.PersonnelTable b 
-    on a.PersonnelID = b.ID where a.PersonnelNumber ='.$ID ;
+    $q = 'select a.*, c.Name from 
+    [dbo].[UserXPersonnel] a 
+	join dbo.PersonnelTable c 
+	on a.PersonnelID = c.ID 
+	where a.UserID = '.$ID ;
     $query = $this->db->query($q);    
      //$query = $this->db->get('dbo.RequisitionTable');
      return $query->result_array();
