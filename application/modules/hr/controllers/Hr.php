@@ -51,10 +51,12 @@ class Hr extends CI_Controller {
       $this->load->view('hr/v_error_hris', $data);
     }else{
       $check2 = $this->Hire_model->auto_register($nik);
-      $dt = $check2[0]['ID'];
+      //var_dump($check2);
+      $dt = $check2['ID'];
       //var_dump($dt);
       $check3 = $this->Hire_model->auto_register2($dt, $per_id);
-      //$data['person'] = $this->Hire_model->get_related_per($ID);
+      $data['person'] = $this->Hire_model->get_related_per($dt);
+      //var_dump($data['person']);
       $data['org'] = $this->Hire_model->choose_org();  
       $data["header"] = $this->load->view('header/v_header','',TRUE);
       $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
@@ -98,39 +100,13 @@ class Hr extends CI_Controller {
 
 	public function add()
 	{
+		$ID = $this->session->userdata('nik');
+		$no = $this->session->userdata('ID');
+		$name = $this->session->userdata('name');
 		$nik = $this->session->userdata('nik');
-
-    $check = $this->Hire_model->check_personnel($nik);
-    $sess = $this->Hire_model->make_session($nik);
-    $object = json_decode(json_encode($sess));
-    //var_dump($object->Postion);
-    //var_dump($count($sess));
-    if ($sess != '') {
-      $data = array(
-        'Name2'    => $object->FullName,
-        'NIK2'     => $object->PersonnelNumber,
-        'ID2'    => $object->ID,
-        'Position'   => $object->Postion,
-        'PositionID' => $object->PostionID,
-        'Organization' =>$object->Organization,
-        'OrganizationID' =>$object->OrganizationID,
-        'ParentOrganization' =>$object->ParentOrganization,
-        'ParentOrganizationID' => $object->ParentOrganizationID,
-        'ParentPosition' =>$object->ParentPosition,
-        'ParentPositionID'=>$object->ParentPositionID,
-        'ParentPersonnel' => $object->ParentPersonnel,
-        'ParentPersonnelID' => $object->ParentPersonnelID
-      );
-      //var_dump($data);
-
-    $this->session->set_userdata($data);
-    }
-
-    $OrganizationID = $this->session->userdata('OrganizationID');
-    $ID = $this->session->userdata('ID2');
-    $data['org'] = $this->Hire_model->get_organization($OrganizationID);
-    // var_dump($data['org']);
-		$data['member'] = $this->Hire_model->get_member_organization($OrganizationID);
+    $dept_id = $this->session->userdata('dept_id');
+    $data['org'] = $this->Hire_model->get_organization($dept_id);
+		$data['member'] = $this->Hire_model->get_member_organization($dept_id);
 		// $data['person'] = $this->Hire_model->get_related_per($ID);
 		// $data['org'] = $this->Hire_model->choose_org();	
 		$data["header"] = $this->load->view('header/v_header','',TRUE);
@@ -226,6 +202,13 @@ class Hr extends CI_Controller {
 	    }
 	}
 
+  public function search_info(){
+    $ID = $this->input->post('ID');
+    $data = $this->Hire_model->search_info($ID);
+    echo json_encode($data);
+  }
+
+	
 
 	function save_data(){
 	    $requestor_id = $this->input->post('requestor_id');
