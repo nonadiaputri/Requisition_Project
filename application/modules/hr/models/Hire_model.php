@@ -172,14 +172,23 @@ class Hire_model extends CI_Model
 
   public function get_member_organization($OrganizationID)
   { 
-      $res = $this->db->query("select a.ID as ID, a.Name as PersonnelName, 
-                              c.Name as PositionName, e.Name as OrganizationName, e.id as OrganizationID
-                              from dbo.UserTable a
-                              join dbo.PersonnelPosition b on a.ID= b.PersonnelID
-                              join dbo.PositionTable c on b.PositionID = c.ID
-                              join dbo.PositionInOrganization d on c.ID = d.PositionID
-                              join dbo.OrganizationTable e on a.OrganizationID = e.ID
-                              where e.ID =".$OrganizationID);
+      $res = $this->db->query("select a.id, a.name, a.organizationid, c.id as PersonnelID,
+                            c.fullname as PersonnelName from dbo.UserTable a
+                            join dbo.OrganizationTable b on a.OrganizationID = b.id
+                            join dbo.PersonnelTable c on a.Name = c.FullName
+                            where b.ID ='$OrganizationID'");
+
+      // $res = $this->db->query("select a.ID as ID, a.Name as PersonnelName, f.PersonnelID as PersonnelID,
+      // c.Name as PositionName, e.Name as OrganizationName, e.id as OrganizationID
+      // from dbo.UserTable a
+      // join dbo.PersonnelPosition b on a.ID= b.PersonnelID
+      // join dbo.PositionTable c on b.PositionID = c.ID
+      // join dbo.PositionInOrganization d on c.ID = d.PositionID
+      // join dbo.OrganizationTable e on a.OrganizationID = e.ID
+      // join dbo.UserXPersonnel f on a.ID = f.UserID
+     // join dbo.PersonnelTable g on f.PersonnelID = g.ID
+      //                         where e.ID =".$OrganizationID
+      //and f.PersonnelID != g.ID );
         return $res->result_array();
   }
 
@@ -538,6 +547,11 @@ class Hire_model extends CI_Model
 
   public function save_data($data){
     $res = $this->db->insert('dbo.RequisitionTable', $data);
+    return $res;
+  }
+
+  public function save_data_personnel($data){
+    $res = $this->db->insert('dbo.UserXPersonnel', $data);
     return $res;
   }
 

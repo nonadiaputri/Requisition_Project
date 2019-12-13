@@ -72,7 +72,7 @@
                   <?php } ?>
 
                   <?php foreach($user as $user){ ?>
-                  <input type="text" class="form-control" name="org_id" id="org_id" value = "<?php echo $user['UserID']; ?>" required="required" readonly>
+                  <input type="hidden" class="form-control" name="user_id" id="user_id" value = "<?php echo $user['UserID']; ?>" required="required" readonly>
                   <?php } ?>
                   <span id="error_req_org" class="text-danger"></span>
 	          </div>
@@ -87,7 +87,7 @@
 	                  <select onchange="cek_database()" class="form-control chs-select" name="member" id="member" style="width:100%" required="required">
 	                        <option default>Select Employee Name</option>
 	                        <?php foreach ($member as $member) { ?>
-	                        <option value="<?php echo $member['ID'];?>"><?php echo $member['PersonnelName'];?></option>
+	                        <option id="personnel_id"value="<?php echo $member['PersonnelID'];?>"><?php echo $member['PersonnelName'];?></option>
 	                        <?php } ?>
 	                    </select>
                       <!-- <input type="text" class="form-control" id="member_name" name="member_name" required="required">
@@ -123,7 +123,7 @@
 	        <div class="row">
 	        	<div class="form-group">
                   	<div style="width:100%;height:100%;vertical-align:middle;text-align:center;">
-	                    <button type="button" id="btn-submit" style="margin: auto;" class="btn waves-effect waves-light btn-primary">Save</button>
+	                    <button type="button" id="btn-save" style="margin: auto;" class="btn waves-effect waves-light btn-primary">Save</button>
                   </div>
                 </div>  	
 	        </div>
@@ -191,29 +191,29 @@
 
    var option_value;
    
-            $('.searching').select2({
-                placeholder: 'Department Name',
-                ajax:{
-                    url: "<?php echo base_url('hr/select2'); ?>",
-                    dataType: "json",
-                    delay: 250,
-                    processResults: function(data){
-                        var results = [];
+            // $('.searching').select2({
+            //     placeholder: 'Department Name',
+            //     ajax:{
+            //         url: "<?php echo base_url('hr/select2'); ?>",
+            //         dataType: "json",
+            //         delay: 250,
+            //         processResults: function(data){
+            //             var results = [];
 
-                        $.each(data, function(index, item){
-                            results.push({
-                                id: item.ID,
-                                text: item.Name,
-                                option_value:item.ID
-                            });     
-                        });
-                        return{
-                            results: results,
-                            cache: true,
-                        };
-                    },
-                }
-            });
+            //             $.each(data, function(index, item){
+            //                 results.push({
+            //                     id: item.ID,
+            //                     text: item.Name,
+            //                     option_value:item.ID
+            //                 });     
+            //             });
+            //             return{
+            //                 results: results,
+            //                 cache: true,
+            //             };
+            //         },
+            //     }
+            // });
 
           //   $('#requestor').on('select2:select', function (e) {
           //     var name = $('#requestor :selected').text();
@@ -282,30 +282,30 @@
           
               }
 
-            $('.member').select2({
-                placeholder: 'Enter The Request Name',
-                ajax:{
-                    url: "<?php echo base_url('Hr/member'); ?>",
-                    dataType: "json",
-                    delay: 250,
-               processResults: function(data){
-                        var results = [];
+            // $('.member').select2({
+            //     placeholder: 'Enter The Request Name',
+            //     ajax:{
+            //         url: "<?php echo base_url('Hr/member'); ?>",
+            //         dataType: "json",
+            //         delay: 250,
+            //    processResults: function(data){
+            //             var results = [];
 
-                        $.each(data, function(index, item){
-                            results.push({
-                                id: item.ID,
-                                text: item.Name,
-                                option_value:item.ID
-                            });
-                        });
-                        return{
-                            results: results,
-                            cache: true,
-                        };
-                    },
-                }
+            //             $.each(data, function(index, item){
+            //                 results.push({
+            //                     id: item.ID,
+            //                     text: item.Name,
+            //                     option_value:item.ID
+            //                 });
+            //             });
+            //             return{
+            //                 results: results,
+            //                 cache: true,
+            //             };
+            //         },
+            //     }
 
-            });
+            // });
 
           //   $('#member_name').on('select2:select', function (e) {
           //     var member = $('#member_name :selected').text();
@@ -345,42 +345,7 @@
   $(document).ready(function(){
     // To allow the dynamic element to able to use this change event
     // See here for more info, https://stackoverflow.com/questions/1359018/how-do-i-attach-events-to-dynamic-html-elements-with-jquery
-    var arr_id=[];
-    var temp;
-    
-   var rep;
-   $('#display-btn').click(function(e){
-     for (var i = 0; i <= arr_id.length-1; i++) {
-      if (i==(arr_id.length-1)) {
-        temp = arr_id[i];
-         console.log(temp);   
-      }    
-     }
-     $.ajax({
-        url:"<?php echo base_url('hr/search_position');?>",
-        method:"POST",
-        dataType : "json",
-        data:{ 'ID' : temp},
-        success:function(data){
-          console.log(data);
-          var output = '';
-          $.each(data, function (i) {
-            //var rep;
-            //console.log("data"+data[i]['FullName']);
-            if (data[i]['FullName'] === null) {
-              rep = "Empty";
-            }else{
-              rep = data[i]['FullName'];
-            }
-            output += '<option value="' + data[i]['ID']+'"data-subtext="'+data[i]['FullName']+'">' + data[i]['Position']+'('+rep+')</option>';
-          });
-          $('#position').append(output);
-        },
-        error:function(){
-                alert('error ... ');
-            }
-        });
-   });
+   
 
   $('#status').on('change',function(){
         if( $('#status').val()=="2"){
@@ -393,35 +358,17 @@
 
   $('#btn-save').click(function(e){
   e.preventDefault();   
-      var requestor_id = $('#requestor_id').val();
-      var req_position_id = $('#req_position_id').val();
-      var org_id = $('#org_id').val();
-      var position = $('#position').val();
-      var total = $('#ttl').val();
-      var placement = $('#placement').val();
-      var status = $('#status').val();
-      var workdate = $('#workdate').val();
-      var ReplacementName = $('#ReplacementName').val();
-      var responsibility = CKEDITOR.instances["responsibility"].getData();
-      var requirement = CKEDITOR.instances["requirement"].getData();
-      //console.log("btn click"+req_position_id);
+      var user_id = $('#user_id').val();
+      var personnel_id = $('#personnel_id').val();
 
       $.ajax({
-        url:"<?php echo base_url('hr/save_data');?>",
+        url:"<?php echo base_url('hr/save_data_personnel');?>",
         method:"POST",
-        data:{ 'requestor_id' : requestor_id,
-               'req_position_id':req_position_id,
-               'org_id' : org_id,
-               'position':position,
-               'total':total,
-               'placement':placement, 
-               'status':status,
-               'workdate':workdate,
-               'ReplacementName':ReplacementName,
-               'responsibility' : responsibility,
-               'requirement' : requirement},
+        data:{ 'user_id' : user_id,
+               'personnel_id':personnel_id
+               },
         success:function(data){
-          window.location.href = '<?php echo base_url('hr/Hire_history');?>';
+         // window.location.href = '<?php echo base_url('hr/Hire_history');?>';
           console.log(data);
           if (data.status) {
                   alert('Save as Draft');
@@ -433,231 +380,11 @@
         });
       });
 
-    $('#btn-submit').click(function(){
-
-        var requestor_id = $('#requestor_id').val();
-        var req_position_id = $('#req_position_id').val();
-        var org_id = $('#org_id').val();
-        var position = $('#position').val();
-        var total = $('#total').val();
-        var placement = $('#placement').val();
-        var status = $('#status').val();
-        var workdate = $('#workdate').val();
-        var ReplacementName = $('#ReplacementName').val();
-        var responsibility = CKEDITOR.instances["responsibility"].getData();
-        var requirement = CKEDITOR.instances["requirement"].getData();
-        var ttl = $('#ttl').val();
-
-        var error_requestor = '';
-        var error_req_position = '';
-        var error_req_org = '';
-        var error_position = '';
-        var error_total = '';
-        var error_placement = '';
-        var error_status = '';
-        var error_workdate = '';
-        var error_replacementName = '';
-        var error_requirement = '';
-        var error_responsibility = '';
-        var error_ttl = '';
-
-        // if(requestor == ''){
-        //  error_requestor = 'Requestor Name is required';
-        //  $('#error_requestor').text(error_requestor);
-        //  $('#requestor').css('border-color', '#cc0000');
-        //  requestor = '';
-        // }else{
-        //  error_requestor = '';
-        //  console.log($('#requestor').val());
-        //  $('#error_requestor').text(error_requestor);
-        //  $('#requestor').css('border-color', '');
-        //  requestor = $('#requestor').val();
-        // }
-
-        // if(req_position == ''){
-        //  error_req_position = 'Requestor Position is required';
-        //  $('#error_req_position').text(error_req_position);
-        //  $('#req_position').css('border-color', '#cc0000');
-        //  req_position = '';
-        // }else{
-        //  error_req_position = '';
-        //  console.log($('#req_position').val());
-        //  $('#error_req_position').text(error_req_position);
-        //  $('#req_position').css('border-color', '');
-        //  req_position = $('#req_position').val();
-        // }
-
-        // if(req_org == ''){
-        //  error_req_org = 'Organization is required';
-        //  $('#error_req_org').text(error_req_org);
-        //  $('#req_org').css('border-color', '#cc0000');
-        //  req_org = '';
-        // }else{
-        //  error_req_org = '';
-        //  console.log($('#req_org').val());
-        //  $('#error_req_org').text(error_req_org);
-        //  $('#req_org').css('border-color', '');
-        //  req_org = $('#req_org').val();
-        // }
-
-        if(position == ''){
-         error_position = 'Position is required';
-         $('#error_position').text(error_position);
-         $('#position').css('border-color', '#cc0000');
-         position = '';
-        }else{
-         error_position = '';
-         console.log($('#position').val());
-         $('#error_position').text(error_position);
-         $('#position').css('border-color', '');
-         position = $('#position').val();
-        }
-
-        if(ttl == ''){
-         error_ttl = 'Total is required';
-         $('#error_ttl').text(error_ttl);
-         $('#ttl').css('border-color', '#cc0000');
-         ttl = '';
-        }else{
-         error_ttl = '';
-         console.log($('#ttl').val());
-         $('#error_ttl').text(error_ttl);
-         $('#ttl').css('border-color', '');
-         ttl = $('#ttl').val();
-        }  
-
-        if(placement == ''){
-         error_placement = 'Placement is required';
-         $('#error_placement').text(error_placement);
-         $('#placement').css('border-color', '#cc0000');
-         placement = '';
-        }else{
-         error_placement = '';
-         console.log($('#placement').val());
-         $('#error_placement').text(error_placement);
-         $('#placement').css('border-color', '');
-         placement = $('#placement').val();
-        }
-
-        if(status == ''){
-         error_status = 'Status is required';
-         $('#error_status').text(error_status);
-         $('#status').css('border-color', '#cc0000');
-         status = '';
-        }else{
-         error_status = '';
-         console.log($('#status').val());
-         $('#error_status').text(error_status);
-         $('#status').css('border-color', '');
-         status = $('#status').val();
-        }
-
-        if ($('#status').val() == '2') {
-          if($('#ReplacementName').val() == ''){
-            error_replacementName = 'Replacement Name is required';
-           $('#error_replacementName').text(error_replacementName);
-           $('#ReplacementName').css('border-color', '#cc0000');
-           ReplacementName = '';
-          }else{
-           error_replacementName = '';
-           console.log($('#ReplacementName').val());
-           $('#error_replacementName').text(error_status);
-           $('#ReplacementName').css('border-color', '');
-           ReplacementName = $('#ReplacementName').val();
-          }
-
-          }
-
-        if(workdate == ''){
-         error_workdate = 'Workdate is required';
-         $('#error_workdate').text(error_workdate);
-         $('#workdate').css('border-color', '#cc0000');
-         workdate = '';
-        }else{
-         error_workdate = '';
-         console.log($('#workdate').val());
-         $('#error_workdate').text(error_workdate);
-         $('#workdate').css('border-color', '');
-         workdate = $('#workdate').val();
-        }
-
-        if(responsibility == ''){
-         error_responsibility = 'Responsibility is required';
-         $('#error_responsibility').text(error_responsibility);
-         $('#responsibility').css('border-color', '#cc0000');
-         responsibility = '';
-        }else{
-         error_responsibility = '';
-         console.log(responsibility);
-         $('#error_responsibility').text(error_responsibility);
-         $('#responsibility').css('border-color', '');
-         responsibility = $('#responsibility').val();
-        }
-
-        if(requirement == ''){
-         error_requirement = 'Requirement is required';
-         $('#error_requirement').text(error_requirement);
-         $('#requirement').css('border-color', '#cc0000');
-         requirement = '';
-        }else{
-         error_requirement = '';
-         console.log(requirement);
-         $('#error_requirement').text(error_requirement);
-         $('#requirement').css('border-color', '');
-         requirement = $('#requirement').val();
-        }
-
-        if (error_requestor == '' && error_req_position == '' && error_req_org == '' && error_position == '' && error_total == '' && error_placement == '' && error_status == '' && error_workdate == '' && error_responsibility == '' && error_requirement == '' && error_ttl == '' ) {
-          $('#myModal').modal('show'); 
-        }
-          
-
-    });
     
-
-    $('#button-smt').click(function(){
-      var requestor_id = $('#requestor_id').val();
-      var req_position_id = $('#req_position_id').val();
-      var org_id = $('#org_id').val();
-      var position = $('#position').val();
-      var total = $('#ttl').val();
-      var placement = $('#placement').val();
-      var status = $('#status').val();
-      var workdate = $('#workdate').val();
-      var ReplacementName = $('#ReplacementName').val();
-      var responsibility = CKEDITOR.instances["responsibility"].getData();
-      var requirement = CKEDITOR.instances["requirement"].getData();
-
-      $.ajax({
-        url:"<?php echo base_url('hr/submit_hire');?>",
-        method:"POST",
-        data:{ 'requestor_id':requestor_id,
-               'req_position_id':req_position_id,
-               'org_id' : org_id,
-               // 'req_position':req_position,
-               // 'req_org' : req_org,
-               'position':position,
-               'total':total,
-               'placement':placement, 
-               'status':status,
-               'workdate':workdate,
-               'ReplacementName':ReplacementName,
-               'responsibility' : responsibility,
-               'requirement' : requirement},
-        success:function(data){
-          console.log(data);
-          if (data.status) {
-                  alert('sukses!');
-                }
-              },
-            error:function(){
-                alert('error ... ');
-        }
-    });
        $('#myModal').hide();
           $('.modal-fade').hide();
           $(".modal-backdrop").remove();
-         // window.location.href = '<?php echo base_url('hr/hire_history');?>';
+          window.location.href = '<?php echo base_url('hr/index');?>';
     });
 
 

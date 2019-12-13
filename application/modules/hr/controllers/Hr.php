@@ -96,7 +96,7 @@ class Hr extends CI_Controller {
 		// $this->load->view('hr/v_form',$data);
 	}
 
-	public function add()
+	public function add_access()
 	{
 		$nik = $this->session->userdata('nik');
 
@@ -268,7 +268,48 @@ class Hr extends CI_Controller {
 	      }else{
 	      echo json_encode(array('status'=>false));
 	      }
-	}
+  }
+  
+
+  function save_data_personnel(){
+    $user_id = $this->input->post('user_id');
+    $personnel_id= $this->input->post('personnel_id');
+    // $org_id = $this->input->post('org_id');
+    // $position = $this->input->post('position');
+    // $total = $this->input->post('total');
+    // $placement = $this->input->post('placement');
+    // $status = $this->input->post('status');
+    // $workdate = $this->input->post('workdate');
+    // $ReplacementName = $this->input->post('ReplacementName');
+    // $requirement = $this->input->post('requirement');
+    // $responsibility = $this->input->post('responsibility');
+    // $IsProcessedToHire = '2';
+
+    $data = array(
+      'UserID' => $user_id,
+      'PersonnelID' => $personnel_id
+      // 'RequestorDepartmentID' => $org_id,
+      // 'RequestedPositionID' => $position,
+      // 'ReplacementPersonnelID' => $ReplacementName,
+      // 'NumberOfPlacement' => $total,
+      // 'ExpectedWorkStartDate' => $workdate,
+      // 'RequisitionTypeID' => $status,
+      // 'RequirementDescription' => $requirement,
+      // 'DuttiesAndResponsibilities' => $responsibility,
+      // 'PlacementID' => $placement,
+      // 'IsProcessedToHire' => $IsProcessedToHire
+      );
+
+    //print_r($data);
+
+    $this->load->model('hire_model');
+    $res = $this->Hire_model->save_data_personnel($data);
+      // if ($res > 0 ) {
+      //   $this->hire_history();
+      // }else{
+      // echo json_encode(array('status'=>false));
+      // }
+}
 
 	
 
