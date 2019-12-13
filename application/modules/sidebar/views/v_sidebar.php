@@ -86,6 +86,8 @@
           <a href="#">
             <i class="fa fa-user-circle-o"></i>
             <span>HR-Hire</span>
+            <span id = "notif" style = "color:red; display:none;">!!@</span>
+            
             <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
@@ -248,3 +250,25 @@
     </section>
     <!-- /.sidebar -->
   </aside>
+
+  <script type="text/javascript">
+        $(document).ready(function(){
+    setInterval(function(){
+          $.ajax({
+                url:"<?=base_url()?>Hr/notif",
+                type:"POST",
+                dataType:"json",//datatype lainnya: html, text
+                data:{},
+                success:function(data){
+                    // alert(data.tot);
+                    if(data.tot != ''){
+
+                      $("#notif").show();
+                      $("#notif").html(data.tot);
+                    }
+                    //$("#total").html(data.tot);
+                }
+            });
+          },2000);
+  })
+    </script>

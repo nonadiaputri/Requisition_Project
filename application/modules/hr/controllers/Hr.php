@@ -17,6 +17,7 @@ class Hr extends CI_Controller {
     $check = $this->Hire_model->check_personnel($nik);
     $sess = $this->Hire_model->make_session($nik);
     $object = json_decode(json_encode($sess));
+
     //var_dump($object->Postion);
     //var_dump($count($sess));
     if ($sess != '') {
@@ -39,8 +40,9 @@ class Hr extends CI_Controller {
       
 
     $this->session->set_userdata($data);
-     
+    
     }
+    
 
     //var_dump($check);
     $per_id = $check[0]['ID'];
@@ -57,6 +59,11 @@ class Hr extends CI_Controller {
       $check3 = $this->Hire_model->auto_register2($dt, $per_id);
       $data['person'] = $this->Hire_model->get_related_per($dt);
       //var_dump($data['person']);
+      $ID = $this->session->userdata('ID2');
+    $req_dep = $this->session->userdata('OrganizationID');
+    $data['result'] = $this->Hire_model->get_new_req($ID, $req_dep);
+    $data['tot'] = count($data['result']);
+     
       $data['org'] = $this->Hire_model->choose_org();  
       $data["header"] = $this->load->view('header/v_header','',TRUE);
       $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
@@ -97,7 +104,15 @@ class Hr extends CI_Controller {
 		// $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
 		// $this->load->view('hr/v_form',$data);
 	}
-
+  public function notif(){
+    //$data['new'] =$this->Hire3_model->total_new_req();
+    //$data['msg'] = "Berhasil direfresh secara realtime";
+    $ID = $this->session->userdata('ID2');
+    $req_dep = $this->session->userdata('OrganizationID');
+    $data['result'] = $this->Hire_model->get_new_req($ID, $req_dep);
+    $data['tot'] = count($data['result']);
+    echo json_encode($data);
+  }
 	public function add()
 	{
 		$ID = $this->session->userdata('nik');

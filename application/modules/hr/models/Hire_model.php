@@ -305,24 +305,17 @@ class Hire_model extends CI_Model
     return $this->db->count_all_results();
   }
 
-  public function get_new_req(){
-    $query = 'select a.*, b.FullName from dbo.RequisitionTable a
-              join dbo.PersonnelTable b
-              on b.ID=a.RequestorID
-              where RequestorID in 
-              (Select PersonnelIDList from 
-              (select a.ID, a.PersonnelIDList, c.OrganizationUnitID from dbo.UserTable a
-                join dbo.PersonnelPosition b
-                on a.PersonnelIDList = b.PersonnelID
-                join dbo.PositionInOrganization c
-                on c.PositionID = b.PositionID
-                where a.ID in 
-                  (select userID from dbo.UserXUserGroup where UserGroupID=5)
-                )
-                X)
-              and IsProcessedToHire=0 
-              and IsHold = 0
-              and IsRejected = 0';
+  public function get_new_req($ID, $req_dep){
+    $query = "select a.*, b.FullName from dbo.RequisitionTable a
+    join DBO.PersonnelTable b on a.RequestorID = b.ID
+    join dbo.UserXUserGroup c on c.UserID = a.CreatedById
+    join dbo.OrganizationTable d on d.ID = a.RequestorDepartmentID
+    where a.RequestorID = '$ID'
+    and c.UserGroupID = 5
+    and a.RequestorDepartmentID = '$req_dep'
+    and IsProcessedToHire=0 
+    and IsHold = 0
+    and IsRejected = 0;";
     $query = $this->db->query($query);
     return $query->result_array();
 

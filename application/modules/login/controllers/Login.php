@@ -43,7 +43,17 @@ class Login extends CI_Controller {
             	// $this->load->database('db1');
             	// $new_id = $this->Login_model->get_new_id($uid);
             	// var_dump($new_id);
-            }			
+			}
+			
+			/**
+			 * Leveling Page Access
+			 * by Geraldine Agusta
+			 */
+			 if($data['id_position'] > 8){
+				 $data["sidebar"] = $this->load->view('header/v_header','',TRUE);
+				 redirect('dashboard', $data);
+			 }
+
 			redirect('dashboard');
 		}else{
 			$this->session->set_flashdata('message', '<p style="color:red">Email atau Password Anda Salah!</p>');
@@ -60,5 +70,9 @@ class Login extends CI_Controller {
         $this->session->sess_destroy();
         	
 		redirect('login','refresh');
+	}
+
+	function notif(){
+
 	}
 }
