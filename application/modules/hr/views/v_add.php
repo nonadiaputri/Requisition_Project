@@ -69,7 +69,7 @@
 	                <label class="control-label">Organization Name</label>
                   <?php foreach($org as $org){ ?>
 	                <input type="text" class="form-control" name="req_org_id" id="req_org_id" value = "<?php echo $org['OrganizationName']; ?>" required="required" readonly>
-                  <!-- <input type="text" class="form-control" name="org_id" id="org_id" value = "<?php echo $this->session->userdata('dept_id'); ?>" required="required" readonly> -->
+                  <input type="text" class="form-control" name="org_id" id="org_id" value = "<?php echo $this->session->userdata('ID'); ?>" required="required" readonly>
 	               <?php } ?>
                   <span id="error_req_org" class="text-danger"></span>
 	          </div>
@@ -275,7 +275,7 @@
                       var json = data,
                       obj = JSON.parse(json);
                       $('#req_position').val(obj.PositionName);
-                      
+                  });
           
               }
 
