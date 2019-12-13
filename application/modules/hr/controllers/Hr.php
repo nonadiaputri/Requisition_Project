@@ -150,7 +150,7 @@ class Hr extends CI_Controller {
 	    // $data['tot'] = count($data['hire']);
 	    // $data['res'] = $this->Hire_model->get_hire();
 	    // var_dump($requestor_id);
-	    //$data['myreq'] = $this->Hire_model->get_your_request($requestor_id);
+	    $data['myreq'] = $this->Hire_model->get_your_request($requestor_id);
   		$data["header"] = $this->load->view('header/v_header','',TRUE);
   		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
   		$this->load->view('hr/v_hire_history',$data);
@@ -168,6 +168,8 @@ class Hr extends CI_Controller {
 	    $ReplacementName = $this->input->post('ReplacementName');
 	    $requirement = $this->input->post('requirement');
 	    $responsibility = $this->input->post('responsibility');
+      $id = $this->session->userdata('ID2');
+      var_dump($id);
 
 	    $data = array(
 	      'RequestorID' => $requestor_id,
@@ -180,7 +182,9 @@ class Hr extends CI_Controller {
 	      'RequisitionTypeID' => $status,
 	      'RequirementDescription' => $requirement,
 	      'DuttiesAndResponsibilities' => $responsibility,
-	      'PlacementID' => $placement
+	      'PlacementID' => $placement,
+        'CreatedByID' => $id,
+        'LastModifiedByID' => $id
 	      );
 
 	    $this->load->model('Hire_model');
@@ -190,7 +194,9 @@ class Hr extends CI_Controller {
 	      $data1 = array(
 	        'EmployeeID' => $requestor_id,
 	        'PositionID' => $req_position_id,
-	        'RequisitionID' => $last_id );
+	        'RequisitionID' => $last_id,
+          'CreatedByID' => $id,
+          'LastModifiedByID' => $id );
 	      $res = $this->Hire_model->Insert_to_Approval($data1);
 
 	      if ($res > 0 ) {

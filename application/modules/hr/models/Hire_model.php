@@ -551,13 +551,15 @@ class Hire_model extends CI_Model
   }
 
   function search_info($ID){
-    $this->db->select('A.ID, a.FullName, b.PositionID, c.Name as PositionName, d.OrganizationUnitID as Organization, e.Name as OrganizationName ');
-    $this->db->from('dbo.PersonnelTable a');
-    $this->db->join('dbo.PersonnelPosition b','a.ID=b.PersonnelID');
-    $this->db->join('dbo.PositionTable c','b.PositionID=c.ID');
-    $this->db->join('dbo.PositionInOrganization d','d.PositionID=b.PositionID');
-    $this->db->join('dbo.OrganizationTable e','e.ID=d.OrganizationUnitID');
-    $this->db->like('a.ID',$ID);
+    // $this->db->select('A.ID, a.FullName, b.PositionID, c.Name as PositionName, d.OrganizationUnitID as Organization, e.Name as OrganizationName ');
+    // $this->db->from('dbo.PersonnelTable a');
+    // $this->db->join('dbo.PersonnelPosition b','a.ID=b.PersonnelID');
+    // $this->db->join('dbo.PositionTable c','b.PositionID=c.ID');
+    // $this->db->join('dbo.PositionInOrganization d','d.PositionID=b.PositionID');
+    // $this->db->join('dbo.OrganizationTable e','e.ID=d.OrganizationUnitID');
+    $this->db->select('*');
+    $this->db->from("dbo.PersonnelHierarchy");
+    $this->db->like('ID',$ID);
     //$this->db->where('IsHold',)
     $query = $this->db->get();
     return $query->row_array();
