@@ -86,8 +86,8 @@
 	        <div class="row">
 	          	<div class="col-md-8">
 	                <label class="control-label">Organization Name</label>
-	                <input type="text" class="form-control" name="req_org_id" id="req_org_id" value = "<?php echo $this->session->userdata('Organization'); ?>" required="required" readonly>
-	                <input type="hidden" class="form-control" name="org_id" id="org_id" value = "<?php echo $this->session->userdata('OrganizationID'); ?>" required="required" readonly>
+	                <input type="text" class="form-control" name="org_id" id="org_id" value = "" required="required" readonly>
+                  <input type="hidden" class="form-control" name="req_org_id" id="req_org_id" value = "" required="required" readonly>
 	                <span id="error_req_org" class="text-danger"></span>
 	          </div>
 	        </div>
@@ -401,69 +401,6 @@
                 }
             });
 
-            $('#requestor').on('change', function() {
-              var value = $('#requestor :selected').val();
-              //console.log($('#requestor :selected').text());
-              console.log(value);
-              if ($('#requestor :selected').text() != '') {
-                alert(value);
-                $.ajax({
-                    url:"<?php echo base_url('Hr/search_info');?>",
-                    method:"GET",
-                    dataType:'json',
-                    data:{ 'ID': value },
-
-                    success:function(data){
-                      if (data) {
-                        console.log(data);
-                        // $('#dis-pos').show();
-                        // $('#dis-org').show();
-                        $('#req_position_id').val(data.PositionID);
-                        $('#req_org_id').val(data.Organization);
-                        $('#req_position').val(data.PositionName);
-                        $('#req_org').val(data.OrganizationName);
-                        
-                        }
-                      },
-                    error:function(){
-                            alert('error ... ');
-                    }
-                });
-             
-            }
-            });
-
-            $('#requestor').on('select2:select', function (e) {
-              var name = $('#requestor :selected').text();
-              alert("test");
-              console.log($('#requestor :selected').text());
-              console.log(name);
-              if ($('#requestor :selected').text() != '') {
-                $.ajax({
-                    url:"<?php echo base_url('hr/search_info');?>",
-                    method:"GET",
-                    dataType:'json',
-                    data:{ 'Name':name },
-
-                    success:function(data){
-                      if (data) {
-                        // $('#dis-pos').show();
-                        // $('#dis-org').show();
-                        $('#req_position_id').val(data.PositionID);
-                        $('#req_org_id').val(data.Organization);
-                        $('#req_position').val(data.PositionName);
-                        $('#req_org').val(data.OrganizationName);
-                        
-                        }
-                      },
-                    error:function(){
-                            alert('error ... ');
-                    }
-                });
-             
-            }
-          });
-
             // $('.position').select2({
             //     placeholder: 'Requested Position',
             //     ajax:{
@@ -513,6 +450,31 @@
             });
             
   $(document).ready(function(){
+    
+    $('#requestor').on('change', function() {
+      var temp2 = $('#requestor :selected').val();
+      if ($('#requestor :selected').text() != '') {
+        $.ajax({
+          url:"<?php echo base_url('hr/search_info');?>",
+          method:"POST",
+          dataType : "json",
+          data:{ 'ID' : temp2},
+          success:function(data){
+            console.log(data);
+            $('#req_position_id').val(data.PositionID);
+            $('#req_position').val(data.PositionName);
+            $('#req_org_id').val(data.Organization);
+            $('#org_id').val(data.OrganizationName);
+            
+          },
+          error:function(){
+                  alert('error ... ');
+              }
+          });
+    }
+    });
+
+    
     // To allow the dynamic element to able to use this change event
     // See here for more info, https://stackoverflow.com/questions/1359018/how-do-i-attach-events-to-dynamic-html-elements-with-jquery
     var arr_id=[];

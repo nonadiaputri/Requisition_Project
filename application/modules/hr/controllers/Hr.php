@@ -202,8 +202,13 @@ class Hr extends CI_Controller {
 	    }
 	}
 
-  function search_info(){
+  public function search_info(){
     $ID = $this->input->post('ID');
+    // if ($ID != '') {
+    //   echo json_encode(array('status'=>true));
+    // }else{
+    //   echo json_encode(array('status'=>false));
+    // }
     $data = $this->Hire_model->search_info($ID);
     echo json_encode($data);
   }

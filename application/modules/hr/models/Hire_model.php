@@ -550,28 +550,19 @@ class Hire_model extends CI_Model
     return $query->row_array();
   }
 
-  public function search_info($ID){
-    $this->db->select('*');
-    $this->db->from('dbo.PersonnelTable');
-    $this->db->where('ID', $ID);
+  function search_info($ID){
+    $this->db->select('A.ID, a.FullName, b.PositionID, c.Name as PositionName, d.OrganizationUnitID as Organization, e.Name as OrganizationName ');
+    $this->db->from('dbo.PersonnelTable a');
+    $this->db->join('dbo.PersonnelPosition b','a.ID=b.PersonnelID');
+    $this->db->join('dbo.PositionTable c','b.PositionID=c.ID');
+    $this->db->join('dbo.PositionInOrganization d','d.PositionID=b.PositionID');
+    $this->db->join('dbo.OrganizationTable e','e.ID=d.OrganizationUnitID');
+    $this->db->like('a.ID',$ID);
+    //$this->db->where('IsHold',)
     $query = $this->db->get();
     return $query->row_array();
+    return $query->row_array();
   }
-
-  // function search_info($ID){
-  //   $this->db->select('*');
-  //   $this->db->from('dbo.PersonnelTable');
-  //   $this->db->where('ID', $ID);
-  //   // $this->db->select('a.ID, a.FullName ');
-  //   // $this->db->from('dbo.PersonnelTable a');
-  //   // $this->db->join('dbo.PersonnelPosition b','a.ID=b.PersonnelID');
-  //   // $this->db->join('dbo.PositionTable c','b.PositionID=c.ID');
-  //   // $this->db->join('dbo.PositionInOrganization d','d.PositionID=b.PositionID');
-  //   // $this->db->join('dbo.OrganizationTable e','e.ID=d.OrganizationUnitID');
-  //   // $this->db->where('a.ID',$Name);
-  //   $query = $this->db->get();
-  //   return $query->row_array();
-  // }
 
   public function save_data($data){
     $res = $this->db->insert('dbo.RequisitionTable', $data);
