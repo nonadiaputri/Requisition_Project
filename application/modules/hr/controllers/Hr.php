@@ -17,6 +17,7 @@ class Hr extends CI_Controller {
     $check = $this->Hire_model->check_personnel($nik);
     $sess = $this->Hire_model->make_session($nik);
     $object = json_decode(json_encode($sess));
+
     //var_dump($object->Postion);
     //var_dump($count($sess));
     if ($sess != '') {
@@ -39,8 +40,9 @@ class Hr extends CI_Controller {
       
 
     $this->session->set_userdata($data);
-     
+    
     }
+    
 
     //var_dump($check);
     $per_id = $check[0]['ID'];
@@ -51,10 +53,17 @@ class Hr extends CI_Controller {
       $this->load->view('hr/v_error_hris', $data);
     }else{
       $check2 = $this->Hire_model->auto_register($nik);
-      $dt = $check2[0]['ID'];
+      //var_dump($check2);
+      $dt = $check2['ID'];
       //var_dump($dt);
       $check3 = $this->Hire_model->auto_register2($dt, $per_id);
-      //$data['person'] = $this->Hire_model->get_related_per($ID);
+      $data['person'] = $this->Hire_model->get_related_per($dt);
+      //var_dump($data['person']);
+      $ID = $this->session->userdata('ID2');
+    $req_dep = $this->session->userdata('OrganizationID');
+    $data['result'] = $this->Hire_model->get_new_req($ID, $req_dep);
+    $data['tot'] = count($data['result']);
+     
       $data['org'] = $this->Hire_model->choose_org();  
       $data["header"] = $this->load->view('header/v_header','',TRUE);
       $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
@@ -97,7 +106,20 @@ class Hr extends CI_Controller {
 	}
 
 	public function add_access()
+  public function notif(){
+    //$data['new'] =$this->Hire3_model->total_new_req();
+    //$data['msg'] = "Berhasil direfresh secara realtime";
+    $ID = $this->session->userdata('ID2');
+    $req_dep = $this->session->userdata('OrganizationID');
+    $data['result'] = $this->Hire_model->get_new_req($ID, $req_dep);
+    $data['tot'] = count($data['result']);
+    echo json_encode($data);
+  }
+	public function add()
 	{
+		$ID = $this->session->userdata('nik');
+		$no = $this->session->userdata('ID');
+		$name = $this->session->userdata('name');
 		$nik = $this->session->userdata('nik');
 
     $check = $this->Hire_model->check_personnel($nik);
@@ -133,6 +155,9 @@ class Hr extends CI_Controller {
     $data['user'] = $this->Hire_model->get_userid($name);
     // var_dump($data['org']);
 		$data['member'] = $this->Hire_model->get_member_organization($OrganizationID);
+    $dept_id = $this->session->userdata('dept_id');
+    $data['org'] = $this->Hire_model->get_organization($dept_id);
+		$data['member'] = $this->Hire_model->get_member_organization($dept_id);
 		// $data['person'] = $this->Hire_model->get_related_per($ID);
 		// $data['org'] = $this->Hire_model->choose_org();	
 		$data["header"] = $this->load->view('header/v_header','',TRUE);
@@ -176,7 +201,7 @@ class Hr extends CI_Controller {
 	    // $data['tot'] = count($data['hire']);
 	    // $data['res'] = $this->Hire_model->get_hire();
 	    // var_dump($requestor_id);
-	    //$data['myreq'] = $this->Hire_model->get_your_request($requestor_id);
+	    $data['myreq'] = $this->Hire_model->get_your_request($requestor_id);
   		$data["header"] = $this->load->view('header/v_header','',TRUE);
   		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
   		$this->load->view('hr/v_hire_history',$data);
@@ -194,6 +219,8 @@ class Hr extends CI_Controller {
 	    $ReplacementName = $this->input->post('ReplacementName');
 	    $requirement = $this->input->post('requirement');
 	    $responsibility = $this->input->post('responsibility');
+      $id = $this->session->userdata('ID2');
+      var_dump($id);
 
 	    $data = array(
 	      'RequestorID' => $requestor_id,
@@ -206,7 +233,9 @@ class Hr extends CI_Controller {
 	      'RequisitionTypeID' => $status,
 	      'RequirementDescription' => $requirement,
 	      'DuttiesAndResponsibilities' => $responsibility,
-	      'PlacementID' => $placement
+	      'PlacementID' => $placement,
+        'CreatedByID' => $id,
+        'LastModifiedByID' => $id
 	      );
 
 	    $this->load->model('Hire_model');
@@ -216,7 +245,9 @@ class Hr extends CI_Controller {
 	      $data1 = array(
 	        'EmployeeID' => $requestor_id,
 	        'PositionID' => $req_position_id,
-	        'RequisitionID' => $last_id );
+	        'RequisitionID' => $last_id,
+          'CreatedByID' => $id,
+          'LastModifiedByID' => $id );
 	      $res = $this->Hire_model->Insert_to_Approval($data1);
 
 	      if ($res > 0 ) {
@@ -227,6 +258,12 @@ class Hr extends CI_Controller {
 	    }
 	    }
 	}
+
+  public function search_info(){
+    $ID = $this->input->post('ID');
+    $data = $this->Hire_model->search_info($ID);
+    echo json_encode($data);
+  }
 
 	
 

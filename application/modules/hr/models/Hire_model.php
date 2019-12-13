@@ -33,16 +33,26 @@ class Hire_model extends CI_Model
 
      if ( $q->num_rows() == 0 ) {
           $res = $this->db->query("INSERT INTO dbo.UserTable (Email, Name, PersonnelNumber) SELECT Email, Name, PersonnelNumber from dbo.PersonnelTable where PersonnelNumber = $nik");
-          return $res->result_array();
+          $last_id = $this->db->query("SELECT SCOPE_IDENTITY()");
+          $this->db->select('ID');
+          $this->db->where('PersonnelNumber', $nik);
+          $id = $this->db->from('dbo.UserTable')->get();
+          //return $res->result_array();
           
      }else {
         $this->db->select('ID');
         $this->db->where('PersonnelNumber', $nik);
         $id = $this->db->from('dbo.UserTable')->get();
-        return $id->result_array();
+        //return $id->result_array();
        // $this->db->where('PersonnelNumber',$nik);
        // $this->db->update('dbo.UserTable',$data1);      
      }
+     $data = array();
+      if($id !== FALSE && $id != ''){
+          $data = $id->row_array();
+      }
+
+      return $data;
    }
 
   public function get_id_personnel($name){
@@ -63,7 +73,7 @@ class Hire_model extends CI_Model
           $last_id = $this->db->insert_id();
           // return $last_id;
           $res = $this->db->query("UPDATE dbo.UserXPersonnel SET PersonnelID = $PersonnelID where ID = $last_id");
-          return $res->row_array();    
+          return $res;    
      }
   }
 
@@ -154,7 +164,7 @@ class Hire_model extends CI_Model
     return $query->row_array();
   }
 
-  public function get_organization($OrganizationID)
+  public function get_organization($dept_id)
   { 
       $res = $this->db->query("select distinct a.OrganizationID, b.Name as OrganizationName from dbo.UserTable a
                               join dbo.OrganizationTable b on a.OrganizationID = b.ID
@@ -168,9 +178,27 @@ class Hire_model extends CI_Model
                               join dbo.OrganizationTable b on a.OrganizationID = b.ID
                               where a.Name like '%$name%'");
       return $res->result_array();
+      $res = $this->db->query("select distinct a.OrganizationID, e.Name as OrganizationName from dbo.UserTable a
+                              join dbo.PersonnelPosition b on a.ID= b.PersonnelID
+                              join dbo.PositionTable c on b.PositionID = c.ID
+                              join dbo.PositionInOrganization d on c.ID = d.PositionID
+                              join dbo.OrganizationTable e on a.OrganizationID = e.ID
+                              where a.OrganizationID =".$dept_id);
+        return $res->result_array();
+
+      // $this->db->select('select a.ID, a.Name, 
+      //                  c.Name as PositionName, e.Name as OrganizationName, e.ID as OrganizationID');
+      //   $this->db->from('dbo.UserTable a');
+      //   $this->db->join('dbo.PersonnelPosition b','a.ID= b.PersonnelID');
+      //   $this->db->join('dbo.PositionTable c','b.PositionID = c.ID');
+      //   $this->db->join('dbo.PositionInOrganization d','c.ID = d.PositionID');
+      //   $this->db->join('dbo.OrganizationTable e','a.OrganizationID = e.ID');
+      //   $this->db->like('a.Name',$dept_id);
+      //   $query = $this->db->get();
+      //   return $query->row_array();
   }
 
-  public function get_member_organization($OrganizationID)
+  public function get_member_organization($dept_id)
   { 
       $res = $this->db->query("select a.id, a.name, a.organizationid, c.id as PersonnelID,
                             c.fullname as PersonnelName from dbo.UserTable a
@@ -189,7 +217,26 @@ class Hire_model extends CI_Model
      // join dbo.PersonnelTable g on f.PersonnelID = g.ID
       //                         where e.ID =".$OrganizationID
       //and f.PersonnelID != g.ID );
+      $res = $this->db->query("select a.ID as ID, a.Name as PersonnelName, 
+                              c.Name as PositionName, e.Name as OrganizationName, e.id as OrganizationID
+                              from dbo.UserTable a
+                              join dbo.PersonnelPosition b on a.ID= b.PersonnelID
+                              join dbo.PositionTable c on b.PositionID = c.ID
+                              join dbo.PositionInOrganization d on c.ID = d.PositionID
+                              join dbo.OrganizationTable e on a.OrganizationID = e.ID
+                              where e.ID =".$dept_id);
         return $res->result_array();
+
+      // $this->db->select('select a.ID, a.Name, 
+      //                  c.Name as PositionName, e.Name as OrganizationName, e.ID as OrganizationID');
+      //   $this->db->from('dbo.UserTable a');
+      //   $this->db->join('dbo.PersonnelPosition b','a.ID= b.PersonnelID');
+      //   $this->db->join('dbo.PositionTable c','b.PositionID = c.ID');
+      //   $this->db->join('dbo.PositionInOrganization d','c.ID = d.PositionID');
+      //   $this->db->join('dbo.OrganizationTable e','a.OrganizationID = e.ID');
+      //   $this->db->like('a.Name',$dept_id);
+      //   $query = $this->db->get();
+      //   return $query->row_array();
   }
 
   // function get_search_member($compClue){
@@ -287,24 +334,17 @@ class Hire_model extends CI_Model
     return $this->db->count_all_results();
   }
 
-  public function get_new_req(){
-    $query = 'select a.*, b.FullName from dbo.RequisitionTable a
-              join dbo.PersonnelTable b
-              on b.ID=a.RequestorID
-              where RequestorID in 
-              (Select PersonnelIDList from 
-              (select a.ID, a.PersonnelIDList, c.OrganizationUnitID from dbo.UserTable a
-                join dbo.PersonnelPosition b
-                on a.PersonnelIDList = b.PersonnelID
-                join dbo.PositionInOrganization c
-                on c.PositionID = b.PositionID
-                where a.ID in 
-                  (select userID from dbo.UserXUserGroup where UserGroupID=5)
-                )
-                X)
-              and IsProcessedToHire=0 
-              and IsHold = 0
-              and IsRejected = 0';
+  public function get_new_req($ID, $req_dep){
+    $query = "select a.*, b.FullName from dbo.RequisitionTable a
+    join DBO.PersonnelTable b on a.RequestorID = b.ID
+    join dbo.UserXUserGroup c on c.UserID = a.CreatedById
+    join dbo.OrganizationTable d on d.ID = a.RequestorDepartmentID
+    where a.RequestorID = '$ID'
+    and c.UserGroupID = 5
+    and a.RequestorDepartmentID = '$req_dep'
+    and IsProcessedToHire=0 
+    and IsHold = 0
+    and IsRejected = 0;";
     $query = $this->db->query($query);
     return $query->result_array();
 
@@ -532,14 +572,16 @@ class Hire_model extends CI_Model
     return $query->row_array();
   }
 
-  function search_info($Name){
-    $this->db->select('A.ID, a.FullName, b.PositionID, c.Name as PositionName, d.OrganizationUnitID as Organization, e.Name as OrganizationName ');
-    $this->db->from('dbo.PersonnelTable a');
-    $this->db->join('dbo.PersonnelPosition b','a.ID=b.PersonnelID');
-    $this->db->join('dbo.PositionTable c','b.PositionID=c.ID');
-    $this->db->join('dbo.PositionInOrganization d','d.PositionID=b.PositionID');
-    $this->db->join('dbo.OrganizationTable e','e.ID=d.OrganizationUnitID');
-    $this->db->like('a.FullName',$Name);
+  function search_info($ID){
+    // $this->db->select('A.ID, a.FullName, b.PositionID, c.Name as PositionName, d.OrganizationUnitID as Organization, e.Name as OrganizationName ');
+    // $this->db->from('dbo.PersonnelTable a');
+    // $this->db->join('dbo.PersonnelPosition b','a.ID=b.PersonnelID');
+    // $this->db->join('dbo.PositionTable c','b.PositionID=c.ID');
+    // $this->db->join('dbo.PositionInOrganization d','d.PositionID=b.PositionID');
+    // $this->db->join('dbo.OrganizationTable e','e.ID=d.OrganizationUnitID');
+    $this->db->select('*');
+    $this->db->from("dbo.PersonnelHierarchy");
+    $this->db->like('ID',$ID);
     //$this->db->where('IsHold',)
     $query = $this->db->get();
     return $query->row_array();
@@ -600,9 +642,11 @@ class Hire_model extends CI_Model
   }
 
   function get_related_per($ID){
-    $q = 'select a.*, b.Name from 
-    [dbo].[PersonnelAuth] a join dbo.PersonnelTable b 
-    on a.PersonnelID = b.ID where a.PersonnelNumber ='.$ID ;
+    $q = 'select a.*, c.Name from 
+    [dbo].[UserXPersonnel] a 
+	join dbo.PersonnelTable c 
+	on a.PersonnelID = c.ID 
+	where a.UserID = '.$ID ;
     $query = $this->db->query($q);    
      //$query = $this->db->get('dbo.RequisitionTable');
      return $query->result_array();
