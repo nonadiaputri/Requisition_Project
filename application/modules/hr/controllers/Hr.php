@@ -127,8 +127,10 @@ class Hr extends CI_Controller {
     }
 
     $OrganizationID = $this->session->userdata('OrganizationID');
+    $name = $this->session->userdata('Name2');
     $ID = $this->session->userdata('ID2');
     $data['org'] = $this->Hire_model->get_organization($OrganizationID);
+    $data['user'] = $this->Hire_model->get_userid($name);
     // var_dump($data['org']);
 		$data['member'] = $this->Hire_model->get_member_organization($OrganizationID);
 		// $data['person'] = $this->Hire_model->get_related_per($ID);

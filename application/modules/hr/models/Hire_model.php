@@ -156,13 +156,18 @@ class Hire_model extends CI_Model
 
   public function get_organization($OrganizationID)
   { 
-    
-
       $res = $this->db->query("select distinct a.OrganizationID, b.Name as OrganizationName from dbo.UserTable a
                               join dbo.OrganizationTable b on a.OrganizationID = b.ID
                               where a.OrganizationID =".$OrganizationID);
-        return $res->result_array();
+      return $res->result_array();
+  }
 
+  public function get_userid($name)
+  { 
+      $res = $this->db->query("select a.ID as UserID from dbo.UserTable a
+                              join dbo.OrganizationTable b on a.OrganizationID = b.ID
+                              where a.Name like '%$name%'");
+      return $res->result_array();
   }
 
   public function get_member_organization($OrganizationID)
