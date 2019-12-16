@@ -105,7 +105,7 @@ class Hr extends CI_Controller {
 		// $this->load->view('hr/v_form',$data);
 	}
 
-	public function add_access()
+//	public function add_access()
   public function notif(){
     //$data['new'] =$this->Hire3_model->total_new_req();
     //$data['msg'] = "Berhasil direfresh secara realtime";
@@ -115,11 +115,9 @@ class Hr extends CI_Controller {
     $data['tot'] = count($data['result']);
     echo json_encode($data);
   }
-	public function add()
+
+  public function add_access()
 	{
-		$ID = $this->session->userdata('nik');
-		$no = $this->session->userdata('ID');
-		$name = $this->session->userdata('name');
 		$nik = $this->session->userdata('nik');
 
     $check = $this->Hire_model->check_personnel($nik);
@@ -156,8 +154,8 @@ class Hr extends CI_Controller {
     // var_dump($data['org']);
 		$data['member'] = $this->Hire_model->get_member_organization($OrganizationID);
     $dept_id = $this->session->userdata('dept_id');
-    $data['org'] = $this->Hire_model->get_organization($dept_id);
-		$data['member'] = $this->Hire_model->get_member_organization($dept_id);
+    // $data['org'] = $this->Hire_model->get_organization($dept_id);
+		// $data['member'] = $this->Hire_model->get_member_organization($dept_id);
 		// $data['person'] = $this->Hire_model->get_related_per($ID);
 		// $data['org'] = $this->Hire_model->choose_org();	
 		$data["header"] = $this->load->view('header/v_header','',TRUE);
