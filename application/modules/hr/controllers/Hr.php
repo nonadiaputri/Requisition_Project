@@ -50,13 +50,10 @@ class Hr extends CI_Controller {
       //var_dump($check2);
       $dt = $check2['ID'];
       //var_dump($dt);
-<<<<<<< HEAD
     
       $last_id = $object->ID;
-=======
       $data2 = array('UserID' => $dt);
       $this->session->set_userdata($data2);
->>>>>>> 27a24bd06a2e06e9253a76b04b5bd7dfc5c0fbca
       $check3 = $this->Hire_model->auto_register2($dt, $per_id);
       /**
        * Auto Regist position
