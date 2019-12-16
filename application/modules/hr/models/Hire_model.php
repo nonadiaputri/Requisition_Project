@@ -84,9 +84,38 @@ class Hire_model extends CI_Model
   }
 
   public function auto_regist_position($last_id, $position){
-    $res = $this->db->query("EXEC dbo.spAutoRegistPosition @Position  = '$position' , @UserID= '$last_id'");
-    return $res->result();
+    $this->db->where('UserID',$last_id);
+    $q = $this->db->get('dbo.UserXUserGroup');
+
+    if ( $q->num_rows() == 0 ) {
+          if($position == 'Manager'){
+            $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID) 
+          values ($last_id, 4)");
+          } elseif ($position == 'Direktur'){
+            $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID) 
+          values ($last_id, 3)");
+          } elseif ($position == 'GM'){
+            $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID)
+          values ($last_id, 3)");
+          }
+
+      
+      
+      // $this->db->select('ID');
+      // $this->db->where('UserID', $last_id);
+      // $id = $this->db->from('dbo.UserXUserGroup')->get();
+      //return $res->result_array();
+      
+ }else {
+    $this->db->select('ID');
+    $this->db->where('UserID', $last_id);
+    $id = $this->db->from('dbo.UserXUserGroup')->get();
+
+    // $res = $this->db->query("EXEC spAutoRegistPosition @Position  = '$position' , @UserID= '$last_id'");
+    // return $res->result();
   }
+}
+
 
   public function get_hire(){
     $q = '  select a.*, b.Name as Department,  c.FullName
