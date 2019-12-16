@@ -191,156 +191,22 @@
 
    var option_value;
    
-            // $('.searching').select2({
-            //     placeholder: 'Department Name',
-            //     ajax:{
-            //         url: "<?php echo base_url('hr/select2'); ?>",
-            //         dataType: "json",
-            //         delay: 250,
-            //         processResults: function(data){
-            //             var results = [];
+            
 
-            //             $.each(data, function(index, item){
-            //                 results.push({
-            //                     id: item.ID,
-            //                     text: item.Name,
-            //                     option_value:item.ID
-            //                 });     
-            //             });
-            //             return{
-            //                 results: results,
-            //                 cache: true,
-            //             };
-            //         },
-            //     }
-            // });
-
-          //   $('#requestor').on('select2:select', function (e) {
-          //     var name = $('#requestor :selected').text();
-          //     console.log($('#requestor :selected').text());
-          //     console.log(name);
-          //     if ($('#requestor :selected').text() != '') {
-          //       $.ajax({
-          //           url:"<?php echo base_url('hr/search_info');?>",
-          //           method:"GET",
-          //           dataType:'json',
-          //           data:{ 'Name':name },
-
-          //           success:function(data){
-          //             if (data) {
-          //               $('#dis-pos').show();
-          //               $('#dis-org').show();
-          //               $('#req_position_id').val(data.PositionID);
-          //               $('#req_org_id').val(data.Organization);
-          //               $('#req_position').val(data.PositionName);
-          //               $('#req_org').val(data.OrganizationName);
-                        
-          //               }
-          //             },
-          //           error:function(){
-          //                   alert('error ... ');
-          //           }
-          //       });
-             
-          //   }
-          // });
-
-            // $('.position').select2({
-            //     placeholder: 'Requested Position',
-            //     ajax:{
-            //         url: "<?php echo base_url('hr/select_position'); ?>",
-            //         dataType: "json",
-            //         delay: 250,
-            //         processResults: function(data){
-            //             var results = [];
-
-            //             $.each(data, function(index, item){
-            //                 results.push({
-            //                     id: item.ID,
-            //                     text: item.Name,
-            //                     option_value:item.ID
-            //                 });     
-            //             });
-            //             return{
-            //                 results: results,
-            //                 cache: true,
-            //             };
-            //         },
-            //     }
-            // });
-
-            function cek_database(){
-                  var member = $("#member").val();
-                  $.ajax({
-                      url: "<?php echo base_url('Hr/search_member');?>",
-                      data:"member="+member ,
-                  }).success(function (data) {
-                      var json = data,
-                      obj = JSON.parse(json);
-                      $('#req_position').val(obj.PositionName);
-                  });
+            // function cek_database(){
+            //       var member = $("#member").val();
+            //       $.ajax({
+            //           url: "<?php echo base_url('Hr/search_member');?>",
+            //           data:"member="+member ,
+            //       }).success(function (data) {
+            //           var json = data,
+            //           obj = JSON.parse(json);
+            //           $('#req_position').val(obj.PositionName);
+            //       });
           
-              }
+            //   }
 
-            // $('.member').select2({
-            //     placeholder: 'Enter The Request Name',
-            //     ajax:{
-            //         url: "<?php echo base_url('Hr/member'); ?>",
-            //         dataType: "json",
-            //         delay: 250,
-            //    processResults: function(data){
-            //             var results = [];
 
-            //             $.each(data, function(index, item){
-            //                 results.push({
-            //                     id: item.ID,
-            //                     text: item.Name,
-            //                     option_value:item.ID
-            //                 });
-            //             });
-            //             return{
-            //                 results: results,
-            //                 cache: true,
-            //             };
-            //         },
-            //     }
-
-            // });
-
-          //   $('#member_name').on('select2:select', function (e) {
-          //     var member = $('#member_name :selected').text();
-          //     console.log($('#member_name :selected').text());
-
-          //     if ($('#member_name :selected').text() != '') {
-          //       $.ajax({
-          //           url:"<?php echo base_url('Hr/search_member');?>",
-          //           method:"GET",
-          //           dataType:'json',
-          //           data:{ 'dept_id': member },
-                
-          //           success:function(data){
-          //             if (data) {
-          //               // $('#dis-pos').show();
-          //              // $('#c-position').show();
-          //               console.log(data);
-          //               console.log(data.Position);
-          //               console.log(data.PositionID);
-                        
-          //             //  $('#req_position_id').val(data.PositionID);
-          //               $('#current_position_id').val(data.PositionID);
-          //            //   $('#req_position').val(data.PositionName);
-          //               $('#current_position').val(data.Position);
-          //               $('#current_org_id').val(data.OrganizationID);
-                        
-          //               }
-          //             },
-          //           error:function(){
-          //                   alert('error ... ');
-          //           }
-          //       });
-             
-          //   }
-          // });
             
   $(document).ready(function(){
     // To allow the dynamic element to able to use this change event
@@ -384,8 +250,8 @@
        $('#myModal').hide();
           $('.modal-fade').hide();
           $(".modal-backdrop").remove();
-          window.location.href = '<?php echo base_url('hr/index');?>';
-    });
+        //  window.location.href = '<?php echo base_url('hr/index');?>';
+  //  });
 
 
     
