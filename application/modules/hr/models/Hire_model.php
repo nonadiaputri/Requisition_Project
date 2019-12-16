@@ -291,7 +291,7 @@ class Hire_model extends CI_Model
     join dbo.UserXUserGroup c on c.UserID = a.CreatedById
     join dbo.OrganizationTable d on d.ID = a.RequestorDepartmentID
     where a.RequestorID = '$ID'
-    and c.UserGroupID = 5
+    and c.UserGroupID = 4
     and a.RequestorDepartmentID = '$req_dep'
     and IsProcessedToHire=0 
     and IsHold = 0

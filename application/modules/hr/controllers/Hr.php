@@ -66,11 +66,6 @@ class Hr extends CI_Controller {
     }
 	}
 
-<<<<<<< HEAD
-	// public function add_access()
-=======
-//	public function add_access()
->>>>>>> 1aeba68eed3fd36c2aecdee1ce1c8c08b09130a9
   public function notif(){
     $ID = $this->session->userdata('ID2');
     $req_dep = $this->session->userdata('OrganizationID');
