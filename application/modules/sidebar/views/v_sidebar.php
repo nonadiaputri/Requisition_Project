@@ -255,7 +255,7 @@
         $(document).ready(function(){
     setInterval(function(){
           $.ajax({
-                url:"<?=base_url()?>Hr/notif",
+                url:"<?=base_url()?>hr/notif",
                 type:"POST",
                 dataType:"json",//datatype lainnya: html, text
                 data:{},
