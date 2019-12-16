@@ -17,9 +17,6 @@ class Hr extends CI_Controller {
     $check = $this->Hire_model->check_personnel($nik);
     $sess = $this->Hire_model->make_session($nik);
     $object = json_decode(json_encode($sess));
-
-    //var_dump($object->Postion);
-    //var_dump($count($sess));
     if ($sess != '') {
       $data = array(
         'Name2'    => $object->FullName,
@@ -36,15 +33,11 @@ class Hr extends CI_Controller {
         'ParentPersonnel' => $object->ParentPersonnel,
         'ParentPersonnelID' => $object->ParentPersonnelID
       );
-      //var_dump($data);
-      
-
+    
     $this->session->set_userdata($data);
     
     }
     
-
-    //var_dump($check);
     $per_id = $check[0]['ID'];
     //var_dump($per_id);
     if ($check == 0) {
@@ -56,59 +49,25 @@ class Hr extends CI_Controller {
       //var_dump($check2);
       $dt = $check2['ID'];
       //var_dump($dt);
+      $data2 = array('UserID' => $dt);
+      $this->session->set_userdata($data2);
       $check3 = $this->Hire_model->auto_register2($dt, $per_id);
       $data['person'] = $this->Hire_model->get_related_per($dt);
       //var_dump($data['person']);
       $ID = $this->session->userdata('ID2');
-    $req_dep = $this->session->userdata('OrganizationID');
-    $data['result'] = $this->Hire_model->get_new_req($ID, $req_dep);
-    $data['tot'] = count($data['result']);
+      $req_dep = $this->session->userdata('OrganizationID');
+      $data['result'] = $this->Hire_model->get_new_req($ID, $req_dep);
+      $data['tot'] = count($data['result']);
      
       $data['org'] = $this->Hire_model->choose_org();  
       $data["header"] = $this->load->view('header/v_header','',TRUE);
       $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
       $this->load->view('hr/v_form',$data);
     }
-    
-		//$data1 = array(
-	 //      'Email' => $email,
-	 //      'Name' => $name,
-	 //      'PersonnelNumber' => $nik,
-	 //      'OrganizationID' => $dept_id,
-	 //      'Password'=>$Password
-	 //      );
-
-		
-		// // $data['result'] = $this->Hire_model->get_new_req();
-		// // $data['tot'] = count($data['result']);
-		// $last_id = $this->Hire_model->auto_register($data1, $nik);
-		// // $id_personnel = $this->Hire_model->get_id_personnel($name);
-		// //var_dump($last_id);
-
-		// $dt = $last_id[0]['ID'];
-		// //var_dump($dt);
-		// $data2 = array(
-		// 	'UserID' => $no,
-		// 	'PersonnelID' => $last_id
-		// );
-		// if ($last_id != '') {
-		// 	$this->Hire_model->auto_register2($data2, $no);
-  //     $res = $this->Hire_model->auto_regist_position($dt, $position);
-		// }
-  //   $new_sess = array(
-  //       'new_id'    => $dt);
-  //   $this->session->set_userdata($new_sess);
-		// $data['person'] = $this->Hire_model->get_related_per($ID);
-		// $data['org'] = $this->Hire_model->choose_org();	
-		// $data["header"] = $this->load->view('header/v_header','',TRUE);
-		// $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-		// $this->load->view('hr/v_form',$data);
 	}
 
-	public function add_access()
+	// public function add_access()
   public function notif(){
-    //$data['new'] =$this->Hire3_model->total_new_req();
-    //$data['msg'] = "Berhasil direfresh secara realtime";
     $ID = $this->session->userdata('ID2');
     $req_dep = $this->session->userdata('OrganizationID');
     $data['result'] = $this->Hire_model->get_new_req($ID, $req_dep);
@@ -191,7 +150,7 @@ class Hr extends CI_Controller {
 	}
 
 	public function hire_history(){
-	    $requestor_id = $this->session->userdata('new_id');
+	    $requestor_id = $this->session->userdata('ID2');
       //var_dump($requestor_id);
 
 	    //notif
@@ -209,7 +168,7 @@ class Hr extends CI_Controller {
 	
 	public function submit_hire(){
 	    $requestor_id = $this->input->post('requestor_id');
-	    $req_position_id = $this->input->post('req_position_id');
+	    $tion_id = $this->input->post('req_position_id');
 	    $org_id = $this->input->post('org_id');
 	    $position = $this->input->post('position');
 	    $total = $this->input->post('total');
@@ -219,7 +178,7 @@ class Hr extends CI_Controller {
 	    $ReplacementName = $this->input->post('ReplacementName');
 	    $requirement = $this->input->post('requirement');
 	    $responsibility = $this->input->post('responsibility');
-      $id = $this->session->userdata('ID2');
+      $id = $this->session->userdata('UserID');
       var_dump($id);
 
 	    $data = array(
@@ -280,6 +239,7 @@ class Hr extends CI_Controller {
 	    $requirement = $this->input->post('requirement');
 	    $responsibility = $this->input->post('responsibility');
 	    $IsProcessedToHire = '2';
+      $id = $this->session->userdata('UserID');
 
 	    $data = array(
 	      'RequestorID' => $requestor_id,
@@ -293,7 +253,9 @@ class Hr extends CI_Controller {
 	      'RequirementDescription' => $requirement,
 	      'DuttiesAndResponsibilities' => $responsibility,
 	      'PlacementID' => $placement,
-	      'IsProcessedToHire' => $IsProcessedToHire
+	      'IsProcessedToHire' => $IsProcessedToHire,
+        'CreatedByID'=>$id,
+        'LastModifiedByID'=>$id
 	      );
 
 	    //print_r($data);
@@ -351,33 +313,24 @@ class Hr extends CI_Controller {
 	
 
 	public function View($ID){
-    //notif
-    // $data['hire'] = $this->Hire_model->get_new_req();
-    // $data['prom'] = $this->Promotion3_model->get_new_promotion();
-    // $data['all'] = count($data['prom']);
-    // $data['tot'] = count($data['hire']);
-    //$where = array('a.ID' => $ID);
     $data['req'] = $this->Hire_model->get_hire_id($ID);
     $data['info'] = $this->Hire_model->get_apv_info($ID);
     $data['latest'] = $this->Hire_model->get_latest_apv($ID);
-    
-    //$data['requestor'] = $this->Hire_model->get_req($ID);
-    //var_dump($data['latest']);
     $data["header"] = $this->load->view('header/v_header','',TRUE);
-	$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-	$this->load->view('hr/v_view',$data);
+  	$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+  	$this->load->view('hr/v_view',$data);
  	}
 
  	function edit($ID){
-	 	$ID2 = $this->session->userdata('nik');
+	 	$ID2 = $this->session->userdata('UserID');
 		$data['person'] = $this->Hire_model->get_related_per($ID2);
 	    // $data['hire'] = $this->Hire_model->get_new_req();
 	    // $data['prom'] = $this->Promotion3_model->get_new_promotion();
 	    // $data['all'] = count($data['prom']);
 	    // $data['tot'] = count($data['hire']);
-	    $data['row']= $this->Hire_model->get_hire_id($ID);
-	    //var_dump($data['row']);
-	    $data["header"] = $this->load->view('header/v_header','',TRUE);
+	  $data['row']= $this->Hire_model->get_hire_id($ID);
+	  var_dump($data['row']);
+	  $data["header"] = $this->load->view('header/v_header','',TRUE);
 		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
 		$this->load->view('hr/v_edit_hire',$data);
 	}
@@ -444,6 +397,7 @@ class Hr extends CI_Controller {
     $requirement = $this->input->post('requirement');
     $responsibility = $this->input->post('responsibility');
     $IsProcessedToHire = '2';
+
     
 
     $data = array(
@@ -459,16 +413,17 @@ class Hr extends CI_Controller {
       'PlacementID' => $placement,
       'IsProcessedToHire' => $IsProcessedToHire
       );
-    var_dump($data);
-    //.var_dump($data);
+    print_r($data);
+    // var_dump($data);
 
-    // $res = $this->Hire_model->update_saved_data($data, $ID);
-    // //var_dump($res);
-    //   if ($res > 0 ) {
-    //     $this->hire_history();
-    //   }else{
-    //   echo json_encode(array('status'=>false));
-    //   }
+    $res = $this->Hire_model->update_saved_data($data, $ID);
+    print_r($res);
+      if ($res > 0 ) {
+        echo json_encode(array('status'=>true));
+        //$this->hire_history();
+      }else{
+      echo json_encode(array('status'=>false));
+      }
   }
 
   public function process($ID){

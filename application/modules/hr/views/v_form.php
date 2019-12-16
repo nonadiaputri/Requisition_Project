@@ -8,6 +8,7 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   	<script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap 3.3.7 -->
 	<script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -467,7 +468,7 @@
           data:{ 'ID' : temp2},
           success:function(data){
             console.log(data);
-            $('#req_position_id').val(data.PositionID);
+            $('#req_position_id').val(data.PostionID);
             $('#req_position').val(data.Postion);
             $('#org_id').val(data.OrganizationID);
             $('#req_org_id').val(data.Organization);

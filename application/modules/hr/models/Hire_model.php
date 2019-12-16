@@ -120,7 +120,7 @@ class Hire_model extends CI_Model
            from dbo.RequisitionTable a
            left join dbo.CostCenterTable b
            on a.PlacementID = b.ID
-           left join dbo.UserTable c
+           left join dbo.PersonnelTable c
            on a.RequestorID = c.ID
            left join dbo.OrganizationTable e
            on a.RequestorDepartmentID = e.ID
@@ -149,7 +149,7 @@ class Hire_model extends CI_Model
       on a.PlacementID = b.ID
       left join dbo.RequisitionTypeTable c
       on a.RequisitionTypeID = c.ID
-      left join dbo.UserTable d
+      left join dbo.PersonnelTable d
       on a.RequestorID = d.ID
       left join dbo.PositionTable e
       on a.RequestorPositionID = e.ID
@@ -643,10 +643,10 @@ class Hire_model extends CI_Model
 
   function get_related_per($ID){
     $q = 'select a.*, c.Name from 
-    [dbo].[UserXPersonnel] a 
-	join dbo.PersonnelTable c 
-	on a.PersonnelID = c.ID 
-	where a.UserID = '.$ID ;
+          [dbo].[UserXPersonnel] a 
+        	join dbo.PersonnelTable c 
+        	on a.PersonnelID = c.ID 
+        	where a.UserID = '.$ID ;
     $query = $this->db->query($q);    
      //$query = $this->db->get('dbo.RequisitionTable');
      return $query->result_array();

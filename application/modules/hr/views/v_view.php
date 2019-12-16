@@ -444,7 +444,7 @@
         var app_process = '<?php echo $req['IsProcessedToHire']; ?>';
         var app_hold = "<?php echo $req['IsHold'] ;?>"
         var app_reject = "<?php echo $req['IsRejected'] ;?>";
-        var reqstor = "<?php echo $this->session->userdata('new_id'); ?>";
+        var reqstor = "<?php echo $this->session->userdata('ID2'); ?>";
         var appstatus2 = "<?php echo $latest['ApprovalStatusID']; ?>";
         var app_process2 = "<?php echo $latest['IsProcessedToHire']; ?>";
         var app_hold2 = "<?php echo $latest['IsHold']; ?>";
@@ -645,6 +645,6 @@
 
 
 
-        });
+    });
 </script>
 </html>
