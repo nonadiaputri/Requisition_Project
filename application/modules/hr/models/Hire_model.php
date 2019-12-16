@@ -90,13 +90,16 @@ class Hire_model extends CI_Model
     if ( $q->num_rows() == 0 ) {
           if($position == 'Manager'){
             $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID) 
-          values ($last_id, 4)");
+          values ($last_id, 5)");
           } elseif ($position == 'Direktur'){
             $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID) 
           values ($last_id, 3)");
           } elseif ($position == 'GM'){
             $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID)
-          values ($last_id, 3)");
+          values ($last_id, 4)");
+          } elseif ($position == 'CEO'){
+            $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID)
+          values ($last_id, 2)");
           }
 
       
