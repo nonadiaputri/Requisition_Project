@@ -164,7 +164,7 @@ class Hire_model extends CI_Model
     return $query->row_array();
   }
 
-  public function get_organization($dept_id)
+  public function get_organization($OrganizationID)
   { 
       $res = $this->db->query("select distinct a.OrganizationID, b.Name as OrganizationName from dbo.UserTable a
                               join dbo.OrganizationTable b on a.OrganizationID = b.ID
@@ -178,65 +178,16 @@ class Hire_model extends CI_Model
                               join dbo.OrganizationTable b on a.OrganizationID = b.ID
                               where a.Name like '%$name%'");
       return $res->result_array();
-      $res = $this->db->query("select distinct a.OrganizationID, e.Name as OrganizationName from dbo.UserTable a
-                              join dbo.PersonnelPosition b on a.ID= b.PersonnelID
-                              join dbo.PositionTable c on b.PositionID = c.ID
-                              join dbo.PositionInOrganization d on c.ID = d.PositionID
-                              join dbo.OrganizationTable e on a.OrganizationID = e.ID
-                              where a.OrganizationID =".$dept_id);
-        return $res->result_array();
-
-      // $this->db->select('select a.ID, a.Name, 
-      //                  c.Name as PositionName, e.Name as OrganizationName, e.ID as OrganizationID');
-      //   $this->db->from('dbo.UserTable a');
-      //   $this->db->join('dbo.PersonnelPosition b','a.ID= b.PersonnelID');
-      //   $this->db->join('dbo.PositionTable c','b.PositionID = c.ID');
-      //   $this->db->join('dbo.PositionInOrganization d','c.ID = d.PositionID');
-      //   $this->db->join('dbo.OrganizationTable e','a.OrganizationID = e.ID');
-      //   $this->db->like('a.Name',$dept_id);
-      //   $query = $this->db->get();
-      //   return $query->row_array();
   }
 
-  public function get_member_organization($dept_id)
+  public function get_member_organization($OrganizationID, $PersonnelNumber)
   { 
-      $res = $this->db->query("select a.id, a.name, a.organizationid, c.id as PersonnelID,
-                            c.fullname as PersonnelName from dbo.UserTable a
-                            join dbo.OrganizationTable b on a.OrganizationID = b.id
-                            join dbo.PersonnelTable c on a.Name = c.FullName
-                            where b.ID ='$OrganizationID'");
-
-      // $res = $this->db->query("select a.ID as ID, a.Name as PersonnelName, f.PersonnelID as PersonnelID,
-      // c.Name as PositionName, e.Name as OrganizationName, e.id as OrganizationID
-      // from dbo.UserTable a
-      // join dbo.PersonnelPosition b on a.ID= b.PersonnelID
-      // join dbo.PositionTable c on b.PositionID = c.ID
-      // join dbo.PositionInOrganization d on c.ID = d.PositionID
-      // join dbo.OrganizationTable e on a.OrganizationID = e.ID
-      // join dbo.UserXPersonnel f on a.ID = f.UserID
-     // join dbo.PersonnelTable g on f.PersonnelID = g.ID
-      //                         where e.ID =".$OrganizationID
-      //and f.PersonnelID != g.ID );
-      $res = $this->db->query("select a.ID as ID, a.Name as PersonnelName, 
-                              c.Name as PositionName, e.Name as OrganizationName, e.id as OrganizationID
-                              from dbo.UserTable a
-                              join dbo.PersonnelPosition b on a.ID= b.PersonnelID
-                              join dbo.PositionTable c on b.PositionID = c.ID
-                              join dbo.PositionInOrganization d on c.ID = d.PositionID
-                              join dbo.OrganizationTable e on a.OrganizationID = e.ID
-                              where e.ID =".$dept_id);
+    $res = $this->db->query("select a.id, a.name, a.organizationid, c.id as PersonnelID,
+      c.fullname as PersonnelName from dbo.UserTable a
+      join dbo.OrganizationTable b on a.OrganizationID = b.id
+      join dbo.PersonnelTable c on a.Name = c.FullName
+      where b.ID ='$OrganizationID' and a.PersonnelNumber != '$PersonnelNumber'");
         return $res->result_array();
-
-      // $this->db->select('select a.ID, a.Name, 
-      //                  c.Name as PositionName, e.Name as OrganizationName, e.ID as OrganizationID');
-      //   $this->db->from('dbo.UserTable a');
-      //   $this->db->join('dbo.PersonnelPosition b','a.ID= b.PersonnelID');
-      //   $this->db->join('dbo.PositionTable c','b.PositionID = c.ID');
-      //   $this->db->join('dbo.PositionInOrganization d','c.ID = d.PositionID');
-      //   $this->db->join('dbo.OrganizationTable e','a.OrganizationID = e.ID');
-      //   $this->db->like('a.Name',$dept_id);
-      //   $query = $this->db->get();
-      //   return $query->row_array();
   }
 
   // function get_search_member($compClue){

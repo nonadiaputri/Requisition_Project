@@ -66,7 +66,11 @@ class Hr extends CI_Controller {
     }
 	}
 
+<<<<<<< HEAD
 	// public function add_access()
+=======
+//	public function add_access()
+>>>>>>> 1aeba68eed3fd36c2aecdee1ce1c8c08b09130a9
   public function notif(){
     $ID = $this->session->userdata('ID2');
     $req_dep = $this->session->userdata('OrganizationID');
@@ -74,11 +78,9 @@ class Hr extends CI_Controller {
     $data['tot'] = count($data['result']);
     echo json_encode($data);
   }
-	public function add()
+
+  public function add_access()
 	{
-		$ID = $this->session->userdata('nik');
-		$no = $this->session->userdata('ID');
-		$name = $this->session->userdata('name');
 		$nik = $this->session->userdata('nik');
 
     $check = $this->Hire_model->check_personnel($nik);
@@ -108,15 +110,15 @@ class Hr extends CI_Controller {
     }
 
     $OrganizationID = $this->session->userdata('OrganizationID');
+    $PersonnelNumber = $this->session->userdata('NIK2');
     $name = $this->session->userdata('Name2');
     $ID = $this->session->userdata('ID2');
     $data['org'] = $this->Hire_model->get_organization($OrganizationID);
     $data['user'] = $this->Hire_model->get_userid($name);
     // var_dump($data['org']);
-		$data['member'] = $this->Hire_model->get_member_organization($OrganizationID);
-    $dept_id = $this->session->userdata('dept_id');
-    $data['org'] = $this->Hire_model->get_organization($dept_id);
-		$data['member'] = $this->Hire_model->get_member_organization($dept_id);
+		$data['member'] = $this->Hire_model->get_member_organization($OrganizationID, $PersonnelNumber);
+    // $data['org'] = $this->Hire_model->get_organization($dept_id);
+		// $data['member'] = $this->Hire_model->get_member_organization($dept_id);
 		// $data['person'] = $this->Hire_model->get_related_per($ID);
 		// $data['org'] = $this->Hire_model->choose_org();	
 		$data["header"] = $this->load->view('header/v_header','',TRUE);
