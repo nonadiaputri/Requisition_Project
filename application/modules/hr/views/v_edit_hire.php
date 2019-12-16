@@ -67,43 +67,38 @@
 	          	<div class="form-group">
 	                <div class="col-md-8">
 	                  <label class="control-label col-form-label">Requestor Name</label>
-	                  <!-- <select class="form-control chs-select" name="requestor" id="requestor" style="width:100%" required="required">
-	                        <option default>Select Requestor</option>
-	                        <?php foreach ($person as $person) { ?>
-	                        <option value="<?php echo $person['PersonnelID'];?>"><?php echo $person['Name'];?></option>
-	                        <?php } ?>
-	                </select> -->
-                  <input type="text" class="form-control" id="requestor" name="requestor" value = "" required="required" readonly>
-                   <input type="hidden" class="form-control" id="requestor_id" name="requestor_id" value = "<?php echo $this->session->userdata('new_id'); ?>" required="required" readonly>
-                   <span id="error_requestor" class="text-danger"></span>
-                 <!--  <input type="hidden" class="form-control" id="id-req" name="id-req" value = "<?php echo $row['ID'];?>" required="required" readonly> -->
-	                </div>
-	                  <!-- <div class="col-md-7">
-	                    <input type="text" class="form-control" id="requestor" name="requestor" value = "<?php echo $this->session->userdata('name'); ?>" required="required" readonly>
-	                    <input type="hidden" class="form-control" id="requestor_id" name="requestor_id" value = "<?php echo $this->session->userdata('PersonnelIDList'); ?>" required="required" readonly>
-	                   
-	                  </div> -->
-	            </div>
-	            </div>
-	        <div class="row">
-	          	<div class="col-md-8">
-	                <label class="control-label">Organization Name</label>
-	                <input type="text" class="form-control" name="req_org_id" id="req_org_id" value = "<?php echo $this->session->userdata('organization'); ?>" required="required" readonly>
-	                <input type="hidden" class="form-control" name="org_id" id="org_id" value = "<?php echo $this->session->userdata('dept_id'); ?>" required="required" readonly>
-	                <span id="error_req_org" class="text-danger"></span>
-	          </div>
-	        </div>
+                    <input type="hidden" name="id-req" id="id-req" value="<?php echo $row['ID'];?>">
+                    <select class="form-control chs-select" name="requestor_id" id="requestor_id" style="width:100%" required="required">
+                      <option value="">Select Requestor</option>
+                      <?php foreach ($person as $person) { ?>
+                      <option value="<?php echo $person['PersonnelID'];?>"><?php echo $person['Name'];?></option>
+                      <?php } ?>
+                    </select>
+                    <span id="error_requestor" class="text-danger"></span>
+    	            </div>
+    	        </div>
+            </div>
+              <br>
+  	        <div class="row">
+  	          	<div class="col-md-8">
+  	                <label class="control-label">Organization Name</label>
+  	                <input type="text" class="form-control" name="req_org_id" id="req_org_id" value = "" required="required" >
+  	                <input type="hidden" class="form-control" name="org_id" id="org_id" value = "" required="required" >
+  	                <span id="error_req_org" class="text-danger"></span>
+  	          </div>
+  	        </div>
+            <br>
 
 	        <div class="row">
 	         	<div class="form-group">
 		              <div class="col-md-8">
 		                <label class="control-label col-form-label">Position Name</label>
-		                  <input type="text" class="form-control" name="req_position" id="req_position" value = "<?php echo $this->session->userdata('position'); ?>" required="required" readonly>
-		                  <input type="hidden" class="form-control" name="req_position_id" id="req_position_id" value = "<?php echo $this->session->userdata('id_position'); ?>" required="required" readonly>
+		                  <input type="text" class="form-control" name="req_position" id="req_position" value = "" required="required" >
+		                  <input type="hidden" class="form-control" name="req_position_id" id="req_position_id" value = "" required="required" >
 		                  <span id="error_req_position" class="text-danger"></span>
-		                </div>
-		            </div>
-			</div>
+		              </div>
+		        </div>
+			     </div>
 			<br>
 			
             <h4 class="card-title">Request Information</h4>
@@ -114,7 +109,9 @@
 	                <div class="col-md-8">
 	                  <label class="control-label col-form-label">Choose Organization</label>
 	                  <div id="chs-container">
-	                    <select class="form-control chs-select" id="chs-div-template" style="width:100%; display: none">
+                        <input type="text" class="form-control" name="organization" id="organization" value="">
+                        <input type="hidden" class="form-control" name="organization_id" id="organization_id" value="">
+	                   <!--  <select class="form-control chs-select" id="chs-div-template" style="width:100%; display: none">
 	                        <option default>Select</option>
 	                    </select>
 
@@ -123,23 +120,21 @@
 	                        <?php foreach ($org as $org) { ?>
 	                        <option value="<?php echo $org['ID'];?>"><?php echo $org['Name'];?></option>
 	                        <?php } ?>
-	                    </select>
-	                    <br>
+	                    </select> -->
 
-	                    <select class="form-control chs-select" name="chs-dep" id="chs-dep" style="width:100%;display: none" required="required">
+	                    <!-- <select class="form-control chs-select" name="chs-dep" id="chs-dep" style="width:100%;display: none" required="required">
 	                        <option default>Select</option>
-	                    </select>
+	                    </select> -->
 	                    <br>
 	                </div>
 	                    <span id="error_position" class="text-danger"></span>
 	                </div>
-	                <div class="col-sm-12 offset-3">
+	                <!-- <div class="col-sm-12 offset-3">
 			            <button type="button" id="display-btn">Display Position in This Unit</button>
 			            <br>
-			        </div>
+			        </div> -->
 	            </div>
 	        </div>
-
 	        <div class="row">
 	        	<div class="form-group">
                     <div class="col-md-8">
@@ -152,6 +147,7 @@
                       </div>
                 </div>
 	        </div>
+          <br>
 
 	        <div class="row">
 	        	<div class="form-group">
@@ -175,6 +171,7 @@
                   </div>
                 </div>
 	        </div>
+          <br>
 
 	        <div class="row">
 	        	<div class="form-group">
@@ -188,6 +185,7 @@
                   </div>
                 </div>
 	        </div>
+          <br>
 
 	        <div class="row">
 	        	<div class="form-group ">
@@ -229,10 +227,12 @@
                     </div>
                     <div class="col-md-8">
                     	<input class="form-control" type="date" id="workdate" name="workdate" min="2018-01-01" max="2030-12-31" required="required" >
-                    </div>
-                        <span id="error_workdate" class="text-danger"></span>
+                    
+                    <span id="error_workdate" class="text-danger"></span>
                 </div>
             </div>
+          </div>
+            <br>
 
 	        <div class="row">
 	        	<div class="form-group">
@@ -246,6 +246,7 @@
                       </div>
                 </div>
 	        </div>
+          <br>
 
 	        <div class="row">
 	        	<div class="form-group">
@@ -355,7 +356,6 @@
 
     </section>
    
-            <!-- ============================================================== -->
             
 
 <!-- ./wrapper -->
@@ -376,50 +376,91 @@
 <script src="<?= base_url(); ?>assets/bower_components/chart.js/Chart.js"></script>
 <script type="text/javascript">
    console.log("<?php echo $row['ID']; ?>");
+
+   function positionInOrg(){
+      $.ajax({
+        url:"<?php echo base_url('hr/search_position');?>",
+          method:"POST",
+          dataType : "json",
+          data:{ 'ID' : <?php echo $row['RequestorDepartmentID'] ?>},
+          success:function(data){
+            console.log(data);
+            var output = '';
+            $.each(data, function (i) {
+              //var rep;
+              //console.log("data"+data[i]['FullName']);
+              if (data[i]['FullName'] === null) {
+                rep = "Empty";
+              }else{
+                rep = data[i]['FullName'];
+              }
+              output += '<option value="' + data[i]['ID']+'"data-subtext="'+data[i]['FullName']+'">' + data[i]['Position']+'('+rep+')</option>';
+            });
+            $('#position').append(output);
+            $('#note').show();
+            if (<?php echo $row['RequestedPositionID'];?> == '0') {
+              $('#position').removeAttr('value');
+            }else{
+            $("#position").val("<?php echo $row['RequestedPositionID'];?>").change();
+            
+            }  
+          },
+          error:function(){
+                  alert('error ... ');
+              }
+          });
+
+   }
+
    function load() {
         var id = " <?php echo $row['ID'];?>";
         if (id != '' ) {
+          positionInOrg();
 
-          $('#requestor').val("<?php echo $row['Requestor']; ?>");
+          $("#requestor_id").val("<?php echo $row['RequestorID'];?>").change();
+
+          $('#organization').val("<?php echo $row['DeptName'] ?>");
+          $('#organization_id').val("<?php echo $row['RequestorDepartmentID'] ?>")
 
           $('#req_org_id').val("<?php echo $row['DeptName']; ?>");
-
-
-          $('#position')
-          .empty()
-          .append('<option selected value="<?php echo $row['RequestedPositionID'];?>"><?php echo $row['requested_pos'];?></option>');
-          // $('#position').select2('data', {
-          //   id: '<?php echo $row['RequestedPositionID'];?>',
-          //   label: '<?php echo $row['requested_pos'];?>'
-          // });
-          $('#position').trigger('change');
-
+          $('#org_id').val("<?php echo $row['RequestorDepartmentID']; ?>");
           
+
+          $('#req_position').val("<?php echo $row['req_position'];?>");
+          $('#req_position_id').val("<?php echo $row['RequestorPositionID'] ?>");
+
+          if (<?php echo $row['NumberOfPlacement'];?> == '0') {
+            $('#ttl').removeAttr('value');
+          }else{
           $('#ttl').val("<?php echo $row['NumberOfPlacement'];?>");
-      
+          }
+
+          if (<?php echo $row['PlacementID'];?> == '0') {
+            $('#placement').removeAttr('value');
+          }else{
           $('#placement')
           .empty()
           .append('<option selected value="<?php echo $row['PlacementID'];?>"><?php echo $row['Department'];?></option>');
           $('#placement').trigger('change');
+          }
 
-          $('#status').val("<?php echo $row['RequisitionTypeID'];?>");
-
-          var datetime = "<?php echo $row['ExpectedWorkStartDate'];?>";
-          var d = datetime.split(' ')[0];
-          //$('#workdate').val(d);
+          if (<?php echo $row['RequisitionTypeID'];?> == '0') {
+            $('#status').removeAttr('value');
+          }else{
+            $('#status').val();
+          }
 
           if ( "<?php echo $row['ExpectedWorkStartDate'];?>" == '1900-01-01 00:00:00.000') {
             $('#workdate').removeAttr('value');
           }else{
             var datetime = "<?php echo $row['ExpectedWorkStartDate'];?>";
             var d = datetime.split(' ')[0];
-            $('#workdate').val(d);
-             
+            $('#workdate').val(d);  
           }
+          //.CKEDITOR.instances['editor1'].setData('#responsibility');
+          //$('#responsibility').append("");
 
-          $('#responsibility').append("<?php echo $row['DuttiesAndResponsibilities'];?>");
-
-          $('#requirement').append("<?php echo $row['RequirementDescription'];?>"); 
+          //$('#requirement').append(""); 
     }
   }
 
@@ -589,6 +630,44 @@
           }
     });
 
+     var rep;
+     $('#display-btn').click(function(e){
+       // for (var i = 0; i <= arr_id.length-1; i++) {
+       //  if (i==(arr_id.length-1)) {
+       //    temp = arr_id[i];
+       //     console.log(temp);   
+       //  }    
+       // }
+
+      var arr_id=[];
+      var temp;
+       $.ajax({
+        url:"<?php echo base_url('hr/search_position');?>",
+          method:"POST",
+          dataType : "json",
+          data:{ 'ID' : <?php echo $row['RequestorDepartmentID'] ?>},
+          success:function(data){
+            console.log(data);
+            var output = '';
+            $.each(data, function (i) {
+              //var rep;
+              //console.log("data"+data[i]['FullName']);
+              if (data[i]['FullName'] === null) {
+                rep = "Empty";
+              }else{
+                rep = data[i]['FullName'];
+              }
+              output += '<option value="' + data[i]['ID']+'"data-subtext="'+data[i]['FullName']+'">' + data[i]['Position']+'('+rep+')</option>';
+            });
+            $('#position').append(output);
+            $('#note').show();
+          },
+          error:function(){
+                  alert('error ... ');
+              }
+          });
+     });
+
     $('#btn-submit').click(function(){
         var requestor_id = $('#requestor_id').val();
         var req_position_id = $('#req_position_id').val();
@@ -613,17 +692,17 @@
         var error_responsibility = '';
         var error_ttl = '';
 
-        if(requestor == ''){
+        if(requestor_id == ''){
            error_requestor = 'Requestor Name is required';
            $('#error_requestor').text(error_requestor);
            $('#requestor').css('border-color', '#cc0000');
-           requestor = '';
+           requestor_id = '';
           }else{
            error_requestor = '';
            console.log($('#requestor').val());
            $('#error_requestor').text(error_requestor);
            $('#requestor').css('border-color', '');
-           requestor = $('#requestor').val();
+           requestor_id = $('#requestor').val();
           }
 
           if(req_position_id == ''){
@@ -778,11 +857,9 @@
 
 
         $.ajax({ 
-          contentType: false,
           url:"<?php echo base_url('Hr/save_data2');?>",
           method:"POST",
           dataType : 'json',
-          processData : false,
           data:{ 'id_req' : id_req,
                  'requestor':requestor,
                  'req_position_id':req_position_id,
@@ -797,10 +874,10 @@
                  'requirement' : requirement},
           success:function(data){
             //window.location.href = '<?php echo base_url('Hr/Hire_history');?>';
-            // console.log(data);
-            // if (data.status) {
-            //         alert('Save as Draft');
-            //       }
+            console.log(data);
+            if (data.status) {
+                    alert('Save as Draft');
+                  }
                 },
               error:function(){
                   alert('error ... ');
@@ -810,7 +887,7 @@
 
     $('#button-smt').click(function(){
       var id_req = $('#id-req').val();
-      var requestor = $('#requestor').val();
+      var requestor = $('#requestor_id').val();
       var req_position_id = $('#req_position_id').val();
       var org_id = $('#org_id').val();
       var position = $('#position').val();

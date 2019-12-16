@@ -152,7 +152,7 @@ class Hire_model extends CI_Model
            from dbo.RequisitionTable a
            left join dbo.CostCenterTable b
            on a.PlacementID = b.ID
-           left join dbo.UserTable c
+           left join dbo.PersonnelTable c
            on a.RequestorID = c.ID
            left join dbo.OrganizationTable e
            on a.RequestorDepartmentID = e.ID
@@ -181,7 +181,7 @@ class Hire_model extends CI_Model
       on a.PlacementID = b.ID
       left join dbo.RequisitionTypeTable c
       on a.RequisitionTypeID = c.ID
-      left join dbo.UserTable d
+      left join dbo.PersonnelTable d
       on a.RequestorID = d.ID
       left join dbo.PositionTable e
       on a.RequestorPositionID = e.ID
@@ -212,25 +212,13 @@ class Hire_model extends CI_Model
       return $res->result_array();
   }
 
-  public function get_member_organization($OrganizationID)
+  public function get_member_organization($OrganizationID, $PersonnelNumber)
   { 
-      $res = $this->db->query("select a.id, a.name, a.organizationid, c.id as PersonnelID,
+    $res = $this->db->query("select a.id, a.name, a.organizationid, c.id as PersonnelID,
       c.fullname as PersonnelName from dbo.UserTable a
       join dbo.OrganizationTable b on a.OrganizationID = b.id
       join dbo.PersonnelTable c on a.Name = c.FullName
-      where b.ID ='$OrganizationID'");
-
-      // $res = $this->db->query("select a.ID as ID, a.Name as PersonnelName, f.PersonnelID as PersonnelID,
-      // c.Name as PositionName, e.Name as OrganizationName, e.id as OrganizationID
-      // from dbo.UserTable a
-      // join dbo.PersonnelPosition b on a.ID= b.PersonnelID
-      // join dbo.PositionTable c on b.PositionID = c.ID
-      // join dbo.PositionInOrganization d on c.ID = d.PositionID
-      // join dbo.OrganizationTable e on a.OrganizationID = e.ID
-      // join dbo.UserXPersonnel f on a.ID = f.UserID
-     // join dbo.PersonnelTable g on f.PersonnelID = g.ID
-      //                         where e.ID =".$OrganizationID
-      //and f.PersonnelID != g.ID );
+      where b.ID ='$OrganizationID' and a.PersonnelNumber != '$PersonnelNumber'");
         return $res->result_array();
   }
 
@@ -335,7 +323,7 @@ class Hire_model extends CI_Model
     join dbo.UserXUserGroup c on c.UserID = a.CreatedById
     join dbo.OrganizationTable d on d.ID = a.RequestorDepartmentID
     where a.RequestorID = '$ID'
-    and c.UserGroupID = 5
+    and c.UserGroupID = 4
     and a.RequestorDepartmentID = '$req_dep'
     and IsProcessedToHire=0 
     and IsHold = 0
@@ -638,10 +626,10 @@ class Hire_model extends CI_Model
 
   function get_related_per($ID){
     $q = 'select a.*, c.Name from 
-    [dbo].[UserXPersonnel] a 
-	join dbo.PersonnelTable c 
-	on a.PersonnelID = c.ID 
-	where a.UserID = '.$ID ;
+          [dbo].[UserXPersonnel] a 
+        	join dbo.PersonnelTable c 
+        	on a.PersonnelID = c.ID 
+        	where a.UserID = '.$ID ;
     $query = $this->db->query($q);    
      //$query = $this->db->get('dbo.RequisitionTable');
      return $query->result_array();
