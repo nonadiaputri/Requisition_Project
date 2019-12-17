@@ -462,7 +462,7 @@
       var temp2 = $('#requestor_id :selected').val();
       if ($('#requestor_id :selected').text() != '') {
         $.ajax({
-          url:"<?php echo base_url('Hr/search_info');?>",
+          url:"<?php echo base_url('hr/search_info');?>",
           method:"POST",
           dataType : "json",
           data:{ 'ID' : temp2},
@@ -640,7 +640,7 @@
                'responsibility' : responsibility,
                'requirement' : requirement},
         success:function(data){
-          window.location.href = '<?php echo base_url('hr/Hire_history');?>';
+          window.location.href = '<?php echo base_url('hr/hire_history');?>';
           console.log(data);
           if (data.status) {
                   alert('Save as Draft');
