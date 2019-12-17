@@ -273,7 +273,7 @@
   //  $('.requestor').select2({
   //               placeholder: 'Enter The Requestor Name',
   //               ajax:{
-  //                   url: "<?php echo base_url('Promotion_4/requestor'); ?>",
+  //                   url: "<?php echo base_url('hr_movement/requestor'); ?>",
   //                   dataType: "json",
   //                   delay: 250,
   //         processResults: function(data){
@@ -301,7 +301,7 @@
   //             console.log(name);
   //             if ($('#requestor_name :selected').text() != '') {
   //               $.ajax({
-  //                   url:"<?php echo base_url('Promotion_4/search_info');?>",
+  //                   url:"<?php echo base_url('hr_movement/search_info');?>",
   //                   method:"GET",
   //                   dataType:'json',
   //                   data:{ 'Name':name },
@@ -331,7 +331,7 @@
         // $('.position').select2({
         //         placeholder: 'Enter The Requestor Position',
         //         ajax:{
-        //             url: "<?php echo base_url('Promotion_4/position'); ?>",
+        //             url: "<?php echo base_url('hr_movement/position'); ?>",
         //             dataType: "json",
         //             delay: 250,
         //   processResults: function(data){
@@ -382,7 +382,7 @@
           //   $('.request_type').select2({
           //       placeholder: 'Enter The Movement Request Type',
           //       ajax:{
-          //           url: "<?php echo base_url('Promotion_4/request_type'); ?>",
+          //           url: "<?php echo base_url('hr_movement/request_type'); ?>",
           //           dataType: "json",
           //           delay: 250,
           // processResults: function(data){
@@ -442,7 +442,7 @@
             $('.current-position').select2({
                 placeholder: 'Enter The Current Position',
                 ajax:{
-                    url: "<?php echo base_url('Promotion_4/current_position'); ?>",
+                    url: "<?php echo base_url('hr_movement/current_position'); ?>",
                     dataType: "json",
                     delay: 250,
           //           processResults: function (param) {
@@ -476,7 +476,7 @@
 
           //     if ($('#new_position :selected').text() != '') {
           //       $.ajax({
-          //           url:"<?php echo base_url('Promotion_4/search_new_position');?>",
+          //           url:"<?php echo base_url('hr_movement/search_new_position');?>",
           //           method:"GET",
           //           dataType:'json',
           //           data:{ 'Position': newpos },
@@ -508,7 +508,7 @@
           //   $('.new-position').select2({
           //       placeholder: 'Enter The New Position',
           //       ajax:{
-          //           url: "<?php echo base_url('Promotion_4/new_position'); ?>",
+          //           url: "<?php echo base_url('hr_movement/new_position'); ?>",
           //           dataType: "json",
           //           delay: 250,
           // //           processResults: function (param) {
@@ -572,7 +572,7 @@
       //console.log("btn click"+req_position_id);
 
       $.ajax({
-        url:"<?php echo base_url('Promotion_4/save_data');?>",
+        url:"<?php echo base_url('hr_movement/save_data');?>",
         method:"POST",
         data:{ 'requestor_id':requestor_id,
                'req_position_id':req_position_id,
@@ -590,7 +590,7 @@
                },
 
         success:function(data){
-          window.location.href = '<?php echo base_url('Promotion_4/Promotion_history');?>';
+          window.location.href = '<?php echo base_url('hr_movement/Promotion_history');?>';
           console.log(data);
           if (data.status) {
                   alert('Save as Draft');
@@ -822,7 +822,7 @@
      // var form_data = $('#myform').serialize();
      // console.log(form_data);
        $.ajax({
-        url:"<?php echo base_url('Promotion_4/submit_promotion');?>",
+        url:"<?php echo base_url('hr_movement/submit_promotion');?>",
         method:"POST",
         data:{'requestor_id':requestor_id,
                'req_position_id':req_position_id,
