@@ -60,7 +60,7 @@ class Hr extends CI_Controller {
        * by Geraldine Agusta
        */
       $check4 = $this->Hire_model->auto_regist_position($last_id, $position);
-      var_dump($last_id);
+      //var_dump($last_id);
       $data['person'] = $this->Hire_model->get_related_per($dt);
       //var_dump($data['person']);
       $ID = $this->session->userdata('ID2');
