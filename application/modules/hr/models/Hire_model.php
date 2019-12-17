@@ -626,7 +626,7 @@ class Hire_model extends CI_Model
 
   function get_related_per($ID){
     $q = 'select a.*, c.Name from 
-          [dbo].[UserXPersonnel] a 
+          dbo.UserXPersonnel a 
         	join dbo.PersonnelTable c 
         	on a.PersonnelID = c.ID 
         	where a.UserID = '.$ID ;

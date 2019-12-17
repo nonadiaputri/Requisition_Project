@@ -336,7 +336,6 @@ class Hr extends CI_Controller {
 	    // $data['all'] = count($data['prom']);
 	    // $data['tot'] = count($data['hire']);
 	  $data['row']= $this->Hire_model->get_hire_id($ID);
-	  var_dump($data['row']);
 	  $data["header"] = $this->load->view('header/v_header','',TRUE);
 		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
 		$this->load->view('hr/v_edit_hire',$data);
@@ -361,6 +360,7 @@ class Hr extends CI_Controller {
     $requirement = $this->input->post('requirement');
     $responsibility = $this->input->post('responsibility');
     $IsProcessedToHire = '0';
+    $id_user = $this->session->userdata('UserID');
 
     $data = array(
       'RequestedPositionID' => $position,
@@ -371,16 +371,19 @@ class Hr extends CI_Controller {
       'RequirementDescription' => $requirement,
       'DuttiesAndResponsibilities' => $responsibility,
       'PlacementID' => $placement,
-      'IsProcessedToHire' => $IsProcessedToHire
+      'IsProcessedToHire' => $IsProcessedToHire,
+      'LastModifiedByID' => $id_user
       );
 
     $data1 = array(
         'RequisitionID' => $ID,
         'EmployeeID' => $req_id,
         'PositionID' => $req_position_id,
-        'OrganizationID' => $org_id);
+        'OrganizationID' => $org_id,
+        'CreatedByID' => $id_user,
+        'LastModifiedByID' => $id_user);
 
-    print_r($data1);
+    //print_r($data1);
     //echo $data['IsProcessedToHire'];
     $res =$this->Hire_model->Update_data($data, $ID);
     $res2 = $this->Hire_model->Insert_to_Approval($data1);
@@ -393,6 +396,7 @@ class Hr extends CI_Controller {
 
   function save_data2(){
     $ID = $this->input->post('id_req');
+    $requestor = $this->input->post('requestor');
     $req_position_id = $this->input->post('req_position_id');
     $req_org_id = $this->input->post('req_org_id');
     $position = $this->input->post('position');
@@ -408,8 +412,9 @@ class Hr extends CI_Controller {
     
 
     $data = array(
-      // 'RequestorPositionID' => $req_position_id,
-      // 'RequestorDepartmentID' => $req_org_id,
+      'RequestorID' => $requestor,
+      'RequestorPositionID' => $req_position_id,
+      'RequestorDepartmentID' => $req_org_id,
       'RequestedPositionID' => $position,
       'ReplacementPersonnelID' => $ReplacementName,
       'NumberOfPlacement' => $total,
@@ -420,11 +425,8 @@ class Hr extends CI_Controller {
       'PlacementID' => $placement,
       'IsProcessedToHire' => $IsProcessedToHire
       );
-    print_r($data);
-    // var_dump($data);
-
     $res = $this->Hire_model->update_saved_data($data, $ID);
-    print_r($res);
+    //print_r($res);
       if ($res > 0 ) {
         echo json_encode(array('status'=>true));
         //$this->hire_history();

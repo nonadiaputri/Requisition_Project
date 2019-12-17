@@ -241,7 +241,7 @@
                     </div>
                     <div class="col-sm-8">
                         ​<!-- <textarea id="responsibility" name="responsibility" rows="7" cols="70" required="required"></textarea> -->
-                        <textarea class="ckeditor" id="responsibility"></textarea>
+                        <textarea class="ckeditor" id="responsibility"><?php echo $row['DuttiesAndResponsibilities']; ?></textarea>
                         <span id="error_responsibility" class="text-danger"></span>
                       </div>
                 </div>
@@ -256,7 +256,7 @@
                       <div class="col-sm-8">
                         <div class="form-group">
                           <!-- <textarea id="requirement" name="requirement" rows="7" cols="70" required="required"></textarea> -->
-                          <textarea class="ckeditor" id="requirement"></textarea>
+                          <textarea class="ckeditor" id="requirement"><?php echo $row['RequirementDescription']; ?></textarea>
                         <span id="error_requirement" class="text-danger"></span>
                         </div>
                         
@@ -447,7 +447,7 @@
           if (<?php echo $row['RequisitionTypeID'];?> == '0') {
             $('#status').removeAttr('value');
           }else{
-            $('#status').val();
+            $('#status').val(<?php echo $row['RequisitionTypeID']?>);
           }
 
           if ( "<?php echo $row['ExpectedWorkStartDate'];?>" == '1900-01-01 00:00:00.000') {
@@ -457,10 +457,7 @@
             var d = datetime.split(' ')[0];
             $('#workdate').val(d);  
           }
-          //.CKEDITOR.instances['editor1'].setData('#responsibility');
-          //$('#responsibility').append("");
-
-          //$('#requirement').append(""); 
+         
     }
   }
 
@@ -863,7 +860,7 @@
           data:{ 'id_req' : id_req,
                  'requestor':requestor,
                  'req_position_id':req_position_id,
-                 'req_org_id' : req_org_id,
+                 'req_org_id' : org_id,
                  'position':position,
                  'total':total,
                  'placement':placement, 
@@ -873,15 +870,15 @@
                  'responsibility' : responsibility,
                  'requirement' : requirement},
           success:function(data){
-            //window.location.href = '<?php echo base_url('Hr/Hire_history');?>';
-            console.log(data);
+            window.location.href = '<?php echo base_url('Hr/Hire_history');?>';
+            console.log(data.status);
             if (data.status) {
                     alert('Save as Draft');
                   }
                 },
-              error:function(){
-                  alert('error ... ');
-              }
+            error:function(){
+                alert('error ... ');
+            }
           });
         });
 
@@ -915,9 +912,11 @@
                'requirement' : requirement},
 
         success:function(data){
+          window.location.href = '<?php echo base_url('Hr/hire_history');?>';
           console.log(data);
           if (data.status) {
                   alert('sukses!');
+
                 }
               },
             error:function(){
@@ -927,7 +926,7 @@
        $('#myModal').hide();
           $('.modal-fade').hide();
           $(".modal-backdrop").remove();
-          window.location.href = '<?php echo base_url('Hr/hire_history');?>';
+          
     });
 
   });
