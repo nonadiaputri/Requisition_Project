@@ -158,15 +158,6 @@ class Hr extends CI_Controller {
 
 	public function hire_history(){
 	    $requestor_id = $this->session->userdata('ID2');
-      //var_dump($requestor_id);
-
-	    //notif
-	    //$data['hire'] = $this->Hire_model->get_new_req();
-	    //$data['prom'] = $this->Hire_model->get_new_promotion();
-	    // $data['all'] = count($data['prom']);
-	    // $data['tot'] = count($data['hire']);
-	    // $data['res'] = $this->Hire_model->get_hire();
-	    // var_dump($requestor_id);
 	    $data['myreq'] = $this->Hire_model->get_your_request($requestor_id);
   		$data["header"] = $this->load->view('header/v_header','',TRUE);
   		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
@@ -230,8 +221,6 @@ class Hr extends CI_Controller {
     $data = $this->Hire_model->search_info($ID);
     echo json_encode($data);
   }
-
-	
 
 	function save_data(){
 	    $requestor_id = $this->input->post('requestor_id');
@@ -322,7 +311,9 @@ class Hr extends CI_Controller {
 	public function View($ID){
     $data['req'] = $this->Hire_model->get_hire_id($ID);
     $data['info'] = $this->Hire_model->get_apv_info($ID);
+
     $data['latest'] = $this->Hire_model->get_latest_apv($ID);
+    var_dump($data['latest']);
     $data["header"] = $this->load->view('header/v_header','',TRUE);
   	$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
   	$this->load->view('hr/v_view',$data);
@@ -372,6 +363,7 @@ class Hr extends CI_Controller {
       'DuttiesAndResponsibilities' => $responsibility,
       'PlacementID' => $placement,
       'IsProcessedToHire' => $IsProcessedToHire,
+      'CreatedByID' =>$id_user,
       'LastModifiedByID' => $id_user
       );
 
@@ -442,6 +434,7 @@ class Hr extends CI_Controller {
     $where1 = array('RequisitionID' => $ID);
     $status = '1';
     $apv_id_new = $apv_id + 1 ;
+    $id_user = $this->session->userdata('UserID');
 
     $data = array(
       'ProcessStartDate' => $process,
@@ -452,10 +445,12 @@ class Hr extends CI_Controller {
       'ProcessStartDate' => $process,
       'IsProcessedToHire' => $status,
       'ApprovalStatusID' => $apv_id_new,
-      'EmployeeID' => $this->session->userdata('new_id'),
+      'EmployeeID' => $this->session->userdata('ID2'),
       'RequisitionID' => $ID,
-      'OrganizationID' => $this->session->userdata('dept_id'),
-      'PositionID' => $this->session->userdata('id_position')
+      'OrganizationID' => $this->session->userdata('OrganizationID'),
+      'PositionID' => $this->session->userdata('PositionID'),
+      'CreatedByID' => $id_user,
+      'LastModifiedByID' => $id_user
     );
     //var_dump($data1);
     $res = $this->Hire_model->process_data($data, $where);
@@ -474,6 +469,7 @@ class Hr extends CI_Controller {
     $where1 = array('RequisitionID' => $ID);
     $status = '1';
     $apv_id_new = $apv_id + 1 ;
+    $id_user = $this->session->userdata('UserID');
 
     $data = array(
       'HoldEndDate' => $hold,
@@ -484,10 +480,12 @@ class Hr extends CI_Controller {
       'HoldEndDate' => $hold,
       'IsHold' => $status,
       'ApprovalStatusID' => $apv_id_new,
-      'EmployeeID' => $this->session->userdata('new_id'),
+      'EmployeeID' => $this->session->userdata('ID2'),
       'RequisitionID' => $ID,
-      'OrganizationID' => $this->session->userdata('dept_id'),
-      'PositionID' => $this->session->userdata('id_position')
+      'OrganizationID' => $this->session->userdata('OrganizationID'),
+      'PositionID' => $this->session->userdata('PositionID'),
+      'CreatedByID' => $id_user,
+      'LastModifiedByID' => $id_user
       );
 
     $res = $this->Hire_model->hold_data($data, $where);
@@ -507,6 +505,7 @@ class Hr extends CI_Controller {
     $where1 = array('RequisitionID' => $ID);
     $status = '1';
     $apv_id_new = $apv_id + 1 ;
+    $id_user = $this->session->userdata('UserID');
 
     $data = array(
       'RejectReason' => $reject,
@@ -517,10 +516,12 @@ class Hr extends CI_Controller {
       'RejectReason' => $reject,
       'IsRejected' => $status,
       'ApprovalStatusID' => $apv_id_new,
-      'EmployeeID' => $this->session->userdata('new_id'),
+      'EmployeeID' => $this->session->userdata('ID2'),
       'RequisitionID' => $ID,
-      'OrganizationID' => $this->session->userdata('dept_id'),
-      'PositionID' => $this->session->userdata('id_position')
+      'OrganizationID' => $this->session->userdata('OrganizationID'),
+      'PositionID' => $this->session->userdata('PositionID'),
+      'CreatedByID' => $id_user,
+      'LastModifiedByID' => $id_user
       );
 
     $res = $this->Hire_model->reject_data($data, $where);
@@ -555,7 +556,16 @@ class Hr extends CI_Controller {
 				$data = $this->Hire_model->get_search_member($compClue, 'Name');
 			}
 			echo json_encode($data);
-	  }
+	}
+
+  function need_approval(){
+    $requestor_id = $this->session->userdata('ID2');
+    $data['need_app'] = $this->Hire_model->need_approval_req($requestor_id);
+    //var_dump($data['need_app']);
+    $data["header"] = $this->load->view('header/v_header','',TRUE);
+    $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+    $this->load->view('hr/v_need_approval',$data);
+  }
 }
 ?>
 

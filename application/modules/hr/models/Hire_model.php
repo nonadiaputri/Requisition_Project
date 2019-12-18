@@ -173,8 +173,8 @@ class Hire_model extends CI_Model
 
   public function get_hire_id($ID)
   {
-    $q = 'select a.*, b.Name as Department, c.Name as Status, 
-      d.Name as Requestor, e.Name as req_position,
+    $q = 'select a.*, b.Name as Placement, c.Name as Status, 
+      d.Name as Requestor, e.Name as requestor_pos,
       f.FullName as RepName, g.Name as requested_pos, h.Name as DeptName
       from dbo.RequisitionTable a
       left join dbo.CostCenterTable b
@@ -543,7 +543,6 @@ class Hire_model extends CI_Model
   }
 
   function get_latest_apv($ID){
-    $where = $ID;
     $this->db->select('a.*, b.FullName as PersonnelName, c.Name as Position');
     $this->db->from('dbo.RequisitionApprovalTable a');
     $this->db->join('dbo.PersonnelTable b', 'a.EmployeeID = b.ID');
@@ -633,6 +632,22 @@ class Hire_model extends CI_Model
     $query = $this->db->query($q);    
      //$query = $this->db->get('dbo.RequisitionTable');
      return $query->result_array();
+  }
+
+  function need_approval_req($ID){
+    $q = $this->db->query("select a.*, b.Name as DeptName,  c.FullName as requestor
+                      from dbo.RequisitionTable a
+                      join dbo.OrganizationTable b
+                      on a.RequestorDepartmentID = b.ID
+                      join dbo.PersonnelTable c
+                      on a.RequestorID = c.ID 
+                      where a.RequestorID in 
+                      (select ID from dbo.PersonnelHierarchy
+                      where ParentPersonnelID = '$ID')
+                      and IsProcessedToHire=0
+                      and IsHold = 0
+                      and IsRejected = 0");
+    return $q->result_array();
   }
 }
 

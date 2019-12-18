@@ -42,7 +42,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       Hire History
+       Need Approval 
         <small>advanced tables</small>
       </h1>
       <ol class="breadcrumb">
@@ -78,7 +78,7 @@
                 </thead>
                 <tbody>
                     <?php $num=1; ?>
-                    <?php foreach($myreq as $row){ ?>
+                    <?php foreach($need_app as $row){ ?>
                     <tr>
                         <td width="10%"><?php echo $num; ?></td>
                         <td width="20%"><?php echo $row['requestor']; ?></td>
