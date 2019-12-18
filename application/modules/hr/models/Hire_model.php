@@ -86,20 +86,29 @@ class Hire_model extends CI_Model
   public function auto_regist_position($last_id, $position){
     $this->db->where('UserID',$last_id);
     $q = $this->db->get('dbo.UserXUserGroup');
+    $manager = $this->db->select('Postion')->from('PersonnelHierarchy')->where("'$position' LIKE '%Manager%' or '$position' like '%Editor in Chief%'")->get()->result();
+    $director = $this->db->select('Postion')->from('PersonnelHierarchy')->where("'$position' like '%Director%'")->get()->result();
+    $gm = $this->db->select('Postion')->from('PersonnelHierarchy')->where("'$position' like '%General Manager%' or '$position' like '%Vice General Manager%'")->get()->result();
+    $ceo = $this->db->select('Postion')->from('PersonnelHierarchy')->where("'$position' like '%Chief Technology%' or '$position' like '%Chief Executive%' or '$position' like '%Chief Financial%'")->get()->result();
+    //var_dump($manager);
 
     if ( $q->num_rows() == 0 ) {
-          if($position == 'Manager'){
+          
+          if(strpos('Manager', $position) !== false){
             $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID) 
           values ($last_id, 5)");
-          } elseif ($position == 'Direktur'){
+          } elseif (preg_match('/Director/i', $position)){
             $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID) 
           values ($last_id, 3)");
-          } elseif ($position == 'GM'){
+          } elseif (preg_match('/General|Vice/i', $position)){
             $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID)
           values ($last_id, 4)");
-          } elseif ($position == 'CEO'){
+          } elseif (preg_match('/Technology|Executive/i', $position)){
             $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID)
-          values ($last_id, 2)");
+          values ($last_id, 2)"); 
+          }elseif(preg_match('/Editor/i', $position)){
+            $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID) 
+            values ($last_id, 5)");
           }
 
       

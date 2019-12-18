@@ -13,7 +13,7 @@ class Hr extends CI_Controller {
 	public function index()
 	{
 		$nik = $this->session->userdata('nik');
-		$position = $this->session->userdata('position');
+		
 
     $check = $this->Hire_model->check_personnel($nik);
     $sess = $this->Hire_model->make_session($nik);
@@ -52,6 +52,8 @@ class Hr extends CI_Controller {
       //var_dump($dt);
     
       $last_id = $object->ID;
+      $position = $object->Postion;
+      //var_dump($position);
       $data2 = array('UserID' => $dt);
       $this->session->set_userdata($data2);
       $check3 = $this->Hire_model->auto_register2($dt, $per_id);
