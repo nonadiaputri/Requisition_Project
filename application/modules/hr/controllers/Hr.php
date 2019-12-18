@@ -315,7 +315,7 @@ class Hr extends CI_Controller {
     $data['info'] = $this->Hire_model->get_apv_info($ID);
 
     $data['latest'] = $this->Hire_model->get_latest_apv($ID);
-    var_dump($data['latest']);
+    //var_dump($data['latest']);
     $data["header"] = $this->load->view('header/v_header','',TRUE);
   	$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
   	$this->load->view('hr/v_view',$data);
@@ -567,6 +567,38 @@ class Hr extends CI_Controller {
     $data["header"] = $this->load->view('header/v_header','',TRUE);
     $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
     $this->load->view('hr/v_need_approval',$data);
+  }
+
+  public function myview_approve(){
+    $requestor_id = $this->session->userdata('ID2');
+    $data['status'] = $this->Hire_model->my_approve($requestor_id);
+    //var_dump($data['need_app']);
+    $data["header"] = $this->load->view('header/v_header','',TRUE);
+    $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+    $this->load->view('hr/v_my_approve_request',$data);
+  }
+
+  function myview_hold(){
+    $requestor_id = $this->session->userdata('ID2');
+    // $data['hold'] = $this->Hire3_model->hold($requestor_id);
+    // $data['jml'] = count($data['hold']);
+    $data['myhold'] = $this->Hire_model->my_hold($requestor_id);
+    // $data['myjml'] = count($data['myhold']);
+    $data["header"] = $this->load->view('header/v_header','',TRUE);
+    $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+    $this->load->view('hr/v_my_hold_request',$data);
+  }
+
+  function myview_reject(){
+    $requestor_id = $this->session->userdata('PersonnelIDList');
+    // $data['hold'] = $this->Hire3_model->hold($requestor_id);
+    // $data['jml'] = count($data['hold']);
+    $data['myreject'] = $this->Hire_model->my_reject($requestor_id);
+    // $data['myhold'] = $this->Hire3_model->my_hold($requestor_id);
+    // $data['myjml'] = count($data['myhold']);
+    $data["header"] = $this->load->view('header/v_header','',TRUE);
+    $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+    $this->load->view('hr/v_my_reject_request',$data);
   }
 }
 ?>
