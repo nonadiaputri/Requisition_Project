@@ -67,20 +67,15 @@
 	          	<div class="form-group">
 	                <div class="col-md-8">
 	                  <label class="control-label col-form-label">Requestor Name</label>
-	                  <!-- <select class="form-control chs-select" name="requestor" id="requestor" style="width:80%" required="required">
-	                        <option default>Select Requestor</option>
+	                  <select class="form-control chs-select" name="requestor_id" id="requestor_id" style="width:100%" required="required">
+	                        <option value="">Select Requestor</option>
 	                        <?php foreach ($person as $person) { ?>
 	                        <option value="<?php echo $person['PersonnelID'];?>"><?php echo $person['Name'];?></option>
 	                        <?php } ?>
-	                </select> -->
-                  <input type="text" class="form-control" id="requestor" name="requestor" value = "<?php echo $this->session->userdata('name'); ?>" required="required" readonly>
-	                    <input type="hidden" class="form-control" id="requestor_id" name="requestor_id" value = "<?php echo $this->session->userdata('ID'); ?>" required="required" readonly>
+	                </select>
+                  <!-- <input type="text" class="form-control" id="requestor" name="requestor" value = "<?php echo $this->session->userdata('name'); ?>" required="required" readonly>
+	                    <input type="hidden" class="form-control" id="requestor_id" name="requestor_id" value = "<?php echo $this->session->userdata('ID'); ?>" required="required" readonly> -->
 	                </div>
-	                  <!-- <div class="col-md-7">
-	                    <input type="text" class="form-control" id="requestor" name="requestor" value = "<?php echo $this->session->userdata('name'); ?>" required="required" readonly>
-	                    <input type="hidden" class="form-control" id="requestor_id" name="requestor_id" value = "<?php echo $this->session->userdata('PersonnelIDList'); ?>" required="required" readonly>
-	                    <span id="error_requestor" class="text-danger"></span>
-	                  </div> -->
 	            </div>
 	            </div>
 	        <div class="row">
@@ -270,68 +265,74 @@
 <script type="text/javascript">
    var option_value;
 
-  //  $('.requestor').select2({
-  //               placeholder: 'Enter The Requestor Name',
-  //               ajax:{
-  //                   url: "<?php echo base_url('Promotion_4/requestor'); ?>",
-  //                   dataType: "json",
-  //                   delay: 250,
-  //         processResults: function(data){
-  //                       var results = [];
+  
 
-  //                       $.each(data, function(index, item){
-  //                           results.push({
-  //                               id: item.ID,
-  //                               text: item.FullName,
-  //                               option_value:item.ID
-  //                           });
-  //                       });
-  //                       return{
-  //                           results: results,
-  //                           cache: true,
-  //                       };
-  //                   },
-  //               }
-
-  //           });
-
-  //  $('#requestor_name').on('select2:select', function (e) {
-  //             var name = $('#requestor :selected').text();
-  //             console.log($('#requestor :selected').text());
-  //             console.log(name);
-  //             if ($('#requestor_name :selected').text() != '') {
-  //               $.ajax({
-  //                   url:"<?php echo base_url('Promotion_4/search_info');?>",
-  //                   method:"GET",
-  //                   dataType:'json',
-  //                   data:{ 'Name':name },
-
-  //                   success:function(data){
-  //                     if (data) {
-  //                       $('#dis-pos').show();
-  //                       $('#dis-org').show();
-  //                       console.log(data);
-  //                       console.log(data.PositionName);
-  //                       $('#req_position_id').val(data.PositionID);
-  //                       $('#req_org_id').val(data.Organization);
-  //                       $('#req_position').val(data.PositionName);
-  //                       $('#req_org').val(data.OrganizationName);
-                        
-  //                       }
-  //                     },
-  //                   error:function(){
-  //                           alert('error ... ');
-  //                   }
-  //               });
-             
-  //           }
-  //         });
-
-
-        // $('.position').select2({
-        //         placeholder: 'Enter The Requestor Position',
+            
+        //  $('.request').select2({
+        //         placeholder: 'Enter The Request Name',
         //         ajax:{
-        //             url: "<?php echo base_url('Promotion_4/position'); ?>",
+        //             url: "<?php echo base_url('Hr_movement/request'); ?>",
+        //             dataType: "json",
+        //             delay: 250,
+        //   processResults: function(data){
+        //                 var results = [];
+
+        //                 $.each(data, function(index, item){
+        //                     results.push({
+        //                         id: item.ID,
+        //                         text: item.FullName,
+        //                         option_value:item.ID
+        //                     });
+        //                 });
+        //                 return{
+        //                     results: results,
+        //                     cache: true,
+        //                 };
+        //             },
+        //         }
+
+        //     });
+
+
+        //     $('#request_name').on('select2:select', function (e) {
+        //       var req = $('#request_name :selected').text();
+        //       console.log($('#request_name :selected').text());
+
+        //       if ($('#request_name :selected').text() != '') {
+        //         $.ajax({
+        //             url:"<?php echo base_url('Hr_movement/search_requestor_pro');?>",
+        //             method:"GET",
+        //             dataType:'json',
+        //             data:{ 'Request': req },
+                
+        //             success:function(data){
+        //               if (data) {
+        //                 // $('#dis-pos').show();
+        //                // $('#c-position').show();
+        //                 console.log(data);
+        //                 console.log(data.Position);
+        //                 console.log(data.PositionID);
+                        
+        //               //  $('#req_position_id').val(data.PositionID);
+        //                 $('#current_position_id').val(data.PositionID);
+        //              //   $('#req_position').val(data.PositionName);
+        //                 $('#current_position').val(data.Position);
+        //                 $('#current_org_id').val(data.OrganizationID);
+                        
+        //                 }
+        //               },
+        //             error:function(){
+        //                     alert('error ... ');
+        //             }
+        //         });
+             
+        //     }
+        //   });
+
+        //     $('.current-position').select2({
+        //         placeholder: 'Enter The Current Position',
+        //         ajax:{
+        //             url: "<?php echo base_url('Promotion_4/current_position'); ?>",
         //             dataType: "json",
         //             delay: 250,
         //   processResults: function(data){
@@ -353,206 +354,165 @@
 
         //     });
 
-            
-         $('.request').select2({
-                placeholder: 'Enter The Request Name',
-                ajax:{
-                    url: "<?php echo base_url('Hr_movement/request'); ?>",
-                    dataType: "json",
-                    delay: 250,
-          processResults: function(data){
-                        var results = [];
-
-                        $.each(data, function(index, item){
-                            results.push({
-                                id: item.ID,
-                                text: item.FullName,
-                                option_value:item.ID
-                            });
-                        });
-                        return{
-                            results: results,
-                            cache: true,
-                        };
-                    },
-                }
-
-            });
-
-          //   $('.request_type').select2({
-          //       placeholder: 'Enter The Movement Request Type',
-          //       ajax:{
-          //           url: "<?php echo base_url('Promotion_4/request_type'); ?>",
-          //           dataType: "json",
-          //           delay: 250,
-          // processResults: function(data){
-          //               var results = [];
-
-          //               $.each(data, function(index, item){
-          //                   results.push({
-          //                       id: item.ID,
-          //                       text: item.Name,
-          //                       option_value:item.ID
-          //                   });
-          //               });
-          //               return{
-          //                   results: results,
-          //                   cache: true,
-          //               };
-          //           },
-          //       }
-
-          //   });
-
-            $('#request_name').on('select2:select', function (e) {
-              var req = $('#request_name :selected').text();
-              console.log($('#request_name :selected').text());
-
-              if ($('#request_name :selected').text() != '') {
-                $.ajax({
-                    url:"<?php echo base_url('Hr_movement/search_requestor_pro');?>",
-                    method:"GET",
-                    dataType:'json',
-                    data:{ 'Request': req },
-                
-                    success:function(data){
-                      if (data) {
-                        // $('#dis-pos').show();
-                       // $('#c-position').show();
-                        console.log(data);
-                        console.log(data.Position);
-                        console.log(data.PositionID);
-                        
-                      //  $('#req_position_id').val(data.PositionID);
-                        $('#current_position_id').val(data.PositionID);
-                     //   $('#req_position').val(data.PositionName);
-                        $('#current_position').val(data.Position);
-                        $('#current_org_id').val(data.OrganizationID);
-                        
-                        }
-                      },
-                    error:function(){
-                            alert('error ... ');
-                    }
-                });
-             
-            }
-          });
-
-            $('.current-position').select2({
-                placeholder: 'Enter The Current Position',
-                ajax:{
-                    url: "<?php echo base_url('Promotion_4/current_position'); ?>",
-                    dataType: "json",
-                    delay: 250,
-          //           processResults: function (param) {
-          //   return {
-          //     compClue: param.term,
-              
-          //   };
-          // },
-          processResults: function(data){
-                        var results = [];
-
-                        $.each(data, function(index, item){
-                            results.push({
-                                id: item.ID,
-                                text: item.Name,
-                                option_value:item.ID
-                            });
-                        });
-                        return{
-                            results: results,
-                            cache: true,
-                        };
-                    },
-                }
-
-            });
-
-          //   $('#new_position').on('select2:select', function (e) {
-          //     var newpos = $('#new_position :selected').text();
-          //     console.log($('#new_position :selected').text());
-
-          //     if ($('#new_position :selected').text() != '') {
-          //       $.ajax({
-          //           url:"<?php echo base_url('Promotion_4/search_new_position');?>",
-          //           method:"GET",
-          //           dataType:'json',
-          //           data:{ 'Position': newpos },
-                
-          //           success:function(data){
-          //             if (data) {
-          //               // $('#dis-pos').show();
-          //               //$('#c-position').show();
-          //               console.log(data);
-          //              // console.log(data.NewPosition);
-          //               console.log(data.NewPositionID);
-                        
-          //             //  $('#req_position_id').val(data.PositionID);
-          //               $('#new_position_id').val(data.NewPositionID);
-          //            //   $('#req_position').val(data.PositionName);
-          //             //  $('#new_position').val(data.NewPosition);
-          //               $('#new_org_id').val(data.NewOrganizationID);
-                        
-          //               }
-          //             },
-          //           error:function(){
-          //                   alert('error ... ');
-          //           }
-          //       });
-             
-          //   }
-          // });
-
-          //   $('.new-position').select2({
-          //       placeholder: 'Enter The New Position',
-          //       ajax:{
-          //           url: "<?php echo base_url('Promotion_4/new_position'); ?>",
-          //           dataType: "json",
-          //           delay: 250,
-          // //           processResults: function (param) {
-          // //   return {
-          // //     compClue: param.term,
-              
-          // //   };
-          // // },
-          // processResults: function(data){
-          //               var results = [];
-
-          //               $.each(data, function(index, item){
-          //                   results.push({
-          //                       id: item.ID,
-          //                       text: item.Name,
-          //                       option_value:item.ID
-          //                   });
-          //               });
-          //               return{
-          //                   results: results,
-          //                   cache: true,
-          //               };
-          //           },
-          //       }
-
-          //   });
-
+          
         
             
   $(document).ready(function(){
 
   var option_value;
 
+  $('#requestor_id').on('change', function() {
+      var temp2 = $('#requestor_id :selected').val();
+      if ($('#requestor_id :selected').text() != '') {
+        $.ajax({
+          url:"<?php echo base_url('Hr/search_info');?>",
+          method:"POST",
+          dataType : "json",
+          data:{ 'ID' : temp2},
+          success:function(data){
+            console.log(data);
+            $('#req_position_id').val(data.PositionID);
+            $('#req_position').val(data.Postion);
+            $('#org_id').val(data.OrganizationID);
+            $('#req_org_id').val(data.Organization);
+
+            $('#parent_org').val(data.ParentOrganization);
+            $('#organization').val(data.Organization);
+            $('#organization_id').val(data.OrganizationID);
+
+            
+          },
+          error:function(){
+                  alert('error ... ');
+              }
+          });
+    }
+    });
+
+
+    // To allow the dynamic element to able to use this change event
+    // See here for more info, https://stackoverflow.com/questions/1359018/how-do-i-attach-events-to-dynamic-html-elements-with-jquery
+    var arr_id=[];
+    var temp;
+    $('body').on('change', '.chs-select', function(){
+
+        // Get the id dynamically
+        //var id = $('#chs-org').val();
+        const id = $(this).val();
+        const select_id = $(this).attr('id');
+
+        console.log(id);
+        var i = 0;
+        $.ajax({
+            url: "<?php echo base_url('hr/chs_dep');?>",
+            type: "POST",
+            dataType: "json",
+            data: {
+                'ID': id
+            },
+            success: function (data) {
+
+                //console.log(data);
+                // console.log(data[0]['Name']);
+
+                if (data.length != 0) {
+                    var output = '';
+                    //output += '<option default>Select</option>';
+                    $.each(data, function (key, value) {
+                        output += '<option value="' + data[key]['ID'] + '">' + data[key]['Name'] + '<br></option>';
+                    });
+                    if(select_id == 'chs-org'){
+                        // Show the chs-dep
+                        $('#chs-dep').show();
+                        $('#chs-dep').append(output);
+                    }else if(select_id == 'chs-dep'){
+                        // Get the template
+                        var new_chs_div = $('#chs-div-template').clone();
+                        const chs_div_count = i + 1;
+                        new_chs_div.attr('name', 'chs-div' + chs_div_count);
+                        new_chs_div.attr('id', 'chs-div' + chs_div_count);
+                        // Remove the none value.
+                        // Just change it to your desire value.
+                        new_chs_div.css('display', '');
+                        new_chs_div.append(output);
+                        //Insert next to the last of .chs-select
+                        $('#chs-container').append(new_chs_div);
+                        $('#chs-container').append('<br/>');
+                        //$(new_chs_div).insertAfter('.chs-select');
+                        //$('<br/>').insertAfter('.chs-select');
+                    }else if(select_id.includes('chs-div')){
+                        // Get the template
+                        var new_chs_div = $('#chs-div-template').clone();
+                        const chs_div_count = i + 1;
+
+                        new_chs_div.attr('name', 'chs-div' + chs_div_count);
+                        new_chs_div.attr('id', 'chs-div' + chs_div_count);
+                        // Remove the none value.
+                        // Just change it to your desire value.
+                        new_chs_div.css('display', '');
+                        new_chs_div.append(output);
+                        //Insert next to the last of .chs-select
+                        $('#chs-container').append(new_chs_div);
+                        $('#chs-container').append('<br/>');
+                        //$(new_chs_div).insertAfter('.chs-select');
+                        //$('<br/>').insertAfter('.chs-select');
+                    }
+                }
+            },
+            error: function () {
+                alert('error ... ');
+            }
+        });
+        arr_id.push(id);
+        console.log(arr_id);
+        console.log(arr_id.length);
+         
+    });
+
+   var rep;
+   $('#display-btn').click(function(e){
+     for (var i = 0; i <= arr_id.length-1; i++) {
+      if (i==(arr_id.length-1)) {
+        temp = arr_id[i];
+         console.log(temp);   
+      }    
+     }
+     $.ajax({
+        url:"<?php echo base_url('hr/search_position');?>",
+        method:"POST",
+        dataType : "json",
+        data:{ 'ID' : temp},
+        success:function(data){
+          console.log(data);
+          var output = '';
+          $.each(data, function (i) {
+            //var rep;
+            //console.log("data"+data[i]['FullName']);
+            if (data[i]['FullName'] === null) {
+              rep = "Empty";
+            }else{
+              rep = data[i]['FullName'];
+            }
+            output += '<option value="' + data[i]['ID']+'"data-subtext="'+data[i]['FullName']+'">' + data[i]['Position']+'('+rep+')</option>';
+          });
+          $('#position').append(output);
+          $('#note').show();
+        },
+        error:function(){
+                alert('error ... ');
+            }
+        });
+   });
+
+  $('#status').on('change',function(){
+        if( $('#status').val()=="2"){
+          $("#repname").show();
+          }
+          else{
+          $("#repname").hide();
+          }
+    });
   
-
-
-//   $('#status').on('change',function(){
-//         if( $('#status').val()==="2"){
-//           $("#repname").show();
-//           }
-//           else{
-//           $("#repname").hide();
-//           }
-//     });
 
   $('#btn-save').click(function(e){
   e.preventDefault();   

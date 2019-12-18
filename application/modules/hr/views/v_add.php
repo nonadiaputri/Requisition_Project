@@ -84,7 +84,7 @@
 	                <div class="col-md-8">
 	                  <label class="control-label col-form-label">Employee Name</label>
 
-	                  <select onchange="cek_database()" class="form-control chs-select" name="member" id="member" style="width:100%" required="required">
+	                  <select class="form-control chs-select" name="member" id="member" style="width:100%" required="required">
 	                        <option default>Select Employee Name</option>
 	                        <?php foreach ($member as $member) { ?>
 	                        <option id="personnel_id"value="<?php echo $member['PersonnelID'];?>"><?php echo $member['PersonnelName'];?></option>
@@ -212,6 +212,28 @@
     // To allow the dynamic element to able to use this change event
     // See here for more info, https://stackoverflow.com/questions/1359018/how-do-i-attach-events-to-dynamic-html-elements-with-jquery
    
+
+      $('#member').on('change', function() {
+      var temp2 = $('#member :selected').val();
+      if ($('#member :selected').text() != '') {
+        $.ajax({
+          url:"<?php echo base_url('Hr/search_member');?>",
+          method:"GET",
+          dataType : "json",
+          data:{ 'ID' : temp2},
+          success:function(data){
+            console.log(data);
+            $('#req_position_id').val(data.PositionID);
+            $('#req_position').val(data.PositionName);
+
+            
+          },
+          error:function(){
+                  alert('error ... ');
+              }
+          });
+    }
+    });
 
   $('#status').on('change',function(){
         if( $('#status').val()=="2"){

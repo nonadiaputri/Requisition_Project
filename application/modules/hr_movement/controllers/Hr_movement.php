@@ -21,21 +21,77 @@ class Hr_movement extends CI_Controller {
 	
 	public function index()
 	{
-			$ID = $this->session->userdata('nik');
-			$data['result'] = $this->Promotion_model->get_new_req();
-			$data['person'] = $this->Promotion_model->get_related_per($ID);
-			$data['org'] = $this->Promotion_model->choose_org();
-			$data['type'] = $this->Promotion_model->choose_move_type($ID);
-			// $data['req'] = $this->Promotion_model->choose_request_name($ID);
-			$data['req'] = $this->Promotion_model->choose_request_name($ID);
-			$data['pos'] = $this->Promotion_model->choose_move_position($ID);
+		// $ID = $this->session->userdata('nik');
+		$nik = $this->session->userdata('nik');
+
+		$check = $this->Promotion_model->check_personnel($nik);
+		$sess = $this->Promotion_model->make_session($nik);
+		$object = json_decode(json_encode($sess));
+
+		if ($sess != '') {
+			$data = array(
+			  'Name2'    => $object->FullName,
+			  'NIK2'     => $object->PersonnelNumber,
+			  'ID2'    => $object->ID,
+			  'Position'   => $object->Postion,
+			  'PositionID' => $object->PostionID,
+			  'Organization' =>$object->Organization,
+			  'OrganizationID' =>$object->OrganizationID,
+			  'ParentOrganization' =>$object->ParentOrganization,
+			  'ParentOrganizationID' => $object->ParentOrganizationID,
+			  'ParentPosition' =>$object->ParentPosition,
+			  'ParentPositionID'=>$object->ParentPositionID,
+			  'ParentPersonnel' => $object->ParentPersonnel,
+			  'ParentPersonnelID' => $object->ParentPersonnelID
+			);
+			//var_dump($data);
+			
+	  
+		  $this->session->set_userdata($data);
+		  
+		  }
+		  
+	  
+		  //var_dump($check);
+		  $per_id = $check[0]['ID'];
+		  //var_dump($per_id);
+		  if ($check == 0) {
+			$data["header"] = $this->load->view('header/v_header','',TRUE);
+				$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+			$this->load->view('hr_movement/v_error_movement', $data);
+		  }else{
+			$check2 = $this->Promotion_model->auto_register($nik);
+			//var_dump($check2);
+			$dt = $check2['ID'];
+			//var_dump($dt);
+			$check3 = $this->Promotion_model->auto_register2($dt, $per_id);
+			$data['person'] = $this->Promotion_model->get_related_per($dt);
+			//var_dump($data['person']);
+			$ID = $this->session->userdata('ID2');
+			$req_dep = $this->session->userdata('OrganizationID');
+			$data['result'] = $this->Promotion_model->get_new_req($ID, $req_dep);
 			$data['tot'] = count($data['result']);
+		   
+			$data['org'] = $this->Promotion_model->choose_org();  
 			$data["header"] = $this->load->view('header/v_header','',TRUE);
 			$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-			//var_dump($data['person']);
-			$this->load->view('hr_movement/v_form_movement',$data);			
+			$this->load->view('hr_movement/v_form_movement',$data);
+	
+		// $data['result'] = $this->Promotion_model->get_new_req();
+		// $data['person'] = $this->Promotion_model->get_related_per($ID);
+		// $data['org'] = $this->Promotion_model->choose_org();
+		// $data['type'] = $this->Promotion_model->choose_move_type($ID);
+		// // $data['req'] = $this->Promotion_model->choose_request_name($ID);
+		// $data['req'] = $this->Promotion_model->choose_request_name($ID);
+		// $data['pos'] = $this->Promotion_model->choose_move_position($ID);
+		// $data['tot'] = count($data['result']);
+		// $data["header"] = $this->load->view('header/v_header','',TRUE);
+		// $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+		// //var_dump($data['person']);
+		// $this->load->view('hr_movement/v_form_movement',$data);			
 
 	}
+}
 
 	
 	public function promotion_history()

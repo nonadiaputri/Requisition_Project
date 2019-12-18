@@ -182,27 +182,40 @@ class Hire_model extends CI_Model
 
   public function get_member_organization($OrganizationID, $PersonnelNumber)
   { 
-    $res = $this->db->query("select a.id, a.name, a.organizationid, c.id as PersonnelID,
-      c.fullname as PersonnelName from dbo.UserTable a
-      join dbo.OrganizationTable b on a.OrganizationID = b.id
-      join dbo.PersonnelTable c on a.Name = c.FullName
-      where b.ID ='$OrganizationID' and a.PersonnelNumber != '$PersonnelNumber'");
+    // $res = $this->db->query("select a.id, a.name, a.organizationid, c.id as PersonnelID,
+    //   c.fullname as PersonnelName from dbo.UserTable a
+    //   join dbo.OrganizationTable b on a.OrganizationID = b.id
+    //   join dbo.PersonnelTable c on a.Name = c.FullName
+    //   where b.ID ='$OrganizationID' and a.PersonnelNumber != '$PersonnelNumber'");
+
+    $res = $this->db->query("select a.id, a.name, a.organizationid, e.id as PersonnelID,
+                        e.fullname as PersonnelName, f.Name as PositionName, f.ID as PositionID
+                         from dbo.UserTable a
+                        join dbo.OrganizationTable b on a.OrganizationID = b.id
+                      join dbo.PositionInOrganization c on b.id = c.PositionID
+                      join dbo.PersonnelPosition d on d.ID = c.PositionID
+                        join dbo.PersonnelTable e on a.Name = e.FullName
+                      join dbo.PositionTable f on f.ID = d.PositionID
+                        where b.ID ='$OrganizationID' and a.PersonnelNumber != '$PersonnelNumber'");
+
         return $res->result_array();
   }
 
-  // function get_search_member($compClue){
-  //   $this->db->select('*');
-  //   $this->db->like('Name', $compClue);
-  //   $data = $this->db->from('dbo.UserTable')->get();
-  //   return $data->result_array();
-  // }
-  function get_search_member($dept_id,$compClue){
-    $this->db->select('*');
-    $this->db->where('OrganizationID',$dept_id);
-    $this->db->like('Name', $compClue);
-    $data = $this->db->from('dbo.UserTable')->get();
-    return $data->result_array();
+  public function search_member($ID)
+  {
+    $this->db->select('select a.id, a.name, a.organizationid, e.id as PersonnelID,
+    e.fullname as PersonnelName, f.Name as PositionName, f.ID as PositionID');
+    $this->db->from('dbo.UserTable a');
+    $this->db->join('dbo.OrganizationTable b', 'a.OrganizationID = b.id');
+    $this->db->join('dbo.PositionInOrganization c', 'b.id = c.PositionID');
+    $this->db->join('dbo.PersonnelPosition d', 'd.ID = c.PositionID');
+    $this->db->join('dbo.PersonnelTable e', 'a.Name = e.FullName');
+    $this->db->join('dbo.PositionTable f', 'f.ID = d.PositionID');
+    $this->db->where('a.ID',$ID);
+    $query = $this->db->get();
+    return $query->row_array();
   }
+
 
   public function process_data($data,$where){
     $this->db->where($where);
