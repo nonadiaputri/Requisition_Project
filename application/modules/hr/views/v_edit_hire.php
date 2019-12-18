@@ -467,7 +467,7 @@
             $('.searching').select2({
                 placeholder: 'Department Name',
                 ajax:{
-                    url: "<?php echo base_url('Hr/select2'); ?>",
+                    url: "<?php echo base_url('hr/select2'); ?>",
                     dataType: "json",
                     delay: 250,
                     processResults: function(data){
@@ -492,7 +492,7 @@
             $('.requestor').select2({
                 placeholder: 'Requestor Name',
                 ajax:{
-                    url: "<?php echo base_url('Hr/select_personnel'); ?>",
+                    url: "<?php echo base_url('hr/select_personnel'); ?>",
                     dataType: "json",
                     delay: 250,
                     processResults: function(data){
@@ -546,7 +546,7 @@
             $('.req-position').select2({
                 placeholder: 'Position Name',
                 ajax:{
-                    url: "<?php echo base_url('Hr/select_req_position'); ?>",
+                    url: "<?php echo base_url('hr/select_req_position'); ?>",
                     dataType: "json",
                     delay: 250,
                     processResults: function(data){
@@ -571,7 +571,7 @@
             $('.position').select2({
                 placeholder: 'Requested Position',
                 ajax:{
-                    url: "<?php echo base_url('Hr/select_position'); ?>",
+                    url: "<?php echo base_url('hr/select_position'); ?>",
                     dataType: "json",
                     delay: 250,
                     processResults: function(data){
@@ -595,7 +595,7 @@
             $('.rep-name').select2({
                 placeholder: 'Replacement Name',
                 ajax:{
-                    url: "<?php echo base_url('Hr/select_personnel1'); ?>",
+                    url: "<?php echo base_url('hr/select_personnel1'); ?>",
                     dataType: "json",
                     delay: 250,
                     processResults: function(data){
@@ -854,7 +854,7 @@
 
 
         $.ajax({ 
-          url:"<?php echo base_url('Hr/save_data2');?>",
+          url:"<?php echo base_url('hr/save_data2');?>",
           method:"POST",
           dataType : 'json',
           data:{ 'id_req' : id_req,
@@ -870,7 +870,7 @@
                  'responsibility' : responsibility,
                  'requirement' : requirement},
           success:function(data){
-            window.location.href = '<?php echo base_url('Hr/Hire_history');?>';
+            window.location.href = '<?php echo base_url('hr/hire_history');?>';
             console.log(data.status);
             if (data.status) {
                     alert('Save as Draft');
@@ -896,7 +896,7 @@
       var responsibility = CKEDITOR.instances["responsibility"].getData();
       var requirement = CKEDITOR.instances["requirement"].getData();
        $.ajax({
-        url:"<?php echo base_url('Hr/do_update');?>",
+        url:"<?php echo base_url('hr/do_update');?>",
         method:"POST",
         data:{'id_req' : id_req, 
               'requestor' : requestor,
@@ -912,7 +912,7 @@
                'requirement' : requirement},
 
         success:function(data){
-          window.location.href = '<?php echo base_url('Hr/hire_history');?>';
+          window.location.href = '<?php echo base_url('hr/hire_history');?>';
           console.log(data);
           if (data.status) {
                   alert('sukses!');
