@@ -42,7 +42,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       Hire History
+       My Rejected Request
         <small>advanced tables</small>
       </h1>
       <ol class="breadcrumb">
@@ -55,9 +55,29 @@
     <!-- Main content -->
 
     <section class="content">
-      <div >
-        <a href ="<?php echo base_url('Hr/hire_history'); ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">Your Request</a>
-        <a href ="<?php echo base_url('Hr/need_approval'); ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">Neel Approval</a>
+      <div class="btn-group">
+        <button type="button" class="btn btn-info">Your Request</button>
+        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_approve'); ?>">Approved</a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_hold'); ?>">Hold<sup style="color:red; font-weight: bold"> <!-- <?php echo $myjml; ?> --> </sup></a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_reject'); ?>">Rejected</a></li>
+        </ul>
+      </div>
+      <div class="btn-group">
+        <button type="button" class="btn btn-info">Other Request</button>
+        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_approve'); ?>">Approved</a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_hold'); ?>">Hold<sup style="color:red; font-weight: bold"> <!-- <?php echo $myjml; ?> --> </sup></a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_reject'); ?>">Rejected</a></li>
+        </ul>
       </div>
             
       <div class="row">
@@ -78,7 +98,7 @@
                 </thead>
                 <tbody>
                     <?php $num=1; ?>
-                    <?php foreach($myreq as $row){ ?>
+                    <?php foreach($myreject as $row){ ?>
                     <tr>
                         <td width="10%"><?php echo $num; ?></td>
                         <td width="20%"><?php echo $row['requestor']; ?></td>

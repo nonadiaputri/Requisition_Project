@@ -42,7 +42,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       Hire History
+       Need Approval 
         <small>advanced tables</small>
       </h1>
       <ol class="breadcrumb">
@@ -78,7 +78,7 @@
                 </thead>
                 <tbody>
                     <?php $num=1; ?>
-                    <?php foreach($myreq as $row){ ?>
+                    <?php foreach($need_app as $row){ ?>
                     <tr>
                         <td width="10%"><?php echo $num; ?></td>
                         <td width="20%"><?php echo $row['requestor']; ?></td>
@@ -99,12 +99,12 @@
                         <td width="20%" align="center">
                              <?php
                               if ($row['IsProcessedToHire'] == 2) { ?>
-                                  <a href ="<?php echo base_url('hr/edit/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-warning" role="button" aria-pressed="true">Edit</a>
-                                  <a href ="<?php echo base_url('hr/delete/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-danger" role="button" aria-pressed="true">Delete</a>
+                                  <a href ="<?php echo base_url('Hr/Edit/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-warning" role="button" aria-pressed="true">Edit</a>
+                                  <a href ="<?php echo base_url('Hr/Delete/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-danger" role="button" aria-pressed="true">Delete</a>
                                    
                                <?php }else{
                                   ?>
-                                  <a href ="<?php echo base_url('hr/View/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
+                                  <a href ="<?php echo base_url('Hr/View/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
 
                               <?php }  ?>
                         </td>

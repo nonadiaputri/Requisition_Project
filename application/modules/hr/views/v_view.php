@@ -6,6 +6,8 @@
   <title>AdminLTE 2 | Invoice</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
@@ -30,7 +32,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Request Detail
+        Detail Request
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -63,8 +65,8 @@
           <address>
             <strong>Requestor</strong><br>
             <?php echo $req['Requestor']; ?><br>
+            <?php echo $req['requestor_pos']; ?><br>
             <?php echo $req['DeptName']; ?><br>
-            <?php echo $req['req_position']; ?><br>
           </address>
         </div>
         <!-- /.col -->
@@ -83,7 +85,7 @@
 	            <tbody>
 	            <tr>
 	              <td width="10%">Position</td>
-	              <td width="40%">Call of Duty</td>
+	              <td width="40%"><?php echo $req['requested_pos']; ?></td>
 	            </tr>
 	            <tr>
 	              <td>Total Need</td>
@@ -91,7 +93,7 @@
 	            </tr>
 	            <tr>
 	              <td>Placement</td>
-	              <td><?php echo $req['Department']; ?></td>
+	              <td><?php echo $req['Placement']; ?></td>
 	            </tr>
 	            <tr>
 	              <td>Status</td>
@@ -196,7 +198,7 @@
                             <label>
                                 <input type="checkbox" value="" class ="checkbox-mngr"> Requested by <?php echo $req['Requestor']; ?>
                                 <br>
-                                &nbsp &nbsp as <?php echo $req['req_position']; ?>
+                                &nbsp &nbsp as <?php echo $req['requestor_pos']; ?>
                             </label>
                         </fieldset>
                     </div>
@@ -442,9 +444,10 @@
         console.log(id_req);
 
         var app_process = '<?php echo $req['IsProcessedToHire']; ?>';
+        console.log(app_process);
         var app_hold = "<?php echo $req['IsHold'] ;?>"
         var app_reject = "<?php echo $req['IsRejected'] ;?>";
-        var reqstor = "<?php echo $this->session->userdata('new_id'); ?>";
+        var reqstor = "<?php echo $this->session->userdata('ID2'); ?>";
         var appstatus2 = "<?php echo $latest['ApprovalStatusID']; ?>";
         var app_process2 = "<?php echo $latest['IsProcessedToHire']; ?>";
         var app_hold2 = "<?php echo $latest['IsHold']; ?>";
@@ -516,7 +519,15 @@
             $('#reject-by').show();
         }
 
-        if (app_process == '0' &&  app_reject == '0' && app_hold == '0' && reqstor == <?php echo $req['RequestorID'] ;?>){
+        if (app_process == '0' &&  app_reject == '0' && app_hold == '0'){
+            $('#button-process').show();
+            $('#button-hold').show();
+            $('#button-reject').show();
+            $('.checkbox-mngr').prop('checked', true);
+            $('.checkbox-gm').prop('disabled', true);
+            $('.checkbox-hr').attr("disabled", true);
+
+          if (reqstor == <?php echo $req['RequestorID'] ;?>){
             $('#lbl-danger').show();
             $('#button-process').hide();
             $('#button-hold').hide();
@@ -525,7 +536,9 @@
             $('.checkbox-mngr').prop('checked', true);
             $('.checkbox-gm').prop('disabled', true);
             $('.checkbox-hr').attr("disabled", true);
+          }
         }
+
 
         $('#btn-process').click(function(){
             var prcs = $("#process #process").val().trim();
@@ -554,7 +567,7 @@
             success: function(data) {
                 if (status) {
                    
-                    window.location.href = '<?php echo base_url('Hr/hire_history');?>';
+                    window.location.href = '<?php echo base_url('Hr/need_approval');?>';
                     alert('Approval success');
                     }   
                },
@@ -593,7 +606,7 @@
             success: function(data) {
                 if (status) {
                       alert('Hold Request success');
-                       window.location.href = '<?php echo base_url('Hr/hire_history');?>';
+                       window.location.href = '<?php echo base_url('Hr/need_approval');?>';
                     }   
                },
             error: function() {
@@ -632,7 +645,7 @@
             success: function(data) {
                 if (status) {
                       alert('Reject Request success');
-                       window.location.href = '<?php echo base_url('Hr/hire_history');?>';
+                       window.location.href = '<?php echo base_url('Hr/need_approval');?>';
                     }   
                },
             error: function() {
@@ -645,6 +658,6 @@
 
 
 
-        });
+    });
 </script>
 </html>

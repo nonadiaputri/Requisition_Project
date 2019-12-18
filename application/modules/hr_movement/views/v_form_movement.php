@@ -265,13 +265,77 @@
 <script type="text/javascript">
    var option_value;
 
+<<<<<<< HEAD
   
+=======
+  //  $('.requestor').select2({
+  //               placeholder: 'Enter The Requestor Name',
+  //               ajax:{
+  //                   url: "<?php echo base_url('hr_movement/requestor'); ?>",
+  //                   dataType: "json",
+  //                   delay: 250,
+  //         processResults: function(data){
+  //                       var results = [];
+
+  //                       $.each(data, function(index, item){
+  //                           results.push({
+  //                               id: item.ID,
+  //                               text: item.FullName,
+  //                               option_value:item.ID
+  //                           });
+  //                       });
+  //                       return{
+  //                           results: results,
+  //                           cache: true,
+  //                       };
+  //                   },
+  //               }
+
+  //           });
+
+  //  $('#requestor_name').on('select2:select', function (e) {
+  //             var name = $('#requestor :selected').text();
+  //             console.log($('#requestor :selected').text());
+  //             console.log(name);
+  //             if ($('#requestor_name :selected').text() != '') {
+  //               $.ajax({
+  //                   url:"<?php echo base_url('hr_movement/search_info');?>",
+  //                   method:"GET",
+  //                   dataType:'json',
+  //                   data:{ 'Name':name },
+
+  //                   success:function(data){
+  //                     if (data) {
+  //                       $('#dis-pos').show();
+  //                       $('#dis-org').show();
+  //                       console.log(data);
+  //                       console.log(data.PositionName);
+  //                       $('#req_position_id').val(data.PositionID);
+  //                       $('#req_org_id').val(data.Organization);
+  //                       $('#req_position').val(data.PositionName);
+  //                       $('#req_org').val(data.OrganizationName);
+                        
+  //                       }
+  //                     },
+  //                   error:function(){
+  //                           alert('error ... ');
+  //                   }
+  //               });
+             
+  //           }
+  //         });
+
+>>>>>>> ef683271f833e8d7ebf52051f11caad33eb3e125
 
             
         //  $('.request').select2({
         //         placeholder: 'Enter The Request Name',
         //         ajax:{
+<<<<<<< HEAD
         //             url: "<?php echo base_url('Hr_movement/request'); ?>",
+=======
+        //             url: "<?php echo base_url('hr_movement/position'); ?>",
+>>>>>>> ef683271f833e8d7ebf52051f11caad33eb3e125
         //             dataType: "json",
         //             delay: 250,
         //   processResults: function(data){
@@ -294,6 +358,7 @@
         //     });
 
 
+<<<<<<< HEAD
         //     $('#request_name').on('select2:select', function (e) {
         //       var req = $('#request_name :selected').text();
         //       console.log($('#request_name :selected').text());
@@ -304,6 +369,45 @@
         //             method:"GET",
         //             dataType:'json',
         //             data:{ 'Request': req },
+=======
+            });
+
+          //   $('.request_type').select2({
+          //       placeholder: 'Enter The Movement Request Type',
+          //       ajax:{
+          //           url: "<?php echo base_url('hr_movement/request_type'); ?>",
+          //           dataType: "json",
+          //           delay: 250,
+          // processResults: function(data){
+          //               var results = [];
+
+          //               $.each(data, function(index, item){
+          //                   results.push({
+          //                       id: item.ID,
+          //                       text: item.Name,
+          //                       option_value:item.ID
+          //                   });
+          //               });
+          //               return{
+          //                   results: results,
+          //                   cache: true,
+          //               };
+          //           },
+          //       }
+
+          //   });
+
+            $('#request_name').on('select2:select', function (e) {
+              var req = $('#request_name :selected').text();
+              console.log($('#request_name :selected').text());
+
+              if ($('#request_name :selected').text() != '') {
+                $.ajax({
+                    url:"<?php echo base_url('Hr_movement/search_requestor_pro');?>",
+                    method:"GET",
+                    dataType:'json',
+                    data:{ 'Request': req },
+>>>>>>> ef683271f833e8d7ebf52051f11caad33eb3e125
                 
         //             success:function(data){
         //               if (data) {
@@ -329,6 +433,7 @@
         //     }
         //   });
 
+<<<<<<< HEAD
         //     $('.current-position').select2({
         //         placeholder: 'Enter The Current Position',
         //         ajax:{
@@ -337,6 +442,38 @@
         //             delay: 250,
         //   processResults: function(data){
         //                 var results = [];
+=======
+            $('.current-position').select2({
+                placeholder: 'Enter The Current Position',
+                ajax:{
+                    url: "<?php echo base_url('hr_movement/current_position'); ?>",
+                    dataType: "json",
+                    delay: 250,
+          //           processResults: function (param) {
+          //   return {
+          //     compClue: param.term,
+              
+          //   };
+          // },
+          processResults: function(data){
+                        var results = [];
+
+                        $.each(data, function(index, item){
+                            results.push({
+                                id: item.ID,
+                                text: item.Name,
+                                option_value:item.ID
+                            });
+                        });
+                        return{
+                            results: results,
+                            cache: true,
+                        };
+                    },
+                }
+
+            });
+>>>>>>> ef683271f833e8d7ebf52051f11caad33eb3e125
 
         //                 $.each(data, function(index, item){
         //                     results.push({
@@ -352,7 +489,71 @@
         //             },
         //         }
 
+<<<<<<< HEAD
         //     });
+=======
+          //     if ($('#new_position :selected').text() != '') {
+          //       $.ajax({
+          //           url:"<?php echo base_url('hr_movement/search_new_position');?>",
+          //           method:"GET",
+          //           dataType:'json',
+          //           data:{ 'Position': newpos },
+                
+          //           success:function(data){
+          //             if (data) {
+          //               // $('#dis-pos').show();
+          //               //$('#c-position').show();
+          //               console.log(data);
+          //              // console.log(data.NewPosition);
+          //               console.log(data.NewPositionID);
+                        
+          //             //  $('#req_position_id').val(data.PositionID);
+          //               $('#new_position_id').val(data.NewPositionID);
+          //            //   $('#req_position').val(data.PositionName);
+          //             //  $('#new_position').val(data.NewPosition);
+          //               $('#new_org_id').val(data.NewOrganizationID);
+                        
+          //               }
+          //             },
+          //           error:function(){
+          //                   alert('error ... ');
+          //           }
+          //       });
+             
+          //   }
+          // });
+
+          //   $('.new-position').select2({
+          //       placeholder: 'Enter The New Position',
+          //       ajax:{
+          //           url: "<?php echo base_url('hr_movement/new_position'); ?>",
+          //           dataType: "json",
+          //           delay: 250,
+          // //           processResults: function (param) {
+          // //   return {
+          // //     compClue: param.term,
+              
+          // //   };
+          // // },
+          // processResults: function(data){
+          //               var results = [];
+
+          //               $.each(data, function(index, item){
+          //                   results.push({
+          //                       id: item.ID,
+          //                       text: item.Name,
+          //                       option_value:item.ID
+          //                   });
+          //               });
+          //               return{
+          //                   results: results,
+          //                   cache: true,
+          //               };
+          //           },
+          //       }
+
+          //   });
+>>>>>>> ef683271f833e8d7ebf52051f11caad33eb3e125
 
           
         
@@ -532,7 +733,7 @@
       //console.log("btn click"+req_position_id);
 
       $.ajax({
-        url:"<?php echo base_url('Promotion_4/save_data');?>",
+        url:"<?php echo base_url('hr_movement/save_data');?>",
         method:"POST",
         data:{ 'requestor_id':requestor_id,
                'req_position_id':req_position_id,
@@ -550,7 +751,7 @@
                },
 
         success:function(data){
-          window.location.href = '<?php echo base_url('Promotion_4/Promotion_history');?>';
+          window.location.href = '<?php echo base_url('hr_movement/Promotion_history');?>';
           console.log(data);
           if (data.status) {
                   alert('Save as Draft');
@@ -782,7 +983,7 @@
      // var form_data = $('#myform').serialize();
      // console.log(form_data);
        $.ajax({
-        url:"<?php echo base_url('Promotion_4/submit_promotion');?>",
+        url:"<?php echo base_url('hr_movement/submit_promotion');?>",
         method:"POST",
         data:{'requestor_id':requestor_id,
                'req_position_id':req_position_id,

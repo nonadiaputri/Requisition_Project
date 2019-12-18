@@ -84,9 +84,48 @@ class Hire_model extends CI_Model
   }
 
   public function auto_regist_position($last_id, $position){
-    $res = $this->db->query("EXEC dbo.spAutoRegistPosition @Position  = '$position' , @UserID= '$last_id'");
-    return $res->result();
+    $this->db->where('UserID',$last_id);
+    $q = $this->db->get('dbo.UserXUserGroup');
+    $manager = $this->db->select('Postion')->from('PersonnelHierarchy')->where("'$position' LIKE '%Manager%' or '$position' like '%Editor in Chief%'")->get()->result();
+    $director = $this->db->select('Postion')->from('PersonnelHierarchy')->where("'$position' like '%Director%'")->get()->result();
+    $gm = $this->db->select('Postion')->from('PersonnelHierarchy')->where("'$position' like '%General Manager%' or '$position' like '%Vice General Manager%'")->get()->result();
+    $ceo = $this->db->select('Postion')->from('PersonnelHierarchy')->where("'$position' like '%Chief Technology%' or '$position' like '%Chief Executive%' or '$position' like '%Chief Financial%'")->get()->result();
+    //var_dump($manager);
+
+    if ( $q->num_rows() == 0 ) {
+          
+          if(strpos('Manager', $position) !== false){
+            $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID) 
+          values ($last_id, 5)");
+          } elseif (preg_match('/Director/i', $position)){
+            $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID) 
+          values ($last_id, 3)");
+          } elseif (preg_match('/General|Vice/i', $position)){
+            $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID)
+          values ($last_id, 4)");
+          } elseif (preg_match('/Technology|Executive/i', $position)){
+            $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID)
+          values ($last_id, 2)"); 
+          }elseif(preg_match('/Editor/i', $position)){
+            $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID) 
+            values ($last_id, 5)");
+          }
+
+      
+      
+      // $this->db->select('ID');
+      // $this->db->where('UserID', $last_id);
+      // $id = $this->db->from('dbo.UserXUserGroup')->get();
+      //return $res->result_array();
+      
+ }else {
+  return FALSE;
+
+    // $res = $this->db->query("EXEC spAutoRegistPosition @Position  = '$position' , @UserID= '$last_id'");
+    // return $res->result();
   }
+}
+
 
   public function get_hire(){
     $q = '  select a.*, b.Name as Department,  c.FullName
@@ -120,7 +159,7 @@ class Hire_model extends CI_Model
            from dbo.RequisitionTable a
            left join dbo.CostCenterTable b
            on a.PlacementID = b.ID
-           left join dbo.UserTable c
+           left join dbo.PersonnelTable c
            on a.RequestorID = c.ID
            left join dbo.OrganizationTable e
            on a.RequestorDepartmentID = e.ID
@@ -141,15 +180,15 @@ class Hire_model extends CI_Model
 
   public function get_hire_id($ID)
   {
-    $q = 'select a.*, b.Name as Department, c.Name as Status, 
-      d.Name as Requestor, e.Name as req_position,
+    $q = 'select a.*, b.Name as Placement, c.Name as Status, 
+      d.Name as Requestor, e.Name as requestor_pos,
       f.FullName as RepName, g.Name as requested_pos, h.Name as DeptName
       from dbo.RequisitionTable a
       left join dbo.CostCenterTable b
       on a.PlacementID = b.ID
       left join dbo.RequisitionTypeTable c
       on a.RequisitionTypeID = c.ID
-      left join dbo.UserTable d
+      left join dbo.PersonnelTable d
       on a.RequestorID = d.ID
       left join dbo.PositionTable e
       on a.RequestorPositionID = e.ID
@@ -304,7 +343,7 @@ class Hire_model extends CI_Model
     join dbo.UserXUserGroup c on c.UserID = a.CreatedById
     join dbo.OrganizationTable d on d.ID = a.RequestorDepartmentID
     where a.RequestorID = '$ID'
-    and c.UserGroupID = 5
+    and c.UserGroupID = 4
     and a.RequestorDepartmentID = '$req_dep'
     and IsProcessedToHire=0 
     and IsHold = 0
@@ -464,7 +503,7 @@ class Hire_model extends CI_Model
            on a.RequestorID = c.ID 
            join dbo.OrganizationTable d
            on a.RequestorDepartmentID = d.ID
-           where RequestorID = $ID
+           where RequestorID = '$ID'
            and a.ID in (
            select RequisitionID from 
            (select RequisitionID, max(ApprovalStatusID ) as status from
@@ -485,7 +524,7 @@ class Hire_model extends CI_Model
            on a.RequestorID = c.ID 
            join dbo.OrganizationTable d
            on a.RequestorDepartmentID = d.ID
-           where RequestorID = $ID
+           where RequestorID = '$ID'
            and a.ID in (
            select RequisitionID from 
            (select RequisitionID, max(ApprovalStatusID ) as status from
@@ -524,7 +563,6 @@ class Hire_model extends CI_Model
   }
 
   function get_latest_apv($ID){
-    $where = $ID;
     $this->db->select('a.*, b.FullName as PersonnelName, c.Name as Position');
     $this->db->from('dbo.RequisitionApprovalTable a');
     $this->db->join('dbo.PersonnelTable b', 'a.EmployeeID = b.ID');
@@ -607,12 +645,46 @@ class Hire_model extends CI_Model
 
   function get_related_per($ID){
     $q = 'select a.*, c.Name from 
-    [dbo].[UserXPersonnel] a 
-	join dbo.PersonnelTable c 
-	on a.PersonnelID = c.ID 
-	where a.UserID = '.$ID ;
+          dbo.UserXPersonnel a 
+        	join dbo.PersonnelTable c 
+        	on a.PersonnelID = c.ID 
+        	where a.UserID = '.$ID ;
     $query = $this->db->query($q);    
      //$query = $this->db->get('dbo.RequisitionTable');
+     return $query->result_array();
+  }
+
+  function need_approval_req($ID){
+    $q = $this->db->query("select a.*, b.Name as DeptName,  c.FullName as requestor
+                      from dbo.RequisitionTable a
+                      join dbo.OrganizationTable b
+                      on a.RequestorDepartmentID = b.ID
+                      join dbo.PersonnelTable c
+                      on a.RequestorID = c.ID 
+                      where a.RequestorID in 
+                      (select ID from dbo.PersonnelHierarchy
+                      where ParentPersonnelID = '$ID')
+                      and IsProcessedToHire=0
+                      and IsHold = 0
+                      and IsRejected = 0");
+    return $q->result_array();
+  }
+
+  function status_hire($ID){
+    $q = " select a.*, b.Name as Department,  c.Name as requestor,e.Name as DeptName
+           from dbo.RequisitionTable a
+           left join dbo.CostCenterTable b
+           on a.PlacementID = b.ID
+           left join dbo.PersonnelTable c
+           on a.RequestorID = c.ID
+           left join dbo.OrganizationTable e
+           on a.RequestorDepartmentID = e.ID
+           where a.ID in (select ID from dbo.RequisitionTable where IsProcessedToHire == 1 or IsProcessedToHire != 2)
+           and a.RequestorID = $ID
+           and a.IsHold = 0
+           and a.IsRejected= 0
+           order by IsProcessedToHire DESC";
+    $query = $this->db->query($q);    
      return $query->result_array();
   }
 }
