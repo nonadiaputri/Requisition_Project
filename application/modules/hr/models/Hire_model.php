@@ -483,7 +483,7 @@ class Hire_model extends CI_Model
            on a.RequestorID = c.ID 
            join dbo.OrganizationTable d
            on a.RequestorDepartmentID = d.ID
-           where RequestorID = $ID
+           where RequestorID = '$ID'
            and a.ID in (
            select RequisitionID from 
            (select RequisitionID, max(ApprovalStatusID ) as status from
@@ -504,7 +504,7 @@ class Hire_model extends CI_Model
            on a.RequestorID = c.ID 
            join dbo.OrganizationTable d
            on a.RequestorDepartmentID = d.ID
-           where RequestorID = $ID
+           where RequestorID = '$ID'
            and a.ID in (
            select RequisitionID from 
            (select RequisitionID, max(ApprovalStatusID ) as status from
@@ -648,6 +648,24 @@ class Hire_model extends CI_Model
                       and IsHold = 0
                       and IsRejected = 0");
     return $q->result_array();
+  }
+
+  function status_hire($ID){
+    $q = " select a.*, b.Name as Department,  c.Name as requestor,e.Name as DeptName
+           from dbo.RequisitionTable a
+           left join dbo.CostCenterTable b
+           on a.PlacementID = b.ID
+           left join dbo.PersonnelTable c
+           on a.RequestorID = c.ID
+           left join dbo.OrganizationTable e
+           on a.RequestorDepartmentID = e.ID
+           where a.ID in (select ID from dbo.RequisitionTable where IsProcessedToHire == 1 or IsProcessedToHire != 2)
+           and a.RequestorID = $ID
+           and a.IsHold = 0
+           and a.IsRejected= 0
+           order by IsProcessedToHire DESC";
+    $query = $this->db->query($q);    
+     return $query->result_array();
   }
 }
 
