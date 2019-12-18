@@ -119,9 +119,7 @@ class Hire_model extends CI_Model
       //return $res->result_array();
       
  }else {
-    $this->db->select('ID');
-    $this->db->where('UserID', $last_id);
-    $id = $this->db->from('dbo.UserXUserGroup')->get();
+  return FALSE;
 
     // $res = $this->db->query("EXEC spAutoRegistPosition @Position  = '$position' , @UserID= '$last_id'");
     // return $res->result();

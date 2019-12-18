@@ -41,7 +41,7 @@ class Hr extends CI_Controller {
     
     $per_id = $check[0]['ID'];
     //var_dump($per_id);
-    if ($check == 0) {
+    if ($check == 0 || $object == '') {
       $data["header"] = $this->load->view('header/v_header','',TRUE);
 		  $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
       $this->load->view('hr/v_error_hris', $data);
