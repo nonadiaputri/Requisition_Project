@@ -109,7 +109,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href='<?php echo site_url('hr_movement/index')?>'><i class="fa fa-file-text-o"></i>Request Form</a></li>
-            <li><a href='<?php echo site_url('hr_movement/promotion_history')?>'><i class="fa fa-flag"></i>Promotion History</a></li>
+            <li><a href='<?php echo site_url('hr_movement/movement_history')?>'><i class="fa fa-flag"></i>Promotion History</a></li>
             <li><a href='<?php echo site_url('crud/master/organization')?>'><i class="fa fa-vcard-o"></i>Detail</a></li>
           </ul>
         </li>			

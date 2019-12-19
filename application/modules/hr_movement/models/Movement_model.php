@@ -1,6 +1,6 @@
 <?php
 
-class Promotion_model extends CI_Model
+class Movement_model extends CI_Model
 {
   function __construct()
   {
@@ -174,18 +174,32 @@ class Promotion_model extends CI_Model
       //    return $query->result_array();
       //  }
 
-      public function get_your_request(){
-        $q = "select a.*, b.Name as Department,  c.FullName as RequestorName
-                from dbo.MovementRequestTable a
-                join dbo.OrganizationTable b
-                on a.RequestorDepartmentID = b.ID
-                join dbo.PersonnelTable c
-                on a.RequestorID = c.ID
-                where a.ID in (
-                      select ID from dbo.MovementRequestTable 
-                      where IsProcessed = 0 or IsProcessed =2)
-                      and a.IsHold = 0 and a.IsRejected = 0
-                      order by IsProcessed DESC";
+      public function get_your_request($ID){
+        // $q = "select a.*, b.Name as Department,  c.FullName as RequestorName
+        //         from dbo.MovementRequestTable a
+        //         join dbo.OrganizationTable b
+        //         on a.RequestorDepartmentID = b.ID
+        //         join dbo.PersonnelTable c
+        //         on a.RequestorID = c.ID
+        //         where a.ID in (
+        //               select ID from dbo.MovementRequestTable 
+        //               where IsProcessed = 0 or IsProcessed =2)
+        //               and a.IsHold = 0 and a.IsRejected = 0
+        //               order by IsProcessed DESC";
+
+        $q = " select a.*, b.Name as Department,  c.Name as requestor,e.Name as DeptName
+           from dbo.MovementRequestTable a
+           left join dbo.CostCenterTable b
+           on a.PlacementID = b.ID
+           left join dbo.PersonnelTable c
+           on a.RequestorID = c.ID
+           left join dbo.OrganizationTable e
+           on a.RequestorDepartmentID = e.ID
+           where a.ID in (select ID from dbo.MovementRequestTable where IsProcessed = 0 or IsProcessed = 2)
+           and a.RequestorID = $ID
+           and a.IsHold = 0
+           and a.IsRejected= 0
+           order by IsProcessed DESC";
         $query = $this->db->query($q);    
          return $query->result_array();
        }
@@ -214,6 +228,7 @@ class Promotion_model extends CI_Model
         // $query = $this->db->get();
         // return $query->result_array();
       }
+
     
       public function Insert_data($data){
         $this->db->insert('dbo.MovementRequestTable', $data);
@@ -280,18 +295,9 @@ class Promotion_model extends CI_Model
                   join dbo.OrganizationTable e on d.OrganizationUnitID = e.ID";
         $query = $this->db->query($q);    
          return $query->result_array();
-
-    //     $this->db->select('a.ID as ID, a.FullName as Name, c.Name as PositionName,  c.ID PositionID, e.ID as OrganizationID');
-    //     $this->db->from('dbo.PersonnelTable a');
-    //     $this->db->join('dbo.PersonnelPosition b','a.ID = b.PersonnelID');
-    //     $this->db->join('dbo.PositionTable c','b.PositionID = c.ID');
-    //     $this->db->join('dbo.PositionInOrganization d','c.ID = d.OrganizationUnitID');
-    //     $this->db->join('dbo.OrganizationTable e','d.OrganizationUnitID = e.ID');
-    //      $this->db->like('a.FullName',$Request);
-    //     $query = $this->db->get();
-    // return $query->row_array();
         
       }
+      
       function search_requestor_pro($Request){
         $this->db->select('a.ID as PositionID, a.Name as Position , c.FullName, C.ID as PersonnelID, e.Name as Organization, , e.ID as OrganizationID');
         $this->db->from('dbo.PositionTable a');
@@ -301,7 +307,7 @@ class Promotion_model extends CI_Model
         $this->db->join('dbo.OrganizationTable e','d.OrganizationUnitID = e.ID');
         $this->db->like('c.FullName',$Request);
         $query = $this->db->get();
-    return $query->row_array();
+        return $query->row_array();
       }
 
       function choose_move_position($ID){

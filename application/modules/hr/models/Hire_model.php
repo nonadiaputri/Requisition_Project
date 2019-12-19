@@ -226,21 +226,27 @@ class Hire_model extends CI_Model
 
   public function get_member_organization($OrganizationID, $PersonnelNumber)
   { 
-    // $res = $this->db->query("select a.id, a.name, a.organizationid, c.id as PersonnelID,
-    //   c.fullname as PersonnelName from dbo.UserTable a
-    //   join dbo.OrganizationTable b on a.OrganizationID = b.id
-    //   join dbo.PersonnelTable c on a.Name = c.FullName
-    //   where b.ID ='$OrganizationID' and a.PersonnelNumber != '$PersonnelNumber'");
+
+    // $res = $this->db->query("select a.id, a.name, a.organizationid, e.id as PersonnelID,
+    //                     e.fullname as PersonnelName, f.Name as PositionName, f.ID as PositionID
+    //                      from dbo.UserTable a
+    //                     join dbo.OrganizationTable b on a.OrganizationID = b.id
+    //                   join dbo.PositionInOrganization c on b.id = c.PositionID
+    //                   join dbo.PersonnelPosition d on d.ID = c.PositionID
+    //                     join dbo.PersonnelTable e on a.Name = e.FullName
+    //                   join dbo.PositionTable f on f.ID = d.PositionID
+    //                     where b.ID ='$OrganizationID' and a.PersonnelNumber != '$PersonnelNumber'");
 
     $res = $this->db->query("select a.id, a.name, a.organizationid, e.id as PersonnelID,
                         e.fullname as PersonnelName, f.Name as PositionName, f.ID as PositionID
                          from dbo.UserTable a
                         join dbo.OrganizationTable b on a.OrganizationID = b.id
-                      join dbo.PositionInOrganization c on b.id = c.PositionID
-                      join dbo.PersonnelPosition d on d.ID = c.PositionID
+                        join dbo.PositionInOrganization c on b.id = c.PositionID
+                        join dbo.PersonnelPosition d on d.ID = c.PositionID
                         join dbo.PersonnelTable e on a.Name = e.FullName
-                      join dbo.PositionTable f on f.ID = d.PositionID
-                        where b.ID ='$OrganizationID' and a.PersonnelNumber != '$PersonnelNumber'");
+                        join dbo.PositionTable f on f.ID = d.PositionID
+                        where b.ID ='$OrganizationID' and e.ID not in 
+                        (select PersonnelID from dbo.UserXPersonnel)");
 
         return $res->result_array();
   }
