@@ -187,19 +187,17 @@ class Movement_model extends CI_Model
         //               and a.IsHold = 0 and a.IsRejected = 0
         //               order by IsProcessed DESC";
 
-        $q = " select a.*, b.Name as Department,  c.Name as requestor,e.Name as DeptName
-           from dbo.MovementRequestTable a
-           left join dbo.CostCenterTable b
-           on a.PlacementID = b.ID
-           left join dbo.PersonnelTable c
-           on a.RequestorID = c.ID
-           left join dbo.OrganizationTable e
-           on a.RequestorDepartmentID = e.ID
-           where a.ID in (select ID from dbo.MovementRequestTable where IsProcessed = 0 or IsProcessed = 2)
-           and a.RequestorID = $ID
-           and a.IsHold = 0
-           and a.IsRejected= 0
-           order by IsProcessed DESC";
+        $q = " select a.*, c.Name as requestor,e.Name as DeptName
+        from dbo.MovementRequestTable a
+        left join dbo.PersonnelTable c
+        on a.RequestorID = c.ID
+        left join dbo.OrganizationTable e
+        on a.RequestorDepartmentID = e.ID
+        where a.ID in (select ID from dbo.MovementRequestTable where IsProcessed = 0 or IsProcessed = 2)
+        and a.RequestorID = $ID
+        and a.IsHold = 0
+        and a.IsRejected= 0
+        order by IsProcessed DESC";
         $query = $this->db->query($q);    
          return $query->result_array();
        }
@@ -393,6 +391,35 @@ class Movement_model extends CI_Model
         $res = $this->db->insert('dbo.MovementRequestTable', $data);
         return $res;
       }
+
+      public function myview_approve(){
+        $requestor_id = $this->session->userdata('ID2');
+        $data['status'] = $this->Promotion_model->my_approve($requestor_id);
+        //var_dump($data['need_app']);
+        $data["header"] = $this->load->view('header/v_header','',TRUE);
+        $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+        $this->load->view('hr_movement/v_my_approve_request',$data);
+      }
+
+      
+  function my_approve($ID){
+    $q = "select a.*, c.FullName, d.Name as DeptName
+    from dbo.MovementRequestTable a
+    join dbo.PersonnelTable c
+    on a.RequestorID = c.ID 
+    join dbo.OrganizationTable d
+    on a.RequestorDepartmentID = d.ID
+    where RequestorID = $ID
+    and a.ID in (
+    select MovementRequestID from 
+    (select MovementRequestID, max(ApprovalStatusID) as status from
+     (select * 
+     from dbo.MovementRequestApprovalTable
+     where IsProcessed=1)X
+     group BY  MovementRequestID)Y)";
+     $query = $this->db->query($q);    
+     return $query->result_array();
+  }
     
 
 }
