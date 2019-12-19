@@ -72,6 +72,7 @@ class Hr_movement extends CI_Controller {
 			$data['result'] = $this->Promotion_model->get_new_req($ID, $req_dep);
 			$data['tot'] = count($data['result']);
 		   
+			$data['type'] = $this->Promotion_model->choose_move_type($ID);
 			$data['org'] = $this->Promotion_model->choose_org();  
 			$data["header"] = $this->load->view('header/v_header','',TRUE);
 			$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
@@ -80,7 +81,7 @@ class Hr_movement extends CI_Controller {
 		// $data['result'] = $this->Promotion_model->get_new_req();
 		// $data['person'] = $this->Promotion_model->get_related_per($ID);
 		// $data['org'] = $this->Promotion_model->choose_org();
-		// $data['type'] = $this->Promotion_model->choose_move_type($ID);
+		 
 		// // $data['req'] = $this->Promotion_model->choose_request_name($ID);
 		// $data['req'] = $this->Promotion_model->choose_request_name($ID);
 		// $data['pos'] = $this->Promotion_model->choose_move_position($ID);

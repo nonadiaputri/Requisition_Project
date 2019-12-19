@@ -205,10 +205,15 @@ class Hire_model extends CI_Model
 
   public function get_organization($OrganizationID)
   { 
-      $res = $this->db->query("select distinct a.OrganizationID, b.Name as OrganizationName from dbo.UserTable a
-                              join dbo.OrganizationTable b on a.OrganizationID = b.ID
-                              where a.OrganizationID =".$OrganizationID);
+      // $res = $this->db->query("select distinct a.OrganizationID, b.Name as OrganizationName from dbo.UserTable a
+      //                         join dbo.OrganizationTable b on a.OrganizationID = b.ID
+      //                         where a.OrganizationID =".$OrganizationID);
+      // return $res->result_array();
+
+      $res = $this->db->query("select distinct Organization from dbo.PersonnelHierarchy
+                              where OrganizationID =".$OrganizationID);
       return $res->result_array();
+     
   }
 
   public function get_userid($name)
@@ -242,15 +247,21 @@ class Hire_model extends CI_Model
 
   public function search_member($ID)
   {
-    $this->db->select('select a.id, a.name, a.organizationid, e.id as PersonnelID,
-    e.fullname as PersonnelName, f.Name as PositionName, f.ID as PositionID');
-    $this->db->from('dbo.UserTable a');
-    $this->db->join('dbo.OrganizationTable b', 'a.OrganizationID = b.id');
-    $this->db->join('dbo.PositionInOrganization c', 'b.id = c.PositionID');
-    $this->db->join('dbo.PersonnelPosition d', 'd.ID = c.PositionID');
-    $this->db->join('dbo.PersonnelTable e', 'a.Name = e.FullName');
-    $this->db->join('dbo.PositionTable f', 'f.ID = d.PositionID');
-    $this->db->where('a.ID',$ID);
+    // $this->db->select('select a.id, a.name, a.organizationid, e.id as PersonnelID,
+    // e.fullname as PersonnelName, f.Name as PositionName, f.ID as PositionID');
+    // $this->db->from('dbo.UserTable a');
+    // $this->db->join('dbo.OrganizationTable b', 'a.OrganizationID = b.id');
+    // $this->db->join('dbo.PositionInOrganization c', 'b.id = c.PositionID');
+    // $this->db->join('dbo.PersonnelPosition d', 'd.ID = c.PositionID');
+    // $this->db->join('dbo.PersonnelTable e', 'a.Name = e.FullName');
+    // $this->db->join('dbo.PositionTable f', 'f.ID = d.PositionID');
+    // $this->db->where('a.ID',$ID);
+    // $query = $this->db->get();
+    // return $query->row_array();
+    $this->db->select('*');
+    $this->db->from("dbo.PersonnelHierarchy");
+    $this->db->like('ID',$ID);
+    //$this->db->where('IsHold',)
     $query = $this->db->get();
     return $query->row_array();
   }
