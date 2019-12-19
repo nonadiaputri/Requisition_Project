@@ -1269,6 +1269,45 @@
 <!-- /.content-wrapper -->
 
 
+<link rel="stylesheet" href="http://apps.kmn.kompas.com/static/kompas-intranet/latest/kompas-intranet.css" />
+
+<!--- FOOTER SECTION --->
+<div class="no-break">
+    <footer id="footer" class="footer-wrapper application no-print" style="margin-left:auto;margin-top:150px">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 footer-kompas-desc">
+                    <img src="http://apps.kmn.kompas.com/static/kompas-intranet/latest/img/KGMediaWhite.png" class="footer-logo" />
+                    <p>KG Media is an integrated ecosystem of solutions with a team of content solutions, a team of influencer marketing strategists, a team of media investment solutions, a team of sports marketing solutions, and we’ve completed the ecosystem with a team of strategy and communication solutions. It represents a new chapter for us, and with our knowledge and people-driven approach we hope to continue enlightening Indonesia through solving its business and social economy problems.</p>
+                    <!--Mengusung semboyan "Amanat Hati Nurani Rakyat", Kompas dikenal sebagai sumber informasi tepercaya, akurat, dan mendalam.</p--->
+                </div> <!--- col-md-6 --->
+                <div class="col-md-4 floating">
+                    <p class="blue-title">Contact Us</p>
+                    <ul class="iconized">
+                        <li class="list-address">
+                            <p>Menara Kompas<br>Jalan Palmerah Selatan 21<br />Jakarta 10270 Indonesia</p>
+                        </li>
+                        <li class="list-phone">+62 21 5369 9200, +62 21 535 03777</li>
+                        <li class="list-email">connect@kgmedia.id</li>
+                    </ul>
+                </div> <!--- col-md-4 --->
+                <div class="col-md-2">
+                    <p class="blue-title">About</p>
+                    <ul class="iconized">
+                        <li><a href="https://www.kgmedia.id/our-story" target="_blank" title="Our Story">Our Story</a></li>
+                        <li><a href="https://www.kgmedia.id/our-leader" target="_blank" title="Our Leadership">Our Leadership</a></li>
+                        <li><a href="https://www.kgmedia.id/our-partners" target="_blank" title="Our Partners">Our Partners</a></li>
+                        <li><a href="/dashboard" title="Our Portal">Our Portal</a></li>
+                    </ul>
+                </div> <!--- col-md-2 --->
+            </div> <!--- row --->
+        </div> <!--- container --->
+    </footer> <!--- footer-wrapper --->
+
+</div>
+<!-- /.content-wrapper -->
+
+
     <div class="container no-print">
         <div class="row">
             <div class="col-md-6 footer-copyright">
