@@ -687,6 +687,64 @@ class Hire_model extends CI_Model
     $query = $this->db->query($q);    
      return $query->result_array();
   }
+
+  function get_apv_req($ID){
+    $q = " select a.RequisitionID, max(a.ApprovalStatusID) as max_status, b.Name as DeptName,  c.FullName as approval,
+      d.ProcessStartDate, d.RequestorID, e.FullName as requestor
+      from dbo.RequisitionApprovalTable a
+      join dbo.OrganizationTable b
+      on a.OrganizationID = b.ID
+      join dbo.PersonnelTable c
+      on a.EmployeeID = c.ID 
+      join dbo.RequisitionTable d
+      on a.RequisitionID = d.ID
+      join dbo.PersonnelTable e
+      on d.RequestorID = e.ID
+      where a.IsProcessedToHire = 1
+      and a.EmployeeID = '$ID'
+      group by a.RequisitionID, b.Name, c.FullName, d.ProcessStartDate, d.RequestorID, e.FullName";
+    $query = $this->db->query($q);    
+     return $query->result_array();
+  }
+
+  function get_hold_req($ID){
+    $q = " select a.RequisitionID, max(a.ApprovalStatusID) as max_status, b.Name as DeptName,  c.FullName as approval,
+      d.ProcessStartDate, d.RequestorID, e.FullName as requestor
+      from dbo.RequisitionApprovalTable a
+      join dbo.OrganizationTable b
+      on a.OrganizationID = b.ID
+      join dbo.PersonnelTable c
+      on a.EmployeeID = c.ID 
+      join dbo.RequisitionTable d
+      on a.RequisitionID = d.ID
+      join dbo.PersonnelTable e
+      on d.RequestorID = e.ID
+      where a.IsHold = 1
+      and a.EmployeeID = '$ID'
+      group by a.RequisitionID, b.Name, c.FullName, d.ProcessStartDate, d.RequestorID, e.FullName";
+    $query = $this->db->query($q);    
+     return $query->result_array();
+  }
+
+  function get_rejected_req($ID){
+    $q = " select a.RequisitionID, max(a.ApprovalStatusID) as max_status, b.Name as DeptName,  c.FullName as approval,
+      d.ProcessStartDate, d.RequestorID, e.FullName as requestor
+      from dbo.RequisitionApprovalTable a
+      join dbo.OrganizationTable b
+      on a.OrganizationID = b.ID
+      join dbo.PersonnelTable c
+      on a.EmployeeID = c.ID 
+      join dbo.RequisitionTable d
+      on a.RequisitionID = d.ID
+      join dbo.PersonnelTable e
+      on d.RequestorID = e.ID
+      where a.IsRejected = 1
+      and a.EmployeeID = '$ID'
+      group by a.RequisitionID, b.Name, c.FullName, d.ProcessStartDate, d.RequestorID, e.FullName";
+    $query = $this->db->query($q);    
+     return $query->result_array();
+  }
+
 }
 
  ?>
