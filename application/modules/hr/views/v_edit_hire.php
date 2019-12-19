@@ -426,7 +426,7 @@
           $('#org_id').val("<?php echo $row['RequestorDepartmentID']; ?>");
           
 
-          $('#req_position').val("<?php echo $row['req_position'];?>");
+          $('#req_position').val("<?php echo $row['requestor_pos'];?>");
           $('#req_position_id').val("<?php echo $row['RequestorPositionID'] ?>");
 
           if (<?php echo $row['NumberOfPlacement'];?> == '0') {
@@ -440,7 +440,7 @@
           }else{
           $('#placement')
           .empty()
-          .append('<option selected value="<?php echo $row['PlacementID'];?>"><?php echo $row['Department'];?></option>');
+          .append('<option selected value="<?php echo $row['PlacementID'];?>"><?php echo $row['DeptName'];?></option>');
           $('#placement').trigger('change');
           }
 

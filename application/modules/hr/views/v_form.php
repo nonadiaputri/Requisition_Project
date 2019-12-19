@@ -567,7 +567,6 @@
     });
 
    var rep;
-   
    var pos = "<?php echo $this->session->userdata('OrganizationID')?>";
    $('#display-btn').click(function(e){
      for (var i = 0; i <= arr_id.length-1; i++) {
