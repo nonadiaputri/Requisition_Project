@@ -567,6 +567,8 @@
     });
 
    var rep;
+   
+   var pos = "<?php echo $this->session->userdata('OrganizationID')?>";
    $('#display-btn').click(function(e){
      for (var i = 0; i <= arr_id.length-1; i++) {
       if (i==(arr_id.length-1)) {
@@ -578,7 +580,7 @@
         url:"<?php echo base_url('hr/search_position');?>",
         method:"POST",
         dataType : "json",
-        data:{ 'ID' : temp},
+        data:{ 'ID' : pos},
         success:function(data){
           console.log(data);
           var output = '';
