@@ -81,8 +81,8 @@
 	        <div class="row">
 	          	<div class="col-md-8">
 	                <label class="control-label">Organization Name</label>
-	                <input type="text" class="form-control" name="req_org_id" id="req_org_id" value = "<?php echo $this->session->userdata('organization'); ?>" required="required" readonly>
-	                <input type="hidden" class="form-control" name="org_id" id="org_id" value = "<?php echo $this->session->userdata('OrganizationID'); ?>" required="required" readonly>
+	                <input type="text" class="form-control" name="req_org_id" id="req_org_id" required="required" readonly>
+	                <input type="hidden" class="form-control" name="org_id" id="org_id" required="required" readonly>
 	                <span id="error_req_org" class="text-danger"></span>
 	          </div>
 	        </div>
@@ -91,8 +91,8 @@
 	         	<div class="form-group">
 		              <div class="col-md-8">
 		                <label class="control-label col-form-label">Position Name</label>
-		                  <input type="text" class="form-control" name="req_position" id="req_position" value = "<?php echo $this->session->userdata('position'); ?>" required="required" readonly>
-		                  <input type="hidden" class="form-control" name="req_position_id" id="req_position_id" value = "<?php echo $this->session->userdata('PositionID'); ?>" required="required" readonly>
+		                  <input type="text" class="form-control" name="req_position" id="req_position" required="required" readonly>
+		                  <input type="hidden" class="form-control" name="req_position_id" id="req_position_id" required="required" readonly>
 		                  <span id="error_req_position" class="text-danger"></span>
 		                </div>
 		            </div>
@@ -265,9 +265,6 @@
 <script type="text/javascript">
    var option_value;
 
-<<<<<<< HEAD
-  
-=======
   //  $('.requestor').select2({
   //               placeholder: 'Enter The Requestor Name',
   //               ajax:{
@@ -325,17 +322,12 @@
   //           }
   //         });
 
->>>>>>> ef683271f833e8d7ebf52051f11caad33eb3e125
 
             
         //  $('.request').select2({
         //         placeholder: 'Enter The Request Name',
         //         ajax:{
-<<<<<<< HEAD
-        //             url: "<?php echo base_url('Hr_movement/request'); ?>",
-=======
         //             url: "<?php echo base_url('hr_movement/position'); ?>",
->>>>>>> ef683271f833e8d7ebf52051f11caad33eb3e125
         //             dataType: "json",
         //             delay: 250,
         //   processResults: function(data){
@@ -358,7 +350,6 @@
         //     });
 
 
-<<<<<<< HEAD
         //     $('#request_name').on('select2:select', function (e) {
         //       var req = $('#request_name :selected').text();
         //       console.log($('#request_name :selected').text());
@@ -369,45 +360,6 @@
         //             method:"GET",
         //             dataType:'json',
         //             data:{ 'Request': req },
-=======
-            });
-
-          //   $('.request_type').select2({
-          //       placeholder: 'Enter The Movement Request Type',
-          //       ajax:{
-          //           url: "<?php echo base_url('hr_movement/request_type'); ?>",
-          //           dataType: "json",
-          //           delay: 250,
-          // processResults: function(data){
-          //               var results = [];
-
-          //               $.each(data, function(index, item){
-          //                   results.push({
-          //                       id: item.ID,
-          //                       text: item.Name,
-          //                       option_value:item.ID
-          //                   });
-          //               });
-          //               return{
-          //                   results: results,
-          //                   cache: true,
-          //               };
-          //           },
-          //       }
-
-          //   });
-
-            $('#request_name').on('select2:select', function (e) {
-              var req = $('#request_name :selected').text();
-              console.log($('#request_name :selected').text());
-
-              if ($('#request_name :selected').text() != '') {
-                $.ajax({
-                    url:"<?php echo base_url('Hr_movement/search_requestor_pro');?>",
-                    method:"GET",
-                    dataType:'json',
-                    data:{ 'Request': req },
->>>>>>> ef683271f833e8d7ebf52051f11caad33eb3e125
                 
         //             success:function(data){
         //               if (data) {
@@ -433,16 +385,6 @@
         //     }
         //   });
 
-<<<<<<< HEAD
-        //     $('.current-position').select2({
-        //         placeholder: 'Enter The Current Position',
-        //         ajax:{
-        //             url: "<?php echo base_url('Promotion_4/current_position'); ?>",
-        //             dataType: "json",
-        //             delay: 250,
-        //   processResults: function(data){
-        //                 var results = [];
-=======
             $('.current-position').select2({
                 placeholder: 'Enter The Current Position',
                 ajax:{
@@ -473,7 +415,6 @@
                 }
 
             });
->>>>>>> ef683271f833e8d7ebf52051f11caad33eb3e125
 
         //                 $.each(data, function(index, item){
         //                     results.push({
@@ -489,9 +430,6 @@
         //             },
         //         }
 
-<<<<<<< HEAD
-        //     });
-=======
           //     if ($('#new_position :selected').text() != '') {
           //       $.ajax({
           //           url:"<?php echo base_url('hr_movement/search_new_position');?>",
@@ -553,7 +491,6 @@
           //       }
 
           //   });
->>>>>>> ef683271f833e8d7ebf52051f11caad33eb3e125
 
           
         

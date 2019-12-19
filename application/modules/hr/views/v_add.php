@@ -68,7 +68,7 @@
 	          	<div class="col-md-8">
 	                <label class="control-label">Organization Name</label>
                   <?php foreach($org as $org){ ?>
-	                <input type="text" class="form-control" name="req_org_id" id="req_org_id" value = "<?php echo $org['OrganizationName']; ?>" required="required" readonly>
+	                <input type="text" class="form-control" name="req_org_id" id="req_org_id" value = "<?php echo $org['Organization']; ?>" required="required" readonly>
                   <?php } ?>
 
                   <?php foreach($user as $user){ ?>
@@ -217,14 +217,20 @@
       var temp2 = $('#member :selected').val();
       if ($('#member :selected').text() != '') {
         $.ajax({
-          url:"<?php echo base_url('Hr/search_member');?>",
-          method:"GET",
+          url:"<?php echo base_url('hr/search_member');?>",
+          method:"POST",
           dataType : "json",
           data:{ 'ID' : temp2},
           success:function(data){
             console.log(data);
-            $('#req_position_id').val(data.PositionID);
-            $('#req_position').val(data.PositionName);
+            $('#req_position_id').val(data.PostionID);
+            $('#req_position').val(data.Postion);
+            $('#org_id').val(data.OrganizationID);
+            $('#req_org_id').val(data.Organization);
+
+            $('#parent_org').val(data.ParentOrganization);
+            $('#organization').val(data.Organization);
+            $('#organization_id').val(data.OrganizationID);
 
             
           },
@@ -234,6 +240,118 @@
           });
     }
     });
+
+    var arr_id=[];
+    var temp;
+    $('body').on('change', '.chs-select', function(){
+
+        // Get the id dynamically
+        //var id = $('#chs-org').val();
+        const id = $(this).val();
+        const select_id = $(this).attr('id');
+
+        console.log(id);
+        var i = 0;
+        $.ajax({
+            url: "<?php echo base_url('hr/chs_dep');?>",
+            type: "POST",
+            dataType: "json",
+            data: {
+                'ID': id
+            },
+            success: function (data) {
+
+                //console.log(data);
+                // console.log(data[0]['Name']);
+
+                if (data.length != 0) {
+                    var output = '';
+                    //output += '<option default>Select</option>';
+                    $.each(data, function (key, value) {
+                        output += '<option value="' + data[key]['ID'] + '">' + data[key]['Name'] + '<br></option>';
+                    });
+                    if(select_id == 'chs-org'){
+                        // Show the chs-dep
+                        $('#chs-dep').show();
+                        $('#chs-dep').append(output);
+                    }else if(select_id == 'chs-dep'){
+                        // Get the template
+                        var new_chs_div = $('#chs-div-template').clone();
+                        const chs_div_count = i + 1;
+                        new_chs_div.attr('name', 'chs-div' + chs_div_count);
+                        new_chs_div.attr('id', 'chs-div' + chs_div_count);
+                        // Remove the none value.
+                        // Just change it to your desire value.
+                        new_chs_div.css('display', '');
+                        new_chs_div.append(output);
+                        //Insert next to the last of .chs-select
+                        $('#chs-container').append(new_chs_div);
+                        $('#chs-container').append('<br/>');
+                        //$(new_chs_div).insertAfter('.chs-select');
+                        //$('<br/>').insertAfter('.chs-select');
+                    }else if(select_id.includes('chs-div')){
+                        // Get the template
+                        var new_chs_div = $('#chs-div-template').clone();
+                        const chs_div_count = i + 1;
+
+                        new_chs_div.attr('name', 'chs-div' + chs_div_count);
+                        new_chs_div.attr('id', 'chs-div' + chs_div_count);
+                        // Remove the none value.
+                        // Just change it to your desire value.
+                        new_chs_div.css('display', '');
+                        new_chs_div.append(output);
+                        //Insert next to the last of .chs-select
+                        $('#chs-container').append(new_chs_div);
+                        $('#chs-container').append('<br/>');
+                        //$(new_chs_div).insertAfter('.chs-select');
+                        //$('<br/>').insertAfter('.chs-select');
+                    }
+                }
+            },
+            error: function () {
+                alert('error ... ');
+            }
+        });
+        arr_id.push(id);
+        console.log(arr_id);
+        console.log(arr_id.length);
+         
+    });
+
+   var rep;
+   $('#display-btn').click(function(e){
+     for (var i = 0; i <= arr_id.length-1; i++) {
+      if (i==(arr_id.length-1)) {
+        temp = arr_id[i];
+         console.log(temp);   
+      }    
+     }
+     $.ajax({
+        url:"<?php echo base_url('hr/search_position');?>",
+        method:"POST",
+        dataType : "json",
+        data:{ 'ID' : temp},
+        success:function(data){
+          console.log(data);
+          var output = '';
+          $.each(data, function (i) {
+            //var rep;
+            //console.log("data"+data[i]['FullName']);
+            if (data[i]['FullName'] === null) {
+              rep = "Empty";
+            }else{
+              rep = data[i]['FullName'];
+            }
+            output += '<option value="' + data[i]['ID']+'"data-subtext="'+data[i]['FullName']+'">' + data[i]['Position']+'('+rep+')</option>';
+          });
+          $('#position').append(output);
+          $('#note').show();
+        },
+        error:function(){
+                alert('error ... ');
+            }
+        });
+   });
 
   $('#status').on('change',function(){
         if( $('#status').val()=="2"){
