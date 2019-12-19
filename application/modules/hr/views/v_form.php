@@ -70,7 +70,7 @@
 	                  <label class="control-label col-form-label">Requestor Name</label>
 
 	                  <select class="form-control chs-select" name="requestor_id" id="requestor_id" style="width:100%" required="required">
-	                        <option value="">Select Requestor</option>
+	                        <option selected="true" disabled="disabled">Select Requestor</option>
 	                        <?php foreach ($person as $person) { ?>
 	                        <option value="<?php echo $person['PersonnelID'];?>"><?php echo $person['Name'];?></option>
 	                        <?php } ?>
@@ -567,6 +567,7 @@
     });
 
    var rep;
+   var pos = "<?php echo $this->session->userdata('OrganizationID')?>";
    $('#display-btn').click(function(e){
      for (var i = 0; i <= arr_id.length-1; i++) {
       if (i==(arr_id.length-1)) {
@@ -578,7 +579,7 @@
         url:"<?php echo base_url('hr/search_position');?>",
         method:"POST",
         dataType : "json",
-        data:{ 'ID' : temp},
+        data:{ 'ID' : pos},
         success:function(data){
           console.log(data);
           var output = '';

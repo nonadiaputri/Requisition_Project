@@ -65,6 +65,7 @@ class Hr extends CI_Controller {
       //var_dump($last_id);
       $data['person'] = $this->Hire_model->get_related_per($dt);
       //var_dump($data['person']);
+      //var_dump($data['person']);
       $ID = $this->session->userdata('ID2');
       $req_dep = $this->session->userdata('OrganizationID');
       $data['result'] = $this->Hire_model->get_new_req($ID, $req_dep);
@@ -308,7 +309,8 @@ class Hr extends CI_Controller {
 	    // $data['prom'] = $this->Promotion3_model->get_new_promotion();
 	    // $data['all'] = count($data['prom']);
 	    // $data['tot'] = count($data['hire']);
-	  $data['row']= $this->Hire_model->get_hire_id($ID);
+    $data['row']= $this->Hire_model->get_hire_id($ID);
+    //var_dump($data['row']);
 	  $data["header"] = $this->load->view('header/v_header','',TRUE);
 		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
 		$this->load->view('hr/v_edit_hire',$data);
@@ -586,6 +588,34 @@ class Hr extends CI_Controller {
     $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
     $this->load->view('hr/v_my_reject_request',$data);
   }
+
+  function approved_req(){
+    $requestor_id = $this->session->userdata('ID2');
+    $data['status'] = $this->Hire_model->get_apv_req($requestor_id);
+    //var_dump($data['need_app']);
+    $data["header"] = $this->load->view('header/v_header','',TRUE);
+    $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+    $this->load->view('hr/v_approved_req',$data);
+  }
+
+  function hold_req(){
+    $requestor_id = $this->session->userdata('ID2');
+    $data['status'] = $this->Hire_model->get_hold_req($requestor_id);
+    //var_dump($data['need_app']);
+    $data["header"] = $this->load->view('header/v_header','',TRUE);
+    $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+    $this->load->view('hr/v_hold_req',$data);
+  }
+
+  function rejected_req(){
+    $requestor_id = $this->session->userdata('ID2');
+    $data['status'] = $this->Hire_model->get_rejected_req($requestor_id);
+    //var_dump($data['need_app']);
+    $data["header"] = $this->load->view('header/v_header','',TRUE);
+    $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+    $this->load->view('hr/v_rejected_req',$data);
+  }
+
 }
 ?>
 

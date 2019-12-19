@@ -42,7 +42,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       My Hold Request
+       Approved Request
         <small>advanced tables</small>
       </h1>
       <ol class="breadcrumb">
@@ -98,35 +98,15 @@
                 </thead>
                 <tbody>
                     <?php $num=1; ?>
-                    <?php foreach($myhold as $row){ ?>
+                    <?php foreach($status as $row){ ?>
                     <tr>
                         <td width="10%"><?php echo $num; ?></td>
                         <td width="20%"><?php echo $row['requestor']; ?></td>
                         <td width="20%"><?php echo $row['DeptName']; ?></td>
                         <td width="20%"><?php echo $row['ProcessStartDate']; ?></td>
-                        <td><?php
-                        if ($row['IsProcessedToHire']=='' && $row['IsHold']=='' && $row['IsRejected']=='' ) {
-                            echo "Waiting for approval";
-                         }else if($row['IsProcessedToHire']=='1' && $row['IsHold']=='' && $row['IsRejected']==''){
-                            echo "Approved";
-                         }else if ($row['IsProcessedToHire']=='' && $row['IsHold']=='1' && $row['IsRejected']=='') {
-                            echo "Hold";
-                         }else if ($row['IsProcessedToHire']=='' && $row['IsHold']=='' && $row['IsRejected']=='1') {
-                            echo "Rejected";
-                        }
-                          
-                         ?></td>
+                        <td>Approved</td>
                         <td width="20%" align="center">
-                             <?php
-                              if ($row['IsProcessedToHire'] == 2) { ?>
-                                  <a href ="<?php echo base_url('hr/edit/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-warning" role="button" aria-pressed="true">Edit</a>
-                                  <a href ="<?php echo base_url('hr/delete/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-danger" role="button" aria-pressed="true">Delete</a>
-                                   
-                               <?php }else{
-                                  ?>
-                                  <a href ="<?php echo base_url('hr/View/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
-
-                              <?php }  ?>
+                            <a href ="<?php echo base_url('hr/View/'.$row['RequisitionID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
                         </td>
                     </tr>
                     <?php $num++; } ?>
