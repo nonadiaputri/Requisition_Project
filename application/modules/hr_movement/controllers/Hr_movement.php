@@ -108,7 +108,8 @@ class Hr_movement extends CI_Controller {
 	
 	public function movement_history()
 	{
-		$data['hire'] = $this->Hire_model->get_new_req();
+		$requestor_id = $this->session->userdata('ID2');
+		$data['hire'] = $this->Movement_model->get_new_req($ID, $req_dep);
 		$data['prom'] = $this->Movement_model->get_new_promotion();
 		$data['all'] = count($data['prom']);
 		$data['tot'] = count($data['hire']);
@@ -121,7 +122,7 @@ class Hr_movement extends CI_Controller {
 		
 	// 	var_dump($data['table']);
 
-		$requestor_id = $this->session->userdata('ID2');
+		
 	    $data['myreq'] = $this->Movement_model->get_your_request($requestor_id);
   		$data["header"] = $this->load->view('header/v_header','',TRUE);
   		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
