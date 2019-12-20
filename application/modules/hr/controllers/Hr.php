@@ -571,7 +571,7 @@ class Hr extends CI_Controller {
   public function myview_approve(){
     $requestor_id = $this->session->userdata('ID2');
     $data['status'] = $this->Hire_model->my_approve($requestor_id);
-    //var_dump($data['need_app']);
+    //var_dump($data['status']);
     $data["header"] = $this->load->view('header/v_header','',TRUE);
     $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
     $this->load->view('hr/v_my_approve_request',$data);

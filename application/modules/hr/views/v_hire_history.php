@@ -93,6 +93,8 @@
                             echo "Hold";
                          }else if ($row['IsProcessedToHire']=='' && $row['IsHold']=='' && $row['IsRejected']=='1') {
                             echo "Rejected";
+                        }else if ($row['IsProcessedToHire']=='2') {
+                          echo "DRAFT";
                         }
                           
                          ?></td>
