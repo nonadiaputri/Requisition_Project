@@ -15,13 +15,13 @@
                 
       </div>
       <!-- button form -->
-      <ul class="sidebar-menu" data-widget="tree">
-      <li class="header">
+      <ul class="user-panel" data-widget="tree" style="margin:auto; padding: 10%">
+      <li class="header" >
         <div class="pull-left">
-          <a href="<?= base_url(); ?>profile" class="btn btn-info btn-flat">Profile</a>
+          <a href="<?= base_url(); ?>profile" class="btn btn-info btn-flat" style="color:#ffffff">Profile</a>
         </div>
         <div class="pull-right">
-          <a href="<?= base_url(); ?>logout" class="btn btn-warning btn-flat">Logout</a>
+          <a href="<?= base_url(); ?>logout" class="btn btn-warning btn-flat" style="color:#ffffff">Logout</a>
         </div>
       </li>
       </ul>
@@ -32,16 +32,16 @@
         <li class="treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-            <span class="pull-right-container">
+            <!-- <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
-            </span>
+            </span> -->
           </a>
-          <ul class="treeview-menu">
+          <!-- <ul class="treeview-menu">
             <li><a href="<?= base_url(); ?>assets/index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
             <li><a href="<?= base_url(); ?>assets/index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-          </ul>
+          </ul> -->
         </li>
-        <li class="treeview">
+        <!-- <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
             <span>Layout Options</span>
@@ -63,7 +63,7 @@
               <small class="label pull-right bg-green">new</small>
             </span>
           </a>
-        </li>
+        </li> -->
         <li class="treeview">
           <a href="#">
             <i class="fa fa-database"></i>
@@ -86,8 +86,12 @@
           <a href="#">
             <i class="fa fa-user-circle-o"></i>
             <span>HR-Hire</span>
-            <span id = "notif" style = "color:red; display:none;">!!@</span>
-            
+            <span>
+            <small class="label bg-red" id = "notif" style="text-align: center">notification</small>
+            </span>
+            <span class="pull-right-container">
+              
+            </span>
             <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
@@ -103,6 +107,9 @@
           <a href="#">
             <i class="fa fa-user-circle-o"></i>
             <span>HR-Movement</span>
+            <span>
+            <small class="label bg-red" id = "notif2" style="text-align: center">notification</small>
+            </span>
             <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
@@ -122,7 +129,7 @@
                 </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href='<?php echo base_url('assets/pages/charts/chartbaru.html');?>'><i class="fa fa-circle-o"></i> ChartGrid</a></li>
+            <li><a href='<?php echo base_url('assets/pages/charts/chartbaru.html');?>'><i class="fa fa-circle-o"></i>KGMedia Organization</a></li>
             <li><a href="../charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
             <li><a href="../charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
             <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
@@ -265,10 +272,11 @@
 
                       $("#notif").show();
                       $("#notif").html(data.tot);
+                      $("#notif2").html(data.tot);
                     }
                     //$("#total").html(data.tot);
                 }
             });
-          },2000);
+          },1000);
   })
     </script>

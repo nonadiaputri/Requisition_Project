@@ -9,7 +9,7 @@
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
       <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -26,19 +26,21 @@
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
+              <span class="label label-danger" id ="navnotif"></span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
+              <li class="header">You have notifications</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
                   <li>
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                    <a href="<?= base_url(); ?>hr/hire_history">
+                      <i class="fa fa-users text-aqua"></i> 
+                      <span id="navnotif2"></span>
+                      New Requisition Hire
                     </a>
                   </li>
-                  <li>
+                  <!-- <li>
                     <a href="#">
                       <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
                       page and may cause design problems
@@ -48,21 +50,24 @@
                     <a href="#">
                       <i class="fa fa-users text-red"></i> 5 new members joined
                     </a>
-                  </li>
-
+                  </li> -->
+<!-- 
                   <li>
                     <a href="#">
                       <i class="fa fa-shopping-cart text-green"></i> 25 sales made
                     </a>
-                  </li>
+                  </li> -->
                   <li>
                     <a href="#">
-                      <i class="fa fa-user text-red"></i> You changed your username
+                      <i class="fa fa-exchange text-aqua"></i> 
+                      <span id="navnotif3"></span>
+                      New Request Movement 
+                      
                     </a>
                   </li>
                 </ul>
               </li>
-              <li class="footer"><a href="#">View all</a></li>
+              <!-- <li class="footer"><a href="#">View all</a></li> -->
             </ul>
           </li>
           <!-- Tasks: style can be found in dropdown.less -->
@@ -176,10 +181,38 @@
 			  -->
               <!-- Menu Footer-->
           <!-- Control Sidebar Toggle Button -->
-          <li>
+          <!-- <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </nav>
   </header>
+  <script type="text/javascript">
+        $(document).ready(function(){
+    setInterval(function(){
+          $.ajax({
+                url:"<?=base_url()?>hr/notif",
+                type:"POST",
+                dataType:"json",//datatype lainnya: html, text
+                data:{},
+                success:function(data){
+                    // alert(data.tot);
+                    if(data.tot != ''){
+                      var a = data.tot;
+                      var b = data.tot;
+                      var c = a+b;
+                      
+                      $("#navnotif").show();
+                      $("#navnotif").html(c);
+
+                      $('#navnotif2').html(data.tot);
+                      //pura2 hr movement
+                      $('#navnotif3').html(data.tot);
+                    }
+                    //$("#total").html(data.tot);
+                }
+            });
+          },1000);
+  })
+    </script>

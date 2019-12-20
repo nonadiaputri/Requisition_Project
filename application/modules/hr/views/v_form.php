@@ -283,7 +283,7 @@
           <!-- /.row -->
           
        </div>
-       <link rel="stylesheet" href="http://apps.kmn.kompas.com/static/kompas-intranet/latest/kompas-intranet.css" />
+       <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/css/kompas-intranet.css" />
 
 <!--- FOOTER SECTION --->
 <div class="no-break">
