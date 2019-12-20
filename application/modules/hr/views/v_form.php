@@ -569,6 +569,9 @@
    var rep;
    var pos = "<?php echo $this->session->userdata('OrganizationID')?>";
    $('#display-btn').click(function(e){
+    if ($('#org_id').val()=='') {
+      alert("Fill the form from the beginning");
+    }else{
      for (var i = 0; i <= arr_id.length-1; i++) {
       if (i==(arr_id.length-1)) {
         temp = arr_id[i];
@@ -600,6 +603,7 @@
                 alert('error ... ');
             }
         });
+   }
    });
 
   $('#status').on('change',function(){

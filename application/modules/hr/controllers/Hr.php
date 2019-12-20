@@ -69,8 +69,7 @@ class Hr extends CI_Controller {
       $ID = $this->session->userdata('ID2');
       $req_dep = $this->session->userdata('OrganizationID');
       $data['result'] = $this->Hire_model->get_new_req($ID, $req_dep);
-      $data['tot'] = count($data['result']);
-     
+      $data['tot'] = count($data['result']);  
       $data['org'] = $this->Hire_model->choose_org();  
       $data["header"] = $this->load->view('header/v_header','',TRUE);
       $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
@@ -78,6 +77,10 @@ class Hr extends CI_Controller {
       $this->load->view('hr/v_form',$data);
     }
 	}
+
+  function check(){
+
+  }
 
   public function notif(){
     $ID = $this->session->userdata('ID2');
