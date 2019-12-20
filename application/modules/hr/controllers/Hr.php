@@ -159,6 +159,17 @@ class Hr extends CI_Controller {
 			echo json_encode($data);
 	}
 
+  function select_personnel1(){
+    $json = [];
+    $this->load->database();
+    if(!empty($this->input->get("q"))){
+            $compClue = $this->input->get("q");
+            $data = $this->Hire_model->get_search_personnel($compClue, 'FullName');
+            
+        }
+        echo json_encode($data);
+  }
+
 	public function hire_history(){
 	    $requestor_id = $this->session->userdata('ID2');
 	    $data['myreq'] = $this->Hire_model->get_your_request($requestor_id);
