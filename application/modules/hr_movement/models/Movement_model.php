@@ -297,7 +297,7 @@ class Movement_model extends CI_Model
       }
       
       function search_requestor_pro($Request){
-        $this->db->select('a.ID as PositionID, a.Name as Position , c.FullName, C.ID as PersonnelID, e.Name as Organization, , e.ID as OrganizationID');
+        $this->db->select('a.ID as PositionID, a.Name as Position , c.FullName, c.EmploymentStartDate, C.ID as PersonnelID, e.Name as Organization, , e.ID as OrganizationID');
         $this->db->from('dbo.PositionTable a');
         $this->db->join('dbo.PersonnelPosition b','a.ID = b.PositionID');
         $this->db->join('dbo.PersonnelTable c','c.ID = b.PersonnelID');
