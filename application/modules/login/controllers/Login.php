@@ -22,7 +22,7 @@ class Login extends CI_Controller {
         $login = $this->Login_model->auth($uid, $pwd);
         //var_dump($login);
 		
-		if (count($login) == 1) {
+		if ($login !== null) {
 			$data = array(
 				'ID'		=> $login->no,
 				'nik' 		=> $login->nik,
@@ -45,18 +45,12 @@ class Login extends CI_Controller {
             	// var_dump($new_id);
 			}
 			
-			/**
-			 * Leveling Page Access
-			 * by Geraldine Agusta
-			 */
-			 if($data['id_position'] > 8){
-				 $data["sidebar"] = $this->load->view('header/v_header','',TRUE);
-				 redirect('dashboard', $data);
-			 }
+			
 
 			redirect('dashboard');
 		}else{
-			$this->session->set_flashdata('message', '<p style="color:red">Email atau Password Anda Salah!</p>');
+			$this->session->set_flashdata('message', 'Wrong NIK or Password!');
+			echo "<script>alert('Wrong NIK or Password!');</script>";
 			redirect('login','refresh');
 		}
 				

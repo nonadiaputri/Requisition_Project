@@ -23,19 +23,18 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition login-page">
+<body class="login-page" style="background-image: url('<?= base_url(); ?>assets/images/bg-login.jpg');">
 <div class="login-box">
 
   <!-- /.login-logo -->
-  <div class="login-box-body">
+  <div class="login-box-body" style="border-radius:20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 
-	<img src="<?= base_url(); ?>assets/images/kgmedia.png" alt="KGMedia Mission" width="200" align="center">
+	<img src="<?= base_url(); ?>assets/images/kgmedia.png" alt="KGMedia Mission" style="width:100%; margin:auto; padding:10%">
 
-    <p class="login-box-msg">Log in to start your mission</p>
+    <p class="login-box-msg">Log in to KGMedia Portal</p>
 	
     <form action="<?= base_url(); ?>login/do" method="post">
       <div class="form-group has-feedback">
@@ -57,28 +56,28 @@
 		-->
         </div>
         <!-- /.col -->
-        <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Log In</button>
+        <div class="col-xs-12" style="margin:auto; padding:10%">
+          <button type="submit" class="btn btn-primary btn-block" style="border-radius:20px;">Log In</button>
         </div>
         <!-- /.col -->
       </div>
     </form>
 
-    <div class="social-auth-links text-center">
+    <!-- <div class="social-auth-links text-center">
       <p>- OR -</p>
       <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"> Log in using
         Kompas.com eMail</a>
       <a href="#" class="btn btn-block btn-social btn-google btn-flat"> Log in using
         Gmail</a>
-    </div>
+    </div> -->
     <!-- /.social-auth-links -->
-
+<!-- 
     <a href="<?= base_url(); ?>login/forgot">Not Remember</a><br>
     <a href="<?= base_url(); ?>register" class="text-center">Register a New Employee</a>
 
-  </div>
+  </div> -->
   <!-- /.login-box-body -->
-</div>
+<!-- </div> -->
 <!-- /.login-box -->
 
 <!-- jQuery 3 -->
@@ -96,5 +95,7 @@
     });
   });
 </script>
+
 </body>
+
 </html>
