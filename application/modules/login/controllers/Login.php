@@ -59,7 +59,7 @@ class Login extends CI_Controller {
 	function logout()
 	{
 		//$this->aauth->logout();
-		$data = array('nik','name','email','is_login');
+		$data = array('nik','is_login');
 		$this->session->unset_userdata($data);	
         $this->session->sess_destroy();
         	
