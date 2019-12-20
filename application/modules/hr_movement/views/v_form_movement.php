@@ -136,23 +136,19 @@
                           </div>
                         </div>
 
-                        <br> <br>
-
-
                         <div class="form-group row">
                           <div class="col-sm-6">
-                            <label class="control-label col-form-label">Current Position</label>
-                            
-                            <input type="text" name="current_position" id="current_position" required="required" class="form-control" readonly>
-                            <input type="hidden" name="current_position_id" id="current_position_id" required="required" class="form-control">
-                            <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control">
-                            <span id="error_current_position" class="text-danger"></span>
+                              <label class="control-label col-form-label">Current Position</label>
+                              
+                              <input type="text" name="current_position" id="current_position" required="required" class="form-control" readonly>
+                              <input type="hidden" name="current_position_id" id="current_position_id" required="required" class="form-control">
+                              <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control">
+                              <span id="error_current_position" class="text-danger"></span>
                           </div>
 
                           <div class="col-sm-6">
                                   <label class="control-label col-form-label">New Position</label>
                                 
-
                                   <select class="form-control chs-select" name="new_position" id="new_position" style="width:90%" required="required">
                                       <option default>Select New Position</option>
                                       <?php foreach ($pos as $pos) { ?>
@@ -401,50 +397,6 @@
             }
           });
 
-          //   $('.current-position').select2({
-          //       placeholder: 'Enter The Current Position',
-          //       ajax:{
-          //           url: "<?php echo base_url('hr_movement/current_position'); ?>",
-          //           dataType: "json",
-          //           delay: 250,
-          // //           processResults: function (param) {
-          // //   return {
-          // //     compClue: param.term,
-              
-          // //   };
-          // // },
-          // processResults: function(data){
-          //               var results = [];
-
-          //               $.each(data, function(index, item){
-          //                   results.push({
-          //                       id: item.ID,
-          //                       text: item.Name,
-          //                       option_value:item.ID
-          //                   });
-          //               });
-          //               return{
-          //                   results: results,
-          //                   cache: true,
-          //               };
-          //           },
-          //       }
-
-          //   });
-
-        //                 $.each(data, function(index, item){
-        //                     results.push({
-        //                         id: item.ID,
-        //                         text: item.Name,
-        //                         option_value:item.ID
-        //                     });
-        //                 });
-        //                 return{
-        //                     results: results,
-        //                     cache: true,
-        //                 };
-        //             },
-        //         }
 
           //     if ($('#new_position :selected').text() != '') {
           //       $.ajax({
@@ -519,7 +471,7 @@
       var temp2 = $('#requestor_id :selected').val();
       if ($('#requestor_id :selected').text() != '') {
         $.ajax({
-          url:"<?php echo base_url('Hr/search_info');?>",
+          url:"<?php echo base_url('hr_movement/search_member');?>",
           method:"POST",
           dataType : "json",
           data:{ 'ID' : temp2},

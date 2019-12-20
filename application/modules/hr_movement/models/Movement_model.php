@@ -374,6 +374,21 @@ class Movement_model extends CI_Model
         $query = $this->db->get();
         return $query->row_array();
       }
+
+      function search_member($ID){
+        // $this->db->select('A.ID, a.FullName, b.PositionID, c.Name as PositionName, d.OrganizationUnitID as Organization, e.Name as OrganizationName ');
+        // $this->db->from('dbo.PersonnelTable a');
+        // $this->db->join('dbo.PersonnelPosition b','a.ID=b.PersonnelID');
+        // $this->db->join('dbo.PositionTable c','b.PositionID=c.ID');
+        // $this->db->join('dbo.PositionInOrganization d','d.PositionID=b.PositionID');
+        // $this->db->join('dbo.OrganizationTable e','e.ID=d.OrganizationUnitID');
+        $this->db->select('*');
+        $this->db->from("dbo.PersonnelHierarchy");
+        $this->db->like('ID',$ID);
+        //$this->db->where('IsHold',)
+        $query = $this->db->get();
+        return $query->row_array();
+      }
     
     
       function search_new_position($Position){
@@ -404,19 +419,19 @@ class Movement_model extends CI_Model
       
   function my_approve($ID){
     $q = "select a.*, c.FullName, d.Name as DeptName
-    from dbo.MovementRequestTable a
-    join dbo.PersonnelTable c
-    on a.RequestorID = c.ID 
-    join dbo.OrganizationTable d
-    on a.RequestorDepartmentID = d.ID
-    where RequestorID = $ID
-    and a.ID in (
-    select MovementRequestID from 
-    (select MovementRequestID, max(ApprovalStatusID) as status from
-     (select * 
-     from dbo.MovementRequestApprovalTable
-     where IsProcessed=1)X
-     group BY  MovementRequestID)Y)";
+          from dbo.MovementRequestTable a
+          join dbo.PersonnelTable c
+          on a.RequestorID = c.ID 
+          join dbo.OrganizationTable d
+          on a.RequestorDepartmentID = d.ID
+          where RequestorID = $ID
+          and a.ID in (
+          select MovementRequestID from 
+          (select MovementRequestID, max(ApprovalStatusID) as status from
+          (select * 
+          from dbo.MovementRequestApprovalTable
+          where IsProcessed=1)X
+          group BY  MovementRequestID)Y)";
      $query = $this->db->query($q);    
      return $query->result_array();
   }

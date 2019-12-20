@@ -176,6 +176,18 @@ class Hr_movement extends CI_Controller {
 			echo json_encode($data);
 	  }
 
+	  public function search_info(){
+		$ID = $this->input->post('ID');
+		$data = $this->Movement_model->search_info($ID);
+		echo json_encode($data);
+	  }
+
+	  public function search_member(){
+		$ID = $this->input->post('ID');
+		$data = $this->Movement_model->search_member($ID);
+		echo json_encode($data);
+	  }
+
 	  public function submit_movement(){
 		$requestor_id = $this->input->post('requestor_id');
 		$req_position_id = $this->input->post('req_position_id');
@@ -191,6 +203,7 @@ class Hr_movement extends CI_Controller {
 		$workdate = $this->input->post('workdate');
 		$current_responsibilities = $this->input->post('current_responsibilities');
 		$new_responsibilities = $this->input->post('new_responsibilities');
+		$id = $this->session->userdata('UserID');
 	//	$new_requirement = $this->input->post('new_requirement');
 	
 	
@@ -206,7 +219,8 @@ class Hr_movement extends CI_Controller {
 		  'NewOrganizationID' => $new_org_id,
 		  'ExpectedWorkStartDate' => $workdate,
 		  'CurrentDuttiesAndResponsibilities' => $current_responsibilities,
-		  'NewDuttiesAndResponsibilities' => $new_responsibilities
+		  'NewDuttiesAndResponsibilities' => $new_responsibilities,
+		  'CreatedByID' => $id
 		//  'RequirementDescription' => $new_requirement,
 		  );
 
@@ -218,7 +232,9 @@ class Hr_movement extends CI_Controller {
 				'EmployeeID' => $requestor_id,
 				'PositionID' => $req_position_id,
 				'OrganizationID' => $req_org_id,
-				'MovementRequestID' => $last_id );
+				'MovementRequestID' => $last_id,
+				'CreatedByID' => $id,
+				'LastModifiedByID' => $id );
 				$res = $this->Movement_model->Insert_to_Approval($data1);
 
         if ($res > 0 ) {
