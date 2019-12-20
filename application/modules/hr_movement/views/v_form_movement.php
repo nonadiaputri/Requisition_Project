@@ -108,11 +108,8 @@
 	                <div class="col-md-10">
 	                  <label class="control-label col-form-label">Movement Request Type</label>
 	                  <div id="chs-container">
-	                    <!-- <select class="form-control chs-select" id="request_type" style="width:80%; display: none">
-	                        <option default>Select</option>
-	                    </select> -->
 
-	                    <select class="form-control chs-select" name="chs-org" id="chs-org" style="width:80%" required="required">
+	                    <select class="form-control chs-select" name="request_type" id="request_type" style="width:80%" required="required">
 	                        <option default>Select Movement Request Type</option>
 	                        <?php foreach ($type as $type) { ?>
 	                        <option value="<?php echo $type['ID'];?>"><?php echo $type['Name'];?></option>
@@ -139,23 +136,19 @@
                           </div>
                         </div>
 
-                        <br> <br>
-
-
                         <div class="form-group row">
                           <div class="col-sm-6">
-                            <label class="control-label col-form-label">Current Position</label>
-                            
-                            <input type="text" name="current_position" id="current_position" required="required" class="form-control" readonly>
-                            <input type="hidden" name="current_position_id" id="current_position_id" required="required" class="form-control">
-                            <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control">
-                            <span id="error_current_position" class="text-danger"></span>
+                              <label class="control-label col-form-label">Current Position</label>
+                              
+                              <input type="text" name="current_position" id="current_position" required="required" class="form-control" readonly>
+                              <input type="hidden" name="current_position_id" id="current_position_id" required="required" class="form-control">
+                              <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control">
+                              <span id="error_current_position" class="text-danger"></span>
                           </div>
 
                           <div class="col-sm-6">
                                   <label class="control-label col-form-label">New Position</label>
                                 
-
                                   <select class="form-control chs-select" name="new_position" id="new_position" style="width:90%" required="required">
                                       <option default>Select New Position</option>
                                       <?php foreach ($pos as $pos) { ?>
@@ -174,7 +167,7 @@
                           <div class="form-group row">
                             <div class="col-sm-6">
                               <label class="control-label col-form-label">Started Work Date from Current Position</label>
-                              <input type="date" id="startdate" name="startdate" min="2018-01-01" max="2030-12-31" required="required" class="form-control">
+                              <input type="text" id="startdate" name="startdate" required="required" class="form-control" readonly>
                               <span id="error_startdate" class="text-danger"></span>
                             </div>
                             <div class="col-sm-6">
@@ -318,10 +311,6 @@
 <script type="text/javascript">
    var option_value;
 
-  
-
-
-            
          $('.request').select2({
                 placeholder: 'Enter The Request Name',
                 ajax:{
@@ -378,7 +367,7 @@
 
               if ($('#request_name :selected').text() != '') {
                 $.ajax({
-                    url:"<?php echo base_url('Hr_movement/search_requestor_pro');?>",
+                    url:"<?php echo base_url('hr_movement/search_requestor_pro');?>",
                     method:"GET",
                     dataType:'json',
                     data:{ 'Request': req },
@@ -394,11 +383,9 @@
                       //  $('#req_position_id').val(data.PositionID);
                         $('#current_position_id').val(data.PositionID);
                      //   $('#req_position').val(data.PositionName);
-                        $('#current_position').val(data.Postion);
+                        $('#current_position').val(data.Position);
                         $('#current_org_id').val(data.OrganizationID);
-                        $('#parent_org').val(data.ParentOrganization);
-                        $('#organization').val(data.Organization);
-                        $('#organization_id').val(data.OrganizationID);
+                        $('#startdate').val(data.EmployeeStartDate);
                         
                         }
                       },
@@ -410,50 +397,6 @@
             }
           });
 
-            $('.current-position').select2({
-                placeholder: 'Enter The Current Position',
-                ajax:{
-                    url: "<?php echo base_url('hr_movement/current_position'); ?>",
-                    dataType: "json",
-                    delay: 250,
-          //           processResults: function (param) {
-          //   return {
-          //     compClue: param.term,
-              
-          //   };
-          // },
-          processResults: function(data){
-                        var results = [];
-
-                        $.each(data, function(index, item){
-                            results.push({
-                                id: item.ID,
-                                text: item.Name,
-                                option_value:item.ID
-                            });
-                        });
-                        return{
-                            results: results,
-                            cache: true,
-                        };
-                    },
-                }
-
-            });
-
-        //                 $.each(data, function(index, item){
-        //                     results.push({
-        //                         id: item.ID,
-        //                         text: item.Name,
-        //                         option_value:item.ID
-        //                     });
-        //                 });
-        //                 return{
-        //                     results: results,
-        //                     cache: true,
-        //                 };
-        //             },
-        //         }
 
           //     if ($('#new_position :selected').text() != '') {
           //       $.ajax({
@@ -528,13 +471,13 @@
       var temp2 = $('#requestor_id :selected').val();
       if ($('#requestor_id :selected').text() != '') {
         $.ajax({
-          url:"<?php echo base_url('Hr/search_info');?>",
+          url:"<?php echo base_url('hr_movement/search_member');?>",
           method:"POST",
           dataType : "json",
           data:{ 'ID' : temp2},
           success:function(data){
             console.log(data);
-            $('#req_position_id').val(data.PositionID);
+            $('#req_position_id').val(data.PostionID);
             $('#req_position').val(data.Postion);
             $('#org_id').val(data.OrganizationID);
             $('#req_org_id').val(data.Organization);
@@ -741,7 +684,7 @@
                },
 
         success:function(data){
-          window.location.href = '<?php echo base_url('hr_movement/Promotion_history');?>';
+          window.location.href = '<?php echo base_url('hr_movement/movement_history');?>';
           console.log(data);
           if (data.status) {
                   alert('Save as Draft');
@@ -756,9 +699,11 @@
 
     $('#btn-submit').click(function(){
         // var requestor_name = $('#requestor_name').val();
-        var requestor = $('#requestor').val();
-        var req_org = $('#req_org').val();
+        var requestor = $('#requestor_id').val();
+        var req_org_id = $('#req_org_id').val();
+        var org_id = $('#org_id').val();
         var req_position = $('#req_position').val();
+        var req_position_id = $('#req_position_id').val();
         var request_type = $('#request_type').val();
         var request_name = $('#request_name').val();
         var current_position = $('#current_position').val();
@@ -788,17 +733,17 @@
         
         // var error_ttl = '';
 
-        if(requestor == ''){
+        if(requestor_id == ''){
          error_requestor = 'Requestor is required';
          $('#error_requestor').text(error_requestor);
-         $('#requestor').css('border-color', '#cc0000');
+         $('#requestor_id').css('border-color', '#cc0000');
          requestor = '';
         }else{
          error_requestor = '';
-         console.log($('#requestor').val());
+         console.log($('#requestor_id').val());
          $('#error_requestor').text(error_requestor);
-         $('#requestor').css('border-color', '');
-         requestor = $('#requestor').val();
+         $('#requestor_id').css('border-color', '');
+         requestor = $('#requestor_id').val();
         }
 
         if(req_position == ''){
@@ -814,17 +759,17 @@
          req_position = $('#req_position').val();
         }
 
-        if(req_org == ''){
+        if(req_org_id == ''){
          error_req_org = 'Organization is required';
          $('#error_req_org').text(error_req_org);
          $('#req_org').css('border-color', '#cc0000');
-         req_org = '';
+         req_org_id = '';
         }else{
           error_req_org = '';
-         console.log($('#req_org').val());
+         console.log($('#req_org_id').val());
          $('#error_req_org').text(error_req_org);
-         $('#req_org').css('border-color', '');
-         req_org = $('#req_org').val();
+         $('#req_org_id').css('border-color', '');
+         req_org_id = $('#req_org+id').val();
         }
 
         
@@ -832,52 +777,52 @@
             error_request_type = 'Movement Request Type is required';
          $('#error_request_type').text(error_request);
          $('#request_type').css('border-color', '#cc0000');
-         position = '';
+         request_type = '';
         }else{
           error_request_type = '';
          console.log($('#request_type').val());
          $('#error_request_type').text(error_request_type);
          $('#request_type').css('border-color', '');
-         position = $('#request_type').val();
+         request_type = $('#request_type').val();
         }
 
         if(request_name == ''){
             error_request = 'Request Name is required';
          $('#error_request').text(error_request);
          $('#request_name').css('border-color', '#cc0000');
-         position = '';
+         request_name = '';
         }else{
           error_request = '';
          console.log($('#request_name').val());
          $('#error_request').text(error_request);
          $('#request_name').css('border-color', '');
-         position = $('#request_name').val();
+         request_name = $('#request_name').val();
         }
 
         if(current_position == ''){
             error_current_position = 'Current Position is required';
          $('#error_current_position').text(error_current_position);
          $('#current_position').css('border-color', '#cc0000');
-         position = '';
+         current_position = '';
         }else{
           error_current_position = '';
          console.log($('#current_position').val());
          $('#error_current_position').text(error_current_position);
          $('#current_position').css('border-color', '');
-         position = $('#current_position').val();
+         current_position = $('#current_position').val();
         }
 
         if(new_position == ''){
           error_new_position = 'New Position is required';
          $('#error_new_position').text(error_new_position);
          $('#new_position').css('border-color', '#cc0000');
-         position = '';
+         new_position = '';
         }else{
           error_new_position = '';
          console.log($('#new_position').val());
          $('#error_new_position').text(error_new_position);
          $('#new_position').css('border-color', '');
-         position = $('#new_position').val();
+         new_position = $('#new_position').val();
         }
 
         // if(startdate == ''){
@@ -958,6 +903,7 @@
         var requestor_id = $('#requestor_id').val();
         var req_position_id = $('#req_position_id').val();
         var req_org_id = $('#req_org_id').val();
+        var org_id = $('#org_id').val();
         var request_type = $('#request_type').val();
         var request_name = $('#request_name').val();
         var current_position = $('#current_position').val();
@@ -973,11 +919,12 @@
      // var form_data = $('#myform').serialize();
      // console.log(form_data);
        $.ajax({
-        url:"<?php echo base_url('hr_movement/submit_promotion');?>",
+        url:"<?php echo base_url('hr_movement/submit_movement');?>",
         method:"POST",
         data:{'requestor_id':requestor_id,
                'req_position_id':req_position_id,
                'req_org_id' : req_org_id,
+               'org_id' : org_id,
                'request_type':request_type,
                'request_name':request_name, 
                'current_position':current_position,
@@ -1006,7 +953,7 @@
        $('#myModal').hide();
           $('.modal-fade').hide();
           $(".modal-backdrop").remove();
-          // window.location.href = '<?php echo base_url('hr_movement/promotion_history');?>';
+          // window.location.href = '<?php echo base_url('hr_movement/movement_history');?>';
     });
 
   });

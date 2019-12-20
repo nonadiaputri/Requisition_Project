@@ -108,12 +108,11 @@ class Hr_movement extends CI_Controller {
 	
 	public function movement_history()
 	{
-	// 	$requestor_id = $this->session->userdata('PersonnelIDList');
-	// 	$data['hire'] = $this->Hire_model->get_new_req();
-	// 	$data['prom'] = $this->Movement_model->get_new_promotion();
-	// 	$data['all'] = count($data['prom']);
-	// 	$data['tot'] = count($data['hire']);
-	//   $data['res'] = $this->Movement_model->get_promotion($requestor_id);
+		$data['hire'] = $this->Hire_model->get_new_req();
+		$data['prom'] = $this->Movement_model->get_new_promotion();
+		$data['all'] = count($data['prom']);
+		$data['tot'] = count($data['hire']);
+	  $data['res'] = $this->Movement_model->get_promotion($requestor_id);
 	// 	 $data['myreq'] = $this->Movement_model->get_your_request($requestor_id);
 	// 	$data['myreq'] = $this->Movement_model->get_your_request();
 	// 	$data["header"] = $this->load->view('header/v_header','',TRUE);
@@ -177,6 +176,77 @@ class Hr_movement extends CI_Controller {
 			echo json_encode($data);
 	  }
 
+	  public function search_info(){
+		$ID = $this->input->post('ID');
+		$data = $this->Movement_model->search_info($ID);
+		echo json_encode($data);
+	  }
+
+	  public function search_member(){
+		$ID = $this->input->post('ID');
+		$data = $this->Movement_model->search_member($ID);
+		echo json_encode($data);
+	  }
+
+	  public function submit_movement(){
+		$requestor_id = $this->input->post('requestor_id');
+		$req_position_id = $this->input->post('req_position_id');
+		$org_id = $this->input->post('org_id');
+	//	$req_org_id = $this->input->post('req_org_id');
+		$request_type = $this->input->post('request_type');
+		$request_name = $this->input->post('request_name');
+	//	$current_position = $this->input->post('current_position');
+		$current_position_id = $this->input->post('current_position_id');
+		$current_org_id = $this->input->post('current_org_id');
+		$new_position = $this->input->post('new_position');
+		$new_org_id = $this->input->post('new_org_id');
+		$workdate = $this->input->post('workdate');
+		$current_responsibilities = $this->input->post('current_responsibilities');
+		$new_responsibilities = $this->input->post('new_responsibilities');
+		$id = $this->session->userdata('UserID');
+	//	$new_requirement = $this->input->post('new_requirement');
+	
+	
+		$data = array(
+		  'RequestorID' => $requestor_id,
+		  'RequestorPositionID' => $req_position_id,
+		  'RequestorDepartmentID' => $org_id,
+		  'MovementRequestTypeID' => $request_type,
+		  'RequestedPersonnelID' => $request_name,
+		  'CurrentPositionID' => $current_position_id,
+		  'CurrentOrganizationID' => $current_org_id,
+		  'NewPositionID' => $new_position,
+		  'NewOrganizationID' => $new_org_id,
+		  'ExpectedWorkStartDate' => $workdate,
+		  'CurrentDuttiesAndResponsibilities' => $current_responsibilities,
+		  'NewDuttiesAndResponsibilities' => $new_responsibilities,
+		  'CreatedByID' => $id
+		//  'RequirementDescription' => $new_requirement,
+		  );
+
+		  $this->load->model('Movement_model');
+			$last_id = $this->Movement_model->Insert_data($data);
+			if ($last_id > 0) {
+
+				$data1 = array(
+				'EmployeeID' => $requestor_id,
+				'PositionID' => $req_position_id,
+				'OrganizationID' => $req_org_id,
+				'MovementRequestID' => $last_id,
+				'CreatedByID' => $id,
+				'LastModifiedByID' => $id );
+				$res = $this->Movement_model->Insert_to_Approval($data1);
+
+        if ($res > 0 ) {
+		  echo json_encode(array('status'=>true));
+		  
+		}else{
+			echo json_encode(array('status'=>false));
+		  }
+
+		}
+	}
+
 	function need_approval(){
 		$requestor_id = $this->session->userdata('ID2');
 		$data['need_app'] = $this->Movement_model->need_approval_req($requestor_id);
@@ -192,7 +262,7 @@ class Hr_movement extends CI_Controller {
 		//var_dump($data['need_app']);
 		$data["header"] = $this->load->view('header/v_header','',TRUE);
 		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-		$this->load->view('hr/v_my_approve_request',$data);
+		$this->load->view('hr_movement/v_my_approve_request',$data);
 	  }
 	
 }
