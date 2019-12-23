@@ -642,6 +642,12 @@ class Hr extends CI_Controller {
     $this->load->view('hr/v_rejected_req',$data);
   }
 
+  function chart_org(){
+    $data["header"] = $this->load->view('header/v_header','',TRUE);
+    $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+    $this->load->view('hr/v_chart',$data);
+  }
+
 }
 ?>
 

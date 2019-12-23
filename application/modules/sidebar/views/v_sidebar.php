@@ -15,13 +15,13 @@
                 
       </div>
       <!-- button form -->
-      <ul class="user-panel" data-widget="tree" style="margin:auto; padding: 10%">
+      <ul class="user-panel" data-widget="tree" style="margin:auto; padding:10% ">
       <li class="header" >
-        <div class="pull-left">
-          <a href="<?= base_url(); ?>profile" class="btn btn-info btn-flat" style="color:#ffffff">Profile</a>
+        <div class="pull-left" >
+          <a href="<?= base_url(); ?>profile" class="btn btn-info btn-flat" style="color:#ffffff; border-radius:5%"><i class="fa fa-id-card"></i> Profile</a>
         </div>
         <div class="pull-right">
-          <a href="<?= base_url(); ?>logout" class="btn btn-warning btn-flat" style="color:#ffffff">Logout</a>
+          <a href="<?= base_url(); ?>logout" class="btn btn-warning btn-flat" style="color:#ffffff;border-radius:5%"><i class="fa fa-sign-out"></i> Logout</a>
         </div>
       </li>
       </ul>
@@ -84,7 +84,7 @@
         </li>	
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-user-circle-o"></i>
+            <i class="fa fa-user-plus"></i>
             <span>HR-Hire</span>
             <span>
             <small class="label bg-red" id = "notif" style="text-align: center">notification</small>
@@ -99,13 +99,13 @@
           <ul class="treeview-menu">
             <li><a href='<?php echo site_url('hr/index')?>'><i class="fa fa-file-text-o"></i>Request Form</a></li>
             <li><a href='<?php echo site_url('hr/hire_history')?>'><i class="fa fa-flag"></i>Hire History</a></li>
-            <li><a href='<?php echo site_url('hr/myview_approve')?>'><i class="fa fa-vcard-o"></i>Hire Status</a></li>
+            <li><a href='<?php echo site_url('hr/myview_approve')?>'><i class="fa fa-dot-circle-o"></i>Hire Status</a></li>
             <li><a href='<?php echo site_url('hr/add_access')?>'><i class="fa fa-file-text-o"></i>Add Access Requestor</a></li>
           </ul>
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-user-circle-o"></i>
+            <i class="fa fa-arrow-circle-up"></i>
             <span>HR-Movement</span>
             <span>
             <small class="label bg-red" id = "notif2" style="text-align: center">notification</small>
@@ -117,7 +117,7 @@
           <ul class="treeview-menu">
             <li><a href='<?php echo site_url('hr_movement/index')?>'><i class="fa fa-file-text-o"></i>Request Form</a></li>
             <li><a href='<?php echo site_url('hr_movement/movement_history')?>'><i class="fa fa-flag"></i>Movement History</a></li>
-            <li><a href='<?php echo site_url('hr_movement/myview_approve')?>'><i class="fa fa-vcard-o"></i>Movement Status</a></li>
+            <li><a href='<?php echo site_url('hr_movement/myview_approve')?>'><i class="fa fa-dot-circle-o"></i>Movement Status</a></li>
           </ul>
         </li>			
         <li class="treeview">
@@ -129,13 +129,13 @@
                 </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href='<?php echo base_url('assets/pages/charts/chartbaru.html');?>'><i class="fa fa-circle-o"></i>KGMedia Organization</a></li>
-            <li><a href="../charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
+            <li><a href='<?php echo base_url('hr/chart_org');?>'><i class="fa fa-users"></i>KGMedia Organization</a></li>
+            <!-- <li><a href="../charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
             <li><a href="../charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-            <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+            <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li> -->
           </ul>
         </li>
-        <li class="treeview">
+        <!-- <li class="treeview">
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>UI Elements</span>
@@ -195,8 +195,8 @@
               <small class="label pull-right bg-red">5</small>
             </span>
           </a>
-        </li>
-        <li class="treeview">
+        </li> -->
+        <!-- <li class="treeview">
           <a href="#">
             <i class="fa fa-folder"></i> <span>Examples</span>
             <span class="pull-right-container">
@@ -214,8 +214,8 @@
             <li><a href="../examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
             <li><a href="../examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
           </ul>
-        </li>
-        <li class="treeview">
+        </li> -->
+        <!-- <li class="treeview">
           <a href="#">
             <i class="fa fa-share"></i> <span>Multilevel</span>
             <span class="pull-right-container">
@@ -247,8 +247,8 @@
             </li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
           </ul>
-        </li>
-        <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
+        </li> -->
+        <!-- <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li> -->
         <li class="header">LABELS</li>
         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
