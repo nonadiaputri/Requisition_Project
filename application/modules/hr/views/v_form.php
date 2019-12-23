@@ -585,8 +585,10 @@
         data:{ 'ID' : pos},
         success:function(data){
           console.log(data);
+          console.log($('#position').has('option').length);
           var output = '';
-          $.each(data, function (i) {
+          
+            $.each(data, function (i) {
             //var rep;
             //console.log("data"+data[i]['FullName']);
             if (data[i]['FullName'] === null) {
@@ -595,9 +597,13 @@
               rep = data[i]['FullName'];
             }
             output += '<option value="' + data[i]['ID']+'"data-subtext="'+data[i]['FullName']+'">' + data[i]['Position']+'('+rep+')</option>';
-          });
-          $('#position').append(output);
-          $('#note').show();
+            });
+            $('#position').append(output);
+            $('#note').show();
+            $('#display-btn').prop('disabled', true);
+
+        
+          
         },
         error:function(){
                 alert('error ... ');
