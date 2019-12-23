@@ -57,7 +57,7 @@
     <section class="content">
       <div >
         <a href ="<?php echo base_url('Hr/hire_history'); ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">Your Request</a>
-        <a href ="<?php echo base_url('Hr/need_approval'); ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">Neel Approval</a>
+        <a href ="<?php echo base_url('Hr/need_approval'); ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">Need Approval</a>
       </div>
             
       <div class="row">

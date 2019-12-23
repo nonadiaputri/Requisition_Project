@@ -204,7 +204,7 @@
 	                      <option value="1">Additional</option>
 	                      <option value="2">Replacement</option>
 	                      <option value="5">Profesional Contract</option>
-	                      <option value="6">Freelence</option>
+	                      <option value="6">Freelance</option>
 	                      <option value="7">Internship</option>
 	                      <option value="8">Outsourcing</option>  
 	                    </select>
