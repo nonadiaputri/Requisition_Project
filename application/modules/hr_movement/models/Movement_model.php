@@ -101,11 +101,11 @@ class Movement_model extends CI_Model
          return $query->result_array();
       }
 
-      public function get_promotion_id($ID)
+      public function get_movement_id($ID)
       {
-        $query = $this->db->query('select a.*, c.FullName as fullname, 
+        $query = $this->db->query('select a.*, c.FullName as RequestorName, 
          b.Name as current_position, e.Name as new_position, g.Name as requestor_position, 
-         a.CurrentPositionID, a.NewPositionID, d.Name as departement_name, 
+         a.CurrentPositionID, a.NewPositionID, d.Name as DeptName, 
          f.FullName as request_name, h.Name as MovementType from MovementRequestTable a 
          left join PositionTable b on a.CurrentPositionID = b.ID 
          left join PositionTable e on e.id = a.NewPositionID
@@ -156,6 +156,49 @@ class Movement_model extends CI_Model
         return $query->result_array();
         
       }
+
+      public function auto_regist_position($last_id, $position){
+        $this->db->where('UserID',$last_id);
+        $q = $this->db->get('dbo.UserXUserGroup');
+        $manager = $this->db->select('Postion')->from('PersonnelHierarchy')->where("'$position' LIKE '%Manager%' or '$position' like '%Editor in Chief%'")->get()->result();
+        $director = $this->db->select('Postion')->from('PersonnelHierarchy')->where("'$position' like '%Director%'")->get()->result();
+        $gm = $this->db->select('Postion')->from('PersonnelHierarchy')->where("'$position' like '%General Manager%' or '$position' like '%Vice General Manager%'")->get()->result();
+        $ceo = $this->db->select('Postion')->from('PersonnelHierarchy')->where("'$position' like '%Chief Technology%' or '$position' like '%Chief Executive%' or '$position' like '%Chief Financial%'")->get()->result();
+        //var_dump($manager);
+    
+        if ( $q->num_rows() == 0 ) {
+              
+              if(strpos('Manager', $position) !== false){
+                $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID) 
+              values ($last_id, 5)");
+              } elseif (preg_match('/Director/i', $position)){
+                $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID) 
+              values ($last_id, 3)");
+              } elseif (preg_match('/General|Vice/i', $position)){
+                $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID)
+              values ($last_id, 4)");
+              } elseif (preg_match('/Technology|Executive/i', $position)){
+                $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID)
+              values ($last_id, 2)"); 
+              }elseif(preg_match('/Editor/i', $position)){
+                $res = $this->db->query("INSERT INTO dbo.UserXUserGroup (UserID, UserGroupID) 
+                values ($last_id, 5)");
+              }
+    
+          
+          
+          // $this->db->select('ID');
+          // $this->db->where('UserID', $last_id);
+          // $id = $this->db->from('dbo.UserXUserGroup')->get();
+          //return $res->result_array();
+          
+     }else {
+      return FALSE;
+    
+        // $res = $this->db->query("EXEC spAutoRegistPosition @Position  = '$position' , @UserID= '$last_id'");
+        // return $res->result();
+      }
+    }
 
       // public function get_your_request($requestor_id){
       //   $q = "select a.*, b.Name as Department,  c.FullName as RequestorName
@@ -358,6 +401,18 @@ class Movement_model extends CI_Model
     function get_apv_info($ID){
         $res = $this->db->query("SELECT * from dbo.MovementRequestApprovalTable where MovementRequestID=".$ID);
         return $res->row_array();
+      }
+
+      function get_latest_apv($ID){
+        $this->db->select('a.*, b.FullName as PersonnelName, c.Name as Position');
+        $this->db->from('dbo.MovementRequestApprovalTable a');
+        $this->db->join('dbo.PersonnelTable b', 'a.EmployeeID = b.ID');
+        $this->db->join('dbo.PositionTable c', 'a.PositionID = c.ID');
+        $this->db->where('a.MovementRequestID',$ID);
+        $this->db->order_by("ApprovalStatusID", "DESC");
+        $this->db->limit(1);
+        $query = $this->db->get();
+        return $query->row_array();
       }
     
     

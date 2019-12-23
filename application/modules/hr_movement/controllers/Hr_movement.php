@@ -17,9 +17,36 @@ class Hr_movement extends CI_Controller {
 		$this->load->database('db1');
 		$this->load->model('Movement_model');
 
-    }
+	}
 	
 	public function index()
+	{
+		$dat = $this->check();
+		if ($dat == '') {
+			$data["header"] = $this->load->view('header/v_header','',TRUE);
+			$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+			$this->load->view('hr/v_error_hris', $data);
+		}else{
+			//var_dump($dat);
+			$data['person'] = $this->Movement_model->get_related_per($dat);
+			//var_dump($data['person']);
+			//var_dump($data['person']);
+			$ID = $this->session->userdata('ID2');
+			$req_dep = $this->session->userdata('OrganizationID');
+			$data['type'] = $this->Movement_model->choose_move_type($ID);
+			$data['pos'] = $this->Movement_model->choose_move_position($ID);
+			$data['result'] = $this->Movement_model->get_new_req($ID, $req_dep);
+			$data['tot'] = count($data['result']);  
+			$data['org'] = $this->Movement_model->choose_org();  
+			$data["header"] = $this->load->view('header/v_header','',TRUE);
+			$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+			//$data["auto"] = $this->Hire_model->auto_regist_position($last_id, $position);
+			$this->load->view('hr_movement/v_form_movement',$data);
+		}
+
+	}
+	
+	public function check()
 	{
 		// $ID = $this->session->userdata('nik');
 		$nik = $this->session->userdata('nik');
@@ -63,21 +90,30 @@ class Hr_movement extends CI_Controller {
 			$check2 = $this->Movement_model->auto_register($nik);
 			//var_dump($check2);
 			$dt = $check2['ID'];
+
+			$last_id = $object->ID;
+			$position = $object->Postion;
+			$data2 = array('UserID' => $dt);
+			$this->session->set_userdata($data2);
 			//var_dump($dt);
 			$check3 = $this->Movement_model->auto_register2($dt, $per_id);
+			$check4 = $this->Movement_model->auto_regist_position($last_id, $position);
+     		 return $dt;
+
+
 			$data['person'] = $this->Movement_model->get_related_per($dt);
 			//var_dump($data['person']);
 			$ID = $this->session->userdata('ID2');
 			$req_dep = $this->session->userdata('OrganizationID');
-			$data['result'] = $this->Movement_model->get_new_req($ID, $req_dep);
-			$data['tot'] = count($data['result']);
+			// $data['result'] = $this->Movement_model->get_new_req($ID, $req_dep);
+			// $data['tot'] = count($data['result']);
 		   
-			$data['type'] = $this->Movement_model->choose_move_type($ID);
-			$data['pos'] = $this->Movement_model->choose_move_position($ID);
-			$data['org'] = $this->Movement_model->choose_org();  
-			$data["header"] = $this->load->view('header/v_header','',TRUE);
-			$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-			$this->load->view('hr_movement/v_form_movement',$data);
+			// $data['type'] = $this->Movement_model->choose_move_type($ID);
+			
+			// $data['org'] = $this->Movement_model->choose_org();  
+			// $data["header"] = $this->load->view('header/v_header','',TRUE);
+			// $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+			// $this->load->view('hr_movement/v_form_movement',$data);
 	
 		// $data['result'] = $this->Movement_model->get_new_req();
 		// $data['person'] = $this->Movement_model->get_related_per($ID);
@@ -108,11 +144,13 @@ class Hr_movement extends CI_Controller {
 	
 	public function movement_history()
 	{
+	//	$this->check();
 		$requestor_id = $this->session->userdata('ID2');
-		$data['hire'] = $this->Movement_model->get_new_req($ID, $req_dep);
+		$data['myreq'] = $this->Movement_model->get_your_request($requestor_id);
+		//$data['hire'] = $this->Movement_model->get_new_req($ID, $req_dep);
 		$data['prom'] = $this->Movement_model->get_new_promotion();
 		$data['all'] = count($data['prom']);
-		$data['tot'] = count($data['hire']);
+	//	$data['tot'] = count($data['hire']);
 	  $data['res'] = $this->Movement_model->get_promotion($requestor_id);
 	// 	 $data['myreq'] = $this->Movement_model->get_your_request($requestor_id);
 	// 	$data['myreq'] = $this->Movement_model->get_your_request();
@@ -123,7 +161,7 @@ class Hr_movement extends CI_Controller {
 	// 	var_dump($data['table']);
 
 		
-	    $data['myreq'] = $this->Movement_model->get_your_request($requestor_id);
+	   
   		$data["header"] = $this->load->view('header/v_header','',TRUE);
   		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
 		
@@ -193,7 +231,7 @@ class Hr_movement extends CI_Controller {
 		$requestor_id = $this->input->post('requestor_id');
 		$req_position_id = $this->input->post('req_position_id');
 		$org_id = $this->input->post('org_id');
-	//	$req_org_id = $this->input->post('req_org_id');
+		$req_org_id = $this->input->post('req_org_id');
 		$request_type = $this->input->post('request_type');
 		$request_name = $this->input->post('request_name');
 	//	$current_position = $this->input->post('current_position');
@@ -205,6 +243,7 @@ class Hr_movement extends CI_Controller {
 		$current_responsibilities = $this->input->post('current_responsibilities');
 		$new_responsibilities = $this->input->post('new_responsibilities');
 		$id = $this->session->userdata('UserID');
+	//	var_dump($id);
 	//	$new_requirement = $this->input->post('new_requirement');
 	
 	
@@ -221,7 +260,8 @@ class Hr_movement extends CI_Controller {
 		  'ExpectedWorkStartDate' => $workdate,
 		  'CurrentDuttiesAndResponsibilities' => $current_responsibilities,
 		  'NewDuttiesAndResponsibilities' => $new_responsibilities,
-		  'CreatedByID' => $id
+		  'CreatedByID' => $id,
+		  'LastModifiedByID' => $id
 		//  'RequirementDescription' => $new_requirement,
 		  );
 
@@ -232,21 +272,48 @@ class Hr_movement extends CI_Controller {
 				$data1 = array(
 				'EmployeeID' => $requestor_id,
 				'PositionID' => $req_position_id,
-				'OrganizationID' => $req_org_id,
+				'OrganizationID' => $org_id,
 				'MovementRequestID' => $last_id,
 				'CreatedByID' => $id,
-				'LastModifiedByID' => $id );
+				'LastModifiedByID' => $id 
+			);
+			
 				$res = $this->Movement_model->Insert_to_Approval($data1);
-
-        if ($res > 0 ) {
-		  echo json_encode(array('status'=>true));
+				var_dump($res);
+        // if ($res > 0 ) {
+		//   echo json_encode(array('status'=>true));
 		  
-		}else{
-			echo json_encode(array('status'=>false));
-		  }
+		// }else{
+		// 	echo json_encode(array('status'=>false));
+		//   }
 
-		}
+			}
 	}
+
+	public function View($ID){
+		$data['req'] = $this->Movement_model->get_movement_id($ID);
+		$data['info'] = $this->Movement_model->get_apv_info($ID);
+	
+		$data['latest'] = $this->Movement_model->get_latest_apv($ID);
+		//var_dump($data['latest']);
+		$data["header"] = $this->load->view('header/v_header','',TRUE);
+		  $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+		  $this->load->view('hr_movement/v_view',$data);
+		 }
+
+	function edit($ID){
+		$ID2 = $this->session->userdata('UserID');
+	   $data['person'] = $this->Movement_model->get_related_per($ID2);
+	   // $data['hire'] = $this->Hire_model->get_new_req();
+	   // $data['prom'] = $this->Promotion3_model->get_new_promotion();
+	   // $data['all'] = count($data['prom']);
+	   // $data['tot'] = count($data['hire']);
+			$data['row']= $this->Movement_model->get_movement_id($ID);
+			//var_dump($data['row']);
+				$data["header"] = $this->load->view('header/v_header','',TRUE);
+				$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+				$this->load->view('hr/v_edit_movement',$data);
+			}
 
 	function need_approval(){
 		$requestor_id = $this->session->userdata('ID2');

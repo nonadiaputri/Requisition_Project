@@ -69,7 +69,7 @@
                 <thead>
                     <tr align="center">
                         <th>No.</th>
-                        <th>Requester</th>
+                        <th>Requestor</th>
                         <th>Requestor Department</th>
                         <th>Date</th>
                         <th>Status</th>
@@ -99,12 +99,12 @@
                         <td width="20%" align="center">
                              <?php
                               if ($row['IsProcessed'] == 2) { ?>
-                                  <a href ="<?php echo base_url('hr/edit/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-warning" role="button" aria-pressed="true">Edit</a>
-                                  <a href ="<?php echo base_url('hr/delete/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-danger" role="button" aria-pressed="true">Delete</a>
+                                  <a href ="<?php echo base_url('hr_movement/edit/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-warning" role="button" aria-pressed="true">Edit</a>
+                                  <a href ="<?php echo base_url('hr_movement/delete/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-danger" role="button" aria-pressed="true">Delete</a>
                                    
                                <?php }else{
                                   ?>
-                                  <a href ="<?php echo base_url('hr/View/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
+                                  <a href ="<?php echo base_url('hr_movement/view/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
 
                               <?php }  ?>
                         </td>
