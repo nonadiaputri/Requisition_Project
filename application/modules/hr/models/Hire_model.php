@@ -357,8 +357,6 @@ class Hire_model extends CI_Model
   public function get_new_req($ID, $req_dep){
     $query = "select a.*, b.FullName from dbo.RequisitionTable a
     join DBO.PersonnelTable b on a.RequestorID = b.ID
-    join dbo.UserXUserGroup c on c.UserID = a.CreatedById
-    join dbo.OrganizationTable d on d.ID = a.RequestorDepartmentID
     where a.RequestorID = '$ID'
     and a.RequestorDepartmentID = '$req_dep'
     and IsProcessedToHire=0 
