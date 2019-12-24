@@ -42,7 +42,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       My Approved Request
+       Need Approval 
         <small>advanced tables</small>
       </h1>
       <ol class="breadcrumb">
@@ -55,29 +55,9 @@
     <!-- Main content -->
 
     <section class="content">
-      <div class="btn-group">
-        <button type="button" class="btn btn-info">Your Request</button>
-        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-          <span class="caret"></span>
-          <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_approve'); ?>">Approved</a></li>
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_hold'); ?>">Hold<sup style="color:red; font-weight: bold"> <!-- <?php echo $myjml; ?> --> </sup></a></li>
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_reject'); ?>">Rejected</a></li>
-        </ul>
-      </div>
-      <div class="btn-group">
-        <button type="button" class="btn btn-info">Other Request</button>
-        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-          <span class="caret"></span>
-          <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <li><a class="dropdown-item" href="<?php echo base_url('hr_movement/approved_req'); ?>">Approved</a></li>
-          <li><a class="dropdown-item" href="<?php echo base_url('hr_movement/hold_req'); ?>">Hold<sup style="color:red; font-weight: bold"> <!-- <?php echo $myjml; ?> --> </sup></a></li>
-          <li><a class="dropdown-item" href="<?php echo base_url('hr_movement/rejected_req'); ?>">Rejected</a></li>
-        </ul>
+      <div >
+        <a href ="<?php echo base_url('Hr/hire_history'); ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">Your Request</a>
+        <a href ="<?php echo base_url('Hr/need_approval'); ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">Need Approval</a>
       </div>
             
       <div class="row">
@@ -98,7 +78,7 @@
                 </thead>
                 <tbody>
                     <?php $num=1; ?>
-                    <?php foreach($status as $row){ ?>
+                    <?php foreach($need_app as $row){ ?>
                     <tr>
                         <td width="10%"><?php echo $num; ?></td>
                         <td width="20%"><?php echo $row['requestor']; ?></td>
@@ -119,12 +99,12 @@
                         <td width="20%" align="center">
                              <?php
                               if ($row['IsProcessedToHire'] == 2) { ?>
-                                  <a href ="<?php echo base_url('hr_movement/edit/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-warning" role="button" aria-pressed="true">Edit</a>
-                                  <a href ="<?php echo base_url('hr_movement/delete/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-danger" role="button" aria-pressed="true">Delete</a>
+                                  <a href ="<?php echo base_url('Hr/Edit/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-warning" role="button" aria-pressed="true">Edit</a>
+                                  <a href ="<?php echo base_url('Hr/Delete/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-danger" role="button" aria-pressed="true">Delete</a>
                                    
                                <?php }else{
                                   ?>
-                                  <a href ="<?php echo base_url('hr_movement/View/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
+                                  <a href ="<?php echo base_url('Hr/View/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
 
                               <?php }  ?>
                         </td>

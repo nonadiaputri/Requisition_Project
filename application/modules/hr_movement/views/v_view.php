@@ -90,12 +90,12 @@
                                 <tr>
                                     <td width="20%">Current Position</td>
                                     <td width="10%">
-                                        <?php echo $req[ 'current_position']; ?>
+                                        <?php echo $req['current_position']; ?>
                                     </td>
 
                                     <td width="15%">New Position</td>
                                     <td width="50%">
-                                        <?php echo $req[ 'new_position']; ?>
+                                        <?php echo $req['new_position']; ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -113,7 +113,7 @@
                                 <tr>
                                     <td>Expected Work Date</td>
                                     <td>
-                                        <?php echo $req[ 'ExpectedWorkStartDate']; ?>
+                                        <?php echo $req['ExpectedWorkStartDate']; ?>
                                     </td>
                                 </tr>
                                 

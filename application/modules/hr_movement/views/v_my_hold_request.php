@@ -42,7 +42,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       My Approved Request
+       My Hold Request
         <small>advanced tables</small>
       </h1>
       <ol class="breadcrumb">
@@ -74,9 +74,9 @@
           <span class="sr-only">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu" role="menu">
-          <li><a class="dropdown-item" href="<?php echo base_url('hr_movement/approved_req'); ?>">Approved</a></li>
-          <li><a class="dropdown-item" href="<?php echo base_url('hr_movement/hold_req'); ?>">Hold<sup style="color:red; font-weight: bold"> <!-- <?php echo $myjml; ?> --> </sup></a></li>
-          <li><a class="dropdown-item" href="<?php echo base_url('hr_movement/rejected_req'); ?>">Rejected</a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('Hr/approved_req'); ?>">Approved</a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('Hr/hold_req'); ?>">Hold<sup style="color:red; font-weight: bold"> <!-- <?php echo $myjml; ?> --> </sup></a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('Hr/rejected_req'); ?>">Rejected</a></li>
         </ul>
       </div>
             
@@ -98,7 +98,7 @@
                 </thead>
                 <tbody>
                     <?php $num=1; ?>
-                    <?php foreach($status as $row){ ?>
+                    <?php foreach($myhold as $row){ ?>
                     <tr>
                         <td width="10%"><?php echo $num; ?></td>
                         <td width="20%"><?php echo $row['requestor']; ?></td>
@@ -119,12 +119,12 @@
                         <td width="20%" align="center">
                              <?php
                               if ($row['IsProcessedToHire'] == 2) { ?>
-                                  <a href ="<?php echo base_url('hr_movement/edit/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-warning" role="button" aria-pressed="true">Edit</a>
-                                  <a href ="<?php echo base_url('hr_movement/delete/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-danger" role="button" aria-pressed="true">Delete</a>
+                                  <a href ="<?php echo base_url('hr/edit/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-warning" role="button" aria-pressed="true">Edit</a>
+                                  <a href ="<?php echo base_url('hr/delete/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-danger" role="button" aria-pressed="true">Delete</a>
                                    
                                <?php }else{
                                   ?>
-                                  <a href ="<?php echo base_url('hr_movement/View/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
+                                  <a href ="<?php echo base_url('hr/View/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
 
                               <?php }  ?>
                         </td>
