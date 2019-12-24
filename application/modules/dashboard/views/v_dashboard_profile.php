@@ -42,104 +42,96 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       My Approved Request
+       My Profile
         <small>advanced tables</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="#">Profile</a></li>
       </ol>
     </section>
 
     <!-- Main content -->
 
     <section class="content">
-      <div class="btn-group">
-        <button type="button" class="btn btn-info">Your Request</button>
-        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-          <span class="caret"></span>
-          <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_approve'); ?>">Approved</a></li>
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_hold'); ?>">Hold<sup style="color:red; font-weight: bold"> <!-- <?php echo $myjml; ?> --> </sup></a></li>
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_reject'); ?>">Rejected</a></li>
-        </ul>
-      </div>
-      <div class="btn-group">
-        <button type="button" class="btn btn-info">Other Request</button>
-        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-          <span class="caret"></span>
-          <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/approved_req'); ?>">Approved</a></li>
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/hold_req'); ?>">Hold<sup style="color:red; font-weight: bold"> <!-- <?php echo $myjml; ?> --> </sup></a></li>
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/rejected_req'); ?>">Rejected</a></li>
-        </ul>
-      </div>
-            
+
       <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
+        <div class="col-md-12">
+
+          <!-- Profile Image -->
+          <div class="box box-primary">
+            <div class="box-body box-profile">
+              <img class="profile-user-img img-responsive img-circle" src="<?= base_url(); ?>assets/dist/img/user2-160x160.jpg" alt="User profile picture">
+
+              <h3 class="profile-username text-center"><?= $_SESSION['name'];?> </br> <?= $_SESSION['nik'];?></h3>
+
+              <p class="text-muted text-center"><?= $_SESSION['position'];?></p>
+
+              <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <b>Followers</b> <a class="pull-right">1,322</a>
+                </li>
+                <li class="list-group-item">
+                  <b>Following</b> <a class="pull-right">543</a>
+                </li>
+                <li class="list-group-item">
+                  <b>Friends</b> <a class="pull-right">13,287</a>
+                </li>
+              </ul>
+
+              <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+          <!-- About Me Box -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">About Me</h3>
+            </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                    <tr align="center">
-                        <th>No.</th>
-                        <th>Requester</th>
-                        <th>Requestor Department</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $num=1; ?>
-                    <?php foreach($status as $row){ ?>
-                    <tr>
-                        <td width="10%"><?php echo $num; ?></td>
-                        <td width="20%"><?php echo $row['FullName']; ?></td>
-                        <td width="20%"><?php echo $row['DeptName']; ?></td>
-                        <td width="20%"><?php echo $row['ProcessStartDate']; ?></td>
-                        <td><?php
-                        if ($row['IsProcessedToHire']=='' && $row['IsHold']=='' && $row['IsRejected']=='' ) {
-                            echo "Waiting for approval";
-                         }else if($row['IsProcessedToHire']=='1' && $row['IsHold']=='' && $row['IsRejected']==''){
-                            echo "Approved";
-                         }else if ($row['IsProcessedToHire']=='' && $row['IsHold']=='1' && $row['IsRejected']=='') {
-                            echo "Hold";
-                         }else if ($row['IsProcessedToHire']=='' && $row['IsHold']=='' && $row['IsRejected']=='1') {
-                            echo "Rejected";
-                        }
-                          
-                         ?></td>
-                        <td width="20%" align="center">
-                             <?php
-                              if ($row['IsProcessedToHire'] == 2) { ?>
-                                  <a href ="<?php echo base_url('hr/edit/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-warning" role="button" aria-pressed="true">Edit</a>
-                                  <a href ="<?php echo base_url('hr/delete/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-danger" role="button" aria-pressed="true">Delete</a>
-                                   
-                               <?php }else{
-                                  ?>
-                                  <a href ="<?php echo base_url('hr/View/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
+              <strong><i class="fa fa-book margin-r-5"></i>Email</strong>
 
-                              <?php }  ?>
-                        </td>
-                    </tr>
-                    <?php $num++; } ?>
-                </tbody>
-              </table>
+              <p class="text-muted">
+                <?= $_SESSION['email'];?>
+              </p>
+
+              <hr>
+
+              <strong><i class="fa fa-map-marker margin-r-5"></i> Work Location</strong>
+
+              <p class="text-muted">Malibu, California</p>
+
+              <hr>
+
+              <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+
+              <p>
+                <span class="label label-danger">UI Design</span>
+                <span class="label label-success">Coding</span>
+                <span class="label label-info">Javascript</span>
+                <span class="label label-warning">PHP</span>
+                <span class="label label-primary">Node.js</span>
+              </p>
+
+              <hr>
+
+              <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
         </div>
         <!-- /.col -->
+        
+        <!-- /.col -->
       </div>
       <!-- /.row -->
+
     </section>
     <!-- /.content -->
     <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/css/kompas-intranet.css" />
@@ -375,13 +367,13 @@
             </label>
           </div>
           <!-- /.form-group -->
-
+<!-- 
           <div class="form-group">
             <label class="control-sidebar-subheading">
               Delete chat history
               <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
             </label>
-          </div>
+          </div> -->
           <!-- /.form-group -->
         </form>
       </div>
@@ -411,7 +403,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url();?>assets/dist/js/demo.js"></script>
 <!-- page script -->
-<script>
+<!-- <script>
   $(function () {
     $('#example1').DataTable()
     $('#example2').DataTable({
@@ -423,6 +415,6 @@
       'autoWidth'   : false
     })
   })
-</script>
+</script> -->
 </body>
 </html>

@@ -18,7 +18,7 @@
       <ul class="user-panel" data-widget="tree" style="margin:auto; padding:10% ">
       <li class="header" >
         <div class="pull-left" >
-          <a href="<?= base_url(); ?>profile" class="btn btn-info btn-flat" style="color:#ffffff; border-radius:5%"><i class="fa fa-id-card"></i> Profile</a>
+          <a href="<?= base_url(); ?>dashboard/profile" class="btn btn-info btn-flat" style="color:#ffffff; border-radius:5%"><i class="fa fa-id-card"></i> Profile</a>
         </div>
         <div class="pull-right">
           <a href="<?= base_url(); ?>logout" class="btn btn-warning btn-flat" style="color:#ffffff;border-radius:5%"><i class="fa fa-sign-out"></i> Logout</a>
@@ -30,16 +30,10 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li class="treeview">
-          <a href="#">
+          <a href="<?= base_url(); ?>dashboard">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-            <!-- <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span> -->
           </a>
-          <!-- <ul class="treeview-menu">
-            <li><a href="<?= base_url(); ?>assets/index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <li><a href="<?= base_url(); ?>assets/index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-          </ul> -->
+          
         </li>
         <!-- <li class="treeview">
           <a href="#">
