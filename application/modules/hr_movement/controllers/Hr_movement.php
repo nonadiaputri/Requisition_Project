@@ -279,15 +279,15 @@ class Hr_movement extends CI_Controller {
 			);
 			
 				$res = $this->Movement_model->Insert_to_Approval($data1);
-				var_dump($res);
-        // if ($res > 0 ) {
-		//   echo json_encode(array('status'=>true));
-		  
-		// }else{
-		// 	echo json_encode(array('status'=>false));
-		//   }
+			//	var_dump($res);
+					if ($res > 0 ) {
+					echo json_encode(array('status'=>true));
+					
+					}else{
+						echo json_encode(array('status'=>false));
+					}
 
-			}
+				}
 	}
 
 	public function View($ID){
@@ -312,7 +312,7 @@ class Hr_movement extends CI_Controller {
 			//var_dump($data['row']);
 				$data["header"] = $this->load->view('header/v_header','',TRUE);
 				$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-				$this->load->view('hr/v_edit_movement',$data);
+				$this->load->view('hr_movement/v_edit_movement',$data);
 			}
 
 	function need_approval(){
