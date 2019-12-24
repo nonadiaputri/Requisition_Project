@@ -161,7 +161,7 @@
 	        <div class="row">
 	        	<div class="form-group">
                   <div class="col-md-8">
-                    <label class="control-label col-form-label">Total Need</label>
+                    <label class="control-label col-form-label">Person/s Need</label>
                     <select class="form-control" name="ttl" id="ttl" required="required">
                       <option value="" selected>Pilih</option>
                       <option value="1">1</option>
