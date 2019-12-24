@@ -46,7 +46,7 @@
         <small>advanced tables</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="<?= base_url();?>dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li><a href="#">Profile</a></li>
       </ol>
     </section>
