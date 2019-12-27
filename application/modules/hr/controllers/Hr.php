@@ -43,6 +43,7 @@ class Hr extends CI_Controller {
 
     $check = $this->Hire_model->check_personnel($nik);
     $sess = $this->Hire_model->make_session($nik);
+    //var_dump($sess);
     $object = json_decode(json_encode($sess));
     if ($sess != '') {
       $data = array(
@@ -575,8 +576,13 @@ class Hr extends CI_Controller {
 
   function need_approval(){
     $requestor_id = $this->session->userdata('ID2');
-    $data['need_app'] = $this->Hire_model->need_approval_req($requestor_id);
-    //var_dump($data['need_app']);
+    $pos = $this->session->userdata('Position');
+    //var_dump($pos);
+    if (strpos($pos,'Director')) {
+      $data['need_app']=$this->Hire_model->need_approval_hr();
+    }else{
+      $data['need_app'] = $this->Hire_model->need_approval_req($requestor_id);
+    }
     $data["header"] = $this->load->view('header/v_header','',TRUE);
     $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
     $this->load->view('hr/v_need_approval',$data);
@@ -646,6 +652,20 @@ class Hr extends CI_Controller {
     $data["header"] = $this->load->view('header/v_header','',TRUE);
     $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
     $this->load->view('hr/v_chart',$data);
+  }
+
+  function update_cost_center($ID){
+    
+    $cost_center = $this->input->post('cost_center');
+
+    $data = array('PlacementID'=>$cost_center);
+
+    $res =$this->Hire_model->update_cost_center($data, $ID);
+    if ($res > 0) {
+       echo json_encode(array('status'=>true));
+      }else{
+      echo json_encode(array('status'=>false));
+      }
   }
 
 }

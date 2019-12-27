@@ -684,6 +684,20 @@ class Hire_model extends CI_Model
     return $q->result_array();
   }
 
+  function need_approval_hr(){
+    $q = $this->db->query("select a.*, b.Name as DeptName,  c.FullName as requestor
+                          from dbo.RequisitionTable a
+                          join dbo.OrganizationTable b
+                          on a.RequestorDepartmentID = b.ID
+                          join dbo.PersonnelTable c
+                          on a.RequestorID = c.ID 
+                          where a.ID in (Select RequisitionID
+                          from dbo.RequisitionApprovalTable
+                          where ApprovalStatusID = 2
+                          and IsProcessedToHire =1 )");
+    return $q->result_array();
+  }
+
   function status_hire($ID){
     $q = " select a.*, b.Name as Department,  c.Name as requestor,e.Name as DeptName
            from dbo.RequisitionTable a
@@ -757,6 +771,18 @@ class Hire_model extends CI_Model
       group by a.RequisitionID, b.Name, c.FullName, d.ProcessStartDate, d.RequestorID, e.FullName";
     $query = $this->db->query($q);    
      return $query->result_array();
+  }
+
+  function update_cost_center($data, $ID){
+
+    $this->db->where('ID',$ID);
+    $this->db->update('dbo.RequisitionTable', $data);
+    if ($this->db->affected_rows() > 0){
+      return TRUE;
+    }
+    else{
+      return FALSE;
+    }
   }
 
 }

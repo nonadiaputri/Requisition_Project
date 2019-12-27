@@ -9,6 +9,16 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/css/bootstrap-select.min.css" />
+
+    
+
+  
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -95,7 +105,7 @@
                                 </tr>
                                 <tr>
                                     <td>Placement</td>
-                                    <td>
+                                    <td id="Placement">
                                         <?php echo $req[ 'Placement']; ?>
                                     </td>
                                 </tr>
@@ -384,6 +394,34 @@
                     </div>
                 </div>
             </div>
+
+            <div id="edit-cost-center" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Edit Cost Center</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal edit" method="POST" action="<?php echo base_url('Hr/update_cost_center/'.$req['ID']);?>">
+                                <div class="form-group row">
+                                    <div class="col-md-3">
+                                        <label>Select Cost Center</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <select class="searching form-control" name="cost_center" id="cost_center" style="width:100%;"  required="required">
+                                          <option value=""></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="btn-edit" class="btn btn-info waves-effect">OK</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
           
            
             <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/css/kompas-intranet.css" />
@@ -440,7 +478,7 @@
         </div>
         <!-- ./wrapper -->
         <!-- jQuery 3 -->
-        <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
+        <!-- <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script> -->
         <!-- Bootstrap 3.3.7 -->
         <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <!-- FastClick -->
@@ -451,7 +489,38 @@
         <script src="<?php echo base_url();?>assets/dist/js/demo.js"></script>
 </body>
 <script type="text/javascript">
+
+    $('.searching').select2({
+                placeholder: 'Department Name',
+                ajax:{
+                    url: "<?php echo base_url('hr/select2'); ?>",
+                    dataType: "json",
+                    delay: 250,
+                    processResults: function(data){
+                        var results = [];
+
+                        $.each(data, function(index, item){
+                            results.push({
+                                id: item.ID,
+                                text: item.Name,
+                                option_value:item.ID
+                            });     
+                        });
+                        return{
+                            results: results,
+                            cache: true,
+                        };
+                    },
+                }
+            });
+
     $(document).ready(function(){
+        var sess_pos = '<?php echo $this->session->userdata('Position'); ?>';
+        if (sess_pos.indexOf("Director")) {
+            console.log(sess_pos);
+            $('#edit-cost-center').modal('show');
+        }
+        
             var id_req = '<?php echo $req['ID']; ?>';
             console.log(id_req);
     
@@ -589,6 +658,31 @@
             });
                  $('#process').modal('hide');
             }
+            });
+
+
+            var edit;
+            var cost_center_text;
+            $('#btn-edit').click(function(){
+                edit = $("#edit-cost-center #cost_center").val().trim();
+                cost_center_text = $('#edit-cost-center #cost_center').text();
+                console.log("edit"+cost_center_text);
+                var form_data = $('.edit').serialize();
+                console.log(form_data);
+                $.ajax({
+                method: 'POST',
+                url: '<?php echo base_url('Hr/update_cost_center/');?>'+id_req,
+                data: form_data,
+                success: function(status) {
+                    if (status) {
+                        $('#edit-cost-center').modal('hide');
+                        $('#Placement').html(cost_center_text);
+                    }   
+                   },
+                error: function() {
+                    alert('Approval failed');
+                }
+            });
             });
     
             $('#btn-hold').click(function(){
