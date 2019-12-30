@@ -205,7 +205,7 @@ class Hr extends CI_Controller {
 	
 	public function submit_hire(){
 	    $requestor_id = $this->input->post('requestor_id');
-	    $tion_id = $this->input->post('req_position_id');
+	    $req_position_id = $this->input->post('req_position_id');
 	    $org_id = $this->input->post('org_id');
 	    $position = $this->input->post('position');
 	    $total = $this->input->post('total');
@@ -588,9 +588,11 @@ class Hr extends CI_Controller {
   function need_approval(){
     $requestor_id = $this->session->userdata('ID2');
     $pos = $this->session->userdata('Position');
-    //var_dump($pos);
-    if (strpos($pos,'Director')) {
+    // $val = strpos($pos,'Manager');
+    // var_dump($val);
+    if (strpos($pos,'Transito Adimanjati Director') >= 0) {
       $data['need_app']=$this->Hire_model->need_approval_hr();
+
     }else{
       $data['need_app'] = $this->Hire_model->need_approval_req($requestor_id);
     }

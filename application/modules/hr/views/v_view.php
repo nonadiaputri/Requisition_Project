@@ -14,11 +14,8 @@
     <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/css/bootstrap-select.min.css" />
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/css/bootstrap-select.min.css" /> -->
 
-    
-
-  
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -304,9 +301,9 @@
                     <!-- this row will not appear when printing -->
                     <div class="row no-print">
                         <div class="col-xs-12"> <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-                            <button type="button" class="btn btn-danger pull-right" id="button-process" data-toggle="modal" data-target="#reject" style="margin-right: 5px;">Reject</button>
+                            <button type="button" class="btn btn-danger pull-right" id="button-reject" data-toggle="modal" data-target="#reject" style="margin-right: 5px;">Reject</button>
                             <button type="button" class="btn btn-warning pull-right" id="button-hold" data-toggle="modal" data-target="#hold" style="margin-right: 5px;">Hold</button>
-                            <button type="button" class="btn btn-success pull-right" id="button-reject" data-toggle="modal" data-target="#process" style="margin-right: 5px;">Approve</button>
+                            <button type="button" class="btn btn-success pull-right" id="button-process" data-toggle="modal" data-target="#process" style="margin-right: 5px;">Approve</button>
                         </div>
                     </div>
             </section>
@@ -480,7 +477,7 @@
         <!-- jQuery 3 -->
         <!-- <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script> -->
         <!-- Bootstrap 3.3.7 -->
-        <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
         <!-- FastClick -->
         <script src="<?php echo base_url();?>assets/bower_components/fastclick/lib/fastclick.js"></script>
         <!-- AdminLTE App -->
@@ -514,13 +511,7 @@
                 }
             });
 
-    $(document).ready(function(){
-        var sess_pos = '<?php echo $this->session->userdata('Position'); ?>';
-        if (sess_pos.indexOf("Director")) {
-            console.log(sess_pos);
-            $('#edit-cost-center').modal('show');
-        }
-        
+     $(document).ready(function(){
             var id_req = '<?php echo $req['ID']; ?>';
             console.log(id_req);
     
@@ -529,96 +520,148 @@
             var app_hold = "<?php echo $req['IsHold'] ;?>"
             var app_reject = "<?php echo $req['IsRejected'] ;?>";
             var reqstor = "<?php echo $this->session->userdata('ID2'); ?>";
+            var position_req = "<?php echo $this->session->userdata('Position'); ?>";
+            console.log(position_req);
+            console.log("<?php echo $req['RequestorID'] ;?>");
             var appstatus2 = "<?php echo $latest['ApprovalStatusID']; ?>";
             var app_process2 = "<?php echo $latest['IsProcessedToHire']; ?>";
             var app_hold2 = "<?php echo $latest['IsHold']; ?>";
             var app_reject2 = "<?php echo $latest['IsRejected'] ; ?>";
-    
-            if (appstatus2 == "3") {
-                $('#button-process').hide();
-                $('#button-hold').hide();
-                $('#button-reject').hide();
-                $('#button-sent-back').hide();
-                $('#img-print').show();
-    
-                if (app_process2 == '1') {
+
+            if (appstatus2 == '1') {
+                if (reqstor == <?php echo $req['RequestorID'] ;?>){
+                    $('#lbl-danger').show();
+
                     $('.checkbox-mngr').prop('checked', true);
-                    $('.checkbox-apv-gm').prop('checked', true);
-                    $('.checkbox-apv-hr').prop("checked", true);
-                    $('#app-status').show();
-                    $('#process-date').show();
-                    $('#apv_gm').show();
-                    $('#apv_hr').show();
-                }else if (app_hold2 == '1') {
+                    $('.checkbox-gm').prop('disabled', true);
+                    $('.checkbox-hr').attr("disabled", true);
+                }else if(app_process == '0' &&  app_reject == '0' && app_hold == '0'){
+                    $('#button-process').show();
+                    $('#button-hold').show();
+                    $('#button-reject').show();
                     $('.checkbox-mngr').prop('checked', true);
-                    $('.checkbox-hl-gm').prop('checked', true);
-                    $('.checkbox-hl-hr').prop("checked", true);
-                    $('#app-status').show();
-                    $('#hold-end').show();
-                    $('#hold-by').show();
-                    $('#hold_hr').show();
-                }else if (app_reject2 == '1') {
-                    $('#app-status').show();
-                    $('#rjt-reason').show();
-                    $('.checkbox-mngr').prop('checked', true);
-                    $('.checkbox-rjt-gm').prop('checked', true);
-                    $('.checkbox-rjt-hr').prop("checked", true);
-                    $('#reject-by').show();
-                    $('#reject_hr').show();
+                    $('.checkbox-gm').prop('disabled', true);
+                    $('.checkbox-hr').attr("disabled", true);  
+                }
+            }
+
+            if (appstatus2 == '2') {
+                if (position_req == 'Transito Adimanjati Director') {
+                    $('#button-process').show();
+                    $('#button-hold').show();
+                    $('#button-reject').show();
+                    if (app_process2 == '1') {
+                        $('#edit-cost-center').modal('show');
+                        $('.checkbox-mngr').prop('checked', true);
+                        $('.checkbox-apv-gm').prop('checked', true);
+                        $('#app-status').show();
+                        $('#process-date').show();
+                        $('#apv_gm').show();
+                    }else if (app_hold2 == '1') {
+                        $('.checkbox-mngr').prop('checked', true);
+                        $('.checkbox-hl-gm').prop('checked', true);
+                        $('#app-status').show();
+                        $('#hold-end').show();
+                        $('#hold-by').show();
+                    }else if (app_reject2 == '1') {
+                        $('#app-status').show();
+                        $('#rjt-reason').show();
+                        $('.checkbox-mngr').prop('checked', true);
+                        $('.checkbox-rjt-gm').prop('checked', true);
+                        $('#reject-by').show();
+                    }
                 }
             }
     
-            if (app_process == '1' || app_reject == '1' || app_hold == '1') {
-                $('#button-process').hide();
-                $('#button-hold').hide();
-                $('#button-reject').hide();
-                $('#button-sent-back').hide();
-            }
-            if (app_process == '1') {
-                $('.checkbox-mngr').prop('checked', true);
-                $('.checkbox-apv-gm').prop('checked', true);
-                $('.checkbox-hr').attr("disabled", true);
-                $('#app-status').show();
-                $('#process-date').show();
-                $('#apv_gm').show();
-            }
-            if (app_hold == '1' ) {
-                $('.checkbox-mngr').prop('checked', true);
-                $('.checkbox-hl-gm').prop('checked', true);
-                $('.checkbox-hr').attr("disabled", true);
-                $('#app-status').show();
-                $('#hold-end').show();
-                $('#hold-by').show();
+            // if (appstatus2 == "3") {
+            //     $('#button-process').hide();
+            //     $('#button-hold').hide();
+            //     $('#button-reject').hide();
+            //     $('#button-sent-back').hide();
+            //     $('#img-print').show();
+    
+            //     if (app_process2 == '1') {
+            //         $('.checkbox-mngr').prop('checked', true);
+            //         $('.checkbox-apv-gm').prop('checked', true);
+            //         $('.checkbox-apv-hr').prop("checked", true);
+            //         $('#app-status').show();
+            //         $('#process-date').show();
+            //         $('#apv_gm').show();
+            //         $('#apv_hr').show();
+            //     }else if (app_hold2 == '1') {
+            //         $('.checkbox-mngr').prop('checked', true);
+            //         $('.checkbox-hl-gm').prop('checked', true);
+            //         $('.checkbox-hl-hr').prop("checked", true);
+            //         $('#app-status').show();
+            //         $('#hold-end').show();
+            //         $('#hold-by').show();
+            //         $('#hold_hr').show();
+            //     }else if (app_reject2 == '1') {
+            //         $('#app-status').show();
+            //         $('#rjt-reason').show();
+            //         $('.checkbox-mngr').prop('checked', true);
+            //         $('.checkbox-rjt-gm').prop('checked', true);
+            //         $('.checkbox-rjt-hr').prop("checked", true);
+            //         $('#reject-by').show();
+            //         $('#reject_hr').show();
+            //     }
+            // }
+    
+            // if (app_process == '1' || app_reject == '1' || app_hold == '1') {
+            //     $('#button-process').hide();
+            //     $('#button-hold').hide();
+            //     $('#button-reject').hide();
+            //     $('#button-sent-back').hide();
+            // }
+            // if (app_process == '1') {
+            //     $('.checkbox-mngr').prop('checked', true);
+            //     $('.checkbox-apv-gm').prop('checked', true);
+            //     $('.checkbox-hr').attr("disabled", true);
+            //     $('#app-status').show();
+            //     $('#process-date').show();
+            //     $('#apv_gm').show();
+            // }
+            // if (app_hold == '1' ) {
+            //     $('.checkbox-mngr').prop('checked', true);
+            //     $('.checkbox-hl-gm').prop('checked', true);
+            //     $('.checkbox-hr').attr("disabled", true);
+            //     $('#app-status').show();
+            //     $('#hold-end').show();
+            //     $('#hold-by').show();
                 
-            }
-            if (app_reject == '1') {
-                $('#app-status').show();
-                $('#rjt-reason').show();
-                $('.checkbox-mngr').prop('checked', true);
-                $('.checkbox-rjt-gm').prop('checked', true);
-                $('.checkbox-hr').attr("disabled", true);
-                $('#reject-by').show();
-            }
+            // }
+            // if (app_reject == '1') {
+            //     $('#app-status').show();
+            //     $('#rjt-reason').show();
+            //     $('.checkbox-mngr').prop('checked', true);
+            //     $('.checkbox-rjt-gm').prop('checked', true);
+            //     $('.checkbox-hr').attr("disabled", true);
+            //     $('#reject-by').show();
+            // }
     
-            if (app_process == '0' &&  app_reject == '0' && app_hold == '0'){
-                $('#button-process').show();
-                $('#button-hold').show();
-                $('#button-reject').show();
-                $('.checkbox-mngr').prop('checked', true);
-                $('.checkbox-gm').prop('disabled', true);
-                $('.checkbox-hr').attr("disabled", true);
-    
-              if (reqstor == <?php echo $req['RequestorID'] ;?>){
-                $('#lbl-danger').show();
-                $('#button-process').hide();
-                $('#button-hold').hide();
-                $('#button-reject').hide();
-                $('#button-sent-back').hide();
-                $('.checkbox-mngr').prop('checked', true);
-                $('.checkbox-gm').prop('disabled', true);
-                $('.checkbox-hr').attr("disabled", true);
-              }
-            }
+            var edit;
+            var cost_center_text;
+            $('#btn-edit').click(function(){
+                edit = $("#edit-cost-center #cost_center").val().trim();
+                cost_center_text = $('#edit-cost-center #cost_center').text();
+                console.log("edit"+cost_center_text);
+                var form_data = $('.edit').serialize();
+                console.log(form_data);
+                $.ajax({
+                method: 'POST',
+                url: '<?php echo base_url('Hr/update_cost_center/');?>'+id_req,
+                data: form_data,
+                success: function(status) {
+                    if (status) {
+                        $('#edit-cost-center').modal('hide');
+                        $('#Placement').html(cost_center_text);
+                    }   
+                   },
+                error: function() {
+                    alert('Approval failed');
+                }
+            });
+            });
     
     
             $('#btn-process').click(function(){
@@ -658,31 +701,6 @@
             });
                  $('#process').modal('hide');
             }
-            });
-
-
-            var edit;
-            var cost_center_text;
-            $('#btn-edit').click(function(){
-                edit = $("#edit-cost-center #cost_center").val().trim();
-                cost_center_text = $('#edit-cost-center #cost_center').text();
-                console.log("edit"+cost_center_text);
-                var form_data = $('.edit').serialize();
-                console.log(form_data);
-                $.ajax({
-                method: 'POST',
-                url: '<?php echo base_url('Hr/update_cost_center/');?>'+id_req,
-                data: form_data,
-                success: function(status) {
-                    if (status) {
-                        $('#edit-cost-center').modal('hide');
-                        $('#Placement').html(cost_center_text);
-                    }   
-                   },
-                error: function() {
-                    alert('Approval failed');
-                }
-            });
             });
     
             $('#btn-hold').click(function(){
@@ -765,6 +783,7 @@
     
     
         });
+
 </script>
 
 </html>
