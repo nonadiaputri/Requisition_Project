@@ -83,6 +83,9 @@
             <span>
             <small class="label bg-red" id = "notif" style="text-align: center">notification</small>
             </span>
+            <span>
+            <small class="label bg-blue" id = "notifapv" style="text-align: center">notification</small>
+            </span>
             <span class="pull-right-container">
               
             </span>
@@ -267,6 +270,72 @@
                       $("#notif").show();
                       $("#notif").html(data.tot);
                       $("#notif2").html(data.tot);
+                    }
+                    //$("#total").html(data.tot);
+                }
+            });
+          },1000);
+  })
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+    setInterval(function(){
+          $.ajax({
+                url:"<?=base_url()?>hr/notif",
+                type:"POST",
+                dataType:"json",//datatype lainnya: html, text
+                data:{},
+                success:function(data){
+                    // alert(data.tot);
+                    if(data.tot != ''){
+
+                      $("#notif").show();
+                      $("#notif").html(data.tot);
+                      $("#notif2").html(data.tot);
+                    }
+                    //$("#total").html(data.tot);
+                }
+            });
+          },1000);
+  })
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+    setInterval(function(){
+          $.ajax({
+                url:"<?=base_url()?>hr/notif",
+                type:"POST",
+                dataType:"json",//datatype lainnya: html, text
+                data:{},
+                success:function(data){
+                    // alert(data.tot);
+                    if(data.tot != ''){
+          
+
+                      $("#notif").show();
+                      $("#notif").html(data.tot);
+                      $("#notif2").html(data.tot);
+                    }
+                    //$("#total").html(data.tot);
+                }
+            });
+          },1000);
+  })
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+    setInterval(function(){
+          $.ajax({
+                url:"<?=base_url()?>hr/notifApproval",
+                type:"POST",
+                dataType:"json",//datatype lainnya: html, text
+                data:{},
+                success:function(data){
+                    // alert(data.tot);
+                    if(data.tot != ''){
+
+                      $("#notifapv").show();
+                      $("#notifapv").html(data.tot);
                     }
                     //$("#total").html(data.tot);
                 }

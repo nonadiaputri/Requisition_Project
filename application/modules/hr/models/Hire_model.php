@@ -356,15 +356,17 @@ class Hire_model extends CI_Model
 
   public function get_new_req($ID, $req_dep){
     $query = "select a.*, b.FullName from dbo.RequisitionTable a
-    join DBO.PersonnelTable b on a.RequestorID = b.ID
-    where a.RequestorID = '$ID'
-    and a.RequestorDepartmentID = '$req_dep'
-    and IsProcessedToHire=0 
-    and IsHold = 0
-    and IsRejected = 0;";
+              join DBO.PersonnelTable b on a.RequestorID = b.ID
+              where
+               a.RequestorID = '$ID'
+              and a.RequestorDepartmentID = '$req_dep'
+              and a.IsProcessedToHire=0 
+              and a.IsHold = 0
+              and a.IsRejected = 0";
     $query = $this->db->query($query);
     return $query->result_array();
 
+   
     // $where = array('IsProcessedToHire' => '0', 'IsHold' => '0', 'IsRejected' => '0');
     // $this->db->select('a.*, b.FullName');
     // $this->db->from('dbo.RequisitionTable a');
@@ -373,6 +375,39 @@ class Hire_model extends CI_Model
     // //$this->db->where('IsHold',)
     // $query = $this->db->get();
     // return $query->result_array();
+  }
+
+  /**
+   * Get new notification approval
+   */
+  public function get_new_req_approval($ID,$req_dep){
+    $query1 = "select a.*, b.FullName, c.ApprovalStatusID from dbo.RequisitionTable a
+                join DBO.PersonnelTable b on a.RequestorID = b.ID
+                join dbo.RequisitionApprovalTable c on c.RequisitionID = a.ID
+                where 
+                c.ApprovalStatusID = 2
+                and a.IsProcessedToHire=1
+                and a.IsHold = 0
+                and a.IsRejected = 0;";
+
+    $query2 = "select a.*, b.FullName from dbo.RequisitionTable a
+                join DBO.PersonnelTable b on a.RequestorID = b.ID
+                join dbo.RequisitionApprovalTable c on c.RequisitionID = a.ID
+                where
+                c.ApprovalStatusID = 2 
+                and a.RequestorDepartmentID = '$req_dep'
+                and a.IsProcessedToHire=1 
+                and a.IsHold = 0
+                and a.IsRejected = 0
+                and a.RequestorID ='$ID'";
+
+          if($ID === 2842){
+              $q = $this->db->query($query1);
+              return $q->result_array();
+            } else {
+              $q2 = $this->db->query($query2);
+              return $q2->result_array();
+            }
   }
 
   public function get_new_mov(){
