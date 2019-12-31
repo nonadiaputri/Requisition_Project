@@ -529,13 +529,15 @@
             var app_reject2 = "<?php echo $latest['IsRejected'] ; ?>";
 
             if (appstatus2 == '1') {
-                if (reqstor == <?php echo $req['RequestorID'] ;?>){
+                if (reqstor == <?php echo $req['RequestorID'] ;?> && app_process == '0' &&  app_reject == '0' && app_hold == '0'){
                     $('#lbl-danger').show();
-
+                    $('#button-process').hide();
+                    $('#button-hold').hide();
+                    $('#button-reject').hide();
                     $('.checkbox-mngr').prop('checked', true);
                     $('.checkbox-gm').prop('disabled', true);
-                    $('.checkbox-hr').attr("disabled", true);
-                }else if(app_process == '0' &&  app_reject == '0' && app_hold == '0'){
+                    $('.checkbox-hr').attr("disabled", true);  
+                }else {
                     $('#button-process').show();
                     $('#button-hold').show();
                     $('#button-reject').show();
