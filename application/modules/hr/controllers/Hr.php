@@ -588,17 +588,19 @@ class Hr extends CI_Controller {
   function need_approval(){
     $requestor_id = $this->session->userdata('ID2');
     $pos = $this->session->userdata('Position');
-    // $val = strpos($pos,'Manager');
-    // var_dump($val);
-    if (strpos($pos,'Transito Adimanjati Director') >= 0) {
-      $data['need_app']=$this->Hire_model->need_approval_hr();
-
-    }else{
+    $val = strpos($pos,'Transito Adimanjati Director');
+    //var_dump($val);
+    if (strpos($pos,'Transito Adimanjati Director') == false) {
       $data['need_app'] = $this->Hire_model->need_approval_req($requestor_id);
+      //var_dump($data['need_app']);
+      
+    }if(strpos($pos,'Transito Adimanjati Director') > 0){
+      $data['need_app']=$this->Hire_model->need_approval_hr();
     }
     $data["header"] = $this->load->view('header/v_header','',TRUE);
     $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
     $this->load->view('hr/v_need_approval',$data);
+    
   }
 
   public function myview_approve(){
