@@ -607,7 +607,9 @@ class Hire_model extends CI_Model
   }
 
   function get_apv_info($ID){
-    $res = $this->db->query("SELECT * from dbo.RequisitionApprovalTable where RequisitionID=".$ID);
+    $res = $this->db->query("SELECT TOP 1 * from dbo.RequisitionApprovalTable 
+                              where RequisitionID='$ID'
+                              ORDER BY ApprovalStatusID DESC");
     return $res->row_array();
   }
 

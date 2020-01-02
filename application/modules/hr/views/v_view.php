@@ -323,7 +323,7 @@
                                     </div>
                                     <div class="col-md-9">
                                         <input type="date" name="process" id="process" class="form-control" min="2018-01-01" max="2030-12-31"> <span id="error_process" class="text-danger"></span> 
-                                        <input type="hidden" name="ApprovalStatusID" id="ApprovalStatusID" class="form-control" value="<?php echo $info['ApprovalStatusID']; ?>">
+                                        <input type="text" name="ApprovalStatusID" id="ApprovalStatusID" class="form-control" value="<?php echo $info['ApprovalStatusID']; ?>">
                                     </div>
                                 </div>
                             </form>

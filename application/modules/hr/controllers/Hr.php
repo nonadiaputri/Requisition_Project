@@ -330,7 +330,7 @@ class Hr extends CI_Controller {
 	public function View($ID){
     $data['req'] = $this->Hire_model->get_hire_id($ID);
     $data['info'] = $this->Hire_model->get_apv_info($ID);
-
+    var_dump($data['info']);
     $data['latest'] = $this->Hire_model->get_latest_apv($ID);
     //var_dump($data['latest']);
     $data["header"] = $this->load->view('header/v_header','',TRUE);
@@ -590,11 +590,12 @@ class Hr extends CI_Controller {
     $pos = $this->session->userdata('Position');
     $val = strpos($pos,'Transito Adimanjati Director');
     //var_dump($val);
-    if (strpos($pos,'Transito Adimanjati Director') == false) {
+    if (strpos($pos,'Transito Adimanjati Director') === false) {
       $data['need_app'] = $this->Hire_model->need_approval_req($requestor_id);
       //var_dump($data['need_app']);
       
-    }if(strpos($pos,'Transito Adimanjati Director') > 0){
+    }
+    if(strpos($pos,'Transito Adimanjati Director') === 0){
       $data['need_app']=$this->Hire_model->need_approval_hr();
     }
     $data["header"] = $this->load->view('header/v_header','',TRUE);
