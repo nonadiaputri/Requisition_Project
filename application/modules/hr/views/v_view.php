@@ -215,7 +215,7 @@
                                     <div class="form-group row">
                                         <fieldset class="checkbox">
                                             <label>
-                                                <input type="checkbox" value="" class="checkbox-apv-gm">Aprroved by
+                                                <input type="checkbox" value="" class="checkbox-apv-gm">Approved by
                                                 <?php echo $latest[ 'PersonnelName']; ?>
                                                 <br>&nbsp &nbsp as
                                                 <?php echo $latest[ 'Position']; ?>
@@ -243,7 +243,7 @@
                                     <div class="form-group row">
                                         <fieldset class="checkbox">
                                             <label>
-                                                <input type="checkbox" value="" class="checkbox-rjt-gm">Reject by
+                                                <input type="checkbox" value="" class="checkbox-rjt-gm">Rejected by
                                                 <?php echo $latest[ 'PersonnelName']; ?>
                                                 <br>&nbsp &nbsp as
                                                 <?php echo $latest[ 'Position']; ?>
@@ -258,7 +258,7 @@
                                     <div class="form-group row">
                                         <fieldset class="checkbox">
                                             <label>
-                                                <input type="checkbox" class="checkbox-apv-hr">Aprroved by
+                                                <input type="checkbox" class="checkbox-apv-hr">Approved by
                                                 <?php echo $latest[ 'PersonnelName']; ?>
                                                 <br>&nbsp &nbsp as
                                                 <?php echo $latest[ 'Position']; ?>
@@ -286,7 +286,7 @@
                                     <div class="form-group row">
                                         <fieldset class="checkbox">
                                             <label>
-                                                <input type="checkbox" value="" class="checkbox-rjt-hr">Reject by
+                                                <input type="checkbox" value="" class="checkbox-rjt-hr">Rejected by
                                                 <?php echo $latest[ 'PersonnelName']; ?>
                                                 <br>&nbsp &nbsp as
                                                 <?php echo $latest[ 'Position']; ?>
