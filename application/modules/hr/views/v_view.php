@@ -522,11 +522,13 @@
             var reqstor = "<?php echo $this->session->userdata('ID2'); ?>";
             var position_req = "<?php echo $this->session->userdata('Position'); ?>";
             console.log(position_req);
+
             console.log("<?php echo $req['RequestorID'] ;?>");
             var appstatus2 = "<?php echo $latest['ApprovalStatusID']; ?>";
             var app_process2 = "<?php echo $latest['IsProcessedToHire']; ?>";
             var app_hold2 = "<?php echo $latest['IsHold']; ?>";
             var app_reject2 = "<?php echo $latest['IsRejected'] ; ?>";
+            console.log(appstatus2);
 
             if (appstatus2 == '1') {
                 if (reqstor == <?php echo $req['RequestorID'] ;?> && app_process == '0' &&  app_reject == '0' && app_hold == '0'){
@@ -554,60 +556,67 @@
                     $('#button-reject').show();
                     if (app_process2 == '1') {
                         $('#edit-cost-center').modal('show');
-                        $('.checkbox-mngr').prop('checked', true);
-                        $('.checkbox-apv-gm').prop('checked', true);
-                        $('#app-status').show();
-                        $('#process-date').show();
-                        $('#apv_gm').show();
-                    }else if (app_hold2 == '1') {
-                        $('.checkbox-mngr').prop('checked', true);
-                        $('.checkbox-hl-gm').prop('checked', true);
-                        $('#app-status').show();
-                        $('#hold-end').show();
-                        $('#hold-by').show();
-                    }else if (app_reject2 == '1') {
-                        $('#app-status').show();
-                        $('#rjt-reason').show();
-                        $('.checkbox-mngr').prop('checked', true);
-                        $('.checkbox-rjt-gm').prop('checked', true);
-                        $('#reject-by').show();
                     }
+                }else{
+                    $('#button-process').hide();
+                    $('#button-hold').hide();
+                    $('#button-reject').hide();
+                }
+                if (app_process2 == '1') {
+                    // $('#edit-cost-center').modal('show');
+                    $('.checkbox-mngr').prop('checked', true);
+                    $('.checkbox-apv-gm').prop('checked', true);
+                    $('#app-status').show();
+                    $('#process-date').show();
+                    $('#apv_gm').show();
+                }else if (app_hold2 == '1') {
+                    $('.checkbox-mngr').prop('checked', true);
+                    $('.checkbox-hl-gm').prop('checked', true);
+                    $('#app-status').show();
+                    $('#hold-end').show();
+                    $('#hold-by').show();
+                }else if (app_reject2 == '1') {
+                    $('#app-status').show();
+                    $('#rjt-reason').show();
+                    $('.checkbox-mngr').prop('checked', true);
+                    $('.checkbox-rjt-gm').prop('checked', true);
+                    $('#reject-by').show();
                 }
             }
+
+            if (appstatus2 == "3") {
+                $('#button-process').hide();
+                $('#button-hold').hide();
+                $('#button-reject').hide();
+                $('#button-sent-back').hide();
+                $('#img-print').show();
     
-            // if (appstatus2 == "3") {
-            //     $('#button-process').hide();
-            //     $('#button-hold').hide();
-            //     $('#button-reject').hide();
-            //     $('#button-sent-back').hide();
-            //     $('#img-print').show();
-    
-            //     if (app_process2 == '1') {
-            //         $('.checkbox-mngr').prop('checked', true);
-            //         $('.checkbox-apv-gm').prop('checked', true);
-            //         $('.checkbox-apv-hr').prop("checked", true);
-            //         $('#app-status').show();
-            //         $('#process-date').show();
-            //         $('#apv_gm').show();
-            //         $('#apv_hr').show();
-            //     }else if (app_hold2 == '1') {
-            //         $('.checkbox-mngr').prop('checked', true);
-            //         $('.checkbox-hl-gm').prop('checked', true);
-            //         $('.checkbox-hl-hr').prop("checked", true);
-            //         $('#app-status').show();
-            //         $('#hold-end').show();
-            //         $('#hold-by').show();
-            //         $('#hold_hr').show();
-            //     }else if (app_reject2 == '1') {
-            //         $('#app-status').show();
-            //         $('#rjt-reason').show();
-            //         $('.checkbox-mngr').prop('checked', true);
-            //         $('.checkbox-rjt-gm').prop('checked', true);
-            //         $('.checkbox-rjt-hr').prop("checked", true);
-            //         $('#reject-by').show();
-            //         $('#reject_hr').show();
-            //     }
-            // }
+                if (app_process2 == '1') {
+                    $('.checkbox-mngr').prop('checked', true);
+                    $('.checkbox-apv-gm').prop('checked', true);
+                    $('.checkbox-apv-hr').prop("checked", true);
+                    $('#app-status').show();
+                    $('#process-date').show();
+                    $('#apv_gm').show();
+                    $('#apv_hr').show();
+                }else if (app_hold2 == '1') {
+                    $('.checkbox-mngr').prop('checked', true);
+                    $('.checkbox-hl-gm').prop('checked', true);
+                    $('.checkbox-hl-hr').prop("checked", true);
+                    $('#app-status').show();
+                    $('#hold-end').show();
+                    $('#hold-by').show();
+                    $('#hold_hr').show();
+                }else if (app_reject2 == '1') {
+                    $('#app-status').show();
+                    $('#rjt-reason').show();
+                    $('.checkbox-mngr').prop('checked', true);
+                    $('.checkbox-rjt-gm').prop('checked', true);
+                    $('.checkbox-rjt-hr').prop("checked", true);
+                    $('#reject-by').show();
+                    $('#reject_hr').show();
+                }
+            }
     
             // if (app_process == '1' || app_reject == '1' || app_hold == '1') {
             //     $('#button-process').hide();

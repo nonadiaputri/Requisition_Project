@@ -728,10 +728,12 @@ class Hire_model extends CI_Model
                           on a.RequestorDepartmentID = b.ID
                           join dbo.PersonnelTable c
                           on a.RequestorID = c.ID 
-                          where a.ID in (Select RequisitionID
+                          where a.ID in (select RequisitionID from 
+                          (select distinct RequisitionID, max(ApprovalStatusID) as status,IsProcessedToHire
                           from dbo.RequisitionApprovalTable
-                          where ApprovalStatusID = 2
-                          and IsProcessedToHire =1 )");
+                          group by RequisitionID, IsProcessedToHire)a
+                          where a.status = 2
+                          and a.IsProcessedToHire = 1)");
     return $q->result_array();
   }
 
