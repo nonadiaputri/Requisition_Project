@@ -75,6 +75,13 @@ class Movement_model extends CI_Model
      }
   }
 
+    public function get_sp_request_number($RequestNumber)
+    {
+        // $Request = $this->db->query("EXEC spRequestNumber @RequestNumber = '$RequestNumber'");
+        // return $Request;
+        $request = $this->db->query("spRequestNumber N'{$RequestNumber}', N'{$RequestNumber}'");
+        return $request;
+    }
 
     public function get_promotion(){
         //Menampilkan data dari tabel MovementRequestTable untuk tampilan menu Request Promotion
@@ -363,6 +370,22 @@ class Movement_model extends CI_Model
         $query = $this->db->query($q);    
          //$query = $this->db->get('dbo.RequisitionTable');
          return $query->result_array();
+      }
+
+      function need_approval_req($ID){
+        $q = $this->db->query("select a.*, b.Name as DeptName,  c.FullName as requestor
+                          from dbo.MovementRequestTable a
+                          join dbo.OrganizationTable b
+                          on a.RequestorDepartmentID = b.ID
+                          join dbo.PersonnelTable c
+                          on a.RequestorID = c.ID 
+                          where a.RequestorID in 
+                          (select ID from dbo.PersonnelHierarchy
+                          where ParentPersonnelID = '$ID')
+                          and IsProcessed=0
+                          and IsHold = 0
+                          and IsRejected = 0");
+        return $q->result_array();
       }
 
       public function choose_org(){

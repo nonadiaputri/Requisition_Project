@@ -21,6 +21,9 @@ class Hr_movement extends CI_Controller {
 	
 	public function index()
 	{
+	//	$RequestNumber = $this->Movement_model->get_sp_request_number($RequestNumber);
+
+
 		$dat = $this->check();
 		if ($dat == '') {
 			$data["header"] = $this->load->view('header/v_header','',TRUE);
@@ -228,6 +231,9 @@ class Hr_movement extends CI_Controller {
 	  }
 
 	  public function submit_movement(){
+		  
+		$Request = $this->Movement_model->get_sp_request_number($RequestNumber);
+
 		$requestor_id = $this->input->post('requestor_id');
 		$req_position_id = $this->input->post('req_position_id');
 		$org_id = $this->input->post('org_id');
@@ -248,6 +254,8 @@ class Hr_movement extends CI_Controller {
 	
 	
 		$data = array(
+
+		  'RequestNumber' => $Request,
 		  'RequestorID' => $requestor_id,
 		  'RequestorPositionID' => $req_position_id,
 		  'RequestorDepartmentID' => $org_id,
@@ -260,13 +268,14 @@ class Hr_movement extends CI_Controller {
 		  'ExpectedWorkStartDate' => $workdate,
 		  'CurrentDuttiesAndResponsibilities' => $current_responsibilities,
 		  'NewDuttiesAndResponsibilities' => $new_responsibilities,
-		  'CreatedByID' => $id,
-		  'LastModifiedByID' => $id
+		  'CreatedById' => $id,
+		  'LastModifiedById' => $id
 		//  'RequirementDescription' => $new_requirement,
 		  );
 
 		  $this->load->model('Movement_model');
 			$last_id = $this->Movement_model->Insert_data($data);
+		//	$id = $this->session->userdata('UserID');
 			if ($last_id > 0) {
 
 				$data1 = array(
@@ -274,12 +283,13 @@ class Hr_movement extends CI_Controller {
 				'PositionID' => $req_position_id,
 				'OrganizationID' => $org_id,
 				'MovementRequestID' => $last_id,
-				'CreatedByID' => $id,
-				'LastModifiedByID' => $id 
+				'CreatedById' => $id,
+				'LastModifiedById' => $id 
 			);
 			
 				$res = $this->Movement_model->Insert_to_Approval($data1);
-			//	var_dump($res);
+			//	var_dump($data1);
+			//print_r($data1);
 					if ($res > 0 ) {
 					echo json_encode(array('status'=>true));
 					
@@ -317,6 +327,7 @@ class Hr_movement extends CI_Controller {
 
 	function need_approval(){
 		$requestor_id = $this->session->userdata('ID2');
+		$pos = $this->session->userdata('Position');
 		$data['need_app'] = $this->Movement_model->need_approval_req($requestor_id);
 		//var_dump($data['need_app']);
 		$data["header"] = $this->load->view('header/v_header','',TRUE);

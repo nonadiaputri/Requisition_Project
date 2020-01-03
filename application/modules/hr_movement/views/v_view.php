@@ -183,9 +183,9 @@
                                         <fieldset class="checkbox">
                                             <label>
                                                 <input type="checkbox" value="" class="checkbox-mngr">Requested by
-                                                <?php echo $req[ 'Requestor']; ?>
+                                                <?php echo $req[ 'RequestorName']; ?>
                                                 <br>&nbsp &nbsp as
-                                                <?php echo $req[ 'requestor_pos']; ?>
+                                                <?php echo $req[ 'requestor_position']; ?>
                                             </label>
                                         </fieldset>
                                     </div>
