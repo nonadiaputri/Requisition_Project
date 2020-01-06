@@ -650,11 +650,13 @@
 
   $('#btn-save').click(function(e){
   e.preventDefault();   
-  var requestor_id = $('#requestor_id').val();
+        var requestor_id = $('#requestor_id').val();
         var req_position_id = $('#req_position_id').val();
         var req_org_id = $('#req_org_id').val();
+        var org_id = $('#org_id').val();
         var request_type = $('#request_type').val();
         var request_name = $('#request_name').val();
+        var current_position = $('#current_position').val();
         var current_position_id = $('#current_position_id').val();
         var current_org_id = $('#current_org_id').val();
         var new_position = $('#new_position').val();
@@ -671,8 +673,10 @@
         data:{ 'requestor_id':requestor_id,
                'req_position_id':req_position_id,
                'req_org_id' : req_org_id,
+               'org_id' : org_id,
                'request_type':request_type,
                'request_name':request_name, 
+               'current_position':current_position,
                'current_position_id':current_position_id,
                'current_org_id':current_org_id,
                'new_position':new_position,

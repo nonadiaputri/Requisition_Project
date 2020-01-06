@@ -77,10 +77,10 @@ class Movement_model extends CI_Model
 
     public function get_sp_request_number($RequestNumber)
     {
-        // $Request = $this->db->query("EXEC spRequestNumber @RequestNumber = '$RequestNumber'");
-        // return $Request;
-        $request = $this->db->query("spRequestNumber N'{$RequestNumber}', N'{$RequestNumber}'");
-        return $request;
+        $Request = $this->db->query("EXEC spRequestNumber @RequestNumber = '$RequestNumber'");
+        return $Request;
+        // $request = $this->db->query("EXEC spRequestNumber N'{@RequestNumber}', N'{$RequestNumber}'");
+        // return $request;
     }
 
     public function get_promotion(){

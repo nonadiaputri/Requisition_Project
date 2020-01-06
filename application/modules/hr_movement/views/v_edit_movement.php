@@ -43,7 +43,7 @@
     <div class="content-wrapper">
       	<section class="content-header">
 	      <h1>
-	        Edit Form Hire
+	        Edit Form Movement
 	        <small>Preview</small>
 	      </h1>
 	      <ol class="breadcrumb">
@@ -379,7 +379,7 @@
 
    function positionInOrg(){
       $.ajax({
-        url:"<?php echo base_url('hr/search_position');?>",
+        url:"<?php echo base_url('hr_movement/search_position');?>",
           method:"POST",
           dataType : "json",
           data:{ 'ID' : <?php echo $row['RequestorDepartmentID'] ?>},

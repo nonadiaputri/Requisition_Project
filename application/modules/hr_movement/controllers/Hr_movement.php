@@ -232,7 +232,7 @@ class Hr_movement extends CI_Controller {
 
 	  public function submit_movement(){
 		  
-		$Request = $this->Movement_model->get_sp_request_number($RequestNumber);
+	//	$Request = $this->Movement_model->get_sp_request_number($RequestNumber);
 
 		$requestor_id = $this->input->post('requestor_id');
 		$req_position_id = $this->input->post('req_position_id');
@@ -255,7 +255,7 @@ class Hr_movement extends CI_Controller {
 	
 		$data = array(
 
-		  'RequestNumber' => $Request,
+		//  'RequestNumber' => $Request,
 		  'RequestorID' => $requestor_id,
 		  'RequestorPositionID' => $req_position_id,
 		  'RequestorDepartmentID' => $org_id,
@@ -299,6 +299,54 @@ class Hr_movement extends CI_Controller {
 
 				}
 	}
+
+	function save_data(){
+	    $requestor_id = $this->input->post('requestor_id');
+		$req_position_id = $this->input->post('req_position_id');
+		$org_id = $this->input->post('org_id');
+		$req_org_id = $this->input->post('req_org_id');
+		$request_type = $this->input->post('request_type');
+		$request_name = $this->input->post('request_name');
+		$current_position_id = $this->input->post('current_position_id');
+		$current_org_id = $this->input->post('current_org_id');
+		$new_position = $this->input->post('new_position');
+		$new_org_id = $this->input->post('new_org_id');
+		$workdate = $this->input->post('workdate');
+		$current_responsibilities = $this->input->post('current_responsibilities');
+		$new_responsibilities = $this->input->post('new_responsibilities');
+		$IsProcessed = '2';
+		$id = $this->session->userdata('UserID');
+
+	    $data = array(
+			'RequestorID' => $requestor_id,
+			'RequestorPositionID' => $req_position_id,
+			'RequestorDepartmentID' => $org_id,
+			'MovementRequestTypeID' => $request_type,
+			'RequestedPersonnelID' => $request_name,
+			'CurrentPositionID' => $current_position_id,
+			'CurrentOrganizationID' => $current_org_id,
+			'NewPositionID' => $new_position,
+			'NewOrganizationID' => $new_org_id,
+			'ExpectedWorkStartDate' => $workdate,
+			'CurrentDuttiesAndResponsibilities' => $current_responsibilities,
+			'NewDuttiesAndResponsibilities' => $new_responsibilities,
+			'IsProcessed' => $IsProcessed,
+			'CreatedById' => $id,
+			'LastModifiedById' => $id
+	      );
+
+	    //print_r($data);
+
+	    $this->load->model('Movement_model');
+	    $res = $this->Movement_model->Save_data($data);
+	      if ($res > 0 ) {
+	        $this->movement_history();
+	      }else{
+	      echo json_encode(array('status'=>false));
+	      }
+  }
+  
+
 
 	public function View($ID){
 		$data['req'] = $this->Movement_model->get_movement_id($ID);
