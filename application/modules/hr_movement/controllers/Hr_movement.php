@@ -1,14 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-	/**
-	 * Class Hr-movement.
-	 * Fungsi
-	 * 1. index, param null return 
-	 * 2. ci, param null return Halo CI
-	 *
-	 */
-
 class Hr_movement extends CI_Controller {
     
 	public function __construct() {
@@ -43,133 +35,82 @@ class Hr_movement extends CI_Controller {
 			$data['org'] = $this->Movement_model->choose_org();  
 			$data["header"] = $this->load->view('header/v_header','',TRUE);
 			$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-			//$data["auto"] = $this->Hire_model->auto_regist_position($last_id, $position);
+			//$data["auto"] = $this->Movement_model->auto_regist_position($last_id, $position);
 			$this->load->view('hr_movement/v_form_movement',$data);
 		}
 
 	}
 	
-	public function check()
-	{
-		// $ID = $this->session->userdata('nik');
-		$nik = $this->session->userdata('nik');
+	  public function check(){
+	    $nik = $this->session->userdata('nik');
+	    
 
-		$check = $this->Movement_model->check_personnel($nik);
-		$sess = $this->Movement_model->make_session($nik);
-		$object = json_decode(json_encode($sess));
+	    $check = $this->Movement_model->check_personnel($nik);
+	    $sess = $this->Movement_model->make_session($nik);
+	    //var_dump($sess);
+	    $object = json_decode(json_encode($sess));
+	    if ($sess != '') {
+	      $data = array(
+	        'Name2'    => $object->FullName,
+	        'NIK2'     => $object->PersonnelNumber,
+	        'ID2'    => $object->ID,
+	        'Position'   => $object->Postion,
+	        'PositionID' => $object->PostionID,
+	        'Organization' =>$object->Organization,
+	        'OrganizationID' =>$object->OrganizationID,
+	        'ParentOrganization' =>$object->ParentOrganization,
+	        'ParentOrganizationID' => $object->ParentOrganizationID,
+	        'ParentPosition' =>$object->ParentPosition,
+	        'ParentPositionID'=>$object->ParentPositionID,
+	        'ParentPersonnel' => $object->ParentPersonnel,
+	        'ParentPersonnelID' => $object->ParentPersonnelID
+	      );
+	    
+	    $this->session->set_userdata($data);
+	    
+	    }
+	    
+	    $per_id = $check[0]['ID'];
+	    //print_r($object);
+	    if ($check == 0 || $sess == '') {
+	      return false;
+	    }else{
+	      $check2 = $this->Movement_model->auto_register($nik);
+	      //var_dump($check2);
+	      $dt = $check2['ID'];
+	      //var_dump($dt);
+	    
+	      $last_id = $object->ID;
+	      $position = $object->Postion;
+	      //var_dump($position);
+	      $data2 = array('UserID' => $dt);
+	      $this->session->set_userdata($data2);
+	      $check3 = $this->Movement_model->auto_register2($dt, $per_id);
+	      $check4 = $this->Movement_model->auto_regist_position($last_id, $position);
+	      return $dt;
+	    }
+	  }
 
-		if ($sess != '') {
-			$data = array(
-			  'Name2'    => $object->FullName,
-			  'NIK2'     => $object->PersonnelNumber,
-			  'ID2'    => $object->ID,
-			  'Position'   => $object->Postion,
-			  'PositionID' => $object->PostionID,
-			  'Organization' =>$object->Organization,
-			  'OrganizationID' =>$object->OrganizationID,
-			  'ParentOrganization' =>$object->ParentOrganization,
-			  'ParentOrganizationID' => $object->ParentOrganizationID,
-			  'ParentPosition' =>$object->ParentPosition,
-			  'ParentPositionID'=>$object->ParentPositionID,
-			  'ParentPersonnel' => $object->ParentPersonnel,
-			  'ParentPersonnelID' => $object->ParentPersonnelID
-			);
-			//var_dump($data);
-			
-	  
-		  $this->session->set_userdata($data);
-		  
-		  }
-		  
-	  
-		  //var_dump($check);
-		  $per_id = $check[0]['ID'];
-		  //var_dump($per_id);
-		  if ($check == 0) {
-			$data["header"] = $this->load->view('header/v_header','',TRUE);
-				$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-			$this->load->view('hr_movement/v_error_movement', $data);
-		  }else{
-			$check2 = $this->Movement_model->auto_register($nik);
-			//var_dump($check2);
-			$dt = $check2['ID'];
+			function position(){
+				$json = [];
+				$this->load->database();
+				if(!empty($this->input->get("q"))){
+						$compClue = $this->input->get("q");
+						$data = $this->Movement_model->get_search_position($compClue, 'Name');
+					}
+					echo json_encode($data);
+			}
 
-			$last_id = $object->ID;
-			$position = $object->Postion;
-			$data2 = array('UserID' => $dt);
-			$this->session->set_userdata($data2);
-			//var_dump($dt);
-			$check3 = $this->Movement_model->auto_register2($dt, $per_id);
-			$check4 = $this->Movement_model->auto_regist_position($last_id, $position);
-     		 return $dt;
-
-
-			$data['person'] = $this->Movement_model->get_related_per($dt);
-			//var_dump($data['person']);
-			$ID = $this->session->userdata('ID2');
-			$req_dep = $this->session->userdata('OrganizationID');
-			// $data['result'] = $this->Movement_model->get_new_req($ID, $req_dep);
-			// $data['tot'] = count($data['result']);
-		   
-			// $data['type'] = $this->Movement_model->choose_move_type($ID);
-			
-			// $data['org'] = $this->Movement_model->choose_org();  
-			// $data["header"] = $this->load->view('header/v_header','',TRUE);
-			// $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-			// $this->load->view('hr_movement/v_form_movement',$data);
-	
-		// $data['result'] = $this->Movement_model->get_new_req();
-		// $data['person'] = $this->Movement_model->get_related_per($ID);
-		// $data['org'] = $this->Movement_model->choose_org();
-		 
-		// // $data['req'] = $this->Movement_model->choose_request_name($ID);
-		// $data['req'] = $this->Movement_model->choose_request_name($ID);
-		 
-		// $data['tot'] = count($data['result']);
-		// $data["header"] = $this->load->view('header/v_header','',TRUE);
-		// $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-		// //var_dump($data['person']);
-		// $this->load->view('hr_movement/v_form_movement',$data);			
-
-	}
-}
-
-		function position(){
-			$json = [];
-			$this->load->database();
-			if(!empty($this->input->get("q"))){
-					$compClue = $this->input->get("q");
-					$data = $this->Movement_model->get_search_position($compClue, 'Name');
-				}
-				echo json_encode($data);
-		}
-
-	
-	public function movement_history()
-	{
-	//	$this->check();
+		
+		public function movement_history()
+		{
+		$this->check();
 		$requestor_id = $this->session->userdata('ID2');
 		$data['myreq'] = $this->Movement_model->get_your_request($requestor_id);
-		//$data['hire'] = $this->Movement_model->get_new_req($ID, $req_dep);
-		$data['prom'] = $this->Movement_model->get_new_promotion();
-		$data['all'] = count($data['prom']);
-	//	$data['tot'] = count($data['hire']);
-	  $data['res'] = $this->Movement_model->get_promotion($requestor_id);
-	// 	 $data['myreq'] = $this->Movement_model->get_your_request($requestor_id);
-	// 	$data['myreq'] = $this->Movement_model->get_your_request();
-	// 	$data["header"] = $this->load->view('header/v_header','',TRUE);
-	// 	$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-	// 	$data['table'] = $this->Movement_model->get_hire();
-		
-	// 	var_dump($data['table']);
-
-		
-	   
   		$data["header"] = $this->load->view('header/v_header','',TRUE);
   		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-		
 		$this->load->view('hr_movement/v_movement_history',$data);		
-	}
+		}
 
 	function chs_dep(){
 		$ID = $this->input->post('ID');
@@ -314,7 +255,7 @@ class Hr_movement extends CI_Controller {
 	function edit($ID){
 		$ID2 = $this->session->userdata('UserID');
 	   $data['person'] = $this->Movement_model->get_related_per($ID2);
-	   // $data['hire'] = $this->Hire_model->get_new_req();
+	   // $data['hire'] = $this->Movement_model->get_new_req();
 	   // $data['prom'] = $this->Promotion3_model->get_new_promotion();
 	   // $data['all'] = count($data['prom']);
 	   // $data['tot'] = count($data['hire']);
@@ -336,6 +277,7 @@ class Hr_movement extends CI_Controller {
 	  }
 
 	  public function myview_approve(){
+	  	$this->check();
 		$requestor_id = $this->session->userdata('ID2');
 		$data['status'] = $this->Movement_model->my_approve($requestor_id);
 		//var_dump($data['need_app']);
