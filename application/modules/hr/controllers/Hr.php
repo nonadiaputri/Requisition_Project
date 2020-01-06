@@ -82,10 +82,6 @@ class Hr extends CI_Controller {
       $data2 = array('UserID' => $dt);
       $this->session->set_userdata($data2);
       $check3 = $this->Hire_model->auto_register2($dt, $per_id);
-      /**
-       * Auto Regist position
-       * by Geraldine Agusta
-       */
       $check4 = $this->Hire_model->auto_regist_position($last_id, $position);
       return $dt;
     }
