@@ -286,6 +286,106 @@ class Hr_movement extends CI_Controller {
 	      echo json_encode(array('status'=>false));
 	      }
   }
+
+  function do_update(){
+    $ID = $this->input->post('id_req');
+    $requestor_id = $this->input->post('requestor_id');
+	$req_position_id = $this->input->post('req_position_id');
+	$org_id = $this->input->post('org_id');
+	$req_org_id = $this->input->post('req_org_id');
+	$request_type = $this->input->post('request_type');
+	$request_name = $this->input->post('request_name');
+	$current_position_id = $this->input->post('current_position_id');
+	$current_org_id = $this->input->post('current_org_id');
+	$new_position = $this->input->post('new_position');
+	$new_org_id = $this->input->post('new_org_id');
+	$workdate = $this->input->post('workdate');
+	$current_responsibilities = $this->input->post('current_responsibilities');
+	$new_responsibilities = $this->input->post('new_responsibilities');
+	$IsProcessed = '0';
+    $id_user = $this->session->userdata('UserID');
+
+    $data = array(
+		'RequestorID' => $requestor_id,
+		'RequestorPositionID' => $req_position_id,
+		'RequestorDepartmentID' => $org_id,
+		'MovementRequestTypeID' => $request_type,
+		'RequestedPersonnelID' => $request_name,
+		'CurrentPositionID' => $current_position_id,
+		'CurrentOrganizationID' => $current_org_id,
+		'NewPositionID' => $new_position,
+		'NewOrganizationID' => $new_org_id,
+		'ExpectedWorkStartDate' => $workdate,
+		'CurrentDuttiesAndResponsibilities' => $current_responsibilities,
+		'NewDuttiesAndResponsibilities' => $new_responsibilities,
+		'IsProcessed' => $IsProcessed,
+		'CreatedById' => $id_user,
+		'LastModifiedById' => $id_user
+      );
+
+    $data1 = array(
+        'MovementRequestID' => $ID,
+        'EmployeeID' => $requestor_id,
+		'PositionID' => $req_position_id,
+        'OrganizationID' => $org_id,
+        'CreatedByID' => $id_user,
+        'LastModifiedByID' => $id_user);
+
+    //print_r($data1);
+    //echo $data['IsProcessedToHire'];
+    $res =$this->Movement_model->Update_data($data, $ID);
+    $res2 = $this->Movement_model->Insert_to_Approval($data1);
+    if ($res > 0 && $res2 > 0 ) {
+       echo json_encode(array('status'=>true));
+      }else{
+      echo json_encode(array('status'=>false));
+      }
+  }
+
+
+  function save_data2(){
+    $ID = $this->input->post('id_req');
+    $requestor_id = $this->input->post('requestor_id');
+	$req_position_id = $this->input->post('req_position_id');
+	$org_id = $this->input->post('org_id');
+	$req_org_id = $this->input->post('req_org_id');
+	$request_type = $this->input->post('request_type');
+	$request_name = $this->input->post('request_name');
+	$current_position_id = $this->input->post('current_position_id');
+	$current_org_id = $this->input->post('current_org_id');
+	$new_position = $this->input->post('new_position');
+	$new_org_id = $this->input->post('new_org_id');
+	$workdate = $this->input->post('workdate');
+	$current_responsibilities = $this->input->post('current_responsibilities');
+	$new_responsibilities = $this->input->post('new_responsibilities');
+	$IsProcessed = '2';
+
+    
+
+    $data = array(
+		'RequestorID' => $requestor_id,
+		'RequestorPositionID' => $req_position_id,
+		'RequestorDepartmentID' => $org_id,
+		'MovementRequestTypeID' => $request_type,
+		'RequestedPersonnelID' => $request_name,
+		'CurrentPositionID' => $current_position_id,
+		'CurrentOrganizationID' => $current_org_id,
+		'NewPositionID' => $new_position,
+		'NewOrganizationID' => $new_org_id,
+		'ExpectedWorkStartDate' => $workdate,
+		'CurrentDuttiesAndResponsibilities' => $current_responsibilities,
+		'NewDuttiesAndResponsibilities' => $new_responsibilities,
+		'IsProcessed' => $IsProcessed,
+      );
+    $res = $this->Movement_model->update_saved_data($data, $ID);
+    //print_r($res);
+      if ($res > 0 ) {
+        echo json_encode(array('status'=>true));
+        //$this->hire_history();
+      }else{
+      echo json_encode(array('status'=>false));
+      }
+  }
   
 
 

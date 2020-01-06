@@ -82,7 +82,7 @@
                 <div class="row invoice-info">
                     <div class="col-xs-12">
                         <h3 class="page-header">
-             Aplicant Requestor Information
+             Applicant Requestor Information
           </h3>
                     </div>
                     <div class="col-xs-12 table-responsive">

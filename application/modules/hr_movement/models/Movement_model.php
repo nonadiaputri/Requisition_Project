@@ -119,7 +119,7 @@ class Movement_model extends CI_Model
          left join PositionTable g on g.id = a.RequestorPositionID
          left join PersonnelTable c on c.ID = a.RequestorID 
            left join PersonnelTable f on f.ID = a.RequestedPersonnelID
-         left join OrganizationTable d on d.ID = a.RequestorDirectorateID  
+         left join OrganizationTable d on d.ID = a.RequestorDepartmentID  
          left join MovementRequestTypeTable h on h.ID = a.MovementRequestTypeID
          where a.ID ='.$ID);
          return $query->row_array();
@@ -347,6 +347,15 @@ class Movement_model extends CI_Model
     
       function Simpan($table, $data){
         return $this->db->insert($table, $data);
+    }
+
+    public function Update_data($data, $ID){
+      $this->db->where('ID', $ID);
+      return $this->db->update('dbo.MovementRequestTable', $data);
+    }
+    public function update_saved_data($data, $ID){
+      $this->db->where('ID', $ID);
+      return $this->db->update('dbo.MovementRequestTable', $data);
     }
 
     
