@@ -60,6 +60,8 @@ class Login extends CI_Controller {
 	{
 		//$this->aauth->logout();
 		$data = array('nik','is_login');
+		$logout = $this->session->set_flashdata('success','You are successfully Logout');
+		$nologout = $this->session->set_flashdata('error','You are still logged in');
 		$this->session->unset_userdata($data);	
 		$this->session->sess_destroy();
 		echo "<script>alert('Successfully Logged Out');</script>";

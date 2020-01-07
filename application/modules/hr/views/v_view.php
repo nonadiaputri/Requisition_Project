@@ -790,9 +790,6 @@
                 $('#reject').modal('hide');
             }
             });
-    
-    
-    
         });
 
 </script>
