@@ -39,6 +39,8 @@ class Hr_movement extends CI_Controller {
 			$this->load->view('hr_movement/v_form_movement',$data);
 		}
 
+		//$Request = $this->Movement_model->get_sp_request_number($RequestNumber);
+
 	}
 	
 	  public function check(){
@@ -174,7 +176,7 @@ class Hr_movement extends CI_Controller {
 	  public function submit_movement(){
 		  
 	//	$Request = $this->Movement_model->get_sp_request_number($RequestNumber);
-
+		$RequestNumber = $this->input->post('Re');
 		$requestor_id = $this->input->post('requestor_id');
 		$req_position_id = $this->input->post('req_position_id');
 		$org_id = $this->input->post('org_id');
@@ -216,6 +218,8 @@ class Hr_movement extends CI_Controller {
 
 		  $this->load->model('Movement_model');
 			$last_id = $this->Movement_model->Insert_data($data);
+			$get_last_id = $this->Movement_model->get_data_rn($data);
+			
 		//	$id = $this->session->userdata('UserID');
 			if ($last_id > 0) {
 
@@ -229,6 +233,8 @@ class Hr_movement extends CI_Controller {
 			);
 			
 				$res = $this->Movement_model->Insert_to_Approval($data1);
+
+				$Request = $this->Movement_model->get_sp_request_number($get_last_id);
 			//	var_dump($data1);
 			//print_r($data1);
 					if ($res > 0 ) {

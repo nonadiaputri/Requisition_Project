@@ -77,10 +77,15 @@ class Movement_model extends CI_Model
 
     public function get_sp_request_number($RequestNumber)
     {
-        $Request = $this->db->query("EXEC spRequestNumber @RequestNumber = '$RequestNumber'");
+        $Request = $this->db->query("EXEC spRequestNumber @ID = '$RequestNumber'");
         return $Request;
         // $request = $this->db->query("EXEC spRequestNumber N'{@RequestNumber}', N'{$RequestNumber}'");
         // return $request;
+        // public function Insert_data($data){
+        //   $this->db->insert('dbo.MovementRequestTable', $data);
+        //   $last_id = $this->db->insert_id();
+        //   return $last_id;
+        // }
     }
 
     public function get_promotion(){
@@ -340,10 +345,21 @@ class Movement_model extends CI_Model
         $last_id = $this->db->insert_id();
         return $last_id;
       }
+
+      public function get_data_rn($data){
+        // $this->db->get('dbo.MovementRequestTable', $data);
+        // $get_last_id = $this->db->get_id();
+        // return $get_last_id;
+        $this->db->select('id');
+        $get_last_id = $this->db->get('dbo.MovementRequestTable', $data);
+        return $get_last_id;
+      }
+
     
       public function Insert_to_approval($data1){
         return $this->db->insert('dbo.MovementRequestApprovalTable', $data1);
       }
+
     
       function Simpan($table, $data){
         return $this->db->insert($table, $data);
