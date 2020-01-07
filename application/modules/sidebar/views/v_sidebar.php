@@ -1,5 +1,9 @@
   <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
+  
+  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+    <script src="sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="sweetalert2.all.min.js"></script><aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
@@ -247,9 +251,9 @@
         </li> -->
         <!-- <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li> -->
         <li class="header">LABELS</li>
-        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Request Notification</span></a></li>
+        <!-- <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Approval Notification</span></a></li> -->
+        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Approval Notification</span></a></li>
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -299,6 +303,9 @@
           },1000);
   })
     </script>
+    
+    <!-- sweetalert2 -->
+    
     <script type="text/javascript">
         $(document).ready(function(){
     setInterval(function(){
@@ -343,3 +350,4 @@
           },1000);
   })
     </script>
+    
