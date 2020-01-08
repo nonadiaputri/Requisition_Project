@@ -62,9 +62,9 @@
           <span class="sr-only">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu" role="menu">
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_approve'); ?>">Approved</a></li>
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_hold'); ?>">Hold<sup style="color:red; font-weight: bold"> <!-- <?php echo $myjml; ?> --> </sup></a></li>
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_reject'); ?>">Rejected</a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('hr_movement/myview_approve'); ?>">Approved</a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('hr_movement/myview_hold'); ?>">Hold<sup style="color:red; font-weight: bold"> <!-- <?php echo $myjml; ?> --> </sup></a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('hr_movement/myview_reject'); ?>">Rejected</a></li>
         </ul>
       </div>
       <div class="btn-group">
@@ -105,20 +105,20 @@
                         <td width="20%"><?php echo $row['DeptName']; ?></td>
                         <td width="20%"><?php echo $row['ProcessStartDate']; ?></td>
                         <td><?php
-                        if ($row['IsProcessedToHire']=='' && $row['IsHold']=='' && $row['IsRejected']=='' ) {
+                        if ($row['IsProcessed']=='' && $row['IsHold']=='' && $row['IsRejected']=='' ) {
                             echo "Waiting for approval";
-                         }else if($row['IsProcessedToHire']=='1' && $row['IsHold']=='' && $row['IsRejected']==''){
+                         }else if($row['IsProcessed']=='1' && $row['IsHold']=='' && $row['IsRejected']==''){
                             echo "Approved";
-                         }else if ($row['IsProcessedToHire']=='' && $row['IsHold']=='1' && $row['IsRejected']=='') {
+                         }else if ($row['IsProcessed']=='' && $row['IsHold']=='1' && $row['IsRejected']=='') {
                             echo "Hold";
-                         }else if ($row['IsProcessedToHire']=='' && $row['IsHold']=='' && $row['IsRejected']=='1') {
+                         }else if ($row['IsProcessed']=='' && $row['IsHold']=='' && $row['IsRejected']=='1') {
                             echo "Rejected";
                         }
                           
                          ?></td>
                         <td width="20%" align="center">
                              <?php
-                              if ($row['IsProcessedToHire'] == 2) { ?>
+                              if ($row['IsProcessed'] == 2) { ?>
                                   <a href ="<?php echo base_url('hr_movement/edit/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-warning" role="button" aria-pressed="true">Edit</a>
                                   <a href ="<?php echo base_url('hr_movement/delete/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-danger" role="button" aria-pressed="true">Delete</a>
                                    

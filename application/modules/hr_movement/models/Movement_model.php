@@ -323,7 +323,7 @@ class Movement_model extends CI_Model
             and a.RequestorDepartmentID = '$req_dep'
             and IsProcessed=0 
             and IsHold = 0
-            and IsRejected = 0;";
+            and IsRejected = 0";
             $query = $this->db->query($query);
             return $query->result_array();
 
@@ -398,6 +398,44 @@ class Movement_model extends CI_Model
         else{
           return FALSE;
         }
+      }
+
+      public function process_data_approval($data1){
+        $res = $this->db->insert('dbo.MovementRequestApprovalTable', $data1);
+        return $res;
+       
+      }
+
+      public function hold_data($data, $where){
+        $this->db->where($where);
+        $this->db->update('dbo.MovementRequestTable', $data);
+        if ($this->db->affected_rows() > 0){
+          return TRUE;
+        }
+        else{
+          return FALSE;
+        }
+      }
+    
+      public function hold_data_approval($data1){
+        $res = $this->db->insert('dbo.MovementRequestApprovalTable', $data1);
+        return $res;
+      }
+
+      public function reject_data($data, $where){
+        $this->db->where($where);
+        $this->db->update('dbo.MovementRequestTable', $data);
+        if ($this->db->affected_rows() > 0){
+          return TRUE;
+        }
+        else{
+          return FALSE;
+        }
+      }
+    
+      public function reject_data_approval($data1){
+        $res = $this->db->insert('dbo.MovementRequestApprovalTable', $data1);
+        return $res;
       }
 
       function get_related_per($ID){
@@ -530,6 +568,18 @@ class Movement_model extends CI_Model
         $this->db->where('a.MovementRequestID',$ID);
         $this->db->order_by("ApprovalStatusID", "DESC");
         $this->db->limit(1);
+        $query = $this->db->get();
+        return $query->row_array();
+      }
+
+      function get_max_apv($ID){
+        $this->db->select('a.*, b.FullName as PersonnelName, c.Name as Position');
+        $this->db->from('dbo.MovementRequestApprovalTable a');
+        $this->db->join('dbo.PersonnelTable b', 'a.EmployeeID = b.ID');
+        $this->db->join('dbo.PositionTable c', 'a.PositionID = c.ID');
+        $this->db->where('a.MovementRequestID',$ID);
+        $this->db->order_by("ApprovalStatusID", "DESC");
+        // $this->db->limit(3);
         $query = $this->db->get();
         return $query->row_array();
       }

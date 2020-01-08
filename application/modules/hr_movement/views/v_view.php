@@ -135,7 +135,7 @@
                                         <label class="control-label text-right col-md-5">Request Status</label>
                                         <div class="col-md-6">
                                             <p class="form-control-static">
-                                                <?php if($req[ 'IsProcessedToHire']=='1' ){ echo "Approved"; }else if ($req[ 'IsHold']=='1' ) { echo "Hold"; }else if ($req[ 'IsRejected']=='1' ) { echo "Rejected"; } ?>
+                                                <?php if($req[ 'IsProcessed']=='1' ){ echo "Approved"; }else if ($req[ 'IsHold']=='1' ) { echo "Hold"; }else if ($req[ 'IsRejected']=='1' ) { echo "Rejected"; } ?>
                                             </p>
                                         </div>
                                     </div>
@@ -239,7 +239,7 @@
                                     <div class="form-group row">
                                         <fieldset class="checkbox">
                                             <label>
-                                                <input type="checkbox" class="checkbox-apv-hr">Aprroved by
+                                                <input type="checkbox" class="checkbox-apv-hr">Approved by
                                                 <?php echo $latest[ 'PersonnelName']; ?>
                                                 <br>&nbsp &nbsp as
                                                 <?php echo $latest[ 'Position']; ?>
@@ -297,7 +297,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal process" method="POST" action="<?php echo base_url('Hr/process/'.$req['ID']);?>">
+                            <form class="form-horizontal process" method="POST" action="<?php echo base_url('hr_movement/process/'.$req['ID']);?>">
                                 <div class="form-group row">
                                     <div class="col-md-3">
                                         <label>Start Date</label>
@@ -325,7 +325,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal hold" method="POST" action="<?php echo base_url('Hr/hold/'.$req['ID']);?>">
+                            <form class="form-horizontal hold" method="POST" action="<?php echo base_url('hr_movement/hold/'.$req['ID']);?>">
                                 <div class="form-group row">
                                     <div class="col-md-3">
                                         <label>Hold Until</label>
@@ -353,7 +353,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal reject" method="POST" action="<?php echo base_url('Hr/reject/'.$req['ID']);?>">
+                            <form class="form-horizontal reject" method="POST" action="<?php echo base_url('hr_movement/reject/'.$req['ID']);?>">
                                 <div class="form-group row">
                                     <div class="col-md-3">
                                         <label>Reason</label>
@@ -562,12 +562,12 @@
                 var form_data = $('.process').serialize();
                 $.ajax({
                 method: 'POST',
-                url: '<?php echo base_url('Hr/Process/');?>'+id_req,
+                url: '<?php echo base_url('hr_movement/Process/');?>'+id_req,
                 data: form_data,
                 success: function(data) {
                     if (status) {
                        
-                        window.location.href = '<?php echo base_url('Hr/need_approval');?>';
+                        window.location.href = '<?php echo base_url('hr_movement/need_approval');?>';
                         alert('Approval success');
                         }   
                    },
@@ -601,12 +601,12 @@
                 var form_data = $('.hold').serialize();
                 $.ajax({
                 method: 'POST',
-                url: '<?php echo base_url('Hr/hold/');?>'+id_req,
+                url: '<?php echo base_url('hr_movement/hold/');?>'+id_req,
                 data: form_data,
                 success: function(data) {
                     if (status) {
                           alert('Hold Request success');
-                           window.location.href = '<?php echo base_url('Hr/need_approval');?>';
+                           window.location.href = '<?php echo base_url('hr_movement/need_approval');?>';
                         }   
                    },
                 error: function() {
@@ -640,12 +640,12 @@
                 var form_data = $('.reject').serialize();
                 $.ajax({
                 method: 'POST',
-                url: '<?php echo base_url('Hr/reject/');?>'+id_req,
+                url: '<?php echo base_url('hr_movement/reject/');?>'+id_req,
                 data: form_data,
                 success: function(data) {
                     if (status) {
                           alert('Reject Request success');
-                           window.location.href = '<?php echo base_url('Hr/need_approval');?>';
+                           window.location.href = '<?php echo base_url('hr_movement/need_approval');?>';
                         }   
                    },
                 error: function() {

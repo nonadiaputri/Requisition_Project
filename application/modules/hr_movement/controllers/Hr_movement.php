@@ -393,7 +393,115 @@ class Hr_movement extends CI_Controller {
       echo json_encode(array('status'=>false));
       }
   }
+
+
+  public function process($ID){
+    $process = $this->input->post('process');
+    $apv_id = $this->input->post('ApprovalStatusID');
+    $where = array('ID' => $ID);
+    $where1 = array('MovementRequestID' => $ID);
+    $status = '1';
+    $apv_id_new = $apv_id + 1 ;
+    $id_user = $this->session->userdata('UserID');
+
+    $data = array(
+      'ProcessStartDate' => $process,
+      'IsProcessed' => $status
+      );
+
+    $data1 = array(
+      'ProcessStartDate' => $process,
+      'IsProcessed' => $status,
+      'ApprovalStatusID' => $apv_id_new,
+      'EmployeeID' => $this->session->userdata('ID2'),
+      'MovementRequestID' => $ID,
+      'OrganizationID' => $this->session->userdata('OrganizationID'),
+      'PositionID' => $this->session->userdata('PositionID'),
+      'CreatedByID' => $id_user,
+      'LastModifiedByID' => $id_user
+    );
+    //var_dump($data1);
+    $res = $this->Movement_model->process_data($data, $where);
+    $res1 = $this->Movement_model->process_data_approval($data1);
+      if ($res > 0 & $res1 > 0) {
+        echo json_encode(array('status'=>true));
+      }else{
+      echo json_encode(array('status'=>false));
+    }
+  }
   
+
+  public function hold($ID){
+    $hold = $this->input->post('hold');
+    $apv_id = $this->input->post('ApprovalStatusID');
+    $where = array('ID' => $ID);
+    $where1 = array('MovementRequestID' => $ID);
+    $status = '1';
+    $apv_id_new = $apv_id + 1 ;
+    $id_user = $this->session->userdata('UserID');
+
+    $data = array(
+      'HoldEndDate' => $hold,
+      'IsHold' => $status
+      );
+
+    $data1 = array(
+      'HoldEndDate' => $hold,
+      'IsHold' => $status,
+      'ApprovalStatusID' => $apv_id_new,
+      'EmployeeID' => $this->session->userdata('ID2'),
+      'MovementRequestID' => $ID,
+      'OrganizationID' => $this->session->userdata('OrganizationID'),
+      'PositionID' => $this->session->userdata('PositionID'),
+      'CreatedByID' => $id_user,
+      'LastModifiedByID' => $id_user
+      );
+
+    $res = $this->Movement_model->hold_data($data, $where);
+    $res1 = $this->Movement_model->hold_data_approval($data1);
+      if ($res > 0 & $res1 > 0) {
+        echo json_encode(array('status'=>true));
+      }else{
+      echo json_encode(array('status'=>false));
+    }
+
+  }
+
+  public function reject($ID){
+    $reject = $this->input->post('reason_reject');
+    $apv_id = $this->input->post('ApprovalStatusID');
+    $where = array('ID' => $ID);
+    $where1 = array('MovementRequestID' => $ID);
+    $status = '1';
+    $apv_id_new = $apv_id + 1 ;
+    $id_user = $this->session->userdata('UserID');
+
+    $data = array(
+      'RejectReason' => $reject,
+      'IsRejected' => $status
+      );
+
+    $data1 = array(
+      'RejectReason' => $reject,
+      'IsRejected' => $status,
+      'ApprovalStatusID' => $apv_id_new,
+      'EmployeeID' => $this->session->userdata('ID2'),
+      'MovementRequestID' => $ID,
+      'OrganizationID' => $this->session->userdata('OrganizationID'),
+      'PositionID' => $this->session->userdata('PositionID'),
+      'CreatedByID' => $id_user,
+      'LastModifiedByID' => $id_user
+      );
+
+    $res = $this->Hire_model->reject_data($data, $where);
+    $res1= $this->Hire_model->reject_data_approval($data1);
+      if ($res > 0 & $res1 > 0) {
+        echo json_encode(array('status'=>true));
+      }else{
+      echo json_encode(array('status'=>false));
+    }
+  }
+
 
 
 	public function View($ID){
@@ -401,6 +509,7 @@ class Hr_movement extends CI_Controller {
 		$data['info'] = $this->Movement_model->get_apv_info($ID);
 	
 		$data['latest'] = $this->Movement_model->get_latest_apv($ID);
+		$data['max'] = $this->Movement_model->get_max_apv($ID);
 		//var_dump($data['latest']);
 		$data["header"] = $this->load->view('header/v_header','',TRUE);
 		  $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
