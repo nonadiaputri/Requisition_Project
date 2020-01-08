@@ -318,10 +318,8 @@ class Movement_model extends CI_Model
        public function get_new_req($ID, $req_dep){
             $query = "select a.*, b.FullName from dbo.MovementRequestTable a
             join DBO.PersonnelTable b on a.RequestorID = b.ID
-            join dbo.UserXUserGroup c on c.UserID = a.CreatedById
             join dbo.OrganizationTable d on d.ID = a.RequestorDepartmentID
             where a.RequestorID = '$ID'
-            and c.UserGroupID = 5
             and a.RequestorDepartmentID = '$req_dep'
             and IsProcessed=0 
             and IsHold = 0
@@ -338,6 +336,21 @@ class Movement_model extends CI_Model
         // $query = $this->db->get();
         // return $query->result_array();
       }
+
+      public function get_new_req_approval($ID, $req_dep){
+        $query = "select a.*, b.FullName from dbo.MovementRequestTable a
+                  join DBO.PersonnelTable b on a.RequestorID = b.ID
+                  join dbo.MovementRequestApprovalTable c on c.MovementRequestID = a.ID
+                  join dbo.OrganizationTable d on d.ID = a.RequestorDepartmentID
+                  where a.RequestorID = '$ID'
+                  and a.RequestorDepartmentID = '$req_dep'
+                  and c.ApprovalStatusID =2
+                  and a.IsProcessed=1
+                  and a.IsHold = 0
+                  and a.IsRejected = 0";
+        $query = $this->db->query($query);
+        return $query->result_array();
+  }
 
     
       public function Insert_data($data){

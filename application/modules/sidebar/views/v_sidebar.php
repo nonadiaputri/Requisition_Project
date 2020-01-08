@@ -1,9 +1,6 @@
   <!-- Left side column. contains the logo and sidebar -->
   
-  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
-    <script src="sweetalert2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    <script src="sweetalert2.all.min.js"></script><aside class="main-sidebar">
+    <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
@@ -85,10 +82,10 @@
             <i class="fa fa-user-plus"></i>
             <span>HR-Hire</span>
             <span>
-            <small class="label bg-red" id = "notif" style="text-align: center">notification</small>
+            <small class="label bg-red" id = "notif" style="text-align: center">0</small>
             </span>
             <span>
-            <small class="label bg-blue" id = "notifapv" style="text-align: center">notification</small>
+            <small class="label bg-blue" id = "notifapv" style="text-align: center">0</small>
             </span>
             <span class="pull-right-container">
               
@@ -109,7 +106,10 @@
             <i class="fa fa-arrow-circle-up"></i>
             <span>HR-Movement</span>
             <span>
-            <small class="label bg-red" id = "notif2" style="text-align: center">notification</small>
+            <small class="label bg-red" id = "notifmove" style="text-align: center">0</small>
+            </span>
+            <span>
+            <small class="label bg-blue" id = "notifapv1" style="text-align: center">0</small>
             </span>
             <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
@@ -258,51 +258,6 @@
     </section>
     <!-- /.sidebar -->
   </aside>
-
-  <script type="text/javascript">
-        $(document).ready(function(){
-    setInterval(function(){
-          $.ajax({
-                url:"<?=base_url()?>hr/notif",
-                type:"POST",
-                dataType:"json",//datatype lainnya: html, text
-                data:{},
-                success:function(data){
-                    // alert(data.tot);
-                    if(data.tot != ''){
-
-                      $("#notif").show();
-                      $("#notif").html(data.tot);
-                      $("#notif2").html(data.tot);
-                    }
-                    //$("#total").html(data.tot);
-                }
-            });
-          },1000);
-  })
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-    setInterval(function(){
-          $.ajax({
-                url:"<?=base_url()?>hr/notif",
-                type:"POST",
-                dataType:"json",//datatype lainnya: html, text
-                data:{},
-                success:function(data){
-                    // alert(data.tot);
-                    if(data.tot != ''){
-
-                      $("#notif").show();
-                      $("#notif").html(data.tot);
-                      $("#notif2").html(data.tot);
-                    }
-                    //$("#total").html(data.tot);
-                }
-            });
-          },1000);
-  })
-    </script>
     
     <!-- sweetalert2 -->
     
@@ -321,7 +276,6 @@
 
                       $("#notif").show();
                       $("#notif").html(data.tot);
-                      $("#notif2").html(data.tot);
                     }
                     //$("#total").html(data.tot);
                 }
@@ -329,6 +283,31 @@
           },1000);
   })
     </script>
+
+<!-- notifikasi movement -->
+<script type="text/javascript">
+        $(document).ready(function(){
+    setInterval(function(){
+          $.ajax({
+                url:"<?=base_url()?>hr_movement/notif",
+                type:"POST",
+                dataType:"json",//datatype lainnya: html, text
+                data:{},
+                success:function(data){
+                    // alert(data.tot);
+                    if(data.tot != ''){
+          
+
+                      $("#notifmove").show();
+                      $("#notifmove").html(data.tot);
+                    }
+                    //$("#total").html(data.tot);
+                }
+            });
+          },1000);
+  })
+    </script>
+
     <script type="text/javascript">
         $(document).ready(function(){
     setInterval(function(){
@@ -343,6 +322,22 @@
 
                       $("#notifapv").show();
                       $("#notifapv").html(data.tot);
+                    }
+                    //$("#total").html(data.tot);
+                }
+            });
+
+            $.ajax({
+                url:"<?=base_url()?>hr_movement/notifApproval",
+                type:"POST",
+                dataType:"json",//datatype lainnya: html, text
+                data:{},
+                success:function(data){
+                    // alert(data.tot);
+                    if(data.tot != ''){
+
+                      $("#notifapv1").show();
+                      $("#notifapv1").html(data.tot);
                     }
                     //$("#total").html(data.tot);
                 }
