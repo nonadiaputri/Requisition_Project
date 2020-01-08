@@ -326,10 +326,8 @@ class Hr extends CI_Controller {
 	public function View($ID){
     $data['req'] = $this->Hire_model->get_hire_id($ID);
     $data['info'] = $this->Hire_model->get_apv_info($ID);
-    //var_dump($data['info']);
     $data['latest'] = $this->Hire_model->get_latest_apv($ID);
-    //var_dump($data['latest']);
-    var_dump($data['latest']);
+    $data['max'] = $this->Hire_model->get_max_apv($ID);
     $data["header"] = $this->load->view('header/v_header','',TRUE);
   	$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
   	$this->load->view('hr/v_view',$data);
@@ -338,10 +336,6 @@ class Hr extends CI_Controller {
  	function edit($ID){
 	 	$ID2 = $this->session->userdata('UserID');
 		$data['person'] = $this->Hire_model->get_related_per($ID2);
-	    // $data['hire'] = $this->Hire_model->get_new_req();
-	    // $data['prom'] = $this->Promotion3_model->get_new_promotion();
-	    // $data['all'] = count($data['prom']);
-	    // $data['tot'] = count($data['hire']);
     $data['row']= $this->Hire_model->get_hire_id($ID);
     //var_dump($data['row']);
 	  $data["header"] = $this->load->view('header/v_header','',TRUE);

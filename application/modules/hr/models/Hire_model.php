@@ -619,8 +619,20 @@ class Hire_model extends CI_Model
     $this->db->join('dbo.PersonnelTable b', 'a.EmployeeID = b.ID');
     $this->db->join('dbo.PositionTable c', 'a.PositionID = c.ID');
     $this->db->where('a.RequisitionID',$ID);
+    $this->db->order_by("ApprovalStatusID", "ASC");
+    // $this->db->limit(3);
+    $query = $this->db->get();
+    return $query->result_array();
+  }
+
+  function get_max_apv($ID){
+    $this->db->select('a.*, b.FullName as PersonnelName, c.Name as Position');
+    $this->db->from('dbo.RequisitionApprovalTable a');
+    $this->db->join('dbo.PersonnelTable b', 'a.EmployeeID = b.ID');
+    $this->db->join('dbo.PositionTable c', 'a.PositionID = c.ID');
+    $this->db->where('a.RequisitionID',$ID);
     $this->db->order_by("ApprovalStatusID", "DESC");
-    $this->db->limit(1);
+    // $this->db->limit(3);
     $query = $this->db->get();
     return $query->row_array();
   }
