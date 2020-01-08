@@ -218,7 +218,8 @@ class Hr_movement extends CI_Controller {
 
 		  $this->load->model('Movement_model');
 			$last_id = $this->Movement_model->Insert_data($data);
-			$get_last_id = $this->Movement_model->get_data_rn($data);
+		//	print_r($last_id);
+			 $get_last_id = $this->Movement_model->get_data_rn($last_id);
 			
 		//	$id = $this->session->userdata('UserID');
 			if ($last_id > 0) {
@@ -234,7 +235,7 @@ class Hr_movement extends CI_Controller {
 			
 				$res = $this->Movement_model->Insert_to_Approval($data1);
 
-				$Request = $this->Movement_model->get_sp_request_number($get_last_id);
+			//	$Request = $this->Movement_model->get_sp_request_number($get_last_id);
 			//	var_dump($data1);
 			//print_r($data1);
 					if ($res > 0 ) {

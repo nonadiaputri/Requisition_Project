@@ -346,12 +346,13 @@ class Movement_model extends CI_Model
         return $last_id;
       }
 
-      public function get_data_rn($data){
+      public function get_data_rn($ID){
         // $this->db->get('dbo.MovementRequestTable', $data);
         // $get_last_id = $this->db->get_id();
-        // return $get_last_id;
-        $this->db->select('id');
-        $get_last_id = $this->db->get('dbo.MovementRequestTable', $data);
+        //  return $get_last_id;
+        // $this->db->select('id');
+        // $get_last_id = $this->db->get('dbo.MovementRequestTable', $data);
+        $get_last_id = $this->db->query("EXEC spRequestNumber @ID = '$ID'");
         return $get_last_id;
       }
 
