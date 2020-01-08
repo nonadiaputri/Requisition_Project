@@ -64,6 +64,7 @@
                         <h4 class="page-header">
             Detail Requestor Information
           </h4>
+          <?php echo $latest[1][ 'PersonnelName']; ?>
                     </div>
                     <!-- /.col -->
                 </div>
@@ -216,9 +217,9 @@
                                         <fieldset class="checkbox">
                                             <label>
                                                 <input type="checkbox" value="" class="checkbox-apv-gm">Approved by
-                                                <?php echo $latest[ 'PersonnelName']; ?>
+                                                <?php echo $latest[1][ 'PersonnelName']; ?>
                                                 <br>&nbsp &nbsp as
-                                                <?php echo $latest[ 'Position']; ?>
+                                                <?php echo $latest[1][ 'Position']; ?>
                                             </label>
                                         </fieldset>
                                     </div>
@@ -230,9 +231,9 @@
                                         <fieldset class="checkbox">
                                             <label>
                                                 <input type="checkbox" value="" class="checkbox-hl-gm">Hold by
-                                                <?php echo $latest[ 'PersonnelName']; ?>
+                                                <?php echo $latest[1][ 'PersonnelName']; ?>
                                                 <br>&nbsp &nbsp as
-                                                <?php echo $latest[ 'Position']; ?>
+                                                <?php echo $latest[1][ 'Position']; ?>
                                             </label>
                                         </fieldset>
                                     </div>
@@ -244,9 +245,9 @@
                                         <fieldset class="checkbox">
                                             <label>
                                                 <input type="checkbox" value="" class="checkbox-rjt-gm">Rejected by
-                                                <?php echo $latest[ 'PersonnelName']; ?>
+                                                <?php echo $latest[1][ 'PersonnelName']; ?>
                                                 <br>&nbsp &nbsp as
-                                                <?php echo $latest[ 'Position']; ?>
+                                                <?php echo $latest[1][ 'Position']; ?>
                                             </label>
                                         </fieldset>
                                     </div>
@@ -259,9 +260,9 @@
                                         <fieldset class="checkbox">
                                             <label>
                                                 <input type="checkbox" class="checkbox-apv-hr">Approved by
-                                                <?php echo $latest[ 'PersonnelName']; ?>
+                                                <?php echo $latest[2][ 'PersonnelName']; ?>
                                                 <br>&nbsp &nbsp as
-                                                <?php echo $latest[ 'Position']; ?>
+                                                <?php echo $latest[2][ 'Position']; ?>
                                             </label>
                                         </fieldset>
                                     </div>
@@ -273,9 +274,9 @@
                                         <fieldset class="checkbox">
                                             <label>
                                                 <input type="checkbox" value="" class="checkbox-hl-hr">Hold by
-                                                <?php echo $latest[ 'PersonnelName']; ?>
+                                                <?php echo $latest[2][ 'PersonnelName']; ?>
                                                 <br>&nbsp &nbsp as
-                                                <?php echo $latest[ 'Position']; ?>
+                                                <?php echo $latest[2][ 'Position']; ?>
                                             </label>
                                         </fieldset>
                                     </div>
@@ -287,9 +288,9 @@
                                         <fieldset class="checkbox">
                                             <label>
                                                 <input type="checkbox" value="" class="checkbox-rjt-hr">Rejected by
-                                                <?php echo $latest[ 'PersonnelName']; ?>
+                                                <?php echo $latest[2][ 'PersonnelName']; ?>
                                                 <br>&nbsp &nbsp as
-                                                <?php echo $latest[ 'Position']; ?>
+                                                <?php echo $latest[2][ 'Position']; ?>
                                             </label>
                                         </fieldset>
                                     </div>
@@ -487,6 +488,7 @@
 </body>
 <script type="text/javascript">
 
+
     $('.searching').select2({
                 placeholder: 'Department Name',
                 ajax:{
@@ -524,10 +526,10 @@
             console.log(position_req);
 
             console.log("<?php echo $req['RequestorID'] ;?>");
-            var appstatus2 = "<?php echo $latest['ApprovalStatusID']; ?>";
-            var app_process2 = "<?php echo $latest['IsProcessedToHire']; ?>";
-            var app_hold2 = "<?php echo $latest['IsHold']; ?>";
-            var app_reject2 = "<?php echo $latest['IsRejected'] ; ?>";
+            var appstatus2 = "<?php echo $max['ApprovalStatusID']; ?>";
+            var app_process2 = "<?php echo $max['IsProcessedToHire']; ?>";
+            var app_hold2 = "<?php echo $max['IsHold']; ?>";
+            var app_reject2 = "<?php echo $max['IsRejected'] ; ?>";
             console.log(appstatus2);
 
             if (appstatus2 == '1') {
