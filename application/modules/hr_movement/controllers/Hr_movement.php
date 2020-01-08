@@ -276,6 +276,25 @@ class Hr_movement extends CI_Controller {
 		$this->load->view('hr_movement/v_need_approval',$data);
 	  }
 
+	  public function notif(){
+		//$parent = $this->session->userdata('ParentPersonnelID');
+		$ID = $this->session->userdata('ID2');
+		$req_dep = $this->session->userdata('OrganizationID');
+		
+		  $data['result'] = $this->Movement_model->get_new_req($ID, $req_dep);
+		  $data['tot'] = count($data['result']);
+		  echo json_encode($data);
+	   
+	  }
+
+	  public function notifApproval(){
+		$ID = $this->session->userdata('ID2');
+		$req_dep = $this->session->userdata('OrganizationID');
+		$data['result'] = $this->Movement_model->get_new_req_approval($ID, $req_dep);
+		$data['tot'] = count($data['result']);
+		echo json_encode($data);
+	  }
+
 	  public function myview_approve(){
 	  	$this->check();
 		$requestor_id = $this->session->userdata('ID2');

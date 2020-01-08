@@ -58,7 +58,7 @@
                     </a>
                   </li> -->
                   <li>
-                    <a href="#">
+                    <a href="<?= base_url(); ?>hr_movement/movement_history">
                       <i class="fa fa-exchange text-aqua"></i> 
                       <span id="navnotif3"></span>
                       New Request Movement 
@@ -199,16 +199,22 @@
                 success:function(data){
                     // alert(data.tot);
                     if(data.tot != ''){
-                      var a = data.tot;
-                      var b = data.tot;
-                      var c = a+b;
-                      
-                      $("#navnotif").show();
-                      $("#navnotif").html(c);
-
+                      $('#navnotif').show(data.tot);
                       $('#navnotif2').html(data.tot);
-                      //pura2 hr movement
-                      $('#navnotif3').html(data.tot);
+                    }
+                    //$("#total").html(data.tot);
+                }
+            });
+            $.ajax({
+                url:"<?=base_url()?>hr_movement/notif",
+                type:"POST",
+                dataType:"json",//datatype lainnya: html, text
+                data:{},
+                success:function(data){
+                    // alert(data.tot);
+                    if(data.tot != ''){
+                      $("#navnotif3").show();
+                      $("#navnotif3").html(data.tot);
                     }
                     //$("#total").html(data.tot);
                 }

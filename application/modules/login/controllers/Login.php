@@ -49,7 +49,7 @@ class Login extends CI_Controller {
 
 			redirect('dashboard');
 		}else{
-			$this->session->set_flashdata('message', 'Wrong NIK or Password!');
+			$this->session->set_flashdata('error', 'Wrong NIK or Password!');
 			echo "<script>alert('Wrong NIK or Password!');</script>";
 			redirect('login','refresh');
 		}
@@ -60,8 +60,6 @@ class Login extends CI_Controller {
 	{
 		//$this->aauth->logout();
 		$data = array('nik','is_login');
-		$logout = $this->session->set_flashdata('success','You are successfully Logout');
-		$nologout = $this->session->set_flashdata('error','You are still logged in');
 		$this->session->unset_userdata($data);	
 		$this->session->sess_destroy();
 		echo "<script>alert('Successfully Logged Out');</script>";

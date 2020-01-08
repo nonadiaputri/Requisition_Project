@@ -25,6 +25,8 @@
   <![endif]-->
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    
+
 </head>
 <body class="login-page" style="background-image: url('<?= base_url(); ?>assets/images/bg-login.jpg');">
 <div class="login-box">
@@ -59,9 +61,12 @@
         <div class="col-xs-12" style="margin:auto; padding:10%">
           <button type="submit" class="btn btn-primary btn-block" style="border-radius:20px;">Log In</button>
         </div>
+        
         <!-- /.col -->
       </div>
+      
     </form>
+    
 
     <!-- <div class="social-auth-links text-center">
       <p>- OR -</p>
