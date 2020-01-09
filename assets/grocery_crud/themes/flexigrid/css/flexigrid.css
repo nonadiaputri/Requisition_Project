@@ -8,7 +8,7 @@ table th
 /* CSS Document */
 .flexigrid {
 	font-family:Arial,Helvetica,sans-serif;
-	font-size:14px;
+	font-size:11px;
 	position:relative;
 	border:0px solid #eee;
 	overflow:hidden;
@@ -290,12 +290,12 @@ table th
 	border-top:0px;
 	background:#fff;
 	position:relative;
-	font-size:15px;
+	font-size:11px;
 	padding:0px 0px 10px 0px;
 }
 .flexigrid div.form-div select
 {
-	font-size: 15px;
+	font-size: 11px;
 	border: 1px solid #AAA;
 	padding: 5px 5px 5px 5px;
 	background: #fafafa;
@@ -306,7 +306,7 @@ table th
 }
 .flexigrid div.form-div input[type=text], .flexigrid div.form-div input[type=password]
 {
-	font-size: 15px;
+	font-size: 11px;
 	height:20px;
 	border: 1px solid #AAA;
 	padding: 5px 5px 5px 5px;
@@ -316,7 +316,7 @@ table th
 }
 .flexigrid div.form-div textarea
 {
-	font-size: 15px;
+	font-size: 11px;
 	border: 1px solid #AAA;
 	padding: 5px 5px 5px 5px;
 	background: #fafafa;
@@ -868,7 +868,7 @@ textarea.texteditor, textarea.mini-texteditor
   padding: 4px 10px 4px;
   margin-bottom: 0;
   *margin-left: .3em;
-  font-size: 13px;
+  font-size: 11px;
   line-height: 18px;
   *line-height: 20px;
   color: #333333;
@@ -965,7 +965,7 @@ textarea.texteditor, textarea.mini-texteditor
 
 .flexigrid .btn-large {
 	padding: 9px 14px;
-	font-size: 15px;
+	font-size: 11px;
 	line-height: normal;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -1446,7 +1446,7 @@ input[type="submit"].btn.btn-mini {
 }
 .ui-widget
 {
-	font-size: 12px !important;
+	font-size: 11px !important;
 }
 
 
@@ -1459,7 +1459,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .loading-opacity:before {
-	font-size: 26px;
+	font-size: 11px;
 	position:absolute;
 	color: #000;
 	content: "Loading...";

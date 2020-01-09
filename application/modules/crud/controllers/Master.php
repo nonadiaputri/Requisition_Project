@@ -22,6 +22,7 @@ class Master extends MX_Controller {
 		$this->load->database('db1');
 		try{
 			$crud = new grocery_CRUD();
+			//$crud->set_theme('datatables');
 
 			//$crud->set_theme('datatables');
 			$crud->set_table('OrganizationTable');
@@ -57,6 +58,7 @@ class Master extends MX_Controller {
 		$this->load->database('db1');
 		try{
 			$crud = new grocery_CRUD();
+			//$crud->set_theme('datatables');
 
 			//$crud->set_theme('datatables');
 			$crud->set_table('PersonnelTable');
@@ -83,6 +85,7 @@ class Master extends MX_Controller {
 		$this->load->database('db1');
 		try{
 			$crud = new grocery_CRUD();
+			//$crud->set_theme('datatables');
 
 			//$crud->set_theme('datatables');
 			$crud->set_table('CostCenterTable');

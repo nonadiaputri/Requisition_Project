@@ -44,7 +44,7 @@
               <div class="callout callout-danger">
                 
                 <h4><i class="icon fa fa-ban"></i> Access Forbidden!</h4>
-                Your Personnel Info is not registered! Please contact HR to resolve the problem
+                Your are not assigned as Head of Unit yet! Please contact HR to resolve the problem
               </div>
     
    
