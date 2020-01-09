@@ -188,7 +188,7 @@
                         <li><a href="https://www.kgmedia.id/our-story" target="_blank" title="Our Story">Our Story</a></li>
                         <li><a href="https://www.kgmedia.id/our-leader" target="_blank" title="Our Leadership">Our Leadership</a></li>
                         <li><a href="https://www.kgmedia.id/our-partners" target="_blank" title="Our Partners">Our Partners</a></li>
-                        <li><a href="/dashboard" title="Our Portal">Our Portal</a></li>
+                        <li><a href="<?= base_url(); ?>dashboard" title="Our Portal">Our Portal</a></li>
                     </ul>
                 </div> <!--- col-md-2 --->
             </div> <!--- row --->
