@@ -178,7 +178,7 @@
                   </div>
                 </div>
               </li>
-			  -->
+			  --> 
               <!-- Menu Footer-->
           <!-- Control Sidebar Toggle Button -->
           <!-- <li>

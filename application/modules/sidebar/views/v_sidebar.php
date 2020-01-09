@@ -22,7 +22,7 @@
           <a href="<?= base_url(); ?>dashboard/profile" class="btn btn-info btn-flat" style="color:#ffffff; border-radius:5%"><i class="fa fa-id-card"></i> Profile</a>
         </div>
         <div class="pull-right">
-          <a href="<?= base_url(); ?>logout" class="btn btn-warning btn-flat" style="color:#ffffff;border-radius:5%"><i class="fa fa-sign-out"></i> Logout</a>
+          <a href="<?= base_url(); ?>logout" onclick="return confirm('Are you sure want to Logout ?')" class="btn btn-warning btn-flat" style="color:#ffffff;border-radius:5%"><i class="fa fa-sign-out"></i> Logout</a>
         </div>
       </li>
       </ul>

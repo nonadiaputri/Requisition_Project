@@ -62,7 +62,7 @@ class Login extends CI_Controller {
 		$data = array('nik','is_login');
 		$this->session->unset_userdata($data);	
 		$this->session->sess_destroy();
-		echo "<script>alert('Successfully Logged Out');</script>";
+		// echo "<script>alert('Successfully Logged Out');</script>";
         	
 		redirect('login','refresh');
 	}

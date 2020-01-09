@@ -9,46 +9,47 @@ class Master extends MX_Controller {
 		
 		$this->load->helper('url');
 		$this->load->library('grocery_crud');
+		$this->load->model('Grocery_crud_model');
 	}
 	
 	//********** Contoh CRUD table office
 	
 	public function organization()
 	{
-		$coba1 = $this->session->userdata('nik');
-		var_dump($coba1);
+		// $coba1 = $this->session->userdata('nik');
+		// var_dump($coba1);
 
-		// $this->load->database('db1');
-		// try{
-		// 	$crud = new grocery_CRUD();
+		$this->load->database('db1');
+		try{
+			$crud = new grocery_CRUD();
 
-		// 	//$crud->set_theme('datatables');
-		// 	$crud->set_table('OrganizationTable');
-		// 	$crud->set_primary_key('ID','OrganizationTable');
-		// 	//$crud->set_subject('Office');
-		// 	$crud->required_fields('ID','Code','Name');
-		// 	$crud->columns('ID',
-		// 					'Code',
-		// 					'Name',
-		// 					'Description'
-		// 				);
+			//$crud->set_theme('datatables');
+			$crud->set_table('OrganizationTable');
+			$crud->set_primary_key('ID','OrganizationTable');
+			//$crud->set_subject('Office');
+			$crud->required_fields('ID','Code','Name');
+			$crud->columns('ID',
+							'Code',
+							'Name',
+							'Description'
+						);
 			
-		// 	$crud->fields('ID',
-		// 				'Code',
-		// 				'Name',
-		// 				'Description'
-		// 			);
-		// 	$output = $crud->render();
+			$crud->fields('ID',
+						'Code',
+						'Name',
+						'Description'
+					);
+			$output = $crud->render();
 			
-		// 	$data["output"] = (array)$output;
-		// 	$data["header"] = $this->load->view('header/v_header','',TRUE);
-		// 	$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+			$data["output"] = (array)$output;
+			$data["header"] = $this->load->view('header/v_header','',TRUE);
+			$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
 			
-		// 	$this->load->view('v_master',$data);			
+			$this->load->view('v_master',$data);			
 
-		// }catch(Exception $e){
-		// 	show_error($e->getMessage().' --- '.$e->getTraceAsString());
-		// }				
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}				
 	}
 
 	public function personnel()
@@ -106,7 +107,25 @@ class Master extends MX_Controller {
 
 	public function position()
 	{
+		 /**
+     * 
+     * Created by Geraldine Agusta
+     * 9 Januari 2020
+     * 
+     */
 		$this->load->database('db1');
+		// $list = $this->Grocery_crud_model->get_company_list();
+		$DB1 = $this->load->database('db1', TRUE);
+
+        $query=$DB1->query("SELECT ID, CONCAT (ID,' - ',Name) as fullname FROM CompanyTable ORDER BY Name ASC;");
+
+        $arr_ids = array();
+
+        foreach ($query->result() as $row)
+        {
+            $arr_ids[$row->ID]=$row->fullname;
+        }
+
 		try{
 			$crud = new grocery_CRUD();
 
@@ -114,9 +133,12 @@ class Master extends MX_Controller {
 			$crud->set_table('PositionTable');
 			$crud->set_primary_key('ID','PositionTable');
 			//$crud->set_subject('Office');
-			$crud->required_fields('Code','Name');
+			$crud->required_fields('Code','Name','AsHead','Level','AsDirector', 'HeadAssignmentCompanyID');
 			$crud->columns('ID','Code','Name','Description','CostCenterID');
-			$crud->fields('Code','Name','Description');
+			$crud->fields('Code','Name','Description','AsHead','Level','AsDirector', 'HeadAssignmentCompanyID');
+			$crud->field_type('HeadAssignmentCompanyID', 'dropdown', $arr_ids);
+			//$crud->set_relation_n_n('HeadAssignmentCompanyID','ID','Name','id_staf','id_unit','name','');
+			
 
 			$output = $crud->render();
 			
