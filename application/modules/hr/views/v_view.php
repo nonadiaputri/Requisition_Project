@@ -64,7 +64,6 @@
                         <h4 class="page-header">
             Detail Requestor Information
           </h4>
-          <?php echo $latest[1][ 'PersonnelName']; ?>
                     </div>
                     <!-- /.col -->
                 </div>
