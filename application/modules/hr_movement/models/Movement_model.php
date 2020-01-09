@@ -642,7 +642,7 @@ class Movement_model extends CI_Model
 
       
   function my_approve($ID){
-    $q = "select a.*, c.FullName, d.Name as DeptName
+    $q = "select a.*, c.FullName as RequestorName, d.Name as DeptName
           from dbo.MovementRequestTable a
           join dbo.PersonnelTable c
           on a.RequestorID = c.ID 
@@ -656,6 +656,44 @@ class Movement_model extends CI_Model
           from dbo.MovementRequestApprovalTable
           where IsProcessed=1)X
           group BY  MovementRequestID)Y)";
+     $query = $this->db->query($q);    
+     return $query->result_array();
+  }
+
+  function my_hold($ID){
+    $q = "select a.*,  c.FullName, d.Name as DeptName
+              from dbo.MovementRequestTable a
+              join dbo.PersonnelTable c
+              on a.RequestorID = c.ID 
+              join dbo.OrganizationTable d
+              on a.RequestorDepartmentID = d.ID
+              where RequestorID = '$ID'
+              and a.ID in (
+              select MovementRequestID from 
+              (select MovementRequestID, max(ApprovalStatusID ) as status from
+              (select * 
+              from dbo.MovementRequestApprovalTable
+              where IsHold=1)X
+              group BY  MovementRequestID)Y)";
+     $query = $this->db->query($q);    
+     return $query->result_array();
+  }
+
+  function my_reject($ID){
+    $q = "select a.*, c.FullName, d.Name as DeptName
+           from dbo.MovementRequestTable a
+           join dbo.PersonnelTable c
+           on a.RequestorID = c.ID 
+           join dbo.OrganizationTable d
+           on a.RequestorDepartmentID = d.ID
+           where RequestorID = '$ID'
+           and a.ID in (
+           select MovementRequestID from 
+           (select MovementRequestID, max(ApprovalStatusID) as status from
+            (select * 
+            from dbo.MovementRequestApprovalTable
+            where IsRejected=1)X
+            group BY  MovementRequestID)Y)";
      $query = $this->db->query($q);    
      return $query->result_array();
   }

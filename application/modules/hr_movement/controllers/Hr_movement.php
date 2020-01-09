@@ -569,6 +569,30 @@ class Hr_movement extends CI_Controller {
 		$this->load->view('hr_movement/v_my_approve_request',$data);
 	  }
 
+	  function myview_hold(){
+		$requestor_id = $this->session->userdata('ID2');
+		// $data['hold'] = $this->Hire3_model->hold($requestor_id);
+		// $data['jml'] = count($data['hold']);
+		$data['myhold'] = $this->Movement_model->my_hold($requestor_id);
+		// $data['myjml'] = count($data['myhold']);
+		$data["header"] = $this->load->view('header/v_header','',TRUE);
+		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+		$this->load->view('hr_movement/v_my_hold_request',$data);
+	  }
+	
+	  function myview_reject(){
+		$requestor_id = $this->session->userdata('PersonnelIDList');
+		// $data['hold'] = $this->Hire3_model->hold($requestor_id);
+		// $data['jml'] = count($data['hold']);
+		$data['myreject'] = $this->Movement_model->my_reject($requestor_id);
+		// $data['myhold'] = $this->Hire3_model->my_hold($requestor_id);
+		// $data['myjml'] = count($data['myhold']);
+		$data["header"] = $this->load->view('header/v_header','',TRUE);
+		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+		$this->load->view('hr_movement/v_my_reject_request',$data);
+	  }
+	
+
 	  function approved_req(){
 		$requestor_id = $this->session->userdata('ID2');
 		$data['status'] = $this->Movement_model->get_apv_req($requestor_id);
