@@ -61,6 +61,9 @@
         <div class="col-xs-12" style="margin:auto; padding:10%">
           <button type="submit" class="btn btn-primary btn-block" style="border-radius:20px;">Log In</button>
         </div>
+        <div class="col-xs-12" style="margin:auto;">
+          <a href="<?= base_url(); ?>login/register" class="btn btn-primary btn-block" style="border-radius:20px;">Register</a>
+        </div>
         
         <!-- /.col -->
       </div>
