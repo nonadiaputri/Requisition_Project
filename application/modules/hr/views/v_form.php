@@ -135,7 +135,6 @@
 	                    </select>
 	                    <br> -->
 	                </div>
-	                    <span id="error_position" class="text-danger"></span>
 	                </div>
 	                <div class="col-sm-12 offset-3">
 			            <button type="button" id="display-btn">Display Position in This Unit</button>
@@ -152,8 +151,9 @@
                       	<select class="form-control selectpicker" data-show-subtext="true" data-size="5" name="position" id="position" style="width:100%;"  required="required">
                           <option value=""></option>
                         </select>
-                        <span id="error_position" class="text-danger"></span>
+                        
                         <h6 id="note" style="display: none;color: red;font-style:Arial;">Contact HR Department to add other position if needed.</h6>
+                        <span id="error_position" class="text-danger"></span>
                       </div>
                 </div>
 	        </div>
@@ -234,8 +234,9 @@
                     </div>
                     <div class="col-md-8">
                     	<input class="form-control" type="date" id="workdate" name="workdate" min="2018-01-01" max="2030-12-31" required="required" >
+                      <span id="error_workdate" class="text-danger"></span>
                     </div>
-                        <span id="error_workdate" class="text-danger"></span>
+                        
                 </div>
             </div>
             <br>
@@ -744,7 +745,7 @@
         }
 
         if(ttl == ''){
-         error_ttl = 'Total is required';
+         error_ttl = 'Person/s need is required';
          $('#error_ttl').text(error_ttl);
          $('#ttl').css('border-color', '#cc0000');
          ttl = '';
@@ -812,7 +813,7 @@
         }
 
         if(responsibility == ''){
-         error_responsibility = 'Responsibility is required';
+         error_responsibility = 'Responsibilities is required';
          $('#error_responsibility').text(error_responsibility);
          $('#responsibility').css('border-color', '#cc0000');
          responsibility = '';

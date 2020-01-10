@@ -10,7 +10,7 @@ class Hr extends CI_Controller {
 		$this->load->model('Hire_model');
     }
 	
-	public function index()
+	public function request_form()
 	{
 		
       $dat = $this->check();
