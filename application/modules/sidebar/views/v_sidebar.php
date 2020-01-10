@@ -261,7 +261,7 @@
     
     <!-- sweetalert2 -->
     
-    <script type="text/javascript">
+   <!--  <script type="text/javascript">
         $(document).ready(function(){
     setInterval(function(){
           $.ajax({
@@ -282,10 +282,10 @@
             });
           },200);
   })
-    </script>
+    </script> -->
 
 <!-- notifikasi movement -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
         $(document).ready(function(){
     setInterval(function(){
           $.ajax({
@@ -344,5 +344,5 @@
             });
           },200);
   })
-    </script>
+    </script> -->
     

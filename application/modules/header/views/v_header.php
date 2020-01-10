@@ -188,7 +188,7 @@
       </div>
     </nav>
   </header>
-  <script type="text/javascript">
+<!--   <script type="text/javascript">
         $(document).ready(function(){
     setInterval(function(){
           $.ajax({
@@ -221,5 +221,5 @@
             });
           },200);
   })
-    </script>
+    </script> -->
     
