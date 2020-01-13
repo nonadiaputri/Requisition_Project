@@ -29,7 +29,7 @@
 
 </head>
 <body class="login-page" style="background-image: url('<?= base_url(); ?>assets/images/bg-login.jpg');">
-<div class="login-box">
+<div class="register-box">
 
   <!-- /.login-logo -->
   <div class="login-box-body" style="border-radius:20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
@@ -58,11 +58,11 @@
 		-->
         </div>
         <!-- /.col -->
-        <div class="col-xs-12" style="margin:auto; padding:10%">
+        <div class="col-xs-12" style="margin:auto;">
           <button type="submit" class="btn btn-primary btn-block" style="border-radius:20px;">Log In</button>
         </div>
         <div class="col-xs-12" style="margin:auto;">
-          <a href="<?= base_url(); ?>login/register" class="btn btn-primary btn-block" style="border-radius:20px;">Register</a>
+          <a href="<?= base_url(); ?>login/register">Don't have an account? Click here.</a>
         </div>
         
         <!-- /.col -->

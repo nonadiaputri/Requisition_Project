@@ -18,8 +18,15 @@
   <link rel="stylesheet" href="<?= base_url(); ?>assets/plugins/iCheck/square/blue.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/css/bootstrap-select.min.css" />
-<!-- bootstrap datepicker -->
-<link rel="stylesheet" href="../../bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <!-- bootstrap datepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -34,20 +41,20 @@
 
 </head>
 <body class="login-page" style="background-image: url('<?= base_url(); ?>assets/images/bg-login.jpg');">
-<div class="login-box">
-<div class="col-md-12">
+<div class="login-box" style="width:auto">
+<div class="col-sm-6">
 
   <!-- /.login-logo -->
-  <div class="login-box-body" style="border-radius:20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+  <div class="login-box-body" style="border-radius:20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); ">
 
-	<img src="<?= base_url(); ?>assets/images/kgmedia.png" alt="KGMedia Mission" style="width:100%; margin:auto; padding:10%">
+	<img src="<?= base_url(); ?>assets/images/kgmedia.png" alt="KGMedia Mission" style="width:20%; margin-left:40%; ">
 
-    <p class="login-box-msg">Register Form</p>
+    <h3 class="login-box-msg">Register Form KGMedia Portal</h3>
 	
     <form action="#" method="post">
         <div class="form-group has-feedback">
             <input type="text" name="uid" class="form-control" placeholder="NIK">
-            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            <span class="glyphicon glyphicon-briefcase form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
             <input type="text" name="name" class="form-control" placeholder="Your Name">
@@ -96,7 +103,7 @@
         </div>
         <div class="form-group has-feedback">
             <input type="tel" name="tel" class="form-control" placeholder="Your Phone Number">
-            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            <span class="glyphicon glyphicon-earphone form-control-feedback"></span>
         </div>
         
               <!-- Date -->
@@ -105,7 +112,7 @@
 
                 <div class="input-group date">
                   <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
+                    <i class="glyphicon glyphicon-calendar"></i>
                   </div>
                   <input type="text" class="form-control pull-right" id="datepicker">
                 </div>
@@ -124,16 +131,19 @@
             -->
             </div>
             <!-- /.col -->
-            <div class="col-xs-12" style="margin:auto; padding:10%">
-            <button type="submit" class="btn btn-primary btn-block" style="border-radius:20px;">Submit</button>
+            <div class="col-xs-12" style="margin:auto; padding:10px">
+                <button type="submit" class="btn btn-primary btn-block" style="border-radius:20px;">Submit</button>
             </div>
-            
+            <div class="col-xs-12" style="margin:auto; padding:10%">
+            <a href="<?= base_url(); ?>login/index">Already Registered? Login here</a>
+            <div class="col-xs-12" style="margin:auto; padding-top:10px">
             <!-- /.col -->
         </div>
       
     </form>
 
-  </div></div>
+  </div>
+  </div>
     
 
     <!-- <div class="social-auth-links text-center">
@@ -154,25 +164,19 @@
 <!-- /.login-box -->
 
 <!-- jQuery 3 -->
-<script src="<?= base_url(); ?>assets/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- <script src="<?= base_url(); ?>assets/bower_components/jquery/dist/jquery.min.js"></script> -->
 <!-- Bootstrap 3.3.7 -->
-<script src="<?= base_url(); ?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- <script src="<?= base_url(); ?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
 <!-- iCheck -->
 <script src="<?= base_url(); ?>assets/plugins/iCheck/icheck.min.js"></script>
 <script>
   $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' /* optional */
+   //Date picker
+    $('#datepicker').datetimepicker({ 
+        format: 'DD/MM/YYYY'
     });
-
-    //Date picker
-    $('#datepicker').datepicker({
-        autoclose: true
-        });
-
   });
+    
 </script>
 
 </body>
