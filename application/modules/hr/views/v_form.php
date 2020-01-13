@@ -207,16 +207,33 @@
                 </div>
 	        </div>
           <br>
+
+          <div class="row">
+            <div class="form-group ">
+                    <div class="col-md-8">
+                        <label class="control-label col-form-label">Requisition Type</label>
+                      
+                      <select class="form-control" name="req_status" id="req_status" required="required">
+                        <option value="" selected>Pilih</option>
+                        <option value="1">Additional</option>
+                        <option value="2">Replacement</option>
+                      </select>
+                    <span id="error_req_status" class="text-danger"></span>
+                  </div>
+                </div>
+          </div>
+          <br>
+
 	        <div class="row">
 	        	<div class="form-group ">
                     <div class="col-md-8">
-                        <label class="control-label col-form-label">Status</label>
+                        <label class="control-label col-form-label">Employee Status</label>
                       
 	                    <select class="form-control" name="status" id="status" required="required">
 	                      <option value="" selected>Pilih</option>
-	                      <option value="1">Additional</option>
-	                      <option value="2">Replacement</option>
 	                      <option value="5">Profesional Contract</option>
+                        <option value="">Contract</option>
+                        <option value="">Contract to Permanent</option>
 	                      <option value="6">Freelance</option>
 	                      <option value="7">Internship</option>
 	                      <option value="8">Outsourcing</option>  
