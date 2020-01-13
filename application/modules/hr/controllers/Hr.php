@@ -173,11 +173,22 @@ class Hr extends CI_Controller {
 		$this->load->database();
 		if(!empty($this->input->get("q"))){
 				$compClue = $this->input->get("q");
-				$data = $this->Hire_model->get_search_placement($compClue, 'Name');
+				$data = $this->Hire_model->f($compClue, 'Name');
 				
 			}
 			echo json_encode($data);
 	}
+
+  function select_company(){
+    $json = [];
+    $this->load->database();
+    if(!empty($this->input->get("q"))){
+        $compClue = $this->input->get("q");
+        $data = $this->Hire_model->get_search_company($compClue, 'Name');
+        
+      }
+      echo json_encode($data);
+  }
 
   function select_personnel1(){
     $json = [];
@@ -211,6 +222,7 @@ class Hr extends CI_Controller {
 	    $ReplacementName = $this->input->post('ReplacementName');
 	    $requirement = $this->input->post('requirement');
 	    $responsibility = $this->input->post('responsibility');
+      $company = $this->input->post('company');
       $id = $this->session->userdata('UserID');
       var_dump($id);
 
@@ -227,7 +239,8 @@ class Hr extends CI_Controller {
 	      'DuttiesAndResponsibilities' => $responsibility,
 	      'PlacementID' => $placement,
         'CreatedByID' => $id,
-        'LastModifiedByID' => $id
+        'LastModifiedByID' => $id,
+        'RequestedCompanyID' => $company
 	      );
 
 	    $this->load->model('Hire_model');
@@ -269,6 +282,7 @@ class Hr extends CI_Controller {
 	    $ReplacementName = $this->input->post('ReplacementName');
 	    $requirement = $this->input->post('requirement');
 	    $responsibility = $this->input->post('responsibility');
+      $company = $this->input->post('company');
 	    $IsProcessedToHire = '2';
       $id = $this->session->userdata('UserID');
 
@@ -286,7 +300,8 @@ class Hr extends CI_Controller {
 	      'PlacementID' => $placement,
 	      'IsProcessedToHire' => $IsProcessedToHire,
         'CreatedByID'=>$id,
-        'LastModifiedByID'=>$id
+        'LastModifiedByID'=>$id,
+        'RequestedCompanyID' => $company
 	      );
 
 	    //print_r($data);
@@ -361,6 +376,7 @@ class Hr extends CI_Controller {
     $ReplacementName = $this->input->post('ReplacementName');
     $requirement = $this->input->post('requirement');
     $responsibility = $this->input->post('responsibility');
+    $company = $this->input->post('company');
     $IsProcessedToHire = '0';
     $id_user = $this->session->userdata('UserID');
 
@@ -375,7 +391,8 @@ class Hr extends CI_Controller {
       'PlacementID' => $placement,
       'IsProcessedToHire' => $IsProcessedToHire,
       'CreatedByID' =>$id_user,
-      'LastModifiedByID' => $id_user
+      'LastModifiedByID' => $id_user,
+      'RequestedCompanyID' => $company
       );
 
     $data1 = array(
@@ -410,6 +427,7 @@ class Hr extends CI_Controller {
     $ReplacementName = $this->input->post('ReplacementName');
     $requirement = $this->input->post('requirement');
     $responsibility = $this->input->post('responsibility');
+    $company = $this->input->post('company');
     $IsProcessedToHire = '2';
 
     
@@ -426,7 +444,8 @@ class Hr extends CI_Controller {
       'RequirementDescription' => $requirement,
       'DuttiesAndResponsibilities' => $responsibility,
       'PlacementID' => $placement,
-      'IsProcessedToHire' => $IsProcessedToHire
+      'IsProcessedToHire' => $IsProcessedToHire,
+      'RequestedCompanyID' => $company
       );
     $res = $this->Hire_model->update_saved_data($data, $ID);
     //print_r($res);

@@ -101,7 +101,13 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Placement</td>
+                                    <td>Company</td>
+                                    <td>
+                                        <?php echo $req[ 'CompanyName']; ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Cost Center</td>
                                     <td id="Placement">
                                         <?php echo $req[ 'Placement']; ?>
                                     </td>

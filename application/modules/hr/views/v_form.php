@@ -181,6 +181,19 @@
                 </div>
 	        </div>
           <br>
+          <div class="row">
+            <div class="form-group">
+                  <div class="col-md-8">
+                    <label class="control-label col-form-label">Company</label>
+                  
+                    <select class="company form-control" name="company" id="company" style="width:100%;"  required="required">
+                      <option value=""></option>
+                    </select>
+                    <span id="error_company" class="text-danger"></span>
+                  </div>
+                </div>
+          </div>
+          <br>
 	        <div class="row">
 	        	<div class="form-group">
                   <div class="col-md-8">
@@ -386,9 +399,33 @@
    var option_value;
    
             $('.searching').select2({
-                placeholder: 'Department Name',
+                placeholder: 'Cost Center Name',
                 ajax:{
                     url: "<?php echo base_url('hr/select2'); ?>",
+                    dataType: "json",
+                    delay: 250,
+                    processResults: function(data){
+                        var results = [];
+
+                        $.each(data, function(index, item){
+                            results.push({
+                                id: item.ID,
+                                text: item.Name,
+                                option_value:item.ID
+                            });     
+                        });
+                        return{
+                            results: results,
+                            cache: true,
+                        };
+                    },
+                }
+            });
+
+            $('.company').select2({
+                placeholder: 'Company Name',
+                ajax:{
+                    url: "<?php echo base_url('hr/select_company'); ?>",
                     dataType: "json",
                     delay: 250,
                     processResults: function(data){
@@ -635,6 +672,7 @@
       var ReplacementName = $('#ReplacementName').val();
       var responsibility = CKEDITOR.instances["responsibility"].getData();
       var requirement = CKEDITOR.instances["requirement"].getData();
+      var company = $('#company').val();
       //console.log("btn click"+req_position_id);
 
       $.ajax({
@@ -645,6 +683,7 @@
                'org_id' : org_id,
                'position':position,
                'total':total,
+               'company':company,
                'placement':placement, 
                'status':status,
                'workdate':workdate,
@@ -678,6 +717,7 @@
         var responsibility = CKEDITOR.instances["responsibility"].getData();
         var requirement = CKEDITOR.instances["requirement"].getData();
         var ttl = $('#ttl').val();
+        var company = $('#company').val();
 
         var error_requestor = '';
         var error_req_position = '';
@@ -691,6 +731,7 @@
         var error_requirement = '';
         var error_responsibility = '';
         var error_ttl = '';
+        var error_company = '';
 
         // if(requestor == ''){
         //  error_requestor = 'Requestor Name is required';
@@ -718,18 +759,18 @@
         //  req_position = $('#req_position').val();
         // }
 
-        // if(req_org == ''){
-        //  error_req_org = 'Organization is required';
-        //  $('#error_req_org').text(error_req_org);
-        //  $('#req_org').css('border-color', '#cc0000');
-        //  req_org = '';
-        // }else{
-        //  error_req_org = '';
-        //  console.log($('#req_org').val());
-        //  $('#error_req_org').text(error_req_org);
-        //  $('#req_org').css('border-color', '');
-        //  req_org = $('#req_org').val();
-        // }
+        if(company == ''){
+         error_company = 'Company is required';
+         $('#error_company').text(error_company);
+         $('#company').css('border-color', '#cc0000');
+         company = '';
+        }else{
+         error_company = '';
+         console.log($('#company').val());
+         $('#error_company').text(error_company);
+         $('#company').css('border-color', '');
+         company = $('#company').val();
+        }
 
         if(position == ''){
          error_position = 'Position is required';
@@ -858,6 +899,7 @@
       var ReplacementName = $('#ReplacementName').val();
       var responsibility = CKEDITOR.instances["responsibility"].getData();
       var requirement = CKEDITOR.instances["requirement"].getData();
+      var company = $('#company').val();
 
       $.ajax({
         url:"<?php echo base_url('hr/submit_hire');?>",
@@ -865,6 +907,7 @@
         data:{ 'requestor_id':requestor_id,
                'req_position_id':req_position_id,
                'org_id' : org_id,
+               'company' : company,
                // 'req_position':req_position,
                // 'req_org' : req_org,
                'position':position,

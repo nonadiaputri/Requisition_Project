@@ -182,7 +182,7 @@ class Hire_model extends CI_Model
   {
     $q = 'select a.*, b.Name as Placement, c.Name as Status, 
       d.Name as Requestor, e.Name as requestor_pos,
-      f.FullName as RepName, g.Name as requested_pos, h.Name as DeptName
+      f.FullName as RepName, g.Name as requested_pos, h.Name as DeptName, i.Name as CompanyName
       from dbo.RequisitionTable a
       left join dbo.CostCenterTable b
       on a.PlacementID = b.ID
@@ -197,7 +197,9 @@ class Hire_model extends CI_Model
       left join dbo.PositionTable g
       on a.RequestedPositionID = g.ID
       left join dbo.OrganizationTable h 
-      on a.RequestorDepartmentID = h.ID  where a.ID='.$ID;
+      on a.RequestorDepartmentID = h.ID
+      left join dbo.CompanyTable i
+      on a.RequestedCompanyID = i.ID  where a.ID='.$ID;
     $query = $this->db->query($q);
     //$query = $this->db->get_where('dbo.RequisitionTable',$ID);
     return $query->row_array();
@@ -586,10 +588,17 @@ class Hire_model extends CI_Model
   }
 
   function get_search_placement($compClue){
-            $this->db->select("*");
-            $this->db->like('Name', $compClue);
-            $data = $this->db->from('dbo.CostCenterTable')->get();
-            return $data->result_array();
+    $this->db->select("*");
+    $this->db->like('Name', $compClue);
+    $data = $this->db->from('dbo.CostCenterTable')->get();
+    return $data->result_array();
+  }
+
+  function get_search_company($compClue){
+    $this->db->select("*");
+    $this->db->like('Name', $compClue);
+    $data = $this->db->from('dbo.CompanyTable')->get();
+    return $data->result_array();
   }
 
   function get_search_personnel($compClue){
@@ -635,7 +644,7 @@ class Hire_model extends CI_Model
     // $this->db->limit(3);
     $query = $this->db->get();
     return $query->row_array();
-  }
+   }
 
   function search_info($ID){
     // $this->db->select('A.ID, a.FullName, b.PositionID, c.Name as PositionName, d.OrganizationUnitID as Organization, e.Name as OrganizationName ');
