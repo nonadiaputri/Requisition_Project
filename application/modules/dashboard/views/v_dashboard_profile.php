@@ -78,12 +78,37 @@
                   <b>Friends</b> <a class="pull-right">13,287</a>
                 </li>
               </ul>
-
-              <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+              <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#update"><span class="glyphicon glyphicon-user"></span>Update my profile</a>
+              <!-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> -->
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
+
+          <!-- Modal Update Profile -->
+          <div id="update" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content -->
+                <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Update profile form</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" value = "<?= $_SESSION['name'];?>"></input>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+                </div>
+                </div>
+            </div>
+          </div>
 
           <!-- About Me Box -->
           <div class="box box-primary">
@@ -403,18 +428,15 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url();?>assets/dist/js/demo.js"></script>
 <!-- page script -->
-<!-- <script>
-  $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-  })
+<!-- <script type="text/javascript">
+  function load() {
+    var id = " <?php echo $row['nik'];?>";
+    if (id != '' ){
+        $('#name').val("<?php echo $row['name'];?>");
+    }
+    
+  }
+  window.onload = load;
 </script> -->
 </body>
 </html>

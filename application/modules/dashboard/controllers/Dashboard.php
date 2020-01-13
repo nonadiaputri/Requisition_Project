@@ -25,5 +25,5 @@ class Dashboard extends CI_Controller {
 		$data['person'] = $this->Dashboard_model->profile($nik);
 		$this->load->view('v_dashboard_profile', $data);
 	}
-	
+
 }
