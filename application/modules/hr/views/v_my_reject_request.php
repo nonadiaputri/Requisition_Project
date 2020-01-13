@@ -56,7 +56,7 @@
 
     <section class="content">
       <div class="btn-group">
-        <button type="button" class="btn btn-info">Your Request</button>
+        <button type="button" class="btn btn-info">My Request</button>
         <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
           <span class="caret"></span>
           <span class="sr-only">Toggle Dropdown</span>
@@ -68,7 +68,7 @@
         </ul>
       </div>
       <div class="btn-group">
-        <button type="button" class="btn btn-info">Other Request</button>
+        <button type="button" class="btn btn-info">Approval Request</button>
         <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
           <span class="caret"></span>
           <span class="sr-only">Toggle Dropdown</span>

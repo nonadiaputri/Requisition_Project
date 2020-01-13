@@ -633,7 +633,7 @@ class Movement_model extends CI_Model
 
       public function myview_approve(){
         $requestor_id = $this->session->userdata('ID2');
-        $data['status'] = $this->Promotion_model->my_approve($requestor_id);
+        $data['status'] = $this->Movement_model->my_approve($requestor_id);
         //var_dump($data['need_app']);
         $data["header"] = $this->load->view('header/v_header','',TRUE);
         $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
