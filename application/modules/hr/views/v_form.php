@@ -197,7 +197,7 @@
 	        <div class="row">
 	        	<div class="form-group">
                   <div class="col-md-8">
-                    <label class="control-label col-form-label">Placement</label>
+                    <label class="control-label col-form-label">Cost Center</label>
                   
                     <select class="searching form-control" name="placement" id="placement" style="width:100%;"  required="required">
                       <option value=""></option>

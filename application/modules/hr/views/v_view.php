@@ -55,6 +55,10 @@
                     <h4>Warning!</h4>
                     <p>You don't have access to approve</p>
                 </div>
+                <div class="callout callout-danger" id="lbl-rec-notif" style="display: none;">
+                    <h4>Warning!</h4>
+                    <p>Choose appropriate Cost Center before Save!</p>
+                </div>
             </div>
             <!-- Main content -->
             <section class="invoice">
@@ -106,10 +110,18 @@
                                         <?php echo $req[ 'CompanyName']; ?>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr id="cc">
                                     <td>Cost Center</td>
                                     <td id="Placement">
                                         <?php echo $req[ 'Placement']; ?>
+                                    </td>
+                                </tr>
+                                <tr id="cc_rec" style="display: none;">
+                                    <td>Cost Center</td>
+                                    <td> 
+                                        <select class="cc form-control" name="cost-center" id="cost-center" style="width:100%;"  required="required">
+                                          <option value=""></option>
+                                        </select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -310,6 +322,7 @@
                             <button type="button" class="btn btn-danger pull-right" id="button-reject" data-toggle="modal" data-target="#reject" style="margin-right: 5px;">Reject</button>
                             <button type="button" class="btn btn-warning pull-right" id="button-hold" data-toggle="modal" data-target="#hold" style="margin-right: 5px;">Hold</button>
                             <button type="button" class="btn btn-success pull-right" id="button-process" data-toggle="modal" data-target="#process" style="margin-right: 5px;">Approve</button>
+                            <button type="button" class="btn btn-success btn-sx" id="button-save"  style="margin-right: 5px;display: none;">Save</button>
                         </div>
                     </div>
             </section>
@@ -518,6 +531,30 @@
                 }
             });
 
+    $('.cc').select2({
+                placeholder: 'Cost Center Name',
+                ajax:{
+                    url: "<?php echo base_url('hr/select2'); ?>",
+                    dataType: "json",
+                    delay: 250,
+                    processResults: function(data){
+                        var results = [];
+
+                        $.each(data, function(index, item){
+                            results.push({
+                                id: item.ID,
+                                text: item.Name,
+                                option_value:item.ID
+                            });     
+                        });
+                        return{
+                            results: results,
+                            cache: true,
+                        };
+                    },
+                }
+            });
+
      $(document).ready(function(){
             var id_req = '<?php echo $req['ID']; ?>';
             console.log(id_req);
@@ -535,7 +572,8 @@
             var app_process2 = "<?php echo $max['IsProcessedToHire']; ?>";
             var app_hold2 = "<?php echo $max['IsHold']; ?>";
             var app_reject2 = "<?php echo $max['IsRejected'] ; ?>";
-            console.log(appstatus2);
+            var rec = "<?php echo $req['LastModifiedById'] ?>";
+            console.log(rec);
 
             if (appstatus2 == '1') {
                 if (reqstor == <?php echo $req['RequestorID'] ;?> && app_process == '0' &&  app_reject == '0' && app_hold == '0'){
@@ -561,9 +599,9 @@
                     $('#button-process').show();
                     $('#button-hold').show();
                     $('#button-reject').show();
-                    if (app_process2 == '1') {
-                        $('#edit-cost-center').modal('show');
-                    }
+                    // if (app_process2 == '1') {
+                    //     $('#edit-cost-center').modal('show');
+                    // }
                 }else{
                     $('#button-process').hide();
                     $('#button-hold').hide();
@@ -588,6 +626,14 @@
                     $('.checkbox-mngr').prop('checked', true);
                     $('.checkbox-rjt-gm').prop('checked', true);
                     $('#reject-by').show();
+                }
+                if (rec == '146') {
+
+                }else{
+                    $('#button-save').show();
+                    $('#cc_rec').show();
+                    $('#cc').hide();
+                    $('#lbl-rec-notif').show();
                 }
             }
 
@@ -673,6 +719,23 @@
                     if (status) {
                         $('#edit-cost-center').modal('hide');
                         $('#Placement').html(cost_center_text);
+                    }   
+                   },
+                error: function() {
+                    alert('Approval failed');
+                }
+            });
+            });
+
+            $('#button-save').click(function(){
+                cost_center_new = $('#cost-center').val();
+                $.ajax({
+                method: 'POST',
+                url: '<?php echo base_url('Hr/update_cost_center/');?>'+id_req,
+                data: {cost_center : cost_center_new},
+                success: function(status) {
+                    if (status) {
+                        alert("success");
                     }   
                    },
                 error: function() {
@@ -797,7 +860,9 @@
                 $('#reject').modal('hide');
             }
             });
-        });
+     
+
+     });
 
 </script>
 

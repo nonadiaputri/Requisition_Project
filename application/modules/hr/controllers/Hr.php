@@ -156,6 +156,7 @@ class Hr extends CI_Controller {
 
 	function chs_dep(){
 		$ID = $this->input->post('ID');
+
 		$where = array('ParentID'=>$ID);
 		$data = $this->Hire_model->chs_dep($where);
 		echo json_encode($data);
@@ -173,7 +174,7 @@ class Hr extends CI_Controller {
 		$this->load->database();
 		if(!empty($this->input->get("q"))){
 				$compClue = $this->input->get("q");
-				$data = $this->Hire_model->f($compClue, 'Name');
+				$data = $this->Hire_model->get_Search_placement($compClue, 'Name');
 				
 			}
 			echo json_encode($data);
@@ -597,6 +598,8 @@ class Hr extends CI_Controller {
 
   function need_approval(){
     $requestor_id = $this->session->userdata('ID2');
+    $nik = $this->session->userdata('nik');
+    
     $pos = $this->session->userdata('Position');
     $val = strpos($pos,'Transito Adimanjati Director');
     //var_dump($val);
@@ -605,6 +608,9 @@ class Hr extends CI_Controller {
     }
     if(strpos($pos,'Transito Adimanjati Director') === 0){
       $data['need_app']=$this->Hire_model->need_approval_hr();
+    }
+    if ($nik == '026061') {
+      $data['need_app'] = $this->Hire_model->need_approval_recruiter();
     }
     $data["header"] = $this->load->view('header/v_header','',TRUE);
     $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
@@ -681,12 +687,17 @@ class Hr extends CI_Controller {
   function update_cost_center($ID){
     
     $cost_center = $this->input->post('cost_center');
+    $modif = $this->session->userdata('ID');
+    var_dump($ID);
 
-    $data = array('PlacementID'=>$cost_center);
+    $data = array('PlacementID'=>$cost_center,
+                  'LastModifiedByID'=>$modif);
+    var_dump($data);
 
     $res =$this->Hire_model->update_cost_center($data, $ID);
     if ($res > 0) {
        echo json_encode(array('status'=>true));
+       $this->need_approval();
       }else{
       echo json_encode(array('status'=>false));
       }

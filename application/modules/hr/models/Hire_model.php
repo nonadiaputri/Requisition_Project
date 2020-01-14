@@ -754,7 +754,27 @@ class Hire_model extends CI_Model
                           from dbo.RequisitionApprovalTable
                           group by RequisitionID, IsProcessedToHire)a
                           where a.status = 2
-                          and a.IsProcessedToHire = 1)");
+                          and a.IsProcessedToHire = 1)
+                          and a.LastModifiedById = 146");
+    return $q->result_array();
+  }
+
+  function need_approval_recruiter(){
+    $modify = $this->session->userdata('ID');
+    $q = $this->db->query("select a.*, b.Name as DeptName,  c.FullName as requestor
+                          from dbo.RequisitionTable a
+                          join dbo.OrganizationTable b
+                          on a.RequestorDepartmentID = b.ID
+                          join dbo.PersonnelTable c
+                          on a.RequestorID = c.ID 
+                          where a.ID in (select RequisitionID from 
+                          (select distinct RequisitionID, max(ApprovalStatusID) as status,IsProcessedToHire
+                          from dbo.RequisitionApprovalTable
+                          group by RequisitionID, IsProcessedToHire)a
+                          where a.status = 2
+                          and a.IsProcessedToHire = 1)
+                          and a.LastModifiedById != '$modify'");
+
     return $q->result_array();
   }
 
