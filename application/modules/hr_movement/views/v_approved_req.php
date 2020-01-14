@@ -101,12 +101,12 @@
                     <?php foreach($status as $row){ ?>
                     <tr>
                         <td width="10%"><?php echo $num; ?></td>
-                        <td width="20%"><?php echo $row['RequestorName']; ?></td>
+                        <td width="20%"><?php echo $row['requestor']; ?></td>
                         <td width="20%"><?php echo $row['DeptName']; ?></td>
                         <td width="20%"><?php echo $row['ProcessStartDate']; ?></td>
                         <td>Approved</td>
                         <td width="20%" align="center">
-                            <a href ="<?php echo base_url('hr_movement/View/'.$row['RequisitionID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
+                            <a href ="<?php echo base_url('hr_movement/View/'.$row['MovementRequestID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
                         </td>
                     </tr>
                     <?php $num++; } ?>

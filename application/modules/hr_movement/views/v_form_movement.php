@@ -142,84 +142,160 @@
                               
                               <input type="text" name="current_position" id="current_position" required="required" class="form-control" readonly>
                               <input type="hidden" name="current_position_id" id="current_position_id" required="required" class="form-control">
-                              <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control">
+                              <!-- <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control"> -->
                               <span id="error_current_position" class="text-danger"></span>
                           </div>
 
                           <div class="col-sm-6">
-                                  <label class="control-label col-form-label">New Position</label>
-                                
-                                  <select class="form-control chs-select" name="new_position" id="new_position" style="width:90%" required="required">
-                                      <option default>Select New Position</option>
-                                      <?php foreach ($pos as $pos) { ?>
-                                      <option value="<?php echo $pos['ID'];?>"><?php echo $pos['Name'];?></option>
-                                      <?php } ?>
-                                  </select>
-                                  <input type="hidden" name="new_org_id" id="new_org_id" required="required" class="form-control">
-                                  <span id="error_new_position" class="text-danger"></span>
+                              <label class="control-label col-form-label">New Position</label>
+                              <select class="form-control chs-select" name="new_position" id="new_position" style="width:90%" required="required">
+                                  <option default>Select New Position</option>
+                                  <?php foreach ($pos as $pos) { ?>
+                                  <option value="<?php echo $pos['ID'];?>"><?php echo $pos['Name'];?></option>
+                                  <?php } ?>
+                              </select>
+                              <input type="hidden" name="new_org_id" id="new_org_id" required="required" class="form-control">
+                              <span id="error_new_position" class="text-danger"></span>
                           </div>
-
-                          
                         </div>
 
 
-                                     
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label">Current Organization</label>
+                                <input type="text" name="current_org" id="current_org" required="required" class="form-control" readonly>
+                                <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control">
+                                <span id="error_current_position" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label">New Organization</label>
+                                <input type="text" name="new_org" id="new_position" required="required" class="form-control" readonly>
+                                <input type="hidden" name="new_org_id" id="new_org_id" required="required" class="form-control">
+                                <span id="error_new_position" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <div class="col-sm-6">
+                              <label class="control-label col-form-label">Current Director Placement</label>
+                              <input type="text" name="current_dp" id="current_dp" required="required" class="form-control" readonly>
+                              <input type="hidden" name="current_dp_id" id="current_dp_id" required="required" class="form-control">
+                              <span id="error_current_position" class="text-danger"></span>
+                          </div>
+                          <div class="col-sm-6">
+                              <label class="control-label col-form-label">New Director Placement</label>
+                              <input type="text" name="new_dp" id="new_dp" required="required" class="form-control" readonly>
+                              <input type="hidden" name="new_dp_id" id="new_dp_id" required="required" class="form-control">
+                              <span id="error_new_position" class="text-danger"></span>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <div class="col-sm-6">
+                              <label class="control-label col-form-label">Current Director Placement</label>
+                              <input type="text" name="current_dp" id="current_dp" required="required" class="form-control" readonly>
+                              <input type="hidden" name="current_dp_id" id="current_dp_id" required="required" class="form-control">
+                              <span id="error_current_position" class="text-danger"></span>
+                          </div>
+                          <div class="col-sm-6">
+                              <label class="control-label col-form-label">New Director Placement</label>
+                              <input type="text" name="new_dp" id="new_dp" required="required" class="form-control" readonly>
+                              <input type="hidden" name="new_dp_id" id="new_dp_id" required="required" class="form-control">
+                              <span id="error_new_position" class="text-danger"></span>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <div class="col-sm-6">
+                              <label class="control-label col-form-label">Current Company</label>
+                              <input type="text" name="current_cpy" id="current_cpy" required="required" class="form-control" readonly>
+                              <input type="hidden" name="current_cpy_id" id="current_cpy_id" required="required" class="form-control">
+                              <span id="error_current_position" class="text-danger"></span>
+                          </div>
+                          <div class="col-sm-6">
+                              <label class="control-label col-form-label">New Company</label>
+                              <input type="text" name="new_cpy" id="new_cpy" required="required" class="form-control" readonly>
+                              <input type="hidden" name="new_cpy_id" id="new_cpy_id" required="required" class="form-control">
+                              <span id="error_new_position" class="text-danger"></span>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <div class="col-sm-6">
+                              <label class="control-label col-form-label">Current Cost Center</label>
+                              <input type="text" name="current_cc" id="current_cc" required="required" class="form-control" readonly>
+                              <input type="hidden" name="current_cc_id" id="current_cc_id" required="required" class="form-control">
+                              <span id="error_current_position" class="text-danger"></span>
+                          </div>
+                          <div class="col-sm-6">
+                              <label class="control-label col-form-label">New Cost Center</label>
+                              <input type="text" name="new_cc" id="new_cc" required="required" class="form-control" readonly>
+                              <input type="hidden" name="new_cc_id" id="new_cc_id" required="required" class="form-control">
+                              <span id="error_new_position" class="text-danger"></span>
+                          </div>
+                        </div>
+
                           <div class="form-group row">
-                            <div class="col-sm-6">
-                              <label class="control-label col-form-label">Started Work Date from Current Position</label>
-                              <input type="text" id="startdate" name="startdate" required="required" class="form-control" readonly>
-                              <span id="error_startdate" class="text-danger"></span>
-                            </div>
-                            <div class="col-sm-6">
-                              <label class="control-label col-form-label">Expected Work Date for New Position</label>
-                              <input type="date" id="workdate" name="workdate" min="2018-01-01" max="2030-12-31" required="required" class="form-control">
-                              <span id="error_workdate" class="text-danger"></span>
-                            </div>
+                              <div class="col-sm-6">
+                                <label class="control-label col-form-label">Started Work Date from Current Position</label>
+                                <input type="text" id="startdate" name="startdate" required="required" class="form-control" readonly>
+                                <span id="error_startdate" class="text-danger"></span>
+                              </div>
+                              <div class="col-sm-6">
+                                <label class="control-label col-form-label">Expected Work Date for New Position</label>
+                                <input type="date" id="workdate" name="workdate" min="2018-01-01" max="2030-12-31" required="required" class="form-control">
+                                <span id="error_workdate" class="text-danger"></span>
+                              </div>
                           </div>
                           <div class="form-group row">
-                            <div class="col-sm-6">
-                              <label class="control-label col-form-label">Current Responsibilities</label>
-                              ​<textarea class="ckeditor" id="current_responsibilities" name="current_responsibilities"></textarea>
-                              <span id="error_current_responsibilities" class="text-danger"></span>
-                            </div>
-                            <div class="col-sm-6">
-                              <label class="control-label col-form-label"> New Responsibilities</label>
-                              ​<textarea class="ckeditor" id="new_responsibilities" name="new_responsibilities"></textarea>
-                              <span id="error_new_responsibilities" class="text-danger"></span>
-                            </div>
+                              <div class="col-sm-6">
+                                <label class="control-label col-form-label">Current Responsibilities</label>
+                                ​<textarea class="ckeditor" id="current_responsibilities" name="current_responsibilities"></textarea>
+                                <span id="error_current_responsibilities" class="text-danger"></span>
+                              </div>
+                              <div class="col-sm-6">
+                                <label class="control-label col-form-label"> New Responsibilities</label>
+                                ​<textarea class="ckeditor" id="new_responsibilities" name="new_responsibilities"></textarea>
+                                <span id="error_new_responsibilities" class="text-danger"></span>
+                              </div>
                           </div>
-                                    <!-- <div class="form-group row">
-                                      <div class="col-sm-6">
-                                        
-                                      </div>
-                                      <div class="col-sm-6">
-                                         <label class="control-label col-form-label">New Requirement</label>
-                                         ​<textarea class="ckeditor" id="new_requirement" name="new_requirement"></textarea>
-                                        <span id="error_new_requirement" class="text-danger"></span>
-                                      </div>
-                                    </div>
-                                  </div> -->
-                                  <div class="form-group row">
-                                  <div style="width:100%;height:100%;vertical-align:middle;text-align:center;">
-                                    <button type="button" id="btn-submit" style="margin: auto;" class="btn waves-effect waves-light btn-primary">Request</button>
-                                    <button type="button" id="btn-save" style="margin: auto;" class="btn waves-effect waves-light btn-dark">Save as Draft</button>
-                                  </div>
-                                </div>
 
+                          <div class="form-group row">
+                            <div class="col-sm-8">
+                                    <label class="control-label col-form-label"> Human Resources Approval </label>
+                                  
+                                    <select class="form-control chs-select" name="hra" id="hra" style="width:90%" required="required">
+                                        <option default>Select Human Resources Approval</option>
+                                        <?php foreach ($pos as $pos) { ?>
+                                        <option value="<?php echo $pos['ID'];?>"><?php echo $pos['Name'];?></option>
+                                        <?php } ?>
+                                    </select>
+                                    <input type="hidden" name="hra_id" id="hra_id" required="required" class="form-control">
+                                    <span id="error_new_position" class="text-danger"></span>
+                            </div>
+                        </div>
+                                  
+                              <div class="form-group row">
+                                <div style="width:100%;height:100%;vertical-align:middle;text-align:center;">
+                                  <button type="button" id="btn-submit" style="margin: auto;" class="btn waves-effect waves-light btn-primary">Request</button>
+                                  <button type="button" id="btn-save" style="margin: auto;" class="btn waves-effect waves-light btn-dark">Save as Draft</button>
                                 </div>
-                                
-                                </form>
-                        </div>
-          
-                        </div>
+                            </div>
+
+                            
+
+                         </div>
+                         </div> 
                     </div>
+          
                 </div>
+                  
 
 
                 </div>
                 <!-- End Row -->
                 <!-- Row -->
-             </div>
+             <!-- </div> -->
       <div>
             <div class="modal fade" role="dialog" id="myModal">
               <div class="modal-dialog">

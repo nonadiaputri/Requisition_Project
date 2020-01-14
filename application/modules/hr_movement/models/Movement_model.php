@@ -132,7 +132,8 @@ class Movement_model extends CI_Model
       }
 
       function get_apv_req($ID){
-        $q = " select a.MovementRequestID, max(a.ApprovalStatusID) as max_status, b.Name as DeptName,  c.FullName as approval,
+        $q = " select a.MovementRequestID, max(a.ApprovalStatusID) as max_status, 
+          b.Name as DeptName,  c.FullName as approval,
           d.ProcessStartDate, d.RequestorID, e.FullName as requestor
           from dbo.MovementRequestApprovalTable a
           join dbo.OrganizationTable b
@@ -151,8 +152,8 @@ class Movement_model extends CI_Model
       }
 
       function get_hold_req($ID){
-        $q = " select a.MovementRequestID, max(a.ApprovalStatusID) as max_status, b.Name as DeptName,  c.FullName as approval,
-          d.ProcessStartDate, d.RequestorID, e.FullName as requestor
+        $q = " select a.MovementRequestID, max(a.ApprovalStatusID) as max_status, b.Name as DeptName,  
+          c.FullName as approval, d.ProcessStartDate, d.RequestorID, e.FullName as requestor
           from dbo.MovementRequestApprovalTable a
           join dbo.OrganizationTable b
           on a.OrganizationID = b.ID
@@ -170,22 +171,22 @@ class Movement_model extends CI_Model
       }
 
       function get_rejected_req($ID){
-        $q = " select a.MovementRequestID, max(a.ApprovalStatusID) as max_status, b.Name as DeptName,  c.FullName as approval,
-          d.ProcessStartDate, d.RequestorID, e.FullName as requestor
-          from dbo.MovementRequestApprovalTable a
-          join dbo.OrganizationTable b
-          on a.OrganizationID = b.ID
-          join dbo.PersonnelTable c
-          on a.EmployeeID = c.ID 
-          join dbo.MovementRequestTable d
-          on a.MovementRequestID = d.ID
-          join dbo.PersonnelTable e
-          on d.RequestorID = e.ID
-          where a.IsRejected = 1
-          and a.EmployeeID = '$ID'
-          group by a.MovementRequestID, b.Name, c.FullName, d.ProcessStartDate, d.RequestorID, e.FullName";
+        $q = " select a.MovementRequestID, max(a.ApprovalStatusID) as max_status, b.Name as DeptName,  
+            c.FullName as approval, d.ProcessStartDate, d.RequestorID, e.FullName as requestor
+            from dbo.MovementRequestApprovalTable a
+            join dbo.OrganizationTable b
+            on a.OrganizationID = b.ID
+            join dbo.PersonnelTable c
+            on a.EmployeeID = c.ID 
+            join dbo.MovementRequestTable d
+            on a.MovementRequestID = d.ID
+            join dbo.PersonnelTable e
+            on d.RequestorID = e.ID
+            where a.IsRejected = 1
+            and a.EmployeeID = '$ID'
+            group by a.MovementRequestID, b.Name, c.FullName, d.ProcessStartDate, d.RequestorID, e.FullName";
         $query = $this->db->query($q);    
-         return $query->result_array();
+        return $query->result_array();
       }
 
       public function get_new_promotion(){

@@ -62,9 +62,9 @@
           <span class="sr-only">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu" role="menu">
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_approve'); ?>">Approved</a></li>
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_hold'); ?>">Hold<sup style="color:red; font-weight: bold"> <!-- <?php echo $myjml; ?> --> </sup></a></li>
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_reject'); ?>">Rejected</a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('hr_movement/myview_approve'); ?>">Approved</a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('hr_movement/myview_hold'); ?>">Hold<sup style="color:red; font-weight: bold"> <!-- <?php echo $myjml; ?> --> </sup></a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('hr_movement/myview_reject'); ?>">Rejected</a></li>
         </ul>
       </div>
       <div class="btn-group">
@@ -74,9 +74,9 @@
           <span class="sr-only">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu" role="menu">
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/approved_req'); ?>">Approved</a></li>
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/hold_req'); ?>">Hold<sup style="color:red; font-weight: bold"> <!-- <?php echo $myjml; ?> --> </sup></a></li>
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/rejected_req'); ?>">Rejected</a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('hr_movement/approved_req'); ?>">Approved</a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('hr_movement/hold_req'); ?>">Hold<sup style="color:red; font-weight: bold"> <!-- <?php echo $myjml; ?> --> </sup></a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('hr_movement/rejected_req'); ?>">Rejected</a></li>
         </ul>
       </div>
             
@@ -106,7 +106,7 @@
                         <td width="20%"><?php echo $row['ProcessStartDate']; ?></td>
                         <td>Rejected</td>
                         <td width="20%" align="center">
-                          <a href ="<?php echo base_url('hr/View/'.$row['RequisitionID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
+                          <a href ="<?php echo base_url('hr/View/'.$row['MovementRequestID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
                         </td>
                     </tr>
                     <?php $num++; } ?>
