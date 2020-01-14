@@ -79,17 +79,17 @@ class Hire_model extends CI_Model
 
   public function make_session($nik){
     $this->db->where('PersonnelNumber',$nik);
-    $q = $this->db->get('dbo.PersonnelHierarchy');
+    $q = $this->db->get('dbo.PersonnelHierarchy2');
     return $q->row_array();
   }
 
   public function auto_regist_position($last_id, $position){
     $this->db->where('UserID',$last_id);
     $q = $this->db->get('dbo.UserXUserGroup');
-    $manager = $this->db->select('Postion')->from('PersonnelHierarchy')->where("'$position' LIKE '%Manager%' or '$position' like '%Editor in Chief%'")->get()->result();
-    $director = $this->db->select('Postion')->from('PersonnelHierarchy')->where("'$position' like '%Director%'")->get()->result();
-    $gm = $this->db->select('Postion')->from('PersonnelHierarchy')->where("'$position' like '%General Manager%' or '$position' like '%Vice General Manager%'")->get()->result();
-    $ceo = $this->db->select('Postion')->from('PersonnelHierarchy')->where("'$position' like '%Chief Technology%' or '$position' like '%Chief Executive%' or '$position' like '%Chief Financial%'")->get()->result();
+    $manager = $this->db->select('Postion')->from('PersonnelHierarchy2')->where("'$position' LIKE '%Manager%' or '$position' like '%Editor in Chief%'")->get()->result();
+    $director = $this->db->select('Postion')->from('PersonnelHierarchy2')->where("'$position' like '%Director%'")->get()->result();
+    $gm = $this->db->select('Postion')->from('PersonnelHierarchy2')->where("'$position' like '%General Manager%' or '$position' like '%Vice General Manager%'")->get()->result();
+    $ceo = $this->db->select('Postion')->from('PersonnelHierarchy2')->where("'$position' like '%Chief Technology%' or '$position' like '%Chief Executive%' or '$position' like '%Chief Financial%'")->get()->result();
     //var_dump($manager);
 
     if ( $q->num_rows() == 0 ) {
@@ -212,7 +212,7 @@ class Hire_model extends CI_Model
       //                         where a.OrganizationID =".$OrganizationID);
       // return $res->result_array();
 
-      $res = $this->db->query("select distinct Organization from dbo.PersonnelHierarchy
+      $res = $this->db->query("select distinct Organization from dbo.PersonnelHierarchy2
                               where OrganizationID =".$OrganizationID);
       return $res->result_array();
      
@@ -267,7 +267,7 @@ class Hire_model extends CI_Model
     // $query = $this->db->get();
     // return $query->row_array();
     $this->db->select('*');
-    $this->db->from("dbo.PersonnelHierarchy");
+    $this->db->from("dbo.PersonnelHierarchy2");
     $this->db->like('ID',$ID);
     //$this->db->where('IsHold',)
     $query = $this->db->get();
@@ -654,7 +654,7 @@ class Hire_model extends CI_Model
     // $this->db->join('dbo.PositionInOrganization d','d.PositionID=b.PositionID');
     // $this->db->join('dbo.OrganizationTable e','e.ID=d.OrganizationUnitID');
     $this->db->select('*');
-    $this->db->from("dbo.PersonnelHierarchy");
+    $this->db->from("dbo.PersonnelHierarchy2");
     $this->db->like('ID',$ID);
     //$this->db->where('IsHold',)
     $query = $this->db->get();
@@ -734,7 +734,7 @@ class Hire_model extends CI_Model
                       join dbo.PersonnelTable c
                       on a.RequestorID = c.ID 
                       where a.RequestorID in 
-                      (select ID from dbo.PersonnelHierarchy
+                      (select ID from dbo.PersonnelHierarchy2
                       where ParentPersonnelID = '$ID')
                       and IsProcessedToHire=0
                       and IsHold = 0
