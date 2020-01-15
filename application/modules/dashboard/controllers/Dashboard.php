@@ -26,4 +26,18 @@ class Dashboard extends CI_Controller {
 		$this->load->view('v_dashboard_profile', $data);
 	}
 
+	function do_update(){
+		$name = $this->input->post('name');
+		$ID = $this->session->userdata('nik');
+		$name2 = $this->session->set_userdata('name', $name);
+		$data = array(
+			'name' => $name2
+		);
+	
+		$data = $this->Dashboard_model->update_data($data, $ID);
+
+		redirect('dashboard/profile','refresh');
+		
+	}
+
 }

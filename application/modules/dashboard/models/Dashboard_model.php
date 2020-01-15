@@ -25,4 +25,9 @@ class Dashboard_model extends CI_Model{
         // $this->db->update('dbo.UserTable',$data1);      
         }
     }
+
+    public function update_data($data, $ID){
+        $this->db->where('nik', $ID);
+        return $this->db->update('master_employee_0', $data);
+      }
 }
