@@ -515,6 +515,7 @@
     
     $('#requestor_id').on('change', function() {
       var temp2 = $('#requestor_id :selected').val();
+      console.log(temp2);
       if ($('#requestor_id :selected').text() != '') {
         $.ajax({
           url:"<?php echo base_url('hr/search_info');?>",

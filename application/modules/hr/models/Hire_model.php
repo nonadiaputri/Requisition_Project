@@ -655,7 +655,7 @@ class Hire_model extends CI_Model
     // $this->db->join('dbo.OrganizationTable e','e.ID=d.OrganizationUnitID');
     $this->db->select('*');
     $this->db->from("dbo.PersonnelHierarchy2");
-    $this->db->like('ID',$ID);
+    $this->db->where('ID',$ID);
     //$this->db->where('IsHold',)
     $query = $this->db->get();
     return $query->row_array();
