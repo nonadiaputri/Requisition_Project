@@ -817,7 +817,7 @@
         }  
 
         if(placement == ''){
-         error_placement = 'Placement is required';
+         error_placement = 'Cost Center is required';
          $('#error_placement').text(error_placement);
          $('#placement').css('border-color', '#cc0000');
          placement = '';
