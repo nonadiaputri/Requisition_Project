@@ -95,15 +95,16 @@
                     <h4 class="modal-title">Update profile form</h4>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form action="<?php echo base_url('dashboard/do_update'); ?>" method="POST">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name" value = "<?= $_SESSION['name'];?>"></input>
+                            <input type="text" class="form-control" name="name" id="name"value = "<?php echo $_SESSION['name'];?>"></input>
                         </div>
+                        <button type="submit" class="btn btn-success" >submit</button>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">submit</button>
+                    
                     <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
                 </div>
                 </div>
@@ -429,14 +430,22 @@
 <script src="<?= base_url();?>assets/dist/js/demo.js"></script>
 <!-- page script -->
 <!-- <script type="text/javascript">
-  function load() {
-    var id = " <?php echo $row['nik'];?>";
-    if (id != '' ){
-        $('#name').val("<?php echo $row['name'];?>");
-    }
-    
-  }
-  window.onload = load;
+  $('#submit').click(function(e){
+    e.preventDefault();
+      var name = $('#name').val();
+
+      $.ajax({
+        url:"<?= BASE_URL();?>dashboard/do_update",
+        method:"POST",
+        data:{
+          'name' : name
+        },
+        success:function(data){
+          window.location.href = '<?php echo base_url('dashboard/profile');?>';
+          console.log(data);
+        }
+      });
+  });
 </script> -->
 </body>
 </html>

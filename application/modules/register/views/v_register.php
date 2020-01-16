@@ -69,7 +69,12 @@
                         <div class="col-md-8">
                             <label class="control-label col-form-label">Unit</label>
                         
-                            <select class="form-control" name="unit" id="unit" required="required">
+                            <select class="form-control" name="body" id="body" required="required">
+                            <option value="">--Select Value--</option>
+                            <?php foreach($unit as $key => $data){; ?>
+                            
+                            <option value="<?php echo $data["id"];?>"><?php echo $data["name"];?></option>
+                            <?php }; ?>
                             </select>
                         <span id="error_status" class="text-danger"></span>
                     </div>
@@ -81,7 +86,9 @@
                             <label class="control-label col-form-label">Sub-unit</label>
                         
                             <select class="form-control" name="subunit" id="subunit" required="required">
-                            </select>
+                            
+                            <option value="0">--Select Value--</option>
+                            
                         <span id="error_status" class="text-danger"></span>
                     </div>
                 </div>
@@ -169,13 +176,29 @@
 <!-- <script src="<?= base_url(); ?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
 <!-- iCheck -->
 <script src="<?= base_url(); ?>assets/plugins/iCheck/icheck.min.js"></script>
-<script>
+<script type="text/javascript">
+ 
   $(function () {
    //Date picker
     $('#datepicker').datetimepicker({ 
         format: 'DD/MM/YYYY'
     });
+
+    $("#body").change(function(){
+				$.ajax({
+					url 		: "<?= BASE_URL()?>register/get_subunit/"+$("#body").val(),
+					type 		: "get",
+					success : function(data){
+            console.log(data);
+						$("#subunit").html(data);
+					},
+					error : function(XMLHttpRequest, textStatus, errorThrown) {
+						alert("Error Code");
+					}
+				})
+			});
   });
+
     
 </script>
 

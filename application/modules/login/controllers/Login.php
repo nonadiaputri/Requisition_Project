@@ -68,6 +68,32 @@ class Login extends CI_Controller {
 	}
 
 	function register(){
-		$this->load->view('register/v_register');
+		$api_url = "http://kics.kompas.com/api/unit";
+		$curl = curl_init();
+		curl_setopt_array($curl, array(
+				CURLOPT_URL => $api_url,
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => "",
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 30,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => "GET",
+				CURLOPT_HEADER => true,
+				CURLOPT_HTTPHEADER => array(
+					"Accept: application/json",
+					"Header: Access-Control-Allow-Origin"
+				),
+			));
+
+			$response = curl_exec($curl);
+			$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+			$header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+			$body = substr($response, $header_size);
+			$err = curl_error($curl);
+			curl_close($curl);
+			$body = json_decode($body, true);
+			//var_dump($body);
+			$data['unit'] = $body;
+		$this->load->view('register/v_register', $data);
 	}
 }
