@@ -56,8 +56,8 @@
 
     <section class="content">
       <div >
-        <a href ="<?php echo base_url('Hr/hire_history'); ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">Your Request</a>
-        <a href ="<?php echo base_url('Hr/need_approval'); ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">Need Approval</a>
+        <a href ="<?php echo base_url('hr/hire_history'); ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">Your Request</a>
+        <a href ="<?php echo base_url('hr/need_approval'); ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">Need Approval</a>
       </div>
             
       <div class="row">
@@ -99,12 +99,12 @@
                         <td width="20%" align="center">
                              <?php
                               if ($row['IsProcessedToHire'] == 2) { ?>
-                                  <a href ="<?php echo base_url('Hr/Edit/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-warning" role="button" aria-pressed="true">Edit</a>
-                                  <a href ="<?php echo base_url('Hr/Delete/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-danger" role="button" aria-pressed="true">Delete</a>
+                                  <a href ="<?php echo base_url('hr/Edit/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-warning" role="button" aria-pressed="true">Edit</a>
+                                  <a href ="<?php echo base_url('hr/Delete/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-danger" role="button" aria-pressed="true">Delete</a>
                                    
                                <?php }else{
                                   ?>
-                                  <a href ="<?php echo base_url('Hr/View/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
+                                  <a href ="<?php echo base_url('hr/View/'.$row['ID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
 
                               <?php }  ?>
                         </td>

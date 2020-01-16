@@ -542,7 +542,7 @@
               console.log(name);
               if ($('#requestor :selected').text() != '') {
                 $.ajax({
-                    url:"<?php echo base_url('Hr/search_info');?>",
+                    url:"<?php echo base_url('hr/search_info');?>",
                     method:"GET",
                     dataType:'json',
                     data:{ 'Name':name },
