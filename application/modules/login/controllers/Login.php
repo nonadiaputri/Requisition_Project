@@ -93,7 +93,34 @@ class Login extends CI_Controller {
 			curl_close($curl);
 			$body = json_decode($body, true);
 			//var_dump($body);
+			//API GET POSITION
+			$api_url2 = "http://kics.kompas.com/api/position";
+			$curl2 = curl_init();
+			curl_setopt_array($curl2, array(
+				CURLOPT_URL => $api_url2,
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => "",
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 30,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => "GET",
+				CURLOPT_HEADER => true,
+				CURLOPT_HTTPHEADER => array(
+					"Accept: application/json"
+				),
+			));
+
+			$response2 = curl_exec($curl2);
+			$httpcode2 = curl_getinfo($curl2, CURLINFO_HTTP_CODE);
+			$header_size2 = curl_getinfo($curl2, CURLINFO_HEADER_SIZE);
+			$body2 = substr($response2, $header_size2);
+			$err2 = curl_error($curl2);
+			curl_close($curl2);
+			$body2 = json_decode($body2, true);
+
+
 			$data['unit'] = $body;
+			$data['pos'] = $body2;
 		$this->load->view('register/v_register', $data);
 	}
 }

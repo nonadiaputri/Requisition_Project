@@ -53,15 +53,15 @@
 	
     <form action="#" method="post">
         <div class="form-group has-feedback">
-            <input type="text" name="uid" class="form-control" placeholder="NIK">
+            <input type="text" name="nik" id="nik" class="form-control" placeholder="NIK">
             <span class="glyphicon glyphicon-briefcase form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-            <input type="text" name="name" class="form-control" placeholder="Your Name">
+            <input type="text" name="name" id="name" class="form-control" placeholder="Your Name">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-            <input type="password" name="pwd" class="form-control" placeholder="Password">
+            <input type="password" name="pass" id="pass" class="form-control" placeholder="Password">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <div class="row">
@@ -69,11 +69,11 @@
                         <div class="col-md-8">
                             <label class="control-label col-form-label">Unit</label>
                         
-                            <select class="form-control" name="body" id="body" required="required">
+                            <select class="form-control" name="unit" id="unit" required="required">
                             <option value="">--Select Value--</option>
-                            <?php foreach($unit as $key => $data){; ?>
+                            <?php foreach($unit as $key){; ?>
                             
-                            <option value="<?php echo $data["id"];?>"><?php echo $data["name"];?></option>
+                            <option value="<?php echo $key["id"];?>"><?php echo $key["name"];?></option>
                             <?php }; ?>
                             </select>
                         <span id="error_status" class="text-danger"></span>
@@ -89,27 +89,34 @@
                             
                             <option value="0">--Select Value--</option>
                             
+                            </select>
+                            
                         <span id="error_status" class="text-danger"></span>
                     </div>
                 </div>
             </div>
+            
         <div class="row">
                 <div class="form-group ">
                 <div class="col-md-8">
                             <label class="control-label col-form-label">Position</label>
                         
                             <select class="form-control" name="position" id="position" required="required">
+                              <option value="0">--Select Value--</option>
+                              <?php foreach($pos as $key){;?>
+                              <option value="<?php echo $key["id"];?>"><?php echo $key["position"];?></option>
+                              <?php }; ?>
                             </select>
                         <span id="error_status" class="text-danger"></span>
                 </div>
             </div>
         </div>
         <div class="form-group has-feedback">
-            <input type="email" name="email" class="form-control" placeholder="Your Email" required="required">
+            <input type="email" name="email" id="email" class="form-control" placeholder="Your Email" required="required">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-            <input type="tel" name="tel" class="form-control" placeholder="Your Phone Number">
+            <input type="tel" name="phone" id="phone" class="form-control" placeholder="Your Phone Number">
             <span class="glyphicon glyphicon-earphone form-control-feedback"></span>
         </div>
         
@@ -121,7 +128,7 @@
                   <div class="input-group-addon">
                     <i class="glyphicon glyphicon-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" id="datepicker">
+                  <input type="text" name="bod" id="bod" class="form-control pull-right" >
                 </div>
                 <!-- /.input group -->
               </div>
@@ -139,7 +146,7 @@
             </div>
             <!-- /.col -->
             <div class="col-xs-12" style="margin:auto; padding:10px">
-                <button type="submit" class="btn btn-primary btn-block" style="border-radius:20px;">Submit</button>
+                <button type="button" id="btn-submit" name="btn-submit" class="btn btn-primary btn-block" style="border-radius:20px;">Submit</button>
             </div>
             <div class="col-xs-12" style="margin:auto; padding:10%">
             <a href="<?= base_url(); ?>login/index">Already Registered? Login here</a>
@@ -178,25 +185,84 @@
 <script src="<?= base_url(); ?>assets/plugins/iCheck/icheck.min.js"></script>
 <script type="text/javascript">
  
-  $(function () {
+  $(document).ready(function () {
    //Date picker
-    $('#datepicker').datetimepicker({ 
-        format: 'DD/MM/YYYY'
+    $('#bod').datetimepicker({ 
+        format: 'YYYY/MM/DD'
     });
-
-    $("#body").change(function(){
+    
+    $("#unit").on('change',function(){
+      var pos = $('#unit').val();
+      var rep;
+      console.log(pos);
 				$.ajax({
-					url 		: "<?= BASE_URL()?>register/get_subunit/"+$("#body").val(),
-					type 		: "get",
+					url 		: "<?= BASE_URL()?>register/get_subunit/"+$("#unit").val(),
+					method 		: "get",
+          dataType : "json",
+          data : {'id': pos},
 					success : function(data){
             console.log(data);
-						$("#subunit").html(data);
+            var output = '';
+          
+          $.each(data, function (i) {
+          //var rep;
+          //console.log("data"+data[i]['FullName']);
+          if (data[i]['name'] === null) {
+            rep = "Empty";
+          }else{
+            rep = data[i]['name'];
+          }
+          output += '<option value="' + data[i]['id']+'"data-subtext="'+data[i]['name']+'">' + data[i]['id']+'('+rep+')</option>';
+          });
+          $('#subunit').append(output);
+						//$("#subunit").html(data);
 					},
 					error : function(XMLHttpRequest, textStatus, errorThrown) {
 						alert("Error Code");
 					}
 				})
-			});
+      });
+			
+
+      $('#btn-submit').click(function(){
+
+      var nik = $('#nik').val();
+      var name = $('#name').val();
+      var pass = $('#pass').val();
+      var unit = $('#unit').val();
+      var subunit = $('#subunit').val();
+      var position = $('#position').val();
+      var email = $('#email').val();
+      var phone = $('#phone').val();
+      var bod = $('#bod').val();
+
+      $.ajax({
+        url:"<?php echo base_url('register/submit_register');?>",
+        method:"POST",
+        data:{ 'nik':nik,
+               'name':name,
+               'pass' : pass,
+               'unit' : unit,
+               // 'req_position':req_position,
+               // 'req_org' : req_org,
+               'subunit':subunit,
+               'position':position,
+               'email':email, 
+               'phone':phone,
+               'bod':bod},
+        success:function(data){
+          console.log(data);
+          
+          if (data !== null) {
+                  alert('New employee data successfully created!');
+                  window.location.href = '<?php echo base_url('login/index');?>';
+                }
+              },
+            error:function(){
+                alert('error ... ');
+          }
+  });
+});
   });
 
     
