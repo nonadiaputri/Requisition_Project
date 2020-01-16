@@ -142,11 +142,12 @@
 			        </div>
 	            </div>
 	        </div>
-
+          <br>
 	        <div class="row">
 	        	<div class="form-group">
                     <div class="col-md-8">
-                    	<label class="control-label col-form-label">Position</label>
+                    	<label class="control-label col-form-label">Position
+                        <span style="color: red;">*</span></label>
                 
                       	<select class="form-control selectpicker" data-show-subtext="true" data-size="5" name="position" id="position" style="width:100%;"  required="required">
                           <option value=""></option>
@@ -161,7 +162,8 @@
 	        <div class="row">
 	        	<div class="form-group">
                   <div class="col-md-8">
-                    <label class="control-label col-form-label">Person/s Need</label>
+                    <label class="control-label col-form-label">Person/s Need
+                    <span style="color: red;">*</span></label>
                     <select class="form-control" name="ttl" id="ttl" required="required">
                       <option value="" selected>Pilih</option>
                       <option value="1">1</option>
@@ -184,7 +186,8 @@
           <div class="row">
             <div class="form-group">
                   <div class="col-md-8">
-                    <label class="control-label col-form-label">Company</label>
+                    <label class="control-label col-form-label">Company
+                    <span style="color: red;">*</span></label>
                   
                     <select class="company form-control" name="company" id="company" style="width:100%;"  required="required">
                       <option value=""></option>
@@ -197,7 +200,8 @@
 	        <div class="row">
 	        	<div class="form-group">
                   <div class="col-md-8">
-                    <label class="control-label col-form-label">Cost Center</label>
+                    <label class="control-label col-form-label">Cost Center
+                    <span style="color: red;">*</span></label>
                   
                     <select class="searching form-control" name="placement" id="placement" style="width:100%;"  required="required">
                       <option value=""></option>
@@ -211,7 +215,8 @@
           <div class="row">
             <div class="form-group ">
                     <div class="col-md-8">
-                        <label class="control-label col-form-label">Requisition Type</label>
+                        <label class="control-label col-form-label">Requisition Type
+                        <span style="color: red;">*</span></label>
                       
                       <select class="form-control" name="req_status" id="req_status" required="required">
                         <option value="" selected>Pilih</option>
@@ -227,7 +232,8 @@
 	        <div class="row">
 	        	<div class="form-group ">
                     <div class="col-md-8">
-                        <label class="control-label col-form-label">Employee Status</label>
+                        <label class="control-label col-form-label">Employee Status
+                        <span style="color: red;">*</span></label>
                       
 	                    <select class="form-control" name="status" id="status" required="required">
 	                      <option value="" selected>Pilih</option>
@@ -246,7 +252,8 @@
 	        <div class="row">
 	        	<div class="form-group" style="display: none" id="repname">
                   <div class="col-md-8">
-                    <label class="control-label col-form-label">Replacement Name</label>
+                    <label class="control-label col-form-label">Replacement Name
+                    <span style="color: red;">*</span></label>
                   
                    <select class="rep-name form-control" name="ReplacementName" id="ReplacementName" style="width:100%;"  required="required">
                       <option value=""></option>
@@ -260,7 +267,8 @@
 	        <div class="row">
 	        	<div class="form-group">
                     <div class="col-md-8">
-                        <label class="control-label col-form-label">Expected Work Date</label>
+                        <label class="control-label col-form-label">Expected Work Date
+                        <span style="color: red;">*</span></label>
                     </div>
                     <div class="col-md-8">
                     	<input class="form-control" type="date" id="workdate" name="workdate" min="2018-01-01" max="2030-12-31" required="required" >
@@ -273,7 +281,8 @@
 	        <div class="row">
 	        	<div class="form-group">
                     <div class="col-md-8">
-                        <label class="control-label col-form-label">Responsibilities</label>
+                        <label class="control-label col-form-label">Responsibilities
+                        <span style="color: red;">*</span></label>
                     </div>
                     <div class="col-sm-8">
                         ​<!-- <textarea id="responsibility" name="responsibility" rows="7" cols="70" required="required"></textarea> -->
@@ -286,7 +295,8 @@
 	        <div class="row">
 	        	<div class="form-group">
                     <div class="col-md-8">
-                        <label class="control-label col-form-label">Requirement</label>
+                        <label class="control-label col-form-label">Requirement
+                        <span style="color: red;">*</span></label>
                       </div>
                       <div class="col-sm-8">
                         <div class="form-group">
@@ -298,6 +308,21 @@
                       </div>
                 </div>
 	        </div>
+          <div class="row">
+            <div class="form-group">
+                    <div class="col-md-8">
+                        <label class="control-label col-form-label">Note</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <div class="form-group">
+                          <!-- <textarea id="requirement" name="requirement" rows="7" cols="70" required="required"></textarea> -->
+                          <textarea id="noted" name="noted"rows="7" cols="110"></textarea>
+                        
+                        </div>
+                        
+                      </div>
+                </div>
+          </div>
 
 	        <div class="row">
 	        	<div class="form-group">
@@ -367,38 +392,7 @@
                             </div>
                             <!-- /.direct-chat-text -->
                           </div>
-                          <!-- /.direct-chat-msg -->
-
-                          <!-- Message. Default to the left -->
-                          <div class="direct-chat-msg">
-                            <div class="direct-chat-info clearfix">
-                              <span class="direct-chat-name pull-left">Alexander Pierce</span>
-                              <span class="direct-chat-timestamp pull-right">23 Jan 5:37 pm</span>
-                            </div>
-                            <!-- /.direct-chat-info -->
-                            <img class="direct-chat-img" src="<?php echo base_url();?>assets/dist/img/user1-128x128.jpg" alt="message user image">
-                            <!-- /.direct-chat-img -->
-                            <div class="direct-chat-text">
-                              Working with AdminLTE on a great new app! Wanna join?
-                            </div>
-                            <!-- /.direct-chat-text -->
-                          </div>
-                          <!-- /.direct-chat-msg -->
-
-                          <!-- Message to the right -->
-                          <div class="direct-chat-msg left">
-                            <div class="direct-chat-info clearfix">
-                              <span class="direct-chat-name pull-right">Sarah Bullock</span>
-                              <span class="direct-chat-timestamp pull-left">23 Jan 6:10 pm</span>
-                            </div>
-                            <!-- /.direct-chat-info -->
-                            <img class="direct-chat-img" src="<?php echo base_url();?>assets/dist/img/user3-128x128.jpg" alt="message user image">
-                            <!-- /.direct-chat-img -->
-                            <div class="direct-chat-text">
-                              I would love to.
-                            </div>
-                            <!-- /.direct-chat-text -->
-                          </div>
+                    
                           <!-- /.direct-chat-msg -->
 
                         </div>
@@ -894,6 +888,7 @@
       var responsibility = CKEDITOR.instances["responsibility"].getData();
       var requirement = CKEDITOR.instances["requirement"].getData();
       var company = $('#company').val();
+      var noted = $('textarea#noted').val();
       //console.log("btn click"+req_position_id);
 
       $.ajax({
@@ -910,7 +905,8 @@
                'workdate':workdate,
                'ReplacementName':ReplacementName,
                'responsibility' : responsibility,
-               'requirement' : requirement},
+               'requirement' : requirement,
+               'note' : noted},
         success:function(data){
           window.location.href = '<?php echo base_url('hr/hire_history');?>';
           console.log(data);
@@ -1099,6 +1095,7 @@
          $('#requirement').css('border-color', '');
          requirement = $('#requirement').val();
         }
+        console.log( $('textarea#noted').val());
 
         if (error_requestor == '' && error_req_position == '' && error_req_org == '' && error_position == '' && error_total == '' && error_placement == '' && error_status == '' && error_workdate == '' && error_responsibility == '' && error_requirement == '' && error_ttl == '' ) {
           $('#myModal').modal('show'); 
@@ -1121,6 +1118,8 @@
       var responsibility = CKEDITOR.instances["responsibility"].getData();
       var requirement = CKEDITOR.instances["requirement"].getData();
       var company = $('#company').val();
+      var noted = $('textarea#noted').val();
+      console.log(noted);
 
       $.ajax({
         url:"<?php echo base_url('hr/submit_hire');?>",
@@ -1138,7 +1137,8 @@
                'workdate':workdate,
                'ReplacementName':ReplacementName,
                'responsibility' : responsibility,
-               'requirement' : requirement},
+               'requirement' : requirement,
+               'note' : noted},
         success:function(data){
           console.log(data);
           if (data.status) {

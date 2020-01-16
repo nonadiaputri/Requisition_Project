@@ -127,7 +127,7 @@
 	                    </select> -->
 	                    <br>
 	                </div>
-	                    <span id="error_position" class="text-danger"></span>
+	                   
 	                </div>
 	                <!-- <div class="col-sm-12 offset-3">
 			            <button type="button" id="display-btn">Display Position in This Unit</button>
@@ -277,6 +277,22 @@
                       </div>
                 </div>
 	        </div>
+
+          <div class="row">
+            <div class="form-group">
+                    <div class="col-md-8">
+                        <label class="control-label col-form-label">Note</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <div class="form-group">
+                          <!-- <textarea id="requirement" name="requirement" rows="7" cols="70" required="required"></textarea> -->
+                          <textarea id="noted" name="noted" rows="7" cols="110"></textarea>
+                        <span id="error_requirement" class="text-danger"></span>
+                        </div>
+                        
+                      </div>
+                </div>
+          </div>
 
 	        <div class="row">
 	        	<div class="form-group">
@@ -443,6 +459,8 @@
           $('#req_position').val("<?php echo $row['requestor_pos'];?>");
           $('#req_position_id').val("<?php echo $row['RequestorPositionID'] ?>");
 
+          $('textarea#noted').val("<?php echo $note['Description']; ?>")
+
           if (<?php echo $row['NumberOfPlacement'];?> == '0') {
             $('#ttl').removeAttr('value');
           }else{
@@ -480,6 +498,8 @@
             var d = datetime.split(' ')[0];
             $('#workdate').val(d);  
           }
+
+
          
     }
   }
@@ -905,6 +925,7 @@
         var responsibility = CKEDITOR.instances["responsibility"].getData();
         var requirement = CKEDITOR.instances["requirement"].getData();
         var company = $('#company').val();
+        var noted = $('textarea#noted').val();
 
         console.log("btn click"+req_position_id);
         console.log(id_req);
@@ -933,7 +954,8 @@
                  'workdate':workdate,
                  'ReplacementName':ReplacementName,
                  'responsibility' : responsibility,
-                 'requirement' : requirement},
+                 'requirement' : requirement,
+                 'note' : noted},
           success:function(data){
             window.location.href = '<?php echo base_url('hr/hire_history');?>';
             console.log(data.status);
@@ -961,6 +983,7 @@
       var responsibility = CKEDITOR.instances["responsibility"].getData();
       var requirement = CKEDITOR.instances["requirement"].getData();
       var company = $('#company').val();
+      var noted = $('textarea#noted').val();
 
        $.ajax({
         url:"<?php echo base_url('hr/do_update');?>",
@@ -977,7 +1000,8 @@
                'workdate':workdate,
                'ReplacementName':ReplacementName,
                'responsibility' : responsibility,
-               'requirement' : requirement},
+               'requirement' : requirement,
+               'note' : noted},
 
         success:function(data){
           window.location.href = '<?php echo base_url('hr/hire_history');?>';
