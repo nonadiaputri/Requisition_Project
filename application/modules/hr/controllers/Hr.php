@@ -225,7 +225,8 @@ class Hr extends CI_Controller {
 	    $responsibility = $this->input->post('responsibility');
       $company = $this->input->post('company');
       $id = $this->session->userdata('UserID');
-      var_dump($id);
+      $note = $this->input->post('note');
+      var_dump($note);
 
 	    $data = array(
 	      'RequestorID' => $requestor_id,
@@ -254,9 +255,15 @@ class Hr extends CI_Controller {
 	        'RequisitionID' => $last_id,
           'CreatedByID' => $id,
           'LastModifiedByID' => $id );
-	      $res = $this->Hire_model->Insert_to_Approval($data1);
 
-	      if ($res > 0 ) {
+        $data2 = array (
+          'RequisitionID' => $last_id,
+          'PersonnelID' => $id,
+          'Description' => $note);
+	      $res = $this->Hire_model->Insert_to_Approval($data1);
+        $res2 = $this->Hire_model->Insert_note($data2);
+
+	      if ($res > 0 && $res2 ) {
 	        echo json_encode(array('status'=>true));
 	        
 	      }else{
@@ -284,8 +291,11 @@ class Hr extends CI_Controller {
 	    $requirement = $this->input->post('requirement');
 	    $responsibility = $this->input->post('responsibility');
       $company = $this->input->post('company');
+      $note = $this->input->post('note');
 	    $IsProcessedToHire = '2';
       $id = $this->session->userdata('UserID');
+      var_dump($id);
+
 
 	    $data = array(
 	      'RequestorID' => $requestor_id,
@@ -304,12 +314,18 @@ class Hr extends CI_Controller {
         'LastModifiedByID'=>$id,
         'RequestedCompanyID' => $company
 	      );
-
 	    //print_r($data);
 
 	    $this->load->model('Hire_model');
-	    $res = $this->Hire_model->Save_data($data);
-	      if ($res > 0 ) {
+	    $last_id = $this->Hire_model->Save_data($data);
+      $data1 = array (
+          'RequisitionID' => $last_id,
+          'PersonnelID' => $id,
+          'Description' => $note);
+
+
+      $res2 = $this->Hire_model->Insert_note($data1);
+	      if ($last_id > 0 && $res2 > 0) {
 	        $this->hire_history();
 	      }else{
 	      echo json_encode(array('status'=>false));
@@ -353,7 +369,9 @@ class Hr extends CI_Controller {
 	 	$ID2 = $this->session->userdata('UserID');
 		$data['person'] = $this->Hire_model->get_related_per($ID2);
     $data['row']= $this->Hire_model->get_hire_id($ID);
-    //var_dump($data['row']);
+    $data['note'] = $this->Hire_model->get_note($ID);
+    // var_dump($ID);
+    // var_dump($data['note']);
 	  $data["header"] = $this->load->view('header/v_header','',TRUE);
 		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
 		$this->load->view('hr/v_edit_hire',$data);
@@ -361,6 +379,7 @@ class Hr extends CI_Controller {
 
   function delete($ID){
   $this->Hire_model->hapus($ID);
+  $this->Hire_model->hapus_note($ID);
   return $this->hire_history();
   }
 
@@ -380,6 +399,7 @@ class Hr extends CI_Controller {
     $company = $this->input->post('company');
     $IsProcessedToHire = '0';
     $id_user = $this->session->userdata('UserID');
+    $note = $this->input->post('note');
 
     $data = array(
       'RequestedPositionID' => $position,
@@ -404,11 +424,17 @@ class Hr extends CI_Controller {
         'CreatedByID' => $id_user,
         'LastModifiedByID' => $id_user);
 
+    $data2 = array (
+          'PersonnelID' => $id_user,
+          'Description' => $note);
+
     //print_r($data1);
     //echo $data['IsProcessedToHire'];
     $res =$this->Hire_model->Update_data($data, $ID);
     $res2 = $this->Hire_model->Insert_to_Approval($data1);
-    if ($res > 0 && $res2 > 0 ) {
+    $res3 = $this->Hire_model->Update_note($data2, $ID);
+
+    if ($res > 0 && $res2 > 0 && $res3 > 0) {
        echo json_encode(array('status'=>true));
       }else{
       echo json_encode(array('status'=>false));
@@ -429,7 +455,9 @@ class Hr extends CI_Controller {
     $requirement = $this->input->post('requirement');
     $responsibility = $this->input->post('responsibility');
     $company = $this->input->post('company');
+    $note = $this->input->post('note');
     $IsProcessedToHire = '2';
+    $id_user = $this->session->userdata('UserID');
 
     
 
@@ -448,9 +476,15 @@ class Hr extends CI_Controller {
       'IsProcessedToHire' => $IsProcessedToHire,
       'RequestedCompanyID' => $company
       );
+
+    $data1 = array (
+          'PersonnelID' => $id_user,
+          'Description' => $note);
+
     $res = $this->Hire_model->update_saved_data($data, $ID);
+    $res1 = $this->Hire_model->Update_note($data1, $ID);
     //print_r($res);
-      if ($res > 0 ) {
+      if ($res > 0 && $res1 > 0) {
         echo json_encode(array('status'=>true));
         //$this->hire_history();
       }else{

@@ -205,6 +205,15 @@ class Hire_model extends CI_Model
     return $query->row_array();
   }
 
+  public function get_note($ID){
+    $q = 'select *
+      from dbo.RequisitionCommentTable 
+      where RequisitionID='.$ID;
+    $query = $this->db->query($q);
+    //$query = $this->db->get_where('dbo.RequisitionTable',$ID);
+    return $query->row_array();
+  }
+
   public function get_organization($OrganizationID)
   { 
       // $res = $this->db->query("select distinct a.OrganizationID, b.Name as OrganizationName from dbo.UserTable a
@@ -338,6 +347,10 @@ class Hire_model extends CI_Model
 
   public function Insert_to_approval($data){
     return $this->db->insert('dbo.RequisitionApprovalTable', $data);
+  }
+
+  public function Insert_note($data){
+    return $this->db->insert('dbo.RequisitionCommentTable', $data);
   }
 
   function get_search($compClue, $column){
@@ -663,7 +676,8 @@ class Hire_model extends CI_Model
 
   public function save_data($data){
     $res = $this->db->insert('dbo.RequisitionTable', $data);
-    return $res;
+    $last_id = $this->db->insert_id();
+    return $last_id;
   }
 
   public function save_data_personnel($data){
@@ -675,9 +689,18 @@ class Hire_model extends CI_Model
     return $this->db->delete('dbo.RequisitionTable', array('ID'=>$ID));
   }
 
+  public function hapus_note($ID){
+    return $this->db->delete('dbo.RequisitionCommentTable', array('RequisitionID'=>$ID));
+  }
+
   public function Update_data($data, $ID){
     $this->db->where('ID', $ID);
     return $this->db->update('dbo.RequisitionTable', $data);
+  }
+
+  public function Update_note($data, $ID){
+    $this->db->where('RequisitionID', $ID);
+    return $this->db->update('dbo.RequisitionCommentTable', $data);
   }
 
   public function update_saved_data($data, $ID){

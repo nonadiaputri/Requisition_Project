@@ -62,9 +62,9 @@
           <span class="sr-only">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu" role="menu">
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_approve'); ?>">Approved</a></li>
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_hold'); ?>">Hold<sup style="color:red; font-weight: bold"> <!-- <?php echo $myjml; ?> --> </sup></a></li>
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/myview_reject'); ?>">Rejected</a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('hr/myview_approve'); ?>">Approved</a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('hr/myview_hold'); ?>">Hold<sup style="color:red; font-weight: bold"> <!-- <?php echo $myjml; ?> --> </sup></a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('hr/myview_reject'); ?>">Rejected</a></li>
         </ul>
       </div>
       <div class="btn-group">
@@ -74,9 +74,9 @@
           <span class="sr-only">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu" role="menu">
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/approved_req'); ?>">Approved</a></li>
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/hold_req'); ?>">Hold<sup style="color:red; font-weight: bold"> <!-- <?php echo $myjml; ?> --> </sup></a></li>
-          <li><a class="dropdown-item" href="<?php echo base_url('Hr/rejected_req'); ?>">Rejected</a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('hr/approved_req'); ?>">Approved</a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('hr/hold_req'); ?>">Hold<sup style="color:red; font-weight: bold"> <!-- <?php echo $myjml; ?> --> </sup></a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('hr/rejected_req'); ?>">Rejected</a></li>
         </ul>
       </div>
             

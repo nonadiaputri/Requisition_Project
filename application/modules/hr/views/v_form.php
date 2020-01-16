@@ -142,11 +142,12 @@
 			        </div>
 	            </div>
 	        </div>
-
+          <br>
 	        <div class="row">
 	        	<div class="form-group">
                     <div class="col-md-8">
-                    	<label class="control-label col-form-label">Position</label>
+                    	<label class="control-label col-form-label">Position
+                        <span style="color: red;">*</span></label>
                 
                       	<select class="form-control selectpicker" data-show-subtext="true" data-size="5" name="position" id="position" style="width:100%;"  required="required">
                           <option value=""></option>
@@ -161,7 +162,8 @@
 	        <div class="row">
 	        	<div class="form-group">
                   <div class="col-md-8">
-                    <label class="control-label col-form-label">Person/s Need</label>
+                    <label class="control-label col-form-label">Person/s Need
+                    <span style="color: red;">*</span></label>
                     <select class="form-control" name="ttl" id="ttl" required="required">
                       <option value="" selected>Pilih</option>
                       <option value="1">1</option>
@@ -184,7 +186,8 @@
           <div class="row">
             <div class="form-group">
                   <div class="col-md-8">
-                    <label class="control-label col-form-label">Company</label>
+                    <label class="control-label col-form-label">Company
+                    <span style="color: red;">*</span></label>
                   
                     <select class="company form-control" name="company" id="company" style="width:100%;"  required="required">
                       <option value=""></option>
@@ -197,7 +200,8 @@
 	        <div class="row">
 	        	<div class="form-group">
                   <div class="col-md-8">
-                    <label class="control-label col-form-label">Cost Center</label>
+                    <label class="control-label col-form-label">Cost Center
+                    <span style="color: red;">*</span></label>
                   
                     <select class="searching form-control" name="placement" id="placement" style="width:100%;"  required="required">
                       <option value=""></option>
@@ -211,7 +215,8 @@
           <div class="row">
             <div class="form-group ">
                     <div class="col-md-8">
-                        <label class="control-label col-form-label">Requisition Type</label>
+                        <label class="control-label col-form-label">Requisition Type
+                        <span style="color: red;">*</span></label>
                       
                       <select class="form-control" name="req_status" id="req_status" required="required">
                         <option value="" selected>Pilih</option>
@@ -227,7 +232,8 @@
 	        <div class="row">
 	        	<div class="form-group ">
                     <div class="col-md-8">
-                        <label class="control-label col-form-label">Employee Status</label>
+                        <label class="control-label col-form-label">Employee Status
+                        <span style="color: red;">*</span></label>
                       
 	                    <select class="form-control" name="status" id="status" required="required">
 	                      <option value="" selected>Pilih</option>
@@ -246,7 +252,8 @@
 	        <div class="row">
 	        	<div class="form-group" style="display: none" id="repname">
                   <div class="col-md-8">
-                    <label class="control-label col-form-label">Replacement Name</label>
+                    <label class="control-label col-form-label">Replacement Name
+                    <span style="color: red;">*</span></label>
                   
                    <select class="rep-name form-control" name="ReplacementName" id="ReplacementName" style="width:100%;"  required="required">
                       <option value=""></option>
@@ -260,7 +267,8 @@
 	        <div class="row">
 	        	<div class="form-group">
                     <div class="col-md-8">
-                        <label class="control-label col-form-label">Expected Work Date</label>
+                        <label class="control-label col-form-label">Expected Work Date
+                        <span style="color: red;">*</span></label>
                     </div>
                     <div class="col-md-8">
                     	<input class="form-control" type="date" id="workdate" name="workdate" min="2018-01-01" max="2030-12-31" required="required" >
@@ -273,7 +281,8 @@
 	        <div class="row">
 	        	<div class="form-group">
                     <div class="col-md-8">
-                        <label class="control-label col-form-label">Responsibilities</label>
+                        <label class="control-label col-form-label">Responsibilities
+                        <span style="color: red;">*</span></label>
                     </div>
                     <div class="col-sm-8">
                         ​<!-- <textarea id="responsibility" name="responsibility" rows="7" cols="70" required="required"></textarea> -->
@@ -286,7 +295,8 @@
 	        <div class="row">
 	        	<div class="form-group">
                     <div class="col-md-8">
-                        <label class="control-label col-form-label">Requirement</label>
+                        <label class="control-label col-form-label">Requirement
+                        <span style="color: red;">*</span></label>
                       </div>
                       <div class="col-sm-8">
                         <div class="form-group">
@@ -298,6 +308,21 @@
                       </div>
                 </div>
 	        </div>
+          <div class="row">
+            <div class="form-group">
+                    <div class="col-md-8">
+                        <label class="control-label col-form-label">Note</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <div class="form-group">
+                          <!-- <textarea id="requirement" name="requirement" rows="7" cols="70" required="required"></textarea> -->
+                          <textarea id="noted" name="noted"rows="7" cols="110"></textarea>
+                        
+                        </div>
+                        
+                      </div>
+                </div>
+          </div>
 
 	        <div class="row">
 	        	<div class="form-group">
@@ -314,6 +339,178 @@
           <!-- /.row -->
           
        </div>
+
+       <div class="row">
+            <div class="col-md-6">
+
+             <div class="box box-warning direct-chat direct-chat-warning">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">Direct Chat</h3>
+
+                        <div class="box-tools pull-right">
+                          <span data-toggle="tooltip" title="3 New Messages" class="badge bg-yellow">3</span>
+                          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                          </button>
+                          <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts"
+                                  data-widget="chat-pane-toggle">
+                            <i class="fa fa-comments"></i></button>
+                          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <!-- /.box-header -->
+                      <div class="box-body">
+                        <!-- Conversations are loaded here -->
+                        <div class="direct-chat-messages">
+                          <!-- Message. Default to the left -->
+                          <div class="direct-chat-msg">
+                            <div class="direct-chat-info clearfix">
+                              <span class="direct-chat-name pull-left">Alexander Pierce</span>
+                              <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
+                            </div>
+                            <!-- /.direct-chat-info -->
+                           
+                            <!-- /.direct-chat-img -->
+                            <div class="direct-chat-text">
+                              Is this template really for free? That's unbelievable!
+                            </div>
+                            <!-- /.direct-chat-text -->
+                          </div>
+                          <!-- /.direct-chat-msg -->
+
+                          <!-- Message to the right -->
+                          <div class="direct-chat-msg left">
+                            <div class="direct-chat-info clearfix">
+                              <span class="direct-chat-name pull-left">Sarah Bullock</span>
+                              <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
+                            </div>
+                            <!-- /.direct-chat-info -->
+                            <img class="direct-chat-img" src="<?php echo base_url();?>assets/dist/img/user3-128x128.jpg" alt="message user image">
+                            <!-- /.direct-chat-img -->
+                            <div class="direct-chat-text">
+                              You better believe it!
+                            </div>
+                            <!-- /.direct-chat-text -->
+                          </div>
+                    
+                          <!-- /.direct-chat-msg -->
+
+                        </div>
+                        <!--/.direct-chat-messages-->
+
+                        <!-- Contacts are loaded here -->
+                        <div class="direct-chat-contacts">
+                          <ul class="contacts-list">
+                            <li>
+                              <a href="#">
+                                <img class="contacts-list-img" src="<?php echo base_url();?>assets/dist/img/user1-128x128.jpg" alt="User Image">
+
+                                <div class="contacts-list-info">
+                                      <span class="contacts-list-name">
+                                        Count Dracula
+                                        <small class="contacts-list-date pull-right">2/28/2015</small>
+                                      </span>
+                                  <span class="contacts-list-msg">How have you been? I was...</span>
+                                </div>
+                                <!-- /.contacts-list-info -->
+                              </a>
+                            </li>
+                            <!-- End Contact Item -->
+                            <li>
+                              <a href="#">
+                                <img class="contacts-list-img" src="<?php echo base_url();?>assets/dist/img/user7-128x128.jpg" alt="User Image">
+
+                                <div class="contacts-list-info">
+                                      <span class="contacts-list-name">
+                                        Sarah Doe
+                                        <small class="contacts-list-date pull-right">2/23/2015</small>
+                                      </span>
+                                  <span class="contacts-list-msg">I will be waiting for...</span>
+                                </div>
+                                <!-- /.contacts-list-info -->
+                              </a>
+                            </li>
+                            <!-- End Contact Item -->
+                            <li>
+                              <a href="#">
+                                <img class="contacts-list-img" src="<?php echo base_url();?>assets/dist/img/user3-128x128.jpg" alt="User Image">
+
+                                <div class="contacts-list-info">
+                                      <span class="contacts-list-name">
+                                        Nadia Jolie
+                                        <small class="contacts-list-date pull-right">2/20/2015</small>
+                                      </span>
+                                  <span class="contacts-list-msg">I'll call you back at...</span>
+                                </div>
+                                <!-- /.contacts-list-info -->
+                              </a>
+                            </li>
+                            <!-- End Contact Item -->
+                            <li>
+                              <a href="#">
+                                <img class="contacts-list-img" src="<?php echo base_url();?>assets/dist/img/user5-128x128.jpg" alt="User Image">
+
+                                <div class="contacts-list-info">
+                                      <span class="contacts-list-name">
+                                        Nora S. Vans
+                                        <small class="contacts-list-date pull-right">2/10/2015</small>
+                                      </span>
+                                  <span class="contacts-list-msg">Where is your new...</span>
+                                </div>
+                                <!-- /.contacts-list-info -->
+                              </a>
+                            </li>
+                            <!-- End Contact Item -->
+                            <li>
+                              <a href="#">
+                                <img class="contacts-list-img" src="<?php echo base_url();?>assets/dist/img/user6-128x128.jpg" alt="User Image">
+
+                                <div class="contacts-list-info">
+                                      <span class="contacts-list-name">
+                                        John K.
+                                        <small class="contacts-list-date pull-right">1/27/2015</small>
+                                      </span>
+                                  <span class="contacts-list-msg">Can I take a look at...</span>
+                                </div>
+                                <!-- /.contacts-list-info -->
+                              </a>
+                            </li>
+                            <!-- End Contact Item -->
+                            <li>
+                              <a href="#">
+                                <img class="contacts-list-img" src="<?php echo base_url();?>assets/dist/img/user8-128x128.jpg" alt="User Image">
+
+                                <div class="contacts-list-info">
+                                      <span class="contacts-list-name">
+                                        Kenneth M.
+                                        <small class="contacts-list-date pull-right">1/4/2015</small>
+                                      </span>
+                                  <span class="contacts-list-msg">Never mind I found...</span>
+                                </div>
+                                <!-- /.contacts-list-info -->
+                              </a>
+                            </li>
+                            <!-- End Contact Item -->
+                          </ul>
+                          <!-- /.contatcts-list -->
+                        </div>
+                        <!-- /.direct-chat-pane -->
+                      </div>
+                      <!-- /.box-body -->
+                      <div class="box-footer">
+                        <form action="#" method="post">
+                          <div class="input-group">
+                            <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                            <span class="input-group-btn">
+                                  <button type="button" class="btn btn-warning btn-flat">Send</button>
+                                </span>
+                          </div>
+                        </form>
+                      </div>
+                      <!-- /.box-footer-->
+                    </div>
+          </div>
+        </div>
        <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/css/kompas-intranet.css" />
 
 <!--- FOOTER SECTION --->
@@ -691,6 +888,7 @@
       var responsibility = CKEDITOR.instances["responsibility"].getData();
       var requirement = CKEDITOR.instances["requirement"].getData();
       var company = $('#company').val();
+      var noted = $('textarea#noted').val();
       //console.log("btn click"+req_position_id);
 
       $.ajax({
@@ -707,7 +905,8 @@
                'workdate':workdate,
                'ReplacementName':ReplacementName,
                'responsibility' : responsibility,
-               'requirement' : requirement},
+               'requirement' : requirement,
+               'note' : noted},
         success:function(data){
           window.location.href = '<?php echo base_url('hr/hire_history');?>';
           console.log(data);
@@ -896,6 +1095,7 @@
          $('#requirement').css('border-color', '');
          requirement = $('#requirement').val();
         }
+        console.log( $('textarea#noted').val());
 
         if (error_requestor == '' && error_req_position == '' && error_req_org == '' && error_position == '' && error_total == '' && error_placement == '' && error_status == '' && error_workdate == '' && error_responsibility == '' && error_requirement == '' && error_ttl == '' ) {
           $('#myModal').modal('show'); 
@@ -918,6 +1118,8 @@
       var responsibility = CKEDITOR.instances["responsibility"].getData();
       var requirement = CKEDITOR.instances["requirement"].getData();
       var company = $('#company').val();
+      var noted = $('textarea#noted').val();
+      console.log(noted);
 
       $.ajax({
         url:"<?php echo base_url('hr/submit_hire');?>",
@@ -935,7 +1137,8 @@
                'workdate':workdate,
                'ReplacementName':ReplacementName,
                'responsibility' : responsibility,
-               'requirement' : requirement},
+               'requirement' : requirement,
+               'note' : noted},
         success:function(data){
           console.log(data);
           if (data.status) {
