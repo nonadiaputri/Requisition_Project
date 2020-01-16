@@ -335,7 +335,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal process" method="POST" action="<?php echo base_url('Hr/process/'.$req['ID']);?>">
+                            <form class="form-horizontal process" method="POST" action="<?php echo base_url('hr/process/'.$req['ID']);?>">
                                 <div class="form-group row">
                                     <div class="col-md-3">
                                         <label>Start Date</label>
@@ -363,7 +363,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal hold" method="POST" action="<?php echo base_url('Hr/hold/'.$req['ID']);?>">
+                            <form class="form-horizontal hold" method="POST" action="<?php echo base_url('hr/hold/'.$req['ID']);?>">
                                 <div class="form-group row">
                                     <div class="col-md-3">
                                         <label>Hold Until</label>
@@ -391,7 +391,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal reject" method="POST" action="<?php echo base_url('Hr/reject/'.$req['ID']);?>">
+                            <form class="form-horizontal reject" method="POST" action="<?php echo base_url('hr/reject/'.$req['ID']);?>">
                                 <div class="form-group row">
                                     <div class="col-md-3">
                                         <label>Reason</label>
@@ -418,7 +418,7 @@
                             <h4 class="modal-title" id="myModalLabel">Edit Cost Center</h4>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal edit" method="POST" action="<?php echo base_url('Hr/update_cost_center/'.$req['ID']);?>">
+                            <form class="form-horizontal edit" method="POST" action="<?php echo base_url('hr/update_cost_center/'.$req['ID']);?>">
                                 <div class="form-group row">
                                     <div class="col-md-3">
                                         <label>Select Cost Center</label>
@@ -713,7 +713,7 @@
                 console.log(form_data);
                 $.ajax({
                 method: 'POST',
-                url: '<?php echo base_url('Hr/update_cost_center/');?>'+id_req,
+                url: '<?php echo base_url('hr/update_cost_center/');?>'+id_req,
                 data: form_data,
                 success: function(status) {
                     if (status) {
@@ -731,7 +731,7 @@
                 cost_center_new = $('#cost-center').val();
                 $.ajax({
                 method: 'POST',
-                url: '<?php echo base_url('Hr/update_cost_center/');?>'+id_req,
+                url: '<?php echo base_url('hr/update_cost_center/');?>'+id_req,
                 data: {cost_center : cost_center_new},
                 success: function(status) {
                     if (status) {
@@ -767,12 +767,12 @@
                 var form_data = $('.process').serialize();
                 $.ajax({
                 method: 'POST',
-                url: '<?php echo base_url('Hr/Process/');?>'+id_req,
+                url: '<?php echo base_url('hr/Process/');?>'+id_req,
                 data: form_data,
                 success: function(data) {
                     if (status) {
                        
-                        window.location.href = '<?php echo base_url('Hr/need_approval');?>';
+                        window.location.href = '<?php echo base_url('hr/need_approval');?>';
                         alert('Approval success');
                         }   
                    },
@@ -806,12 +806,12 @@
                 var form_data = $('.hold').serialize();
                 $.ajax({
                 method: 'POST',
-                url: '<?php echo base_url('Hr/hold/');?>'+id_req,
+                url: '<?php echo base_url('hr/hold/');?>'+id_req,
                 data: form_data,
                 success: function(data) {
                     if (status) {
                           alert('Hold Request success');
-                           window.location.href = '<?php echo base_url('Hr/need_approval');?>';
+                           window.location.href = '<?php echo base_url('hr/need_approval');?>';
                         }   
                    },
                 error: function() {
@@ -845,12 +845,12 @@
                 var form_data = $('.reject').serialize();
                 $.ajax({
                 method: 'POST',
-                url: '<?php echo base_url('Hr/reject/');?>'+id_req,
+                url: '<?php echo base_url('hr/reject/');?>'+id_req,
                 data: form_data,
                 success: function(data) {
                     if (status) {
                           alert('Reject Request success');
-                           window.location.href = '<?php echo base_url('Hr/need_approval');?>';
+                           window.location.href = '<?php echo base_url('hr/need_approval');?>';
                         }   
                    },
                 error: function() {
