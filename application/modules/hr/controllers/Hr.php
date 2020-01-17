@@ -646,6 +646,9 @@ class Hr extends CI_Controller {
     if ($nik == '026061') {
       $data['need_app'] = $this->Hire_model->need_approval_recruiter();
     }
+    if ($nik == '004905') {
+      $data['need_app'] = $this->Hire_model->need_approval_cc();
+    }
     $data["header"] = $this->load->view('header/v_header','',TRUE);
     $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
     $this->load->view('hr/v_need_approval',$data);

@@ -270,6 +270,20 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- EDITED BY RECRUITER -->
+
+                            <div class="row invoice-info" id="edited-rec" style="display: none;">
+                                <div class="col-md-8 offset-2">
+                                    <div class="form-group row">
+                                        <fieldset class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="checkbox-edited-rec">Edited by recruiter
+                                            </label>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- HR APPROVAL -->
                             <div class="row invoice-info" id="apv_hr" style="display: none;">
                                 <div class="col-md-8 offset-2">
@@ -308,6 +322,63 @@
                                                 <?php echo $latest[2][ 'PersonnelName']; ?>
                                                 <br>&nbsp &nbsp as
                                                 <?php echo $latest[2][ 'Position']; ?>
+                                            </label>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CC APROVAL -->
+                            <div class="row invoice-info" id="apv_cc" style="display: none;">
+                                <div class="col-md-8 offset-2">
+                                    <div class="form-group row">
+                                        <fieldset class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="checkbox-apv-cc">Approved by
+                                                <?php echo $latest[3][ 'PersonnelName']; ?>
+                                                <br>&nbsp &nbsp as
+                                                <?php echo $latest[3][ 'Position']; ?>
+                                            </label>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row invoice-info" id="hold_cc" style="display: none;">
+                                <div class="col-md-8 offset-2">
+                                    <div class="form-group row">
+                                        <fieldset class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" class="checkbox-hl-cc">Hold by
+                                                <?php echo $latest[3][ 'PersonnelName']; ?>
+                                                <br>&nbsp &nbsp as
+                                                <?php echo $latest[3][ 'Position']; ?>
+                                            </label>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row invoice-info" id="reject_cc" style="display: none;">
+                                <div class="col-md-8 offset-2">
+                                    <div class="form-group row">
+                                        <fieldset class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" class="checkbox-rjt-cc">Rejected by
+                                                <?php echo $latest[3][ 'PersonnelName']; ?>
+                                                <br>&nbsp &nbsp as
+                                                <?php echo $latest[3][ 'Position']; ?>
+                                            </label>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- COMPLETE -->
+                            <div class="row invoice-info" id="completed" style="display: none;">
+                                <div class="col-md-8 offset-2">
+                                    <div class="form-group row">
+                                        <fieldset class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" class="checkbox-completed">Request Completed
                                             </label>
                                         </fieldset>
                                     </div>
@@ -653,36 +724,93 @@
             }
 
             if (appstatus2 == "3") {
-                $('#button-process').hide();
-                $('#button-hold').hide();
-                $('#button-reject').hide();
-                $('#button-sent-back').hide();
-                $('#img-print').show();
-    
+                if (reqstor == '1700') {
+                    $('#button-process').show();
+                    $('#button-hold').show();
+                    $('#button-reject').show();
+                }else{
+                    $('#button-process').hide();
+                    $('#button-hold').hide();
+                    $('#button-reject').hide();
+                    $('#button-sent-back').hide();
+                    $('#img-print').show();
+                }
                 if (app_process2 == '1') {
                     $('.checkbox-mngr').prop('checked', true);
                     $('.checkbox-apv-gm').prop('checked', true);
+                    $('.checkbox-edited-rec').prop("checked", true);
                     $('.checkbox-apv-hr').prop("checked", true);
                     $('#app-status').show();
                     $('#process-date').show();
                     $('#apv_gm').show();
+                    $('#edited-rec').show();
                     $('#apv_hr').show();
                 }else if (app_hold2 == '1') {
                     $('.checkbox-mngr').prop('checked', true);
                     $('.checkbox-hl-gm').prop('checked', true);
+                    $('.checkbox-edited-rec').prop("checked", true);
                     $('.checkbox-hl-hr').prop("checked", true);
                     $('#app-status').show();
                     $('#hold-end').show();
                     $('#hold-by').show();
+                    $('#edited-rec').show();
                     $('#hold_hr').show();
                 }else if (app_reject2 == '1') {
                     $('#app-status').show();
                     $('#rjt-reason').show();
                     $('.checkbox-mngr').prop('checked', true);
                     $('.checkbox-rjt-gm').prop('checked', true);
+                    $('.checkbox-edited-rec').prop("checked", true);
                     $('.checkbox-rjt-hr').prop("checked", true);
                     $('#reject-by').show();
+                    $('#edited-rec').show();
                     $('#reject_hr').show();
+                }
+            }
+
+            if (appstatus2 == '4') {
+                $('#button-process').hide();
+                $('#button-hold').hide();
+                $('#button-reject').hide();
+                $('#button-sent-back').hide();
+                if (app_process2 == '1') {
+                    $('.checkbox-mngr').prop('checked', true);
+                    $('.checkbox-apv-gm').prop('checked', true);
+                    $('.checkbox-edited-rec').prop("checked", true);
+                    $('.checkbox-apv-hr').prop("checked", true);
+                    $('.checkbox-apv-cc').prop("checked", true);
+                    $('.checkbox-completed').prop("checked", true);
+                    $('#app-status').show();
+                    $('#process-date').show();
+                    $('#apv_gm').show();
+                    $('#edited-rec').show();
+                    $('#apv_hr').show();
+                    $('#apv_cc').show();
+                    $('#completed').show();
+                }else if (app_hold2 == '1') {
+                    $('.checkbox-mngr').prop('checked', true);
+                    $('.checkbox-hl-gm').prop('checked', true);
+                    $('.checkbox-edited-rec').prop("checked", true);
+                    $('.checkbox-hl-hr').prop("checked", true);
+                    $('.checkbox-hl-cc').prop("checked", true);
+                    $('#app-status').show();
+                    $('#hold-end').show();
+                    $('#hold-by').show();
+                    $('#edited-rec').show();
+                    $('#hold_hr').show();
+                    $('#hold_cc').show();
+                }else if (app_reject2 == '1') {
+                    $('#app-status').show();
+                    $('#rjt-reason').show();
+                    $('.checkbox-mngr').prop('checked', true);
+                    $('.checkbox-rjt-gm').prop('checked', true);
+                    $('.checkbox-edited-rec').prop("checked", true);
+                    $('.checkbox-rjt-hr').prop("checked", true);
+                    $('.checkbox-rjt-cc').prop("checked", true);
+                    $('#reject-by').show();
+                    $('#edited-rec').show();
+                    $('#reject_hr').show();
+                    $('#reject_cc').show();
                 }
             }
     
