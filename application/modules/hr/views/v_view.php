@@ -318,11 +318,12 @@
                     <!-- /.row -->
                     <!-- this row will not appear when printing -->
                     <div class="row no-print">
-                        <div class="col-xs-12"> <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+                        <div class="col-xs-12"> 
+                           <!--  <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
                             <button type="button" class="btn btn-danger pull-right" id="button-reject" data-toggle="modal" data-target="#reject" style="margin-right: 5px;">Reject</button>
                             <button type="button" class="btn btn-warning pull-right" id="button-hold" data-toggle="modal" data-target="#hold" style="margin-right: 5px;">Hold</button>
                             <button type="button" class="btn btn-success pull-right" id="button-process" data-toggle="modal" data-target="#process" style="margin-right: 5px;">Approve</button>
-                            <button type="button" class="btn btn-success btn-sx" id="button-save"  style="margin-right: 5px;display: none;">Save</button>
+                            <button type="button" class="btn btn-success pull-right" id="button-save"  style="margin-right: 5px;display: none;">Save</button>
                         </div>
                     </div>
             </section>
@@ -555,6 +556,17 @@
                 }
             });
 
+    function load(){
+                if (<?php echo $req['PlacementID'];?> == '0') {
+                    $('#cost-center').removeAttr('value');
+                  }else{
+                  $('#cost-center')
+                  .empty()
+                  .append('<option selected value="<?php echo $req['PlacementID'];?>"><?php echo $req['Placement'];?></option>');
+                  $('#cost-center').trigger('change');
+                }
+            }
+
      $(document).ready(function(){
             var id_req = '<?php echo $req['ID']; ?>';
             console.log(id_req);
@@ -574,6 +586,7 @@
             var app_reject2 = "<?php echo $max['IsRejected'] ; ?>";
             var rec = "<?php echo $req['LastModifiedById'] ?>";
             console.log(rec);
+
 
             if (appstatus2 == '1') {
                 if (reqstor == <?php echo $req['RequestorID'] ;?> && app_process == '0' &&  app_reject == '0' && app_hold == '0'){
@@ -634,6 +647,8 @@
                     $('#cc_rec').show();
                     $('#cc').hide();
                     $('#lbl-rec-notif').show();
+                    load();
+
                 }
             }
 
@@ -736,6 +751,7 @@
                 success: function(status) {
                     if (status) {
                         alert("success");
+                        window.location.href = '<?php echo base_url('hr/need_approval');?>';
                     }   
                    },
                 error: function() {
