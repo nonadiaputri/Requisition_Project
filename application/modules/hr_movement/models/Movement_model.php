@@ -117,7 +117,8 @@ class Movement_model extends CI_Model
       {
         $query = $this->db->query('select a.*, c.FullName as RequestorName, 
          b.Name as current_position, e.Name as new_position, g.Name as requestor_position, 
-         a.CurrentPositionID, a.NewPositionID, d.Name as DeptName, 
+         a.CurrentPositionID, a.NewPositionID, d.Name as DeptName, i.Name as NewOrganizationName,
+         j.Name as CurrentOrganizationName,
          f.FullName as request_name, h.Name as MovementType from MovementRequestTable a 
          left join PositionTable b on a.CurrentPositionID = b.ID 
          left join PositionTable e on e.id = a.NewPositionID
@@ -126,10 +127,30 @@ class Movement_model extends CI_Model
            left join PersonnelTable f on f.ID = a.RequestedPersonnelID
          left join OrganizationTable d on d.ID = a.RequestorDepartmentID  
          left join MovementRequestTypeTable h on h.ID = a.MovementRequestTypeID
+         left join OrganizationTable i on i.ID = a.NewOrganizationID
+         left join OrganizationTable j on j.ID = a.CurrentOrganizationID
          where a.ID ='.$ID);
          return $query->row_array();
          
       }
+
+      public function get_human_resources($ID)
+  { 
+
+    $q = 'select distinct a.*, d.FullName, d.Postion from 
+    [dbo].[UserXPersonnel] a 
+join dbo.PersonnelHierarchy2 d on d.ID = a.PersonnelID
+join dbo.UserTable b on a.UserID = b.ID
+      where a.UserID = '.$ID ;
+
+// $q = 'select distinct a.*, d.FullName, d.Postion from 
+//     [dbo].[UserXPersonnel] a 
+// join dbo.PersonnelHierarchy2 d on d.ID = a.PersonnelID
+// join dbo.UserTable b on a.UserID = b.ID
+//       where d.ParentOrganizationID = 20' ;
+        $query = $this->db->query($q);    
+         return $query->result_array();
+  }
 
       function get_apv_req($ID){
         $q = " select a.MovementRequestID, max(a.ApprovalStatusID) as max_status, 
@@ -614,10 +635,19 @@ class Movement_model extends CI_Model
         $query = $this->db->get();
         return $query->row_array();
       }
+
+      function search_hra($ID){
+        $this->db->select('*');
+        $this->db->from("dbo.PersonnelHierarchy");
+        $this->db->like('ID',$ID);
+        //$this->db->where('IsHold',)
+        $query = $this->db->get();
+        return $query->row_array();
+      }
     
     
       function search_new_position($Position){
-        $this->db->select('a.Name, b.PositionID as NewPositionID, c.ID as NewOrganizationID');
+        $this->db->select('a.Name, b.PositionID as NewPositionID, c.ID as NewOrganizationID, c.Name as NewOrganizationName');
         $this->db->from('dbo.PositionTable a');
         $this->db->join('dbo.PositionInOrganization b','a.ID = b.PositionID');
         $this->db->join('dbo.OrganizationTable c','b.OrganizationUnitID = c.ID');
