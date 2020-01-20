@@ -144,25 +144,82 @@
                               
                               <input type="text" name="current_position" id="current_position" required="required" class="form-control" value="<?php echo $row['current_position']?>"readonly>
                               <input type="hidden" name="current_position_id" id="current_position_id" required="required" class="form-control">
-                              <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control">
+                              <!-- <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control"> -->
                               <span id="error_current_position" class="text-danger"></span>
                           </div>
 
                           <div class="col-sm-6">
-                                  <label class="control-label col-form-label">New Position</label>
-                                
-                                  <select class="form-control chs-select" name="new_position" id="new_position" style="width:90%" required="required">
-                                      <option default>Select New Position</option>
-                                      <?php foreach ($pos as $pos) { ?>
-                                      <option value="<?php echo $pos['ID'];?>"><?php echo $pos['Name'];?></option>
-                                      <?php } ?>
-                                  </select>
-                                  <input type="hidden" name="new_org_id" id="new_org_id" required="required" class="form-control">
-                                  <span id="error_new_position" class="text-danger"></span>
+                              <label class="control-label col-form-label">New Position</label>
+                              
+                              <select class="new_position form-control" name="new_position" id="new_position" style="width:500px"  required="required">
+                              <option value=""></option>
+                            </select>
+                              <input type="hidden" name="new_pos_id" id="new_pos_id" required="required" class="form-control">
+                              <span id="error_new_position" class="text-danger"></span>
                           </div>
-
-                          
                         </div>
+
+
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label">Current Organization</label>
+                                <input type="text" name="current_org" id="current_org" required="required" class="form-control" readonly>
+                                <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control">
+                                <span id="error_current_org" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label">New Organization</label>
+                                <input type="text" name="new_org" id="new_org" required="required" class="form-control" style="width:500px" readonly>
+                                <input type="hidden" name="new_org_id" id="new_org_id" required="required" class="form-control">
+                                <span id="error_new_org" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <div class="col-sm-6">
+                              <label class="control-label col-form-label">Current Director Placement</label>
+                              <input type="text" name="current_dp" id="current_dp" required="required" class="form-control" readonly>
+                              <input type="hidden" name="current_dp_id" id="current_dp_id" required="required" class="form-control">
+                              <span id="error_current_dp" class="text-danger"></span>
+                          </div>
+                          <div class="col-sm-6">
+                              <label class="control-label col-form-label">New Director Placement</label>
+                              <input type="text" name="new_dp" id="new_dp" required="required" class="form-control" style="width:500px"readonly>
+                              <input type="hidden" name="new_dp_id" id="new_dp_id" required="required" class="form-control">
+                              <span id="error_new_dp" class="text-danger"></span>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <div class="col-sm-6">
+                              <label class="control-label col-form-label">Current Company</label>
+                              <input type="text" name="current_cpy" id="current_cpy" required="required" class="form-control" readonly>
+                              <input type="hidden" name="current_cpy_id" id="current_cpy_id" required="required" class="form-control">
+                              <span id="error_current_cpy" class="text-danger"></span>
+                          </div>
+                          <div class="col-sm-6">
+                              <label class="control-label col-form-label">New Company</label>
+                              <input type="text" name="new_cpy" id="new_cpy" required="required" class="form-control" style="width:500px" readonly>
+                              <input type="hidden" name="new_cpy_id" id="new_cpy_id" required="required" class="form-control">
+                              <span id="error_new_cpy" class="text-danger"></span>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <div class="col-sm-6">
+                              <label class="control-label col-form-label">Current Cost Center</label>
+                              <input type="text" name="current_cc" id="current_cc" required="required" class="form-control" readonly>
+                              <input type="hidden" name="current_cc_id" id="current_cc_id" required="required" class="form-control">
+                              <span id="error_current_cc" class="text-danger"></span>
+                          </div>
+                          <div class="col-sm-6">
+                              <label class="control-label col-form-label">New Cost Center</label>
+                              <input type="text" name="new_cc" id="new_cc" required="required" class="form-control" style="width:500px"readonly>
+                              <input type="hidden" name="new_cc_id" id="new_cc_id" required="required" class="form-control">
+                              <span id="error_new_cc" class="text-danger"></span>
+                          </div>
+                        </div>
+
 
 
                                      

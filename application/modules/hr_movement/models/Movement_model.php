@@ -139,15 +139,16 @@ class Movement_model extends CI_Model
 
     $q = 'select distinct a.*, d.FullName, d.Postion from 
     [dbo].[UserXPersonnel] a 
-join dbo.PersonnelHierarchy2 d on d.ID = a.PersonnelID
-join dbo.UserTable b on a.UserID = b.ID
+    join dbo.PersonnelHierarchy2 d on d.ID = a.PersonnelID
+    join dbo.UserTable b on a.UserID = b.ID
       where a.UserID = '.$ID ;
 
-// $q = 'select distinct a.*, d.FullName, d.Postion from 
-//     [dbo].[UserXPersonnel] a 
-// join dbo.PersonnelHierarchy2 d on d.ID = a.PersonnelID
-// join dbo.UserTable b on a.UserID = b.ID
-//       where d.ParentOrganizationID = 20' ;
+    // $q = 'select distinct a.*, d.FullName, d.Postion from 
+    // [dbo].[UserXPersonnel] a 
+    // join dbo.PersonnelHierarchy2 d on d.ID = a.PersonnelID
+    // join dbo.UserTable b on a.UserID = b.ID
+    //   where d.OrganizationID = '.$req_dep ;
+
         $query = $this->db->query($q);    
          return $query->result_array();
   }

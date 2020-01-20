@@ -175,21 +175,6 @@
 
                         <div class="form-group row">
                           <div class="col-sm-6">
-                              <label class="control-label col-form-label">Current Director Placement</label>
-                              <input type="text" name="current_dp" id="current_dp" required="required" class="form-control" readonly>
-                              <input type="hidden" name="current_dp_id" id="current_dp_id" required="required" class="form-control">
-                              <span id="error_current_dp" class="text-danger"></span>
-                          </div>
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">New Director Placement</label>
-                              <input type="text" name="new_dp" id="new_dp" required="required" class="form-control" style="width:500px"readonly>
-                              <input type="hidden" name="new_dp_id" id="new_dp_id" required="required" class="form-control">
-                              <span id="error_new_dp" class="text-danger"></span>
-                          </div>
-                        </div>
-
-                        <div class="form-group row">
-                          <div class="col-sm-6">
                               <label class="control-label col-form-label">Current Company</label>
                               <input type="text" name="current_cpy" id="current_cpy" required="required" class="form-control" readonly>
                               <input type="hidden" name="current_cpy_id" id="current_cpy_id" required="required" class="form-control">
@@ -215,6 +200,21 @@
                               <input type="text" name="new_cc" id="new_cc" required="required" class="form-control" style="width:500px"readonly>
                               <input type="hidden" name="new_cc_id" id="new_cc_id" required="required" class="form-control">
                               <span id="error_new_cc" class="text-danger"></span>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <div class="col-sm-6">
+                              <label class="control-label col-form-label">Current Director Placement</label>
+                              <input type="text" name="current_dp" id="current_dp" required="required" class="form-control" readonly>
+                              <input type="hidden" name="current_dp_id" id="current_dp_id" required="required" class="form-control">
+                              <span id="error_current_dp" class="text-danger"></span>
+                          </div>
+                          <div class="col-sm-6">
+                              <label class="control-label col-form-label">New Director Placement</label>
+                              <input type="text" name="new_dp" id="new_dp" required="required" class="form-control" style="width:500px"readonly>
+                              <input type="hidden" name="new_dp_id" id="new_dp_id" required="required" class="form-control">
+                              <span id="error_new_dp" class="text-danger"></span>
                           </div>
                         </div>
 
@@ -257,13 +257,57 @@
                                     <select class="form-control chs-select" name="hra" id="hra" style="width:100%" required="required">
                                         <option default>Select Human Resources Approval</option>
                                         <?php foreach ($hra as $hra) { ?>
-                                        <option id="personnel_id"value="<?php echo $hra['PersonnelID'];?>"><?php echo $hra['FullName'];?> &nbsp ( <?php echo $hra['Postion'];?>)</option>
+                                        <option id="personnel_id"value="<?php echo $hra['PersonnelID'];?>"><?php echo $hra['FullName'];?> &nbsp ( <?php echo $hra['Postion'];?>) </option>
                                         <?php } ?>
                                     </select>
                                     <input type="hidden" name="hra_id" id="hra_id" required="required" class="form-control">
                                     <span id="error_hra" class="text-danger"></span>
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-8">
+                                    <label class="control-label col-form-label"> Human Resources Approval from Current Position</label>
+                                    <select class="form-control chs-select" name="hra2" id="hra2" style="width:100%" required="required">
+                                        <option default>Select Human Resources Approval</option>
+                                        <?php foreach ($hra2 as $hra2) { ?>
+                                        <option id="personnel_id"value="<?php echo $hra2['PersonnelID'];?>"><?php echo $hra2['FullName'];?> &nbsp ( <?php echo $hra['Postion'];?>)</option>
+                                        <?php } ?>
+                                    </select>
+                                    <input type="hidden" name="hra2_id" id="hra2_id" required="required" class="form-control">
+                                    <span id="error_hra" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-8">
+                                    <label class="control-label col-form-label"> Human Resources Approval from New Position</label>
+                                    <select class="form-control chs-select" name="hra3" id="hra3" style="width:100%" required="required">
+                                        <option default>Select Human Resources Approval</option>
+                                        <?php foreach ($hra3 as $hra3) { ?>
+                                        <option id="personnel_id"value="<?php echo $hra3['PersonnelID'];?>"><?php echo $hra3['FullName'];?> &nbsp ( <?php echo $hra['Postion'];?>)</option>
+                                        <?php } ?>
+                                    </select>
+                                    <input type="hidden" name="hra3_id" id="hra3_id" required="required" class="form-control">
+                                    <span id="error_hra" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                    <div class="col-md-8">
+                                        <label class="control-label col-form-label">Note</label>
+                                      </div>
+                                      <div class="col-sm-8">
+                                        <div class="form-group">
+                                          <!-- <textarea id="requirement" name="requirement" rows="7" cols="70" required="required"></textarea> -->
+                                          <textarea id="noted" name="noted"rows="7" cols="110"></textarea>
+                                        
+                                        </div>
+                                        
+                                      </div>
+                                </div>
+                          </div>
                                   
                               <div class="form-group row">
                                 <div style="width:100%;height:100%;vertical-align:middle;text-align:center;">

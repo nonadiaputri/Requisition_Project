@@ -32,8 +32,10 @@ class Hr_movement extends CI_Controller {
 			$data['type'] = $this->Movement_model->choose_move_type($ID);
 			$data['pos'] = $this->Movement_model->choose_move_position($ID);
 			$data['result'] = $this->Movement_model->get_new_req($ID, $req_dep);
-		//	$data['hra'] = $this->Movement_model->get_human_resources($req_dep);
-			$data['hra'] = $this->Movement_model->get_human_resources($dat);
+			//$data['hra'] = $this->Movement_model->get_human_resources($prn_org);
+			 $data['hra'] = $this->Movement_model->get_human_resources($dat);
+			 $data['hra2'] = $this->Movement_model->get_human_resources($dat);
+			 $data['hra3'] = $this->Movement_model->get_human_resources($dat);
 			$data['tot'] = count($data['result']);  
 			$data['org'] = $this->Movement_model->choose_org();  
 			$data["header"] = $this->load->view('header/v_header','',TRUE);
@@ -41,6 +43,39 @@ class Hr_movement extends CI_Controller {
 			//$data["auto"] = $this->Movement_model->auto_regist_position($last_id, $position);
 			$this->load->view('hr_movement/v_form_movement',$data);
 		}
+
+		$nik = $this->session->userdata('nik');
+
+		$check = $this->Movement_model->check_personnel($nik);
+		$sess = $this->Movement_model->make_session($nik);
+
+		$object = json_decode(json_encode($sess));
+			//var_dump($object->Postion);
+			//var_dump($count($sess));
+			if ($sess != '') {
+			$data = array(
+				'Name2'    => $object->FullName,
+				'NIK2'     => $object->PersonnelNumber,
+				'ID2'    => $object->ID,
+				'Position'   => $object->Postion,
+				'PositionID' => $object->PostionID,
+				'Organization' =>$object->Organization,
+				'OrganizationID' =>$object->OrganizationID,
+				'ParentOrganization' =>$object->ParentOrganization,
+				'ParentOrganizationID' => $object->ParentOrganizationID,
+				'ParentPosition' =>$object->ParentPosition,
+				'ParentPositionID'=>$object->ParentPositionID,
+				'ParentPersonnel' => $object->ParentPersonnel,
+				'ParentPersonnelID' => $object->ParentPersonnelID
+			);
+			//var_dump($data);
+
+			$this->session->set_userdata($data);
+			}
+
+			$data['hra'] = $this->Movement_model->get_human_resources($dat);
+			$data['hra2'] = $this->Movement_model->get_human_resources($dat);
+			$data['hra3'] = $this->Movement_model->get_human_resources($dat);
 
 		//$Request = $this->Movement_model->get_sp_request_number($RequestNumber);
 
