@@ -226,6 +226,7 @@ class Hr extends CI_Controller {
       $company = $this->input->post('company');
       $id = $this->session->userdata('UserID');
       $note = $this->input->post('note');
+      $req_type = $this->input->post('req_type');
       var_dump($note);
 
 	    $data = array(
@@ -236,13 +237,14 @@ class Hr extends CI_Controller {
 	      'ReplacementPersonnelID' => $ReplacementName,
 	      'NumberOfPlacement' => $total,
 	      'ExpectedWorkStartDate' => $workdate,
-	      'RequisitionTypeID' => $status,
+	      'RequisitionTypeID' => $req_type,
 	      'RequirementDescription' => $requirement,
 	      'DuttiesAndResponsibilities' => $responsibility,
 	      'PlacementID' => $placement,
         'CreatedByID' => $id,
         'LastModifiedByID' => $id,
-        'RequestedCompanyID' => $company
+        'RequestedCompanyID' => $company,
+        'EmploymentTypeID'=> $status
 	      );
 
 	    $this->load->model('Hire_model');
@@ -292,6 +294,7 @@ class Hr extends CI_Controller {
 	    $responsibility = $this->input->post('responsibility');
       $company = $this->input->post('company');
       $note = $this->input->post('note');
+      $req_type = $this->input->post('req_type');
 	    $IsProcessedToHire = '2';
       $id = $this->session->userdata('UserID');
       var_dump($id);
@@ -305,14 +308,15 @@ class Hr extends CI_Controller {
 	      'ReplacementPersonnelID' => $ReplacementName,
 	      'NumberOfPlacement' => $total,
 	      'ExpectedWorkStartDate' => $workdate,
-	      'RequisitionTypeID' => $status,
+	      'RequisitionTypeID' => $req_type,
 	      'RequirementDescription' => $requirement,
 	      'DuttiesAndResponsibilities' => $responsibility,
 	      'PlacementID' => $placement,
 	      'IsProcessedToHire' => $IsProcessedToHire,
         'CreatedByID'=>$id,
         'LastModifiedByID'=>$id,
-        'RequestedCompanyID' => $company
+        'RequestedCompanyID' => $company,
+        'EmploymentTypeID' => $status
 	      );
 	    //print_r($data);
 
@@ -400,20 +404,22 @@ class Hr extends CI_Controller {
     $IsProcessedToHire = '0';
     $id_user = $this->session->userdata('UserID');
     $note = $this->input->post('note');
+    $req_type = $this->input->post('req_type');
 
     $data = array(
       'RequestedPositionID' => $position,
       'ReplacementPersonnelID' => $ReplacementName,
       'NumberOfPlacement' => $total,
       'ExpectedWorkStartDate' => $workdate,
-      'RequisitionTypeID' => $status,
+      'RequisitionTypeID' => $req_type,
       'RequirementDescription' => $requirement,
       'DuttiesAndResponsibilities' => $responsibility,
       'PlacementID' => $placement,
       'IsProcessedToHire' => $IsProcessedToHire,
       'CreatedByID' =>$id_user,
       'LastModifiedByID' => $id_user,
-      'RequestedCompanyID' => $company
+      'RequestedCompanyID' => $company,
+      'EmploymentTypeID' => $status
       );
 
     $data1 = array(
@@ -456,6 +462,7 @@ class Hr extends CI_Controller {
     $responsibility = $this->input->post('responsibility');
     $company = $this->input->post('company');
     $note = $this->input->post('note');
+    $req_type = $this->input->post('req_type');
     $IsProcessedToHire = '2';
     $id_user = $this->session->userdata('UserID');
 
@@ -469,12 +476,13 @@ class Hr extends CI_Controller {
       'ReplacementPersonnelID' => $ReplacementName,
       'NumberOfPlacement' => $total,
       'ExpectedWorkStartDate' => $workdate,
-      'RequisitionTypeID' => $status,
+      'RequisitionTypeID' => $req_type,
       'RequirementDescription' => $requirement,
       'DuttiesAndResponsibilities' => $responsibility,
       'PlacementID' => $placement,
       'IsProcessedToHire' => $IsProcessedToHire,
-      'RequestedCompanyID' => $company
+      'RequestedCompanyID' => $company,
+      'EmploymentTypeID' => $status 
       );
 
     $data1 = array (
@@ -649,6 +657,7 @@ class Hr extends CI_Controller {
     if ($nik == '004905') {
       $data['need_app'] = $this->Hire_model->need_approval_cc();
     }
+    
     $data["header"] = $this->load->view('header/v_header','',TRUE);
     $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
     $this->load->view('hr/v_need_approval',$data);

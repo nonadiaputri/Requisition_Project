@@ -201,7 +201,7 @@
 	        </div>
           <br>
 
-	        <div class="row">
+	       <!--  <div class="row">
 	        	<div class="form-group ">
                     <div class="col-md-8">
                         <label class="control-label col-form-label">Status</label>
@@ -218,8 +218,45 @@
                     <span id="error_status" class="text-danger"></span>
                   </div>
                 </div>
-	        </div>
+	        </div> -->
 
+
+          <div class="row">
+            <div class="form-group ">
+                    <div class="col-md-8">
+                        <label class="control-label col-form-label">Requisition Type
+                        <span style="color: red;">*</span></label>
+                      
+                      <select class="form-control" name="req_type" id="req_type" required="required">
+                        <option value="" selected>Pilih</option>
+                        <option value="1">Additional</option>
+                        <option value="2">Replacement</option>
+                      </select>
+                    <span id="error_req_type" class="text-danger"></span>
+                  </div>
+                </div>
+          </div>
+          <br>
+
+          <div class="row">
+            <div class="form-group ">
+                    <div class="col-md-8">
+                        <label class="control-label col-form-label">Employeement Type
+                        <span style="color: red;">*</span></label>
+                      
+                      <select class="form-control" name="status" id="status" required="required">
+                        <option value="" selected>Pilih</option>
+                        <option value="1">Profesional Contract</option>
+                        <option value="2">Contract</option>
+                        <option value="3">Contract to Permanent</option>
+                        <option value="4">Freelance</option>
+                        <option value="5">Internship</option>
+                        <option value="6">Outsourcing</option>  
+                      </select>
+                    <span id="error_status" class="text-danger"></span>
+                  </div>
+                </div>
+          </div>
 	        <div class="row">
 	        	<div class="form-group" style="display: none" id="repname">
                   <div class="col-md-8">
@@ -486,9 +523,15 @@
           }
 
           if (<?php echo $row['RequisitionTypeID'];?> == '0') {
+            $('#req_type').removeAttr('value');
+          }else{
+            $('#req_type').val(<?php echo $row['RequisitionTypeID']?>);
+          }
+
+          if (<?php echo $row['EmploymentTypeID'];?> == '0') {
             $('#status').removeAttr('value');
           }else{
-            $('#status').val(<?php echo $row['RequisitionTypeID']?>);
+            $('#status').val(<?php echo $row['EmploymentTypeID']?>);
           }
 
           if ( "<?php echo $row['ExpectedWorkStartDate'];?>" == '1900-01-01 00:00:00.000') {
@@ -745,6 +788,8 @@
         var responsibility = CKEDITOR.instances["responsibility"].getData();
         var requirement = CKEDITOR.instances["requirement"].getData();
         var company = $('#company').val();
+        var req_type = $('#req_type').val();
+
 
         var error_requestor = '';
         var error_req_position = '';
@@ -757,6 +802,7 @@
         var error_responsibility = '';
         var error_ttl = '';
         var error_company = '';
+        var error_req_type = '';
 
         if(requestor_id == ''){
            error_requestor = 'Requestor Name is required';
@@ -904,7 +950,20 @@
          requirement = $('#requirement').val();
         }
 
-        if (error_requestor == '' && error_req_position == '' && error_position == '' && error_placement == '' && error_status == '' && error_workdate == '' && error_responsibility == '' && error_requirement == '' && error_ttl == '' ) {
+        if(req_type == ''){
+         error_req_type = 'Requisition Type is required';
+         $('#error_req_type').text(error_req_type);
+         $('#req_type').css('border-color', '#cc0000');
+         req_type = '';
+        }else{
+         error_req_type = '';
+         console.log($('#req_type').val());
+         $('#error_req_type').text(error_req_type);
+         $('#req_type').css('border-color', '');
+         req_type = $('#req_type').val();
+        }
+
+        if (error_requestor == '' && error_req_position == '' && error_position == '' && error_placement == '' && error_status == '' && error_workdate == '' && error_responsibility == '' && error_requirement == '' && error_ttl == '' && error_req_type = '' ) {
           $('#myModal').modal('show'); 
         }
           
@@ -926,6 +985,7 @@
         var requirement = CKEDITOR.instances["requirement"].getData();
         var company = $('#company').val();
         var noted = $('textarea#noted').val();
+        var req_type = $('#req_type').val();
 
         console.log("btn click"+req_position_id);
         console.log(id_req);
@@ -955,7 +1015,8 @@
                  'ReplacementName':ReplacementName,
                  'responsibility' : responsibility,
                  'requirement' : requirement,
-                 'note' : noted},
+                 'note' : noted,
+                 'req_type' : req_type},
           success:function(data){
             window.location.href = '<?php echo base_url('hr/hire_history');?>';
             console.log(data.status);
@@ -983,6 +1044,7 @@
       var responsibility = CKEDITOR.instances["responsibility"].getData();
       var requirement = CKEDITOR.instances["requirement"].getData();
       var company = $('#company').val();
+      var req_type = $('#req_type').val();
       var noted = $('textarea#noted').val();
 
        $.ajax({
@@ -1001,7 +1063,8 @@
                'ReplacementName':ReplacementName,
                'responsibility' : responsibility,
                'requirement' : requirement,
-               'note' : noted},
+               'note' : noted,
+               'req_type' : req_type},
 
         success:function(data){
           window.location.href = '<?php echo base_url('hr/hire_history');?>';
