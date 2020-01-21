@@ -33,9 +33,10 @@ class Hr_movement extends CI_Controller {
 			$data['pos'] = $this->Movement_model->choose_move_position($ID);
 			$data['result'] = $this->Movement_model->get_new_req($ID, $req_dep);
 			//$data['hra'] = $this->Movement_model->get_human_resources($prn_org);
-			 $data['hra'] = $this->Movement_model->get_human_resources($dat);
-			 $data['hra2'] = $this->Movement_model->get_human_resources($dat);
-			 $data['hra3'] = $this->Movement_model->get_human_resources($dat);
+			 
+			$data['hra'] = $this->Movement_model->get_hra($dat);
+			$data['hra2'] = $this->Movement_model->get_hra2($dat);
+			$data['hra3'] = $this->Movement_model->get_hra3($dat);
 			$data['tot'] = count($data['result']);  
 			$data['org'] = $this->Movement_model->choose_org();  
 			$data["header"] = $this->load->view('header/v_header','',TRUE);
@@ -73,9 +74,6 @@ class Hr_movement extends CI_Controller {
 			$this->session->set_userdata($data);
 			}
 
-			$data['hra'] = $this->Movement_model->get_human_resources($dat);
-			$data['hra2'] = $this->Movement_model->get_human_resources($dat);
-			$data['hra3'] = $this->Movement_model->get_human_resources($dat);
 
 		//$Request = $this->Movement_model->get_sp_request_number($RequestNumber);
 
@@ -232,6 +230,7 @@ class Hr_movement extends CI_Controller {
 		$data = $this->Movement_model->search_hra($ID);
 		echo json_encode($data);
 	  }
+	  
 
 	  public function submit_movement(){
 		  
@@ -594,9 +593,30 @@ class Hr_movement extends CI_Controller {
 
 	function need_approval(){
 		$requestor_id = $this->session->userdata('ID2');
+	//	$ID = $this->session->userdata('ID2');
+		$nik = $this->session->userdata('nik');
 		$pos = $this->session->userdata('Position');
-		$data['need_app'] = $this->Movement_model->need_approval_req($requestor_id);
+	//	$data['need_app'] = $this->Movement_model->need_approval_req($requestor_id);
 		//var_dump($data['need_app']);
+
+		$val = strpos($pos,'Transito Adimanjati Director');
+		//var_dump($val);
+		if (strpos($pos,'Transito Adimanjati Director') === false) {
+		  $data['need_app'] = $this->Movement_model->need_approval_req($requestor_id);
+		}
+		if(strpos($pos,'Transito Adimanjati Director') === 0){
+		  $data['need_app']=$this->Movement_model->need_approval_hr();
+		}
+		if ($nik == '026061') {
+		  $data['need_app'] = $this->Movement_model->need_approval_recruiter();
+		}
+		if ($nik == '004905') {
+		  $data['need_app'] = $this->Movement_model->need_approval_cc();
+		}
+		if ($nik == '003470') {
+			$data['need_app'] = $this->Movement_model->need_approval_hra2($requestor_id);
+		  }
+
 		$data["header"] = $this->load->view('header/v_header','',TRUE);
 		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
 		$this->load->view('hr_movement/v_need_approval',$data);

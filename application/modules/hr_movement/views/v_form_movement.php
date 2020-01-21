@@ -119,7 +119,7 @@
 
 	                    <div class="form-group row">
                         <div class="col-md-8">
-                          <label class="control-label col-form-label">Request Name</label>
+                          <label class="control-label col-form-label">Requested Name</label>
                           
                         </div>
                         
@@ -257,7 +257,7 @@
                                     <select class="form-control chs-select" name="hra" id="hra" style="width:100%" required="required">
                                         <option default>Select Human Resources Approval</option>
                                         <?php foreach ($hra as $hra) { ?>
-                                        <option id="personnel_id"value="<?php echo $hra['PersonnelID'];?>"><?php echo $hra['FullName'];?> &nbsp ( <?php echo $hra['Postion'];?>) </option>
+                                        <option id="personnel_id"value="<?php echo $hra['PersonnelID'];?>"><?php echo $hra['Name'];?> &nbsp ( <?php echo $hra['ParentPosition'];?>) </option>
                                         <?php } ?>
                                     </select>
                                     <input type="hidden" name="hra_id" id="hra_id" required="required" class="form-control">
@@ -268,13 +268,14 @@
                         <div class="form-group row">
                             <div class="col-sm-8">
                                     <label class="control-label col-form-label"> Human Resources Approval from Current Position</label>
-                                    <select class="form-control chs-select" name="hra2" id="hra2" style="width:100%" required="required">
-                                        <option default>Select Human Resources Approval</option>
-                                        <?php foreach ($hra2 as $hra2) { ?>
-                                        <option id="personnel_id"value="<?php echo $hra2['PersonnelID'];?>"><?php echo $hra2['FullName'];?> &nbsp ( <?php echo $hra['Postion'];?>)</option>
-                                        <?php } ?>
-                                    </select>
+                                    <input type="text" name="hra2" id="hra2" required="required" class="form-control" readonly>
                                     <input type="hidden" name="hra2_id" id="hra2_id" required="required" class="form-control">
+                                    <span id="error_hra" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-sm-8">
+                                    <input type="text" name="hra2_pos" id="hra2_pos" required="required" class="form-control" readonly>
+                                    <input type="hidden" name="hra2_pos_id" id="hra2_pos_id" required="required" class="form-control">
                                     <span id="error_hra" class="text-danger"></span>
                             </div>
                         </div>
@@ -282,13 +283,19 @@
                         <div class="form-group row">
                             <div class="col-sm-8">
                                     <label class="control-label col-form-label"> Human Resources Approval from New Position</label>
-                                    <select class="form-control chs-select" name="hra3" id="hra3" style="width:100%" required="required">
+                                    <!-- <select class="form-control chs-select" name="hra3" id="hra3" style="width:100%" required="required">
                                         <option default>Select Human Resources Approval</option>
                                         <?php foreach ($hra3 as $hra3) { ?>
-                                        <option id="personnel_id"value="<?php echo $hra3['PersonnelID'];?>"><?php echo $hra3['FullName'];?> &nbsp ( <?php echo $hra['Postion'];?>)</option>
+                                        <option id="personnel_id" value="<?php echo $hra3['PersonnelID'];?>"><?php echo $hra3['Name'];?> &nbsp ( <?php echo $hra['ParentPosition'];?>)</option>
                                         <?php } ?>
-                                    </select>
+                                    </select> -->
+                                    <input type="text" name="hra3" id="hra3" required="required" class="form-control" readonly>
                                     <input type="hidden" name="hra3_id" id="hra3_id" required="required" class="form-control">
+                                    <span id="error_hra" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-8">
+                                    <input type="text" name="hra3_pos" id="hra3_pos" required="required" class="form-control" readonly>
+                                    <input type="hidden" name="hra3_pos_id" id="hra3_pos_id" required="required" class="form-control">
                                     <span id="error_hra" class="text-danger"></span>
                             </div>
                         </div>
@@ -491,12 +498,14 @@
                         console.log(data.PositionID);
                         
                       //  $('#req_position_id').val(data.PositionID);
-                        $('#current_position_id').val(data.PositionID);
+                        $('#current_position_id').val(data.PostionID);
                      //   $('#req_position').val(data.PositionName);
-                        $('#current_position').val(data.Position);
+                        $('#current_position').val(data.Postion);
                         $('#current_org_id').val(data.OrganizationID);
                         $('#current_org').val(data.Organization);
                         $('#startdate').val(data.EmployeeStartDate);
+                        $('#hra2').val(data.ParentPersonnel);
+                        $('#hra2_pos').val(data.ParentPosition);
                         
                         }
                       },
@@ -532,8 +541,10 @@
                         $('#new_position').val(data.Name);
                         $('#new_pos_id').val(data.NewPositionID);
                      //   $('#req_position').val(data.PositionName);
-                        $('#new_org').val(data.NewOrganizationName);
+                        $('#new_org').val(data.Organization);
                         $('#new_org_id').val(data.NewOrganizationID);
+                        $('#hra3').val(data.ParentPersonnel);
+                        $('#hra3_pos').val(data.ParentPosition);
                         
                         }
                       },
@@ -639,6 +650,8 @@
           });
     }
     });
+
+    
 
 
     // $('#request_name').on('change', function() {
