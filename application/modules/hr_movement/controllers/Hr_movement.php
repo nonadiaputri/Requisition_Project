@@ -20,7 +20,7 @@ class Hr_movement extends CI_Controller {
 		if ($dat == '') {
 			$data["header"] = $this->load->view('header/v_header','',TRUE);
 			$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
-			$this->load->view('hr/v_error_hris', $data);
+			$this->load->view('hr_movement/v_error_movement', $data);
 		}else{
 			//var_dump($dat);
 			$data['person'] = $this->Movement_model->get_related_per($dat);
@@ -28,9 +28,15 @@ class Hr_movement extends CI_Controller {
 			//var_dump($data['person']);
 			$ID = $this->session->userdata('ID2');
 			$req_dep = $this->session->userdata('OrganizationID');
+			$prn_org = $this->session->userdata('ParentOrganizationID');
 			$data['type'] = $this->Movement_model->choose_move_type($ID);
 			$data['pos'] = $this->Movement_model->choose_move_position($ID);
 			$data['result'] = $this->Movement_model->get_new_req($ID, $req_dep);
+			//$data['hra'] = $this->Movement_model->get_human_resources($prn_org);
+			 
+			$data['hra'] = $this->Movement_model->get_hra($dat);
+			$data['hra2'] = $this->Movement_model->get_hra2($dat);
+			$data['hra3'] = $this->Movement_model->get_hra3($dat);
 			$data['tot'] = count($data['result']);  
 			$data['org'] = $this->Movement_model->choose_org();  
 			$data["header"] = $this->load->view('header/v_header','',TRUE);
@@ -38,6 +44,36 @@ class Hr_movement extends CI_Controller {
 			//$data["auto"] = $this->Movement_model->auto_regist_position($last_id, $position);
 			$this->load->view('hr_movement/v_form_movement',$data);
 		}
+
+		$nik = $this->session->userdata('nik');
+
+		$check = $this->Movement_model->check_personnel($nik);
+		$sess = $this->Movement_model->make_session($nik);
+
+		$object = json_decode(json_encode($sess));
+			//var_dump($object->Postion);
+			//var_dump($count($sess));
+			if ($sess != '') {
+			$data = array(
+				'Name2'    => $object->FullName,
+				'NIK2'     => $object->PersonnelNumber,
+				'ID2'    => $object->ID,
+				'Position'   => $object->Postion,
+				'PositionID' => $object->PostionID,
+				'Organization' =>$object->Organization,
+				'OrganizationID' =>$object->OrganizationID,
+				'ParentOrganization' =>$object->ParentOrganization,
+				'ParentOrganizationID' => $object->ParentOrganizationID,
+				'ParentPosition' =>$object->ParentPosition,
+				'ParentPositionID'=>$object->ParentPositionID,
+				'ParentPersonnel' => $object->ParentPersonnel,
+				'ParentPersonnelID' => $object->ParentPersonnelID
+			);
+			//var_dump($data);
+
+			$this->session->set_userdata($data);
+			}
+
 
 		//$Request = $this->Movement_model->get_sp_request_number($RequestNumber);
 
@@ -140,6 +176,22 @@ class Hr_movement extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	function search_new_position(){
+		$Position = $this->input->get('Position');
+		$data = $this->Movement_model->search_new_position($Position);
+		echo json_encode($data);
+	  }
+
+	  function new_position(){
+		$json = [];
+		$this->load->database();
+		if(!empty($this->input->get("q"))){
+				$compClue = $this->input->get("q");
+				$data = $this->Movement_model->get_search_new_position($compClue, 'Name');
+			}
+			echo json_encode($data);
+	  }
+
 	function request(){
 		$json = [];
 		$this->load->database();
@@ -173,6 +225,13 @@ class Hr_movement extends CI_Controller {
 		echo json_encode($data);
 	  }
 
+	  public function search_hra(){
+		$ID = $this->input->post('ID');
+		$data = $this->Movement_model->search_hra($ID);
+		echo json_encode($data);
+	  }
+	  
+
 	  public function submit_movement(){
 		  
 	//	$Request = $this->Movement_model->get_sp_request_number($RequestNumber);
@@ -187,6 +246,7 @@ class Hr_movement extends CI_Controller {
 		$current_position_id = $this->input->post('current_position_id');
 		$current_org_id = $this->input->post('current_org_id');
 		$new_position = $this->input->post('new_position');
+		$new_pos_id = $this->input->post('new_pos_id');
 		$new_org_id = $this->input->post('new_org_id');
 		$workdate = $this->input->post('workdate');
 		$current_responsibilities = $this->input->post('current_responsibilities');
@@ -206,7 +266,7 @@ class Hr_movement extends CI_Controller {
 		  'RequestedPersonnelID' => $request_name,
 		  'CurrentPositionID' => $current_position_id,
 		  'CurrentOrganizationID' => $current_org_id,
-		  'NewPositionID' => $new_position,
+		  'NewPositionID' => $new_pos_id,
 		  'NewOrganizationID' => $new_org_id,
 		  'ExpectedWorkStartDate' => $workdate,
 		  'CurrentDuttiesAndResponsibilities' => $current_responsibilities,
@@ -258,6 +318,7 @@ class Hr_movement extends CI_Controller {
 		$current_position_id = $this->input->post('current_position_id');
 		$current_org_id = $this->input->post('current_org_id');
 		$new_position = $this->input->post('new_position');
+		$new_pos_id = $this->input->post('new_pos_id');
 		$new_org_id = $this->input->post('new_org_id');
 		$workdate = $this->input->post('workdate');
 		$current_responsibilities = $this->input->post('current_responsibilities');
@@ -273,7 +334,7 @@ class Hr_movement extends CI_Controller {
 			'RequestedPersonnelID' => $request_name,
 			'CurrentPositionID' => $current_position_id,
 			'CurrentOrganizationID' => $current_org_id,
-			'NewPositionID' => $new_position,
+			'NewPositionID' => $new_pos_id,
 			'NewOrganizationID' => $new_org_id,
 			'ExpectedWorkStartDate' => $workdate,
 			'CurrentDuttiesAndResponsibilities' => $current_responsibilities,
@@ -304,7 +365,7 @@ class Hr_movement extends CI_Controller {
 	$request_name = $this->input->post('request_name');
 	$current_position_id = $this->input->post('current_position_id');
 	$current_org_id = $this->input->post('current_org_id');
-	$new_position = $this->input->post('new_position');
+	$new_pos_id = $this->input->post('new_pos_id');
 	$new_org_id = $this->input->post('new_org_id');
 	$workdate = $this->input->post('workdate');
 	$current_responsibilities = $this->input->post('current_responsibilities');
@@ -320,7 +381,7 @@ class Hr_movement extends CI_Controller {
 		'RequestedPersonnelID' => $request_name,
 		'CurrentPositionID' => $current_position_id,
 		'CurrentOrganizationID' => $current_org_id,
-		'NewPositionID' => $new_position,
+		'NewPositionID' => $new_pos_id,
 		'NewOrganizationID' => $new_org_id,
 		'ExpectedWorkStartDate' => $workdate,
 		'CurrentDuttiesAndResponsibilities' => $current_responsibilities,
@@ -532,9 +593,30 @@ class Hr_movement extends CI_Controller {
 
 	function need_approval(){
 		$requestor_id = $this->session->userdata('ID2');
+	//	$ID = $this->session->userdata('ID2');
+		$nik = $this->session->userdata('nik');
 		$pos = $this->session->userdata('Position');
-		$data['need_app'] = $this->Movement_model->need_approval_req($requestor_id);
+	//	$data['need_app'] = $this->Movement_model->need_approval_req($requestor_id);
 		//var_dump($data['need_app']);
+
+		$val = strpos($pos,'Transito Adimanjati Director');
+		//var_dump($val);
+		if (strpos($pos,'Transito Adimanjati Director') === false) {
+		  $data['need_app'] = $this->Movement_model->need_approval_req($requestor_id);
+		}
+		if(strpos($pos,'Transito Adimanjati Director') === 0){
+		  $data['need_app']=$this->Movement_model->need_approval_hr();
+		}
+		if ($nik == '026061') {
+		  $data['need_app'] = $this->Movement_model->need_approval_recruiter();
+		}
+		if ($nik == '004905') {
+		  $data['need_app'] = $this->Movement_model->need_approval_cc();
+		}
+		if ($nik == '003470') {
+			$data['need_app'] = $this->Movement_model->need_approval_hra2($requestor_id);
+		  }
+
 		$data["header"] = $this->load->view('header/v_header','',TRUE);
 		$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
 		$this->load->view('hr_movement/v_need_approval',$data);

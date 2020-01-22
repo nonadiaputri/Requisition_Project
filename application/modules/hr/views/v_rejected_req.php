@@ -91,7 +91,7 @@
                         <th>No.</th>
                         <th>Requester</th>
                         <th>Requestor Department</th>
-                        <th>Date</th>
+                        <th>Created Date</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -103,7 +103,7 @@
                         <td width="10%"><?php echo $num; ?></td>
                         <td width="20%"><?php echo $row['requestor']; ?></td>
                         <td width="20%"><?php echo $row['DeptName']; ?></td>
-                        <td width="20%"><?php echo $row['ProcessStartDate']; ?></td>
+                        <td width="20%"><?php echo $row['CreatedDate']; ?></td>
                         <td>Rejected</td>
                         <td width="20%" align="center">
                           <a href ="<?php echo base_url('hr/View/'.$row['RequisitionID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>

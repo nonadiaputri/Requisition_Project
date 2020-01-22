@@ -99,6 +99,17 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td width="20%">Current Organization</td>
+                                    <td width="10%">
+                                        <?php echo $req['CurrentOrganizationName']; ?>
+                                    </td>
+
+                                    <td width="15%">New Organization</td>
+                                    <td width="50%">
+                                        <?php echo $req['NewOrganizationName']; ?>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>Current Responsibility</td>
                                     <td>
                                         <?php echo $req['CurrentDuttiesAndResponsibilities']; ?>

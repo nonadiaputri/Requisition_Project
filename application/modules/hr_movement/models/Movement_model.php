@@ -117,7 +117,8 @@ class Movement_model extends CI_Model
       {
         $query = $this->db->query('select a.*, c.FullName as RequestorName, 
          b.Name as current_position, e.Name as new_position, g.Name as requestor_position, 
-         a.CurrentPositionID, a.NewPositionID, d.Name as DeptName, 
+         a.CurrentPositionID, a.NewPositionID, d.Name as DeptName, i.Name as NewOrganizationName,
+         j.Name as CurrentOrganizationName,
          f.FullName as request_name, h.Name as MovementType from MovementRequestTable a 
          left join PositionTable b on a.CurrentPositionID = b.ID 
          left join PositionTable e on e.id = a.NewPositionID
@@ -126,9 +127,50 @@ class Movement_model extends CI_Model
            left join PersonnelTable f on f.ID = a.RequestedPersonnelID
          left join OrganizationTable d on d.ID = a.RequestorDepartmentID  
          left join MovementRequestTypeTable h on h.ID = a.MovementRequestTypeID
+         left join OrganizationTable i on i.ID = a.NewOrganizationID
+         left join OrganizationTable j on j.ID = a.CurrentOrganizationID
          where a.ID ='.$ID);
          return $query->row_array();
          
+      }
+
+      public function get_hra($ID)
+      { 
+
+        $q = 'select distinct a.*, d.FullName, d.ParentPersonnel as Name, d.ParentPosition from 
+        [dbo].[UserXPersonnel] a 
+        join dbo.PersonnelHierarchy2 d on d.ID = a.PersonnelID
+        join dbo.UserTable b on a.UserID = b.ID
+          where a.UserID = '.$ID ;
+
+            $query = $this->db->query($q);    
+            return $query->result_array();
+      }
+
+      public function get_hra2($ID)
+      { 
+
+        $q = 'select distinct a.*, d.FullName, d.ParentPersonnel as Name, d.ParentPosition from 
+        [dbo].[UserXPersonnel] a 
+        join dbo.PersonnelHierarchy2 d on d.ID = a.PersonnelID
+        join dbo.UserTable b on a.UserID = b.ID
+          where a.UserID = '.$ID ;
+
+            $query = $this->db->query($q);    
+            return $query->result_array();
+      }
+
+      public function get_hra3($ID)
+      { 
+
+        $q = 'select distinct a.*, d.FullName, d.ParentPersonnel as Name, d.ParentPosition from 
+        [dbo].[UserXPersonnel] a 
+        join dbo.PersonnelHierarchy2 d on d.ID = a.PersonnelID
+        join dbo.UserTable b on a.UserID = b.ID
+          where a.UserID = '.$ID ;
+
+            $query = $this->db->query($q);    
+            return $query->result_array();
       }
 
       function get_apv_req($ID){
@@ -466,6 +508,62 @@ class Movement_model extends CI_Model
         return $q->result_array();
       }
 
+      function need_approval_hr(){
+        $q = $this->db->query("select a.*, b.Name as DeptName,  c.FullName as requestor
+                            from dbo.MovementRequestTable a
+                            join dbo.OrganizationTable b
+                            on a.RequestorDepartmentID = b.ID
+                            join dbo.PersonnelTable c
+                            on a.RequestorID = c.ID
+                            where a.ID in 
+                            (select MovementRequestID from(
+                            select a.*, b.IsProcessed  from 
+                            (select MovementRequestID, max(ApprovalStatusID) as status
+                            from dbo.MovementRequestApprovalTable
+                            group by MovementRequestID)a
+                            left join dbo.MovementRequestApprovalTable b
+                            on a.MovementRequestID = b.MovementRequestID
+                            where a.status = 2
+                            and b.IsProcessed = 1)x)");
+                            
+                            return $q->result_array();
+      }
+    
+      function need_approval_recruiter(){
+        $modify = $this->session->userdata('ID');
+        $q = $this->db->query("select a.*, b.Name as DeptName,  c.FullName as requestor
+                              from dbo.MovementRequestnTable a
+                              join dbo.OrganizationTable b
+                              on a.RequestorDepartmentID = b.ID
+                              join dbo.PersonnelTable c
+                              on a.RequestorID = c.ID 
+                              where a.ID in (select MovementRequestID from 
+                              (select distinct MovementRequestID, max(ApprovalStatusID) as status,IsProcessed
+                              from dbo.MovementRequestApprovalTable
+                              group by MovementRequestID, IsProcessed)a
+                              where a.status = 2
+                              and a.IsProcessed = 1)
+                              and a.LastModifiedById != '$modify'");
+    
+        return $q->result_array();
+      }
+
+      function need_approval_hra2($ID){
+        $q = $this->db->query("select a.*, b.Name as DeptName,  c.FullName as requestor
+                          from dbo.MovementRequestTable a
+                          join dbo.OrganizationTable b
+                          on a.RequestorDepartmentID = b.ID
+                          join dbo.PersonnelTable c
+                          on a.RequestorID = c.ID 
+                          where a.RequestorID in 
+                          (select ID from dbo.PersonnelHierarchy
+                          where ID = '$ID')
+                          and IsProcessed=0
+                          and IsHold = 0
+                          and IsRejected = 0");
+        return $q->result_array();
+      }
+
       public function choose_org(){
         $res = $this->db->query("select ID, Name from dbo.OrganizationTable where ParentID = 1");
         return $res->result_array();
@@ -498,13 +596,17 @@ class Movement_model extends CI_Model
       }
       
       function search_requestor_pro($Request){
-        $this->db->select('a.ID as PositionID, a.Name as Position , c.FullName, c.EmploymentStartDate, C.ID as PersonnelID, e.Name as Organization, , e.ID as OrganizationID');
-        $this->db->from('dbo.PositionTable a');
-        $this->db->join('dbo.PersonnelPosition b','a.ID = b.PositionID');
-        $this->db->join('dbo.PersonnelTable c','c.ID = b.PersonnelID');
-        $this->db->join('dbo.PositionInOrganization d','a.ID = d.PositionID');
-        $this->db->join('dbo.OrganizationTable e','d.OrganizationUnitID = e.ID');
-        $this->db->like('c.FullName',$Request);
+        // $this->db->select('a.ID as PositionID, a.Name as Position , c.FullName, c.EmploymentStartDate, C.ID as PersonnelID, e.Name as Organization, , e.ID as OrganizationID');
+        // $this->db->from('dbo.PositionTable a');
+        // $this->db->join('dbo.PersonnelPosition b','a.ID = b.PositionID');
+        // $this->db->join('dbo.PersonnelTable c','c.ID = b.PersonnelID');
+        // $this->db->join('dbo.PositionInOrganization d','a.ID = d.PositionID');
+        // $this->db->join('dbo.OrganizationTable e','d.OrganizationUnitID = e.ID');
+        // $this->db->like('c.FullName',$Request);
+        $this->db->select('*');
+        $this->db->from('dbo.PersonnelHierarchy2');
+        $this->db->like('FullName',$Request);
+
         $query = $this->db->get();
         return $query->row_array();
       }
@@ -614,13 +716,29 @@ class Movement_model extends CI_Model
         $query = $this->db->get();
         return $query->row_array();
       }
+
+      function search_hra($ID){
+        $this->db->select('*');
+        $this->db->from("dbo.PersonnelHierarchy");
+        $this->db->like('ID',$ID);
+        //$this->db->where('IsHold',)
+        $query = $this->db->get();
+        return $query->row_array();
+      }
     
     
       function search_new_position($Position){
-        $this->db->select('a.Name, b.PositionID as NewPositionID, c.ID as NewOrganizationID');
+        // $this->db->select('a.Name, b.PositionID as NewPositionID, c.ID as NewOrganizationID, c.Name as NewOrganizationName');
+        // $this->db->from('dbo.PositionTable a');
+        // $this->db->join('dbo.PositionInOrganization b','a.ID = b.PositionID');
+        // $this->db->join('dbo.OrganizationTable c','b.OrganizationUnitID = c.ID');
+        // $this->db->like('a.Name',$Position);
+
+        $this->db->select('a.Name, b.PositionID as NewPositionID, d.OrganizationID as NewOrganizationID, d.Organization, d.ParentPersonnel, , d.ParentPosition');
         $this->db->from('dbo.PositionTable a');
-        $this->db->join('dbo.PositionInOrganization b','a.ID = b.PositionID');
+        $this->db->join('dbo.PositionInOrganization b' , 'a.ID = b.PositionID');
         $this->db->join('dbo.OrganizationTable c','b.OrganizationUnitID = c.ID');
+        $this->db->join('dbo.PersonnelHierarchy2 d' , 'b.OrganizationUnitID = d.OrganizationID');
         $this->db->like('a.Name',$Position);
         $query = $this->db->get();
         return $query->row_array();

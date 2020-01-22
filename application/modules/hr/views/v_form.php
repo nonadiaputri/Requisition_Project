@@ -218,12 +218,12 @@
                         <label class="control-label col-form-label">Requisition Type
                         <span style="color: red;">*</span></label>
                       
-                      <select class="form-control" name="req_status" id="req_status" required="required">
+                      <select class="form-control" name="req_type" id="req_type" required="required">
                         <option value="" selected>Pilih</option>
                         <option value="1">Additional</option>
                         <option value="2">Replacement</option>
                       </select>
-                    <span id="error_req_status" class="text-danger"></span>
+                    <span id="error_req_type" class="text-danger"></span>
                   </div>
                 </div>
           </div>
@@ -232,17 +232,17 @@
 	        <div class="row">
 	        	<div class="form-group ">
                     <div class="col-md-8">
-                        <label class="control-label col-form-label">Employee Status
+                        <label class="control-label col-form-label">Employeement Type
                         <span style="color: red;">*</span></label>
                       
 	                    <select class="form-control" name="status" id="status" required="required">
 	                      <option value="" selected>Pilih</option>
-	                      <option value="5">Profesional Contract</option>
-                        <option value="">Contract</option>
-                        <option value="">Contract to Permanent</option>
-	                      <option value="6">Freelance</option>
-	                      <option value="7">Internship</option>
-	                      <option value="8">Outsourcing</option>  
+	                      <option value="1">Profesional Contract</option>
+                        <option value="2">Contract</option>
+                        <option value="3">Contract to Permanent</option>
+	                      <option value="4">Freelance</option>
+	                      <option value="5">Internship</option>
+	                      <option value="6">Outsourcing</option>  
 	                    </select>
                     <span id="error_status" class="text-danger"></span>
                   </div>
@@ -340,177 +340,7 @@
           
        </div>
 
-       <div class="row">
-            <div class="col-md-6">
-
-             <div class="box box-warning direct-chat direct-chat-warning">
-                      <div class="box-header with-border">
-                        <h3 class="box-title">Direct Chat</h3>
-
-                        <div class="box-tools pull-right">
-                          <span data-toggle="tooltip" title="3 New Messages" class="badge bg-yellow">3</span>
-                          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                          </button>
-                          <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts"
-                                  data-widget="chat-pane-toggle">
-                            <i class="fa fa-comments"></i></button>
-                          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <!-- /.box-header -->
-                      <div class="box-body">
-                        <!-- Conversations are loaded here -->
-                        <div class="direct-chat-messages">
-                          <!-- Message. Default to the left -->
-                          <div class="direct-chat-msg">
-                            <div class="direct-chat-info clearfix">
-                              <span class="direct-chat-name pull-left">Alexander Pierce</span>
-                              <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
-                            </div>
-                            <!-- /.direct-chat-info -->
-                           
-                            <!-- /.direct-chat-img -->
-                            <div class="direct-chat-text">
-                              Is this template really for free? That's unbelievable!
-                            </div>
-                            <!-- /.direct-chat-text -->
-                          </div>
-                          <!-- /.direct-chat-msg -->
-
-                          <!-- Message to the right -->
-                          <div class="direct-chat-msg left">
-                            <div class="direct-chat-info clearfix">
-                              <span class="direct-chat-name pull-left">Sarah Bullock</span>
-                              <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
-                            </div>
-                            <!-- /.direct-chat-info -->
-                            <img class="direct-chat-img" src="<?php echo base_url();?>assets/dist/img/user3-128x128.jpg" alt="message user image">
-                            <!-- /.direct-chat-img -->
-                            <div class="direct-chat-text">
-                              You better believe it!
-                            </div>
-                            <!-- /.direct-chat-text -->
-                          </div>
-                    
-                          <!-- /.direct-chat-msg -->
-
-                        </div>
-                        <!--/.direct-chat-messages-->
-
-                        <!-- Contacts are loaded here -->
-                        <div class="direct-chat-contacts">
-                          <ul class="contacts-list">
-                            <li>
-                              <a href="#">
-                                <img class="contacts-list-img" src="<?php echo base_url();?>assets/dist/img/user1-128x128.jpg" alt="User Image">
-
-                                <div class="contacts-list-info">
-                                      <span class="contacts-list-name">
-                                        Count Dracula
-                                        <small class="contacts-list-date pull-right">2/28/2015</small>
-                                      </span>
-                                  <span class="contacts-list-msg">How have you been? I was...</span>
-                                </div>
-                                <!-- /.contacts-list-info -->
-                              </a>
-                            </li>
-                            <!-- End Contact Item -->
-                            <li>
-                              <a href="#">
-                                <img class="contacts-list-img" src="<?php echo base_url();?>assets/dist/img/user7-128x128.jpg" alt="User Image">
-
-                                <div class="contacts-list-info">
-                                      <span class="contacts-list-name">
-                                        Sarah Doe
-                                        <small class="contacts-list-date pull-right">2/23/2015</small>
-                                      </span>
-                                  <span class="contacts-list-msg">I will be waiting for...</span>
-                                </div>
-                                <!-- /.contacts-list-info -->
-                              </a>
-                            </li>
-                            <!-- End Contact Item -->
-                            <li>
-                              <a href="#">
-                                <img class="contacts-list-img" src="<?php echo base_url();?>assets/dist/img/user3-128x128.jpg" alt="User Image">
-
-                                <div class="contacts-list-info">
-                                      <span class="contacts-list-name">
-                                        Nadia Jolie
-                                        <small class="contacts-list-date pull-right">2/20/2015</small>
-                                      </span>
-                                  <span class="contacts-list-msg">I'll call you back at...</span>
-                                </div>
-                                <!-- /.contacts-list-info -->
-                              </a>
-                            </li>
-                            <!-- End Contact Item -->
-                            <li>
-                              <a href="#">
-                                <img class="contacts-list-img" src="<?php echo base_url();?>assets/dist/img/user5-128x128.jpg" alt="User Image">
-
-                                <div class="contacts-list-info">
-                                      <span class="contacts-list-name">
-                                        Nora S. Vans
-                                        <small class="contacts-list-date pull-right">2/10/2015</small>
-                                      </span>
-                                  <span class="contacts-list-msg">Where is your new...</span>
-                                </div>
-                                <!-- /.contacts-list-info -->
-                              </a>
-                            </li>
-                            <!-- End Contact Item -->
-                            <li>
-                              <a href="#">
-                                <img class="contacts-list-img" src="<?php echo base_url();?>assets/dist/img/user6-128x128.jpg" alt="User Image">
-
-                                <div class="contacts-list-info">
-                                      <span class="contacts-list-name">
-                                        John K.
-                                        <small class="contacts-list-date pull-right">1/27/2015</small>
-                                      </span>
-                                  <span class="contacts-list-msg">Can I take a look at...</span>
-                                </div>
-                                <!-- /.contacts-list-info -->
-                              </a>
-                            </li>
-                            <!-- End Contact Item -->
-                            <li>
-                              <a href="#">
-                                <img class="contacts-list-img" src="<?php echo base_url();?>assets/dist/img/user8-128x128.jpg" alt="User Image">
-
-                                <div class="contacts-list-info">
-                                      <span class="contacts-list-name">
-                                        Kenneth M.
-                                        <small class="contacts-list-date pull-right">1/4/2015</small>
-                                      </span>
-                                  <span class="contacts-list-msg">Never mind I found...</span>
-                                </div>
-                                <!-- /.contacts-list-info -->
-                              </a>
-                            </li>
-                            <!-- End Contact Item -->
-                          </ul>
-                          <!-- /.contatcts-list -->
-                        </div>
-                        <!-- /.direct-chat-pane -->
-                      </div>
-                      <!-- /.box-body -->
-                      <div class="box-footer">
-                        <form action="#" method="post">
-                          <div class="input-group">
-                            <input type="text" name="message" placeholder="Type Message ..." class="form-control">
-                            <span class="input-group-btn">
-                                  <button type="button" class="btn btn-warning btn-flat">Send</button>
-                                </span>
-                          </div>
-                        </form>
-                      </div>
-                      <!-- /.box-footer-->
-                    </div>
-          </div>
-        </div>
+      
        <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/css/kompas-intranet.css" />
 
 <!--- FOOTER SECTION --->
@@ -889,6 +719,7 @@
       var requirement = CKEDITOR.instances["requirement"].getData();
       var company = $('#company').val();
       var noted = $('textarea#noted').val();
+      var req_type = $('#req_type').val();
       //console.log("btn click"+req_position_id);
 
       $.ajax({
@@ -906,7 +737,8 @@
                'ReplacementName':ReplacementName,
                'responsibility' : responsibility,
                'requirement' : requirement,
-               'note' : noted},
+               'note' : noted,
+               'req_type' : req_type},
         success:function(data){
           window.location.href = '<?php echo base_url('hr/hire_history');?>';
           console.log(data);
@@ -935,6 +767,7 @@
         var requirement = CKEDITOR.instances["requirement"].getData();
         var ttl = $('#ttl').val();
         var company = $('#company').val();
+        var req_type = $('#req_type').val();
 
         var error_requestor = '';
         var error_req_position = '';
@@ -949,6 +782,7 @@
         var error_responsibility = '';
         var error_ttl = '';
         var error_company = '';
+        var error_req_type = '';
 
         // if(requestor == ''){
         //  error_requestor = 'Requestor Name is required';
@@ -1029,7 +863,7 @@
         }
 
         if(status == ''){
-         error_status = 'Status is required';
+         error_status = 'Employeement Type is required';
          $('#error_status').text(error_status);
          $('#status').css('border-color', '#cc0000');
          status = '';
@@ -1095,9 +929,23 @@
          $('#requirement').css('border-color', '');
          requirement = $('#requirement').val();
         }
+
+        if(req_type == ''){
+         error_req_type = 'Requisition Type is required';
+         $('#error_req_type').text(error_req_type);
+         $('#req_type').css('border-color', '#cc0000');
+         req_type = '';
+        }else{
+         error_req_type = '';
+         console.log(req_type);
+         $('#error_req_type').text(error_req_type);
+         $('#req_type').css('border-color', '');
+         req_type = $('#req_type').val();
+        }
+
         console.log( $('textarea#noted').val());
 
-        if (error_requestor == '' && error_req_position == '' && error_req_org == '' && error_position == '' && error_total == '' && error_placement == '' && error_status == '' && error_workdate == '' && error_responsibility == '' && error_requirement == '' && error_ttl == '' ) {
+        if (error_requestor == '' && error_req_position == '' && error_req_org == '' && error_position == '' && error_total == '' && error_placement == '' && error_status == '' && error_workdate == '' && error_responsibility == '' && error_requirement == '' && error_ttl == '' && error_req_type == '') {
           $('#myModal').modal('show'); 
         }
           
@@ -1119,6 +967,7 @@
       var requirement = CKEDITOR.instances["requirement"].getData();
       var company = $('#company').val();
       var noted = $('textarea#noted').val();
+      var req_type = $('#req_type').val();
       console.log(noted);
 
       $.ajax({
@@ -1129,7 +978,7 @@
                'org_id' : org_id,
                'company' : company,
                // 'req_position':req_position,
-               // 'req_org' : req_org,
+               'req_type' : req_type,
                'position':position,
                'total':total,
                'placement':placement, 

@@ -771,13 +771,17 @@ class Hire_model extends CI_Model
                           join dbo.OrganizationTable b
                           on a.RequestorDepartmentID = b.ID
                           join dbo.PersonnelTable c
-                          on a.RequestorID = c.ID 
-                          where a.ID in (select RequisitionID from 
-                          (select distinct RequisitionID, max(ApprovalStatusID) as status,IsProcessedToHire
+                          on a.RequestorID = c.ID
+                          where a.ID in 
+                          (select RequisitionID from(
+                          select a.*, b.IsProcessedToHire  from 
+                          (select RequisitionID, max(ApprovalStatusID) as status
                           from dbo.RequisitionApprovalTable
-                          group by RequisitionID, IsProcessedToHire)a
+                          group by RequisitionID)a
+                          left join dbo.RequisitionApprovalTable b
+                          on a.RequisitionID = b.RequisitionID
                           where a.status = 2
-                          and a.IsProcessedToHire = 1)
+                          and b.IsProcessedToHire = 1)x)
                           and a.LastModifiedById = 146");
     return $q->result_array();
   }
@@ -801,6 +805,22 @@ class Hire_model extends CI_Model
     return $q->result_array();
   }
 
+  function need_approval_cc(){
+    $q = $this->db->query("select a.*, b.Name as DeptName,  c.FullName as requestor
+                          from dbo.RequisitionTable a
+                          join dbo.OrganizationTable b
+                          on a.RequestorDepartmentID = b.ID
+                          join dbo.PersonnelTable c
+                          on a.RequestorID = c.ID 
+                          where a.ID in (select RequisitionID from 
+                          (select distinct RequisitionID, max(ApprovalStatusID) as status,IsProcessedToHire
+                          from dbo.RequisitionApprovalTable
+                          group by RequisitionID, IsProcessedToHire)a
+                          where a.status = 3
+                          and a.IsProcessedToHire = 1)");
+    return $q->result_array();
+  }
+
   function status_hire($ID){
     $q = " select a.*, b.Name as Department,  c.Name as requestor,e.Name as DeptName
            from dbo.RequisitionTable a
@@ -821,7 +841,7 @@ class Hire_model extends CI_Model
 
   function get_apv_req($ID){
     $q = " select a.RequisitionID, max(a.ApprovalStatusID) as max_status, b.Name as DeptName,  c.FullName as approval,
-      d.ProcessStartDate, d.RequestorID, e.FullName as requestor
+      d.CreatedDate, d.RequestorID, e.FullName as requestor
       from dbo.RequisitionApprovalTable a
       join dbo.OrganizationTable b
       on a.OrganizationID = b.ID
@@ -833,14 +853,14 @@ class Hire_model extends CI_Model
       on d.RequestorID = e.ID
       where a.IsProcessedToHire = 1
       and a.EmployeeID = '$ID'
-      group by a.RequisitionID, b.Name, c.FullName, d.ProcessStartDate, d.RequestorID, e.FullName";
+      group by a.RequisitionID, b.Name, c.FullName, d.CreatedDate, d.RequestorID, e.FullName";
     $query = $this->db->query($q);    
      return $query->result_array();
   }
 
   function get_hold_req($ID){
     $q = " select a.RequisitionID, max(a.ApprovalStatusID) as max_status, b.Name as DeptName,  c.FullName as approval,
-      d.ProcessStartDate, d.RequestorID, e.FullName as requestor
+      d.CreatedDate, d.RequestorID, e.FullName as requestor
       from dbo.RequisitionApprovalTable a
       join dbo.OrganizationTable b
       on a.OrganizationID = b.ID
@@ -852,14 +872,14 @@ class Hire_model extends CI_Model
       on d.RequestorID = e.ID
       where a.IsHold = 1
       and a.EmployeeID = '$ID'
-      group by a.RequisitionID, b.Name, c.FullName, d.ProcessStartDate, d.RequestorID, e.FullName";
+      group by a.RequisitionID, b.Name, c.FullName, d.CreatedDate, d.RequestorID, e.FullName";
     $query = $this->db->query($q);    
      return $query->result_array();
   }
 
   function get_rejected_req($ID){
     $q = " select a.RequisitionID, max(a.ApprovalStatusID) as max_status, b.Name as DeptName,  c.FullName as approval,
-      d.ProcessStartDate, d.RequestorID, e.FullName as requestor
+      d.CreatedDate, d.RequestorID, e.FullName as requestor
       from dbo.RequisitionApprovalTable a
       join dbo.OrganizationTable b
       on a.OrganizationID = b.ID
@@ -871,7 +891,7 @@ class Hire_model extends CI_Model
       on d.RequestorID = e.ID
       where a.IsRejected = 1
       and a.EmployeeID = '$ID'
-      group by a.RequisitionID, b.Name, c.FullName, d.ProcessStartDate, d.RequestorID, e.FullName";
+      group by a.RequisitionID, b.Name, c.FullName, d.CreatedDate, d.RequestorID, e.FullName";
     $query = $this->db->query($q);    
      return $query->result_array();
   }

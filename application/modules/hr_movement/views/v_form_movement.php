@@ -119,7 +119,7 @@
 
 	                    <div class="form-group row">
                         <div class="col-md-8">
-                          <label class="control-label col-form-label">Request Name</label>
+                          <label class="control-label col-form-label">Requested Name</label>
                           
                         </div>
                         
@@ -148,13 +148,11 @@
 
                           <div class="col-sm-6">
                               <label class="control-label col-form-label">New Position</label>
-                              <select class="form-control chs-select" name="new_position" id="new_position" style="width:90%" required="required">
-                                  <option default>Select New Position</option>
-                                  <?php foreach ($pos as $pos) { ?>
-                                  <option value="<?php echo $pos['ID'];?>"><?php echo $pos['Name'];?></option>
-                                  <?php } ?>
-                              </select>
-                              <input type="hidden" name="new_org_id" id="new_org_id" required="required" class="form-control">
+                              
+                              <select class="new_position form-control" name="new_position" id="new_position" style="width:500px"  required="required">
+                              <option value=""></option>
+                            </select>
+                              <input type="hidden" name="new_pos_id" id="new_pos_id" required="required" class="form-control">
                               <span id="error_new_position" class="text-danger"></span>
                           </div>
                         </div>
@@ -165,44 +163,14 @@
                                 <label class="control-label col-form-label">Current Organization</label>
                                 <input type="text" name="current_org" id="current_org" required="required" class="form-control" readonly>
                                 <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control">
-                                <span id="error_current_position" class="text-danger"></span>
+                                <span id="error_current_org" class="text-danger"></span>
                             </div>
                             <div class="col-sm-6">
                                 <label class="control-label col-form-label">New Organization</label>
-                                <input type="text" name="new_org" id="new_position" required="required" class="form-control" readonly>
+                                <input type="text" name="new_org" id="new_org" required="required" class="form-control" style="width:500px" readonly>
                                 <input type="hidden" name="new_org_id" id="new_org_id" required="required" class="form-control">
-                                <span id="error_new_position" class="text-danger"></span>
+                                <span id="error_new_org" class="text-danger"></span>
                             </div>
-                        </div>
-
-                        <div class="form-group row">
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">Current Director Placement</label>
-                              <input type="text" name="current_dp" id="current_dp" required="required" class="form-control" readonly>
-                              <input type="hidden" name="current_dp_id" id="current_dp_id" required="required" class="form-control">
-                              <span id="error_current_position" class="text-danger"></span>
-                          </div>
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">New Director Placement</label>
-                              <input type="text" name="new_dp" id="new_dp" required="required" class="form-control" readonly>
-                              <input type="hidden" name="new_dp_id" id="new_dp_id" required="required" class="form-control">
-                              <span id="error_new_position" class="text-danger"></span>
-                          </div>
-                        </div>
-
-                        <div class="form-group row">
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">Current Director Placement</label>
-                              <input type="text" name="current_dp" id="current_dp" required="required" class="form-control" readonly>
-                              <input type="hidden" name="current_dp_id" id="current_dp_id" required="required" class="form-control">
-                              <span id="error_current_position" class="text-danger"></span>
-                          </div>
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">New Director Placement</label>
-                              <input type="text" name="new_dp" id="new_dp" required="required" class="form-control" readonly>
-                              <input type="hidden" name="new_dp_id" id="new_dp_id" required="required" class="form-control">
-                              <span id="error_new_position" class="text-danger"></span>
-                          </div>
                         </div>
 
                         <div class="form-group row">
@@ -210,13 +178,13 @@
                               <label class="control-label col-form-label">Current Company</label>
                               <input type="text" name="current_cpy" id="current_cpy" required="required" class="form-control" readonly>
                               <input type="hidden" name="current_cpy_id" id="current_cpy_id" required="required" class="form-control">
-                              <span id="error_current_position" class="text-danger"></span>
+                              <span id="error_current_cpy" class="text-danger"></span>
                           </div>
                           <div class="col-sm-6">
                               <label class="control-label col-form-label">New Company</label>
-                              <input type="text" name="new_cpy" id="new_cpy" required="required" class="form-control" readonly>
+                              <input type="text" name="new_cpy" id="new_cpy" required="required" class="form-control" style="width:500px" readonly>
                               <input type="hidden" name="new_cpy_id" id="new_cpy_id" required="required" class="form-control">
-                              <span id="error_new_position" class="text-danger"></span>
+                              <span id="error_new_cpy" class="text-danger"></span>
                           </div>
                         </div>
 
@@ -225,13 +193,28 @@
                               <label class="control-label col-form-label">Current Cost Center</label>
                               <input type="text" name="current_cc" id="current_cc" required="required" class="form-control" readonly>
                               <input type="hidden" name="current_cc_id" id="current_cc_id" required="required" class="form-control">
-                              <span id="error_current_position" class="text-danger"></span>
+                              <span id="error_current_cc" class="text-danger"></span>
                           </div>
                           <div class="col-sm-6">
                               <label class="control-label col-form-label">New Cost Center</label>
-                              <input type="text" name="new_cc" id="new_cc" required="required" class="form-control" readonly>
+                              <input type="text" name="new_cc" id="new_cc" required="required" class="form-control" style="width:500px"readonly>
                               <input type="hidden" name="new_cc_id" id="new_cc_id" required="required" class="form-control">
-                              <span id="error_new_position" class="text-danger"></span>
+                              <span id="error_new_cc" class="text-danger"></span>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <div class="col-sm-6">
+                              <label class="control-label col-form-label">Current Director Placement</label>
+                              <input type="text" name="current_dp" id="current_dp" required="required" class="form-control" readonly>
+                              <input type="hidden" name="current_dp_id" id="current_dp_id" required="required" class="form-control">
+                              <span id="error_current_dp" class="text-danger"></span>
+                          </div>
+                          <div class="col-sm-6">
+                              <label class="control-label col-form-label">New Director Placement</label>
+                              <input type="text" name="new_dp" id="new_dp" required="required" class="form-control" style="width:500px"readonly>
+                              <input type="hidden" name="new_dp_id" id="new_dp_id" required="required" class="form-control">
+                              <span id="error_new_dp" class="text-danger"></span>
                           </div>
                         </div>
 
@@ -243,7 +226,7 @@
                               </div>
                               <div class="col-sm-6">
                                 <label class="control-label col-form-label">Expected Work Date for New Position</label>
-                                <input type="date" id="workdate" name="workdate" min="2018-01-01" max="2030-12-31" required="required" class="form-control">
+                                <input type="date" id="workdate" name="workdate" min="2018-01-01" max="2030-12-31" required="required" class="form-control" style="width:500px">
                                 <span id="error_workdate" class="text-danger"></span>
                               </div>
                           </div>
@@ -255,7 +238,7 @@
                               </div>
                               <div class="col-sm-6">
                                 <label class="control-label col-form-label"> New Responsibilities</label>
-                                ​<textarea class="ckeditor" id="new_responsibilities" name="new_responsibilities"></textarea>
+                                ​<textarea class="ckeditor" id="new_responsibilities" name="new_responsibilities" ></textarea>
                                 <span id="error_new_responsibilities" class="text-danger"></span>
                               </div>
                           </div>
@@ -264,16 +247,74 @@
                             <div class="col-sm-8">
                                     <label class="control-label col-form-label"> Human Resources Approval </label>
                                   
-                                    <select class="form-control chs-select" name="hra" id="hra" style="width:90%" required="required">
+                                    <!-- <select class="form-control chs-select" name="hra" id="hra" style="width:90%" required="required">
                                         <option default>Select Human Resources Approval</option>
                                         <?php foreach ($pos as $pos) { ?>
                                         <option value="<?php echo $pos['ID'];?>"><?php echo $pos['Name'];?></option>
                                         <?php } ?>
+                                    </select> -->
+
+                                    <select class="form-control chs-select" name="hra" id="hra" style="width:100%" required="required">
+                                        <option default>Select Human Resources Approval</option>
+                                        <?php foreach ($hra as $hra) { ?>
+                                        <option id="personnel_id"value="<?php echo $hra['PersonnelID'];?>"><?php echo $hra['Name'];?> &nbsp ( <?php echo $hra['ParentPosition'];?>) </option>
+                                        <?php } ?>
                                     </select>
                                     <input type="hidden" name="hra_id" id="hra_id" required="required" class="form-control">
-                                    <span id="error_new_position" class="text-danger"></span>
+                                    <span id="error_hra" class="text-danger"></span>
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-8">
+                                    <label class="control-label col-form-label"> Human Resources Approval from Current Position</label>
+                                    <input type="text" name="hra2" id="hra2" required="required" class="form-control" readonly>
+                                    <input type="hidden" name="hra2_id" id="hra2_id" required="required" class="form-control">
+                                    <span id="error_hra" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-sm-8">
+                                    <input type="text" name="hra2_pos" id="hra2_pos" required="required" class="form-control" readonly>
+                                    <input type="hidden" name="hra2_pos_id" id="hra2_pos_id" required="required" class="form-control">
+                                    <span id="error_hra" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-8">
+                                    <label class="control-label col-form-label"> Human Resources Approval from New Position</label>
+                                    <!-- <select class="form-control chs-select" name="hra3" id="hra3" style="width:100%" required="required">
+                                        <option default>Select Human Resources Approval</option>
+                                        <?php foreach ($hra3 as $hra3) { ?>
+                                        <option id="personnel_id" value="<?php echo $hra3['PersonnelID'];?>"><?php echo $hra3['Name'];?> &nbsp ( <?php echo $hra['ParentPosition'];?>)</option>
+                                        <?php } ?>
+                                    </select> -->
+                                    <input type="text" name="hra3" id="hra3" required="required" class="form-control" readonly>
+                                    <input type="hidden" name="hra3_id" id="hra3_id" required="required" class="form-control">
+                                    <span id="error_hra" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-8">
+                                    <input type="text" name="hra3_pos" id="hra3_pos" required="required" class="form-control" readonly>
+                                    <input type="hidden" name="hra3_pos_id" id="hra3_pos_id" required="required" class="form-control">
+                                    <span id="error_hra" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                    <div class="col-md-8">
+                                        <label class="control-label col-form-label">Note</label>
+                                      </div>
+                                      <div class="col-sm-8">
+                                        <div class="form-group">
+                                          <!-- <textarea id="requirement" name="requirement" rows="7" cols="70" required="required"></textarea> -->
+                                          <textarea id="noted" name="noted"rows="7" cols="110"></textarea>
+                                        
+                                        </div>
+                                        
+                                      </div>
+                                </div>
+                          </div>
                                   
                               <div class="form-group row">
                                 <div style="width:100%;height:100%;vertical-align:middle;text-align:center;">
@@ -457,11 +498,14 @@
                         console.log(data.PositionID);
                         
                       //  $('#req_position_id').val(data.PositionID);
-                        $('#current_position_id').val(data.PositionID);
+                        $('#current_position_id').val(data.PostionID);
                      //   $('#req_position').val(data.PositionName);
-                        $('#current_position').val(data.Position);
+                        $('#current_position').val(data.Postion);
                         $('#current_org_id').val(data.OrganizationID);
+                        $('#current_org').val(data.Organization);
                         $('#startdate').val(data.EmployeeStartDate);
+                        $('#hra2').val(data.ParentPersonnel);
+                        $('#hra2_pos').val(data.ParentPosition);
                         
                         }
                       },
@@ -474,67 +518,75 @@
           });
 
 
-          //     if ($('#new_position :selected').text() != '') {
-          //       $.ajax({
-          //           url:"<?php echo base_url('hr_movement/search_new_position');?>",
-          //           method:"GET",
-          //           dataType:'json',
-          //           data:{ 'Position': newpos },
+          $('#new_position').on('select2:select', function (e) {
+              var newpos = $('#new_position :selected').text();
+              console.log($('#new_position :selected').text());
+
+              if ($('#new_position :selected').text() != '') {
+                $.ajax({
+                    url:"<?php echo base_url('hr_movement/search_new_position');?>",
+                    method:"GET",
+                    dataType:'json',
+                    data:{ 'Position': newpos },
                 
-          //           success:function(data){
-          //             if (data) {
-          //               // $('#dis-pos').show();
-          //               //$('#c-position').show();
-          //               console.log(data);
-          //              // console.log(data.NewPosition);
-          //               console.log(data.NewPositionID);
+                    success:function(data){
+                      if (data) {
+                        // $('#dis-pos').show();
+                        //$('#c-position').show();
+                        console.log(data);
+                       // console.log(data.NewPosition);
+                        console.log(data.NewPositionID);
                         
-          //             //  $('#req_position_id').val(data.PositionID);
-          //               $('#new_position_id').val(data.NewPositionID);
-          //            //   $('#req_position').val(data.PositionName);
-          //             //  $('#new_position').val(data.NewPosition);
-          //               $('#new_org_id').val(data.NewOrganizationID);
+                      //  $('#req_position_id').val(data.PositionID);
+                        $('#new_position').val(data.Name);
+                        $('#new_pos_id').val(data.NewPositionID);
+                     //   $('#req_position').val(data.PositionName);
+                        $('#new_org').val(data.Organization);
+                        $('#new_org_id').val(data.NewOrganizationID);
+                        $('#hra3').val(data.ParentPersonnel);
+                        $('#hra3_pos').val(data.ParentPosition);
                         
-          //               }
-          //             },
-          //           error:function(){
-          //                   alert('error ... ');
-          //           }
-          //       });
+                        }
+                      },
+                    error:function(){
+                            alert('error ... ');
+                    }
+                });
              
-          //   }
-          // });
+            }
+          });
 
-          //   $('.new-position').select2({
-          //       placeholder: 'Enter The New Position',
-          //       ajax:{
-          //           url: "<?php echo base_url('hr_movement/new_position'); ?>",
-          //           dataType: "json",
-          //           delay: 250,
-          // //           processResults: function (param) {
-          // //   return {
-          // //     compClue: param.term,
+            $('.new_position').select2({
+                placeholder: 'Enter The New Position',
+                ajax:{
+                    url: "<?php echo base_url('hr_movement/new_position'); ?>",
+                    dataType: "json",
+                    delay: 250,
+          //           processResults: function (param) {
+          //   return {
+          //     compClue: param.term,
               
-          // //   };
-          // // },
-          // processResults: function(data){
-          //               var results = [];
+          //   };
+          // },
+          processResults: function(data){
+                        var results = [];
 
-          //               $.each(data, function(index, item){
-          //                   results.push({
-          //                       id: item.ID,
-          //                       text: item.Name,
-          //                       option_value:item.ID
-          //                   });
-          //               });
-          //               return{
-          //                   results: results,
-          //                   cache: true,
-          //               };
-          //           },
-          //       }
+                        $.each(data, function(index, item){
+                            results.push({
+                                id: item.ID,
+                                text: item.Name,
+                                option_value:item.ID
+                            });
+                        });
+                        return{
+                            results: results,
+                            cache: true,
+                        };
+                    },
+                }
 
-          //   });
+            });
+
 
           
         
@@ -570,6 +622,37 @@
           });
     }
     });
+
+    $('#hra').on('change', function() {
+      var temp2 = $('#hra :selected').val();
+      if ($('#hra :selected').text() != '') {
+        $.ajax({
+          url:"<?php echo base_url('hr_movement/search_hra');?>",
+          method:"POST",
+          dataType : "json",
+          data:{ 'ID' : temp2},
+          success:function(data){
+            console.log(data);
+            $('#req_position_id').val(data.PostionID);
+            $('#req_position').val(data.Postion);
+            $('#org_id').val(data.OrganizationID);
+            $('#req_org_id').val(data.Organization);
+
+            $('#parent_org').val(data.ParentOrganization);
+            $('#organization').val(data.Organization);
+            $('#organization_id').val(data.OrganizationID);
+
+            
+          },
+          error:function(){
+                  alert('error ... ');
+              }
+          });
+    }
+    });
+
+    
+
 
     // $('#request_name').on('change', function() {
     //   var temp2 = $('#request_name :selected').val();
@@ -736,6 +819,7 @@
         var current_position_id = $('#current_position_id').val();
         var current_org_id = $('#current_org_id').val();
         var new_position = $('#new_position').val();
+        var new_pos_id = $('#new_pos_id').val();
         var new_org_id = $('#new_org_id').val();
         var workdate= $('#workdate').val();
         var current_responsibilities = CKEDITOR.instances["current_responsibilities"].getData();
@@ -756,6 +840,7 @@
                'current_position_id':current_position_id,
                'current_org_id':current_org_id,
                'new_position':new_position,
+               'new_pos_id' : new_pos_id,
                'new_org_id':new_org_id,
                'workdate':workdate,
                'current_responsibilities' : current_responsibilities,
@@ -990,6 +1075,7 @@
         var current_position_id = $('#current_position_id').val();
         var current_org_id = $('#current_org_id').val();
         var new_position = $('#new_position').val();
+        var new_pos_id = $('#new_pos_id').val();
         var new_org_id = $('#new_org_id').val();
         var workdate= $('#workdate').val();
         var current_responsibilities = CKEDITOR.instances["current_responsibilities"].getData();
@@ -1011,6 +1097,7 @@
                'current_position_id':current_position_id,
                'current_org_id':current_org_id,
                'new_position':new_position,
+               'new_pos_id' : new_pos_id,
                'new_org_id':new_org_id,
                'workdate':workdate,
                'current_responsibilities' : current_responsibilities,
@@ -1033,7 +1120,7 @@
        $('#myModal').hide();
           $('.modal-fade').hide();
           $(".modal-backdrop").remove();
-          // window.location.href = '<?php echo base_url('hr_movement/movement_history');?>';
+           window.location.href = '<?php echo base_url('hr_movement/movement_history');?>';
     });
 
   });
