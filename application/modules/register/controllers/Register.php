@@ -37,8 +37,6 @@ class Register extends CI_Controller{
 			
             //$body = json_decode($body, true);
             echo $body;
-        
-            
 	}
 	
 	public function submit_register(){
