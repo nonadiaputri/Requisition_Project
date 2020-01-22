@@ -237,12 +237,13 @@
                       
 	                    <select class="form-control" name="status" id="status" required="required">
 	                      <option value="" selected>Pilih</option>
-	                      <option value="1">Profesional Contract</option>
-                        <option value="2">Contract</option>
-                        <option value="3">Contract to Permanent</option>
-	                      <option value="4">Freelance</option>
-	                      <option value="5">Internship</option>
-	                      <option value="6">Outsourcing</option>  
+                        <option value="1">Undefined</option>
+	                      <option value="2">Profesional Contract</option>
+                        <option value="3">Full Contract</option>
+                        <option value="4">Contract to Permanent</option>
+	                      <option value="5">Freelance</option>
+	                      <option value="6">Internship</option>
+	                      <option value="7">Outsourcing</option>  
 	                    </select>
                     <span id="error_status" class="text-danger"></span>
                   </div>
@@ -316,7 +317,7 @@
                       <div class="col-sm-8">
                         <div class="form-group">
                           <!-- <textarea id="requirement" name="requirement" rows="7" cols="70" required="required"></textarea> -->
-                          <textarea id="noted" name="noted"rows="7" cols="110"></textarea>
+                          <textarea class="form-control" id="noted" name="noted"rows="7" cols="110"></textarea>
                         
                         </div>
                         

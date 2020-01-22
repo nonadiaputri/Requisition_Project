@@ -39,9 +39,7 @@
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
-                <h1>
-        Detail Request
-      </h1>
+                <h1>Detail Request</h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a>
                     </li>
@@ -50,6 +48,7 @@
                     <li class="active">Invoice</li>
                 </ol>
             </section>
+
             <div class="pad margin no-print">
                 <div class="callout callout-danger" id="lbl-danger" style="display: none;">
                     <h4>Warning!</h4>
@@ -66,338 +65,364 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <h4 class="page-header">
-            Detail Requestor Information
-          </h4>
+                            Detail Requestor Information
+                          </h4>
                     </div>
                     <!-- /.col -->
                 </div>
                 <!-- info row -->
                 <div class="row invoice-info">
-                    <div class="col-sm-4 invoice-col"> <address>
-            <strong>Requestor</strong><br>
-            <?php echo $req['Requestor']; ?><br>
-            <?php echo $req['requestor_pos']; ?><br>
-            <?php echo $req['DeptName']; ?><br>
-          </address>
+                    <div class="col-sm-12 invoice-col"> <address>
+                <strong>Requestor</strong><br>
+                <?php echo $req['Requestor']; ?><br>
+                <?php echo $req['requestor_pos']; ?><br>
+                <?php echo $req['DeptName']; ?><br>
+                <br>
+                    <div class="row invoice-info">
+                        <div class="col-xs-12">
+                            <h3 class="page-header">Applicant Requestor Information</h3>
+                        </div>
+                        <div class="col-xs-12 table-responsive">
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td width="10%">Position</td>
+                                        <td width="40%">
+                                            <?php echo $req[ 'requested_pos']; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total Need</td>
+                                        <td>
+                                            <?php echo $req[ 'NumberOfPlacement']; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Company</td>
+                                        <td>
+                                            <?php echo $req[ 'CompanyName']; ?>
+                                        </td>
+                                    </tr>
+                                    <tr id="cc">
+                                        <td>Cost Center</td>
+                                        <td id="Placement">
+                                            <?php echo $req[ 'Placement']; ?>
+                                        </td>
+                                    </tr>
+                                    <tr id="cc_rec" style="display: none;">
+                                        <td>Cost Center</td>
+                                        <td> 
+                                            <select class="cc form-control" name="cost-center" id="cost-center" style="width:100%;"  required="required">
+                                              <option value=""></option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Requisition Type</td>
+                                        <td>
+                                            <?php echo $req[ 'Requisition_status']; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Employment Type</td>
+                                        <td>
+                                            <?php echo $req[ 'EmployeeType']; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Replacement Name</td>
+                                        <td>
+                                            <?php if ($req[ 'ReplacementPersonnelID']=='' ) { echo "-"; }else{ echo $req[ 'RepName']; } ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Expected Work Date</td>
+                                        <td>
+                                            <?php echo $req[ 'ExpectedWorkStartDate']; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Responsibility</td>
+                                        <td>
+                                            <?php echo $req[ 'DuttiesAndResponsibilities']; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Requirement</td>
+                                        <td>
+                                            <?php echo $req[ 'RequirementDescription']; ?>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <!-- /.col -->
-                    <!-- /.col -->
-                </div>
-                <div class="row invoice-info">
-                    <div class="col-xs-12">
-                        <h3 class="page-header">
-             Applicant Requestor Information
-          </h3>
-                    </div>
-                    <div class="col-xs-12 table-responsive">
-                        <table class="table table-striped">
-                            <tbody>
-                                <tr>
-                                    <td width="10%">Position</td>
-                                    <td width="40%">
-                                        <?php echo $req[ 'requested_pos']; ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Total Need</td>
-                                    <td>
-                                        <?php echo $req[ 'NumberOfPlacement']; ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Company</td>
-                                    <td>
-                                        <?php echo $req[ 'CompanyName']; ?>
-                                    </td>
-                                </tr>
-                                <tr id="cc">
-                                    <td>Cost Center</td>
-                                    <td id="Placement">
-                                        <?php echo $req[ 'Placement']; ?>
-                                    </td>
-                                </tr>
-                                <tr id="cc_rec" style="display: none;">
-                                    <td>Cost Center</td>
-                                    <td> 
-                                        <select class="cc form-control" name="cost-center" id="cost-center" style="width:100%;"  required="required">
-                                          <option value=""></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Status</td>
-                                    <td>
-                                        <?php echo $req[ 'Status']; ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Replacement Name</td>
-                                    <td>
-                                        <?php if ($req[ 'ReplacementPersonnelID']=='' ) { echo "-"; }else{ echo $req[ 'RepName']; } ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Expected Work Date</td>
-                                    <td>
-                                        <?php echo $req[ 'ExpectedWorkStartDate']; ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Responsibility</td>
-                                    <td>
-                                        <?php echo $req[ 'DuttiesAndResponsibilities']; ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Requirement</td>
-                                    <td>
-                                        <?php echo $req[ 'RequirementDescription']; ?>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            </section>
+
                 <!-- /.row -->
                 <!-- /.row -->
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h3 class="page-header">Approval Information</h3>
-                    </div>
-                    <div class="offset-5">
-                        <div class="col-md-6">
-                            <div class="row invoice-info" id="app-status" style="display: none;">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="control-label text-right col-md-5">Request Status</label>
-                                        <div class="col-md-6">
-                                            <p class="form-control-static">
-                                                <?php if($req[ 'IsProcessedToHire']=='1' ){ echo "Approved"; }else if ($req[ 'IsHold']=='1' ) { echo "Hold"; }else if ($req[ 'IsRejected']=='1' ) { echo "Rejected"; } ?>
-                                            </p>
+            <div class="col-md-6">
+                <section class="invoice">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h3 class="page-header">Approval Information</h3>
+                        </div>
+                        <div class="col-xs-12 ">
+                            <div class="col-md-12">
+                                <div class="row invoice-info" id="app-status" style="display: none;">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="control-label text-right col-md-5">Request Status</label>
+                                            <div class="col-md-6">
+                                                <p class="form-control-static">
+                                                    <?php if($req[ 'IsProcessedToHire']=='1' ){ echo "Approved"; }else if ($req[ 'IsHold']=='1' ) { echo "Hold"; }else if ($req[ 'IsRejected']=='1' ) { echo "Rejected"; } ?>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row invoice-info" id="hold-end" style="display: none">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="control-label text-right col-md-5">Hold End Date</label>
-                                        <div class="col-md-6">
-                                            <p class="form-control-static">
-                                                <?php echo $req[ 'HoldEndDate']; ?>
-                                            </p>
+                                <div class="row invoice-info" id="hold-end" style="display: none">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="control-label text-right col-md-5">Hold End Date</label>
+                                            <div class="col-md-6">
+                                                <p class="form-control-static">
+                                                    <?php echo $req[ 'HoldEndDate']; ?>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row invoice-info" id="rjt-reason" style="display: none">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="control-label text-right col-md-5">Reason</label>
-                                        <div class="col-md-6">
-                                            <p class="form-control-static">
-                                                <?php echo $req[ 'RejectReason']; ?>
-                                            </p>
+                                <div class="row invoice-info" id="rjt-reason" style="display: none">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="control-label text-right col-md-5">Reason</label>
+                                            <div class="col-md-6">
+                                                <p class="form-control-static">
+                                                    <?php echo $req[ 'RejectReason']; ?>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row invoice-info" id="process-date" style="display: none">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="control-label text-right col-md-5">Process Start Date</label>
-                                        <div class="col-md-6">
-                                            <p class="form-control-static">
-                                                <?php echo $req[ 'ProcessStartDate']; ?>
-                                            </p>
+                                <div class="row invoice-info" id="process-date" style="display: none">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="control-label text-right col-md-5">Process Start Date</label>
+                                            <div class="col-md-6">
+                                                <p class="form-control-static">
+                                                    <?php echo $req[ 'ProcessStartDate']; ?>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row invoice-info" id="rqstd">
-                                <div class="col-md-8 offset-2">
-                                    <div class="form-group row">
-                                        <fieldset class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="" class="checkbox-mngr">Requested by
-                                                <?php echo $req[ 'Requestor']; ?>
-                                                <br>&nbsp &nbsp as
-                                                <?php echo $req[ 'requestor_pos']; ?>
-                                            </label>
-                                        </fieldset>
+                                <div class="row invoice-info" id="rqstd">
+                                    <div class="col-md-12 offset-2">
+                                        <div class="form-group row">
+                                            <fieldset class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="" class="checkbox-mngr">Requested by
+                                                    <?php echo $req[ 'Requestor']; ?>
+                                                    <br>&nbsp &nbsp as
+                                                    <?php echo $req[ 'requestor_pos']; ?>
+                                                </label>
+                                            </fieldset>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row invoice-info" id="apv_gm" style="display: none;">
-                                <div class="col-md-8 offset-2">
-                                    <div class="form-group row">
-                                        <fieldset class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="" class="checkbox-apv-gm">Approved by
-                                                <?php echo $latest[1][ 'PersonnelName']; ?>
-                                                <br>&nbsp &nbsp as
-                                                <?php echo $latest[1][ 'Position']; ?>
-                                            </label>
-                                        </fieldset>
+                                <div class="row invoice-info" id="apv_gm" style="display: none;">
+                                    <div class="col-md-12 offset-2">
+                                        <div class="form-group row">
+                                            <fieldset class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="" class="checkbox-apv-gm">Approved by
+                                                    <?php echo $latest[1][ 'PersonnelName']; ?>
+                                                    <br>&nbsp &nbsp as
+                                                    <?php echo $latest[1][ 'Position']; ?>
+                                                </label>
+                                            </fieldset>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row invoice-info" id="hold-by" style="display: none;">
-                                <div class="col-md-8 offset-2">
-                                    <div class="form-group row">
-                                        <fieldset class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="" class="checkbox-hl-gm">Hold by
-                                                <?php echo $latest[1][ 'PersonnelName']; ?>
-                                                <br>&nbsp &nbsp as
-                                                <?php echo $latest[1][ 'Position']; ?>
-                                            </label>
-                                        </fieldset>
+                                <div class="row invoice-info" id="hold-by" style="display: none;">
+                                    <div class="col-md-12 offset-2">
+                                        <div class="form-group row">
+                                            <fieldset class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="" class="checkbox-hl-gm">Hold by
+                                                    <?php echo $latest[1][ 'PersonnelName']; ?>
+                                                    <br>&nbsp &nbsp as
+                                                    <?php echo $latest[1][ 'Position']; ?>
+                                                </label>
+                                            </fieldset>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row invoice-info" id="reject-by" style="display: none;">
-                                <div class="col-md-8 offset-2">
-                                    <div class="form-group row">
-                                        <fieldset class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="" class="checkbox-rjt-gm">Rejected by
-                                                <?php echo $latest[1][ 'PersonnelName']; ?>
-                                                <br>&nbsp &nbsp as
-                                                <?php echo $latest[1][ 'Position']; ?>
-                                            </label>
-                                        </fieldset>
+                                <div class="row invoice-info" id="reject-by" style="display: none;">
+                                    <div class="col-md-12 offset-2">
+                                        <div class="form-group row">
+                                            <fieldset class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="" class="checkbox-rjt-gm">Rejected by
+                                                    <?php echo $latest[1][ 'PersonnelName']; ?>
+                                                    <br>&nbsp &nbsp as
+                                                    <?php echo $latest[1][ 'Position']; ?>
+                                                </label>
+                                            </fieldset>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- EDITED BY RECRUITER -->
+                                <!-- EDITED BY RECRUITER -->
 
-                            <div class="row invoice-info" id="edited-rec" style="display: none;">
-                                <div class="col-md-8 offset-2">
-                                    <div class="form-group row">
-                                        <fieldset class="checkbox">
-                                            <label>
-                                                <input type="checkbox" class="checkbox-edited-rec">Edited by recruiter
-                                            </label>
-                                        </fieldset>
+                                <div class="row invoice-info" id="edited-rec" style="display: none;">
+                                    <div class="col-md-12 offset-2">
+                                        <div class="form-group row">
+                                            <fieldset class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" class="checkbox-edited-rec">Edited by recruiter
+                                                </label>
+                                            </fieldset>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- HR APPROVAL -->
-                            <div class="row invoice-info" id="apv_hr" style="display: none;">
-                                <div class="col-md-8 offset-2">
-                                    <div class="form-group row">
-                                        <fieldset class="checkbox">
-                                            <label>
-                                                <input type="checkbox" class="checkbox-apv-hr">Approved by
-                                                <?php echo $latest[2][ 'PersonnelName']; ?>
-                                                <br>&nbsp &nbsp as
-                                                <?php echo $latest[2][ 'Position']; ?>
-                                            </label>
-                                        </fieldset>
+                                <!-- HR APPROVAL -->
+                                <div class="row invoice-info" id="apv_hr" style="display: none;">
+                                    <div class="col-md-12 offset-2">
+                                        <div class="form-group row">
+                                            <fieldset class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" class="checkbox-apv-hr">Approved by
+                                                    <?php echo $latest[2][ 'PersonnelName']; ?>
+                                                    <br>&nbsp &nbsp as
+                                                    <?php echo $latest[2][ 'Position']; ?>
+                                                </label>
+                                            </fieldset>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row invoice-info" id="hold_hr" style="display: none;">
-                                <div class="col-md-8 offset-2">
-                                    <div class="form-group row">
-                                        <fieldset class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="" class="checkbox-hl-hr">Hold by
-                                                <?php echo $latest[2][ 'PersonnelName']; ?>
-                                                <br>&nbsp &nbsp as
-                                                <?php echo $latest[2][ 'Position']; ?>
-                                            </label>
-                                        </fieldset>
+                                <div class="row invoice-info" id="hold_hr" style="display: none;">
+                                    <div class="col-md-12 offset-2">
+                                        <div class="form-group row">
+                                            <fieldset class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="" class="checkbox-hl-hr">Hold by
+                                                    <?php echo $latest[2][ 'PersonnelName']; ?>
+                                                    <br>&nbsp &nbsp as
+                                                    <?php echo $latest[2][ 'Position']; ?>
+                                                </label>
+                                            </fieldset>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row invoice-info" id="reject_hr" style="display: none;">
-                                <div class="col-md-8 offset-2">
-                                    <div class="form-group row">
-                                        <fieldset class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="" class="checkbox-rjt-hr">Rejected by
-                                                <?php echo $latest[2][ 'PersonnelName']; ?>
-                                                <br>&nbsp &nbsp as
-                                                <?php echo $latest[2][ 'Position']; ?>
-                                            </label>
-                                        </fieldset>
+                                <div class="row invoice-info" id="reject_hr" style="display: none;">
+                                    <div class="col-md-12 offset-2">
+                                        <div class="form-group row">
+                                            <fieldset class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="" class="checkbox-rjt-hr">Rejected by
+                                                    <?php echo $latest[2][ 'PersonnelName']; ?>
+                                                    <br>&nbsp &nbsp as
+                                                    <?php echo $latest[2][ 'Position']; ?>
+                                                </label>
+                                            </fieldset>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- CC APROVAL -->
-                            <div class="row invoice-info" id="apv_cc" style="display: none;">
-                                <div class="col-md-8 offset-2">
-                                    <div class="form-group row">
-                                        <fieldset class="checkbox">
-                                            <label>
-                                                <input type="checkbox" class="checkbox-apv-cc">Approved by
-                                                <?php echo $latest[3][ 'PersonnelName']; ?>
-                                                <br>&nbsp &nbsp as
-                                                <?php echo $latest[3][ 'Position']; ?>
-                                            </label>
-                                        </fieldset>
+                                <!-- CC APROVAL -->
+                                <div class="row invoice-info" id="apv_cc" style="display: none;">
+                                    <div class="col-md-12 offset-2">
+                                        <div class="form-group row">
+                                            <fieldset class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" class="checkbox-apv-cc">Approved by
+                                                    <?php echo $latest[3][ 'PersonnelName']; ?>
+                                                    <br>&nbsp &nbsp as
+                                                    <?php echo $latest[3][ 'Position']; ?>
+                                                </label>
+                                            </fieldset>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row invoice-info" id="hold_cc" style="display: none;">
-                                <div class="col-md-8 offset-2">
-                                    <div class="form-group row">
-                                        <fieldset class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="" class="checkbox-hl-cc">Hold by
-                                                <?php echo $latest[3][ 'PersonnelName']; ?>
-                                                <br>&nbsp &nbsp as
-                                                <?php echo $latest[3][ 'Position']; ?>
-                                            </label>
-                                        </fieldset>
+                                <div class="row invoice-info" id="hold_cc" style="display: none;">
+                                    <div class="col-md-12 offset-2">
+                                        <div class="form-group row">
+                                            <fieldset class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="" class="checkbox-hl-cc">Hold by
+                                                    <?php echo $latest[3][ 'PersonnelName']; ?>
+                                                    <br>&nbsp &nbsp as
+                                                    <?php echo $latest[3][ 'Position']; ?>
+                                                </label>
+                                            </fieldset>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row invoice-info" id="reject_cc" style="display: none;">
-                                <div class="col-md-8 offset-2">
-                                    <div class="form-group row">
-                                        <fieldset class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="" class="checkbox-rjt-cc">Rejected by
-                                                <?php echo $latest[3][ 'PersonnelName']; ?>
-                                                <br>&nbsp &nbsp as
-                                                <?php echo $latest[3][ 'Position']; ?>
-                                            </label>
-                                        </fieldset>
+                                <div class="row invoice-info" id="reject_cc" style="display: none;">
+                                    <div class="col-md-12 offset-2">
+                                        <div class="form-group row">
+                                            <fieldset class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="" class="checkbox-rjt-cc">Rejected by
+                                                    <?php echo $latest[3][ 'PersonnelName']; ?>
+                                                    <br>&nbsp &nbsp as
+                                                    <?php echo $latest[3][ 'Position']; ?>
+                                                </label>
+                                            </fieldset>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- COMPLETE -->
-                            <div class="row invoice-info" id="completed" style="display: none;">
-                                <div class="col-md-8 offset-2">
-                                    <div class="form-group row">
-                                        <fieldset class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="" class="checkbox-completed">Request Completed
-                                            </label>
-                                        </fieldset>
+                                <!-- COMPLETE -->
+                                <div class="row invoice-info" id="completed" style="display: none;">
+                                    <div class="col-md-12 offset-2">
+                                        <div class="form-group row">
+                                            <fieldset class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="" class="checkbox-completed">Request Completed
+                                                </label>
+                                            </fieldset>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                </section>
+            </div>
+
+            <div class="col-md-6">
+                <section class="invoice"> 
+                        <div class="row">
+                            <div class="box box-primary">
+                                    <div class="box-header with-border">
+                                      <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                                    </div>
+                                    <div class="box-body">
+                                      <strong> From : </strong>
+                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                                    </div>
+                                  </div>
+                        </div>
+
+                </section>
+            </div>
+
                     <!-- /.row -->
                     <!-- this row will not appear when printing -->
                     <div class="row no-print">
                         <div class="col-xs-12"> 
                            <!--  <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
-                            <button type="button" class="btn btn-danger pull-right" id="button-reject" data-toggle="modal" data-target="#reject" style="margin-right: 5px;">Reject</button>
-                            <button type="button" class="btn btn-warning pull-right" id="button-hold" data-toggle="modal" data-target="#hold" style="margin-right: 5px;">Hold</button>
-                            <button type="button" class="btn btn-success pull-right" id="button-process" data-toggle="modal" data-target="#process" style="margin-right: 5px;">Approve</button>
-                            <button type="button" class="btn btn-success pull-right" id="button-save"  style="margin-right: 5px;display: none;">Save</button>
+                            <button type="button" class="btn btn-danger pull-center" id="button-reject" data-toggle="modal" data-target="#reject" style="margin-center: 5px;">Reject</button>
+                            <button type="button" class="btn btn-warning pull-center" id="button-hold" data-toggle="modal" data-target="#hold" style="margin-center: 5px;">Hold</button>
+                            <button type="button" class="btn btn-success pull-center" id="button-process" data-toggle="modal" data-target="#process" style="margin-center: 5px;">Approve</button>
+                            <button type="button" class="btn btn-success pull-center" id="button-save"  style="margin-center: 5px;display: none;">Save</button>
                         </div>
                     </div>
-            </section>
+
+
+
             <!-- /.content -->
             <div id="process" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
