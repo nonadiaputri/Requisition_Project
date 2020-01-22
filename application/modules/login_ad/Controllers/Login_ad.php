@@ -134,7 +134,7 @@ class Login_ad extends CI_Controller
                     $curl = curl_init();
                     curl_setopt_array($curl, array(
                         // setting
-                        CURLOPT_URL => INR_API . "Desks",
+                        CURLOPT_URL => "http://esldev.kgmedia.id/ep/dashboard",
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_ENCODING => "",
                         CURLOPT_MAXREDIRS => 10,
@@ -175,17 +175,17 @@ class Login_ad extends CI_Controller
                     }
 
                     // permission
-                    $arrSession["permissions"] = json_decode($this->getPermissions($access_token));
-                    $mypermissions = '';
-                    foreach ($arrSession["permissions"]->desk as $key => $value) {
-                        if ($value->DeskId == 0) {
-                            $mypermissions .= $value->SecuredObjectCodes;
-                        }
-                    }
-                    $arrSession["mypermissions"] = explode(',', $mypermissions);
-                    if ($arrSession["permissions"]->system[0]->SecuredObjectCodes) {
-                        array_unshift($arrSession["mypermissions"], explode(',', $arrSession["permissions"]->system[0]->SecuredObjectCodes));
-                    }
+                    // $arrSession["permissions"] = json_decode($this->getPermissions($access_token));
+                    // $mypermissions = '';
+                    // foreach ($arrSession["permissions"]->desk as $key => $value) {
+                    //     if ($value->DeskId == 0) {
+                    //         $mypermissions .= $value->SecuredObjectCodes;
+                    //     }
+                    // }
+                    // $arrSession["mypermissions"] = explode(',', $mypermissions);
+                    // if ($arrSession["permissions"]->system[0]->SecuredObjectCodes) {
+                    //     array_unshift($arrSession["mypermissions"], explode(',', $arrSession["permissions"]->system[0]->SecuredObjectCodes));
+                    // }
 
                     // pagination
                     $arrSession["page_size"] = 10;
@@ -207,91 +207,91 @@ class Login_ad extends CI_Controller
         }
     }
 
-    function getPermissions($access_token)
-    {
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            // setting
-            CURLOPT_URL => INR_API . "My/Permissions",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HEADER => true,
-            CURLOPT_POSTFIELDS => "",
-            CURLOPT_HTTPHEADER => array(
-                "Authorization: Bearer " . $access_token,
-                "cache-control: no-cache"
-            ),
-        ));
-        $response = curl_exec($curl);
-        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        $header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
-        $body = substr($response, $header_size);
-        $err = curl_error($curl);
+    // function getPermissions($access_token)
+    // {
+    //     $curl = curl_init();
+    //     curl_setopt_array($curl, array(
+    //         // setting
+    //         CURLOPT_URL => INR_API . "My/Permissions",
+    //         CURLOPT_RETURNTRANSFER => true,
+    //         CURLOPT_ENCODING => "",
+    //         CURLOPT_MAXREDIRS => 10,
+    //         CURLOPT_TIMEOUT => 30,
+    //         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    //         CURLOPT_CUSTOMREQUEST => "GET",
+    //         CURLOPT_HEADER => true,
+    //         CURLOPT_POSTFIELDS => "",
+    //         CURLOPT_HTTPHEADER => array(
+    //             "Authorization: Bearer " . $access_token,
+    //             "cache-control: no-cache"
+    //         ),
+    //     ));
+    //     $response = curl_exec($curl);
+    //     $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    //     $header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+    //     $body = substr($response, $header_size);
+    //     $err = curl_error($curl);
 
-        curl_close($curl);
-        return $body;
-    }
+    //     curl_close($curl);
+    //     return $body;
+    // }
 
-    function BuildTree(array $data, $parent = 0)
-    {
-        $tree = array();
-        foreach ($data as $d) {
-            if ($d->ID !== 0) {
-                if ($d->Parent == $parent) {
-                    $children = $this->BuildTree($data, $d->ID);
-                    if (!empty($children)) {
-                        $d->_children = $children;
-                    }
-                    $tree[] = $d;
-                }
-            }
-        }
-        return $tree;
-    }
+    // function BuildTree(array $data, $parent = 0)
+    // {
+    //     $tree = array();
+    //     foreach ($data as $d) {
+    //         if ($d->ID !== 0) {
+    //             if ($d->Parent == $parent) {
+    //                 $children = $this->BuildTree($data, $d->ID);
+    //                 if (!empty($children)) {
+    //                     $d->_children = $children;
+    //                 }
+    //                 $tree[] = $d;
+    //             }
+    //         }
+    //     }
+    //     return $tree;
+    // }
 
-    function BuildWorkspace($menu_array, $is_sub = FALSE, $lvl = 1)
-    {
-        $attr = "";
-        switch ($lvl) {
-            case 1:
-                $attr = ' class="nav"';
-                break;
-            case 2:
-                $attr = ' class="nav nav-second-level" aria-expanded="false"';
-                break;
-            case 3:
-                $attr = ' class="nav nav-third-level" aria-expanded="false"';
-                break;
-            default:
-                $attr = ' class="nav"';
-                break;
-        }
-        $menu = ($is_sub) ? "<ul" . $attr . ">" : "";
-        foreach ($menu_array as $id => $properties) {
-            foreach ($properties as $key => $val) {
-                if (is_array($val)) {
-                    $lvl = $val[0]->Level;
-                    $sub = $this->BuildWorkspace($val, TRUE, $lvl);
-                } else {
-                    $sub = NULL;
-                    $$key = $val;
-                }
-            }
+    // function BuildWorkspace($menu_array, $is_sub = FALSE, $lvl = 1)
+    // {
+    //     $attr = "";
+    //     switch ($lvl) {
+    //         case 1:
+    //             $attr = ' class="nav"';
+    //             break;
+    //         case 2:
+    //             $attr = ' class="nav nav-second-level" aria-expanded="false"';
+    //             break;
+    //         case 3:
+    //             $attr = ' class="nav nav-third-level" aria-expanded="false"';
+    //             break;
+    //         default:
+    //             $attr = ' class="nav"';
+    //             break;
+    //     }
+    //     $menu = ($is_sub) ? "<ul" . $attr . ">" : "";
+    //     foreach ($menu_array as $id => $properties) {
+    //         foreach ($properties as $key => $val) {
+    //             if (is_array($val)) {
+    //                 $lvl = $val[0]->Level;
+    //                 $sub = $this->BuildWorkspace($val, TRUE, $lvl);
+    //             } else {
+    //                 $sub = NULL;
+    //                 $$key = $val;
+    //             }
+    //         }
 
-            if ($sub) {
-                $menu .= ($Name == "KOMPAS" ? ' <li> <a href="#" class="waves-effect"><img src="' . asset_url() . 'plugins/images/icons/kompas-digital-icon.svg" style="width: 15px;"> <span class="hide-menu">' . $Name . '<span class="fa arrow"></span></span></a> ' . $sub . ' </li> ' : ' <li> <a href="#" class="waves-effect"><i class="mdi mdi-folder-multiple-outline fa-fw"></i> <span class="hide-menu">' . $Name . '<span class="fa arrow"></span></span></a> ' . $sub . ' </li> ');
-            } else {
-                //$menu .= '<li> <a href="'.base_url().'menu/set_workspace/'.$ID.'/'.$Name.'"><i class="mdi mdi-folder-outline fa-fw"></i><span class="hide-menu  text-warning">'.$Name.'</span></a> </li>';
-                $menu .= '<li> <a href="' . base_url() . 'plan/index/' . $ID . '/' . $Name . '"><i class="mdi mdi-folder-outline fa-fw"></i><span class="hide-menu  text-warning">' . $Name . '</span></a> </li>';
-            }
-            unset($ID, $Name, $sub, $lvl);
-        }
-        return ($is_sub) ? $menu . "</ul>" : $menu;
-    }
+    //         if ($sub) {
+    //             $menu .= ($Name == "KOMPAS" ? ' <li> <a href="#" class="waves-effect"><img src="' . asset_url() . 'plugins/images/icons/kompas-digital-icon.svg" style="width: 15px;"> <span class="hide-menu">' . $Name . '<span class="fa arrow"></span></span></a> ' . $sub . ' </li> ' : ' <li> <a href="#" class="waves-effect"><i class="mdi mdi-folder-multiple-outline fa-fw"></i> <span class="hide-menu">' . $Name . '<span class="fa arrow"></span></span></a> ' . $sub . ' </li> ');
+    //         } else {
+    //             //$menu .= '<li> <a href="'.base_url().'menu/set_workspace/'.$ID.'/'.$Name.'"><i class="mdi mdi-folder-outline fa-fw"></i><span class="hide-menu  text-warning">'.$Name.'</span></a> </li>';
+    //             $menu .= '<li> <a href="' . base_url() . 'plan/index/' . $ID . '/' . $Name . '"><i class="mdi mdi-folder-outline fa-fw"></i><span class="hide-menu  text-warning">' . $Name . '</span></a> </li>';
+    //         }
+    //         unset($ID, $Name, $sub, $lvl);
+    //     }
+    //     return ($is_sub) ? $menu . "</ul>" : $menu;
+    // }
 
     public function logout()
     {
