@@ -36,11 +36,12 @@
 
 	<img src="<?= base_url(); ?>assets/images/kgmedia.png" alt="KGMedia Mission" style="width:100%; margin:auto; padding:10%">
 
-    <p class="login-box-msg">Log in to KGMedia Portal</p>
+    <p class="login-box-msg">Log in with AD</p>
+    <p class="alert alert-danger">Your email or password is incorrect</p>
 	
-    <form action="<?= base_url(); ?>login/do" method="post">
+    <form action="<?= base_url(); ?>login_ad/user" method="post">
       <div class="form-group has-feedback">
-        <input type="text" name="uid" class="form-control" placeholder="NIK">
+        <input type="text" name="uid" class="form-control" placeholder="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
@@ -73,7 +74,7 @@
 
     <div class="social-auth-links text-center">
       <p>- OR -</p>
-      <a href="<?= base_url(); ?>login_ad/index" class="btn btn-block btn-social btn-twitter btn-flat"> Login Using AD</a>
+      <a href="<?= base_url(); ?>login/index" class="btn btn-block btn-social btn-twitter btn-flat"> Login Using NIK</a>
       <!-- <a href="#" class="btn btn-block btn-social btn-google btn-flat"> Log in using
         Gmail</a> -->
     </div>

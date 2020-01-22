@@ -123,4 +123,8 @@ class Login extends CI_Controller {
 			$data['pos'] = $body2;
 		$this->load->view('register/v_register', $data);
 	}
+
+	function active_directory(){
+		$this->load->view('login_ad/login');
+	}
 }

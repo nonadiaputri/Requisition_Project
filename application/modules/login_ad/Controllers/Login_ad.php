@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Login extends CI_Controller
+class Login_ad extends CI_Controller
 {
 
     public function index()
@@ -13,14 +13,14 @@ class Login extends CI_Controller
                 $redir = $this->session->flashdata('ref_url');
                 $this->session->set_flashdata('ref_url', $redir);
             }
-            $this->load->view('login');
+            $this->load->view('login_ad');
         }
     }
 
     public function user()
     {
-        $user = trim($this->input->post("user"));
-        $pass = trim($this->input->post("pass"));
+        $user = trim($this->input->post("uid"));
+        $pass = trim($this->input->post("pwd"));
 
         if (!empty($user) && !empty($pass)) {
             if (!empty($this->input->post('remember'))) {
@@ -30,9 +30,10 @@ class Login extends CI_Controller
             }
 
             $curl = curl_init();
+            
 
             curl_setopt_array($curl, array(
-                CURLOPT_URL => INR_OAUTH . "token",
+                CURLOPT_URL => "http://appdev.kmn.kompas.com/authAPI/token",
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => "",
                 CURLOPT_MAXREDIRS => 10,
@@ -55,9 +56,10 @@ class Login extends CI_Controller
             curl_close($curl);
 
             if ($err) {
-                redirect("login/error/" . $err);
+                redirect("login_ad/error/" . $err);
             } else {
                 $data = json_decode($body, true);
+                var_dump($data);
                 if ($httpcode == "200") {
                     $arrSession = array();
                     $arrSession["name"] = $data["displayName"];
@@ -75,7 +77,7 @@ class Login extends CI_Controller
 
                     curl_setopt_array($curl, array(
 
-                        CURLOPT_URL => INR_API . "My/Profile",
+                        CURLOPT_URL => "http://appdev.kmn.kompas.com/authAPI/My/Profile",
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_ENCODING => "",
                         CURLOPT_MAXREDIRS => 10,
@@ -99,7 +101,7 @@ class Login extends CI_Controller
                     curl_close($curl);
 
                     if ($err) {
-                        redirect("login/error/" . $err);
+                        redirect("login_ad/error/" . $err);
                     } else {
                         $data = json_decode($body, true);
                         if ($httpcode == "200") {
@@ -124,7 +126,7 @@ class Login extends CI_Controller
                             $arrSession["expert_names"] = $data["ExpertiseNames"];
                         }
                         if ($httpcode == "401") {
-                            redirect('login/error/Unauthorized');
+                            redirect('login_ad/error/Unauthorized');
                         }
                     }
 
@@ -189,6 +191,7 @@ class Login extends CI_Controller
                     $arrSession["page_size"] = 10;
 
                     $this->session->set_userdata($arrSession);
+                    var_dump($arrSession);
 
                     if ($this->session->flashdata('ref_url')) {
                         redirect($this->session->flashdata('ref_url'));
@@ -196,11 +199,11 @@ class Login extends CI_Controller
                         redirect("dashboard");
                     }
                 } else {
-                    redirect("login/error/Unauthorized");
+                    redirect("login_ad/error/Unauthorized");
                 }
             }
         } else {
-            redirect('login/error/Please fill in username and password');
+            redirect('login_ad/error/Please fill in username and password');
         }
     }
 
@@ -294,13 +297,13 @@ class Login extends CI_Controller
     {
         $user = array('name', 'username', 'email', 'token', 'is_login');
         $this->session->unset_userdata($user);
-        redirect("login");
+        redirect("login_ad");
     }
 
     public function error($status)
     {
         $this->data["status"] = $status;
-        $this->load->view('login_error', $this->data);
+        $this->load->view('login_ad_error', $this->data);
     }
 
     public function errorpage($idx)
