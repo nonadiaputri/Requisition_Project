@@ -180,9 +180,9 @@ class Hire_model extends CI_Model
 
   public function get_hire_id($ID)
   {
-    $q = 'select a.*, b.Name as Placement, c.Name as Status, 
+    $q = 'select a.*, b.Name as Placement, c.Name as Requisition_status, 
       d.Name as Requestor, e.Name as requestor_pos,
-      f.FullName as RepName, g.Name as requested_pos, h.Name as DeptName, i.Name as CompanyName
+      f.FullName as RepName, g.Name as requested_pos, h.Name as DeptName, i.Name as CompanyName, j.Name as EmployeeType
       from dbo.RequisitionTable a
       left join dbo.CostCenterTable b
       on a.PlacementID = b.ID
@@ -199,7 +199,9 @@ class Hire_model extends CI_Model
       left join dbo.OrganizationTable h 
       on a.RequestorDepartmentID = h.ID
       left join dbo.CompanyTable i
-      on a.RequestedCompanyID = i.ID  where a.ID='.$ID;
+      on a.RequestedCompanyID = i.ID
+      left join dbo.EmploymentTypeTable j
+      on a.EmploymentTypeID = j.ID  where a.ID='.$ID;
     $query = $this->db->query($q);
     //$query = $this->db->get_where('dbo.RequisitionTable',$ID);
     return $query->row_array();
@@ -212,6 +214,15 @@ class Hire_model extends CI_Model
     $query = $this->db->query($q);
     //$query = $this->db->get_where('dbo.RequisitionTable',$ID);
     return $query->row_array();
+  }
+
+  public function get_all_note($ID){
+    $q = 'select *
+      from dbo.RequisitionCommentTable 
+      where RequisitionID='.$ID;
+    $query = $this->db->query($q);
+    //$query = $this->db->get_where('dbo.RequisitionTable',$ID);
+    return $query->result_array();
   }
 
   public function get_organization($OrganizationID)

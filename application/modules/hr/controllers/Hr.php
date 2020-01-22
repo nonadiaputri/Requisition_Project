@@ -364,6 +364,8 @@ class Hr extends CI_Controller {
     $data['info'] = $this->Hire_model->get_apv_info($ID);
     $data['latest'] = $this->Hire_model->get_latest_apv($ID);
     $data['max'] = $this->Hire_model->get_max_apv($ID);
+    $data['note'] = $this->Hire_model->get_all_note($ID);
+    var_dump($data['note']);
     $data["header"] = $this->load->view('header/v_header','',TRUE);
   	$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
   	$this->load->view('hr/v_view',$data);

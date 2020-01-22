@@ -246,12 +246,13 @@
                       
                       <select class="form-control" name="status" id="status" required="required">
                         <option value="" selected>Pilih</option>
-                        <option value="1">Profesional Contract</option>
-                        <option value="2">Contract</option>
-                        <option value="3">Contract to Permanent</option>
-                        <option value="4">Freelance</option>
-                        <option value="5">Internship</option>
-                        <option value="6">Outsourcing</option>  
+                        <option value="1">Undefined</option>
+                        <option value="2">Profesional Contract</option>
+                        <option value="3">Full Contract</option>
+                        <option value="4">Contract to Permanent</option>
+                        <option value="5">Freelance</option>
+                        <option value="6">Internship</option>
+                        <option value="7">Outsourcing</option>  
                       </select>
                     <span id="error_status" class="text-danger"></span>
                   </div>
@@ -963,7 +964,7 @@
          req_type = $('#req_type').val();
         }
 
-        if (error_requestor == '' && error_req_position == '' && error_position == '' && error_placement == '' && error_status == '' && error_workdate == '' && error_responsibility == '' && error_requirement == '' && error_ttl == '' && error_req_type = '' ) {
+        if (error_requestor == '' && error_req_position == '' && error_position == '' && error_placement == '' && error_status == '' && error_workdate == '' && error_responsibility == '' && error_requirement == '' && error_ttl == '' && error_req_type == '' ) {
           $('#myModal').modal('show'); 
         }
           
