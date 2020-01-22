@@ -110,6 +110,43 @@
                                     </td>
                                 </tr>
                                 <tr>
+
+                                <tr>
+                                    <td width="20%">Current Company</td>
+                                    <td width="10%">
+                                        
+                                    </td>
+
+                                    <td width="15%">New Company</td>
+                                    <td width="50%">
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                <tr>
+                                    <td width="20%">Current Cost Center</td>
+                                    <td width="10%">
+                                        
+                                    </td>
+
+                                    <td width="15%">New Cost Center</td>
+                                    <td width="50%">
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                <tr>
+                                    <td width="20%">Current Director Placement</td>
+                                    <td width="10%">
+                                        
+                                    </td>
+
+                                    <td width="15%">New Director Placement</td>
+                                    <td width="50%">
+                                    </td>
+                                </tr>
+                                <tr>
+
                                     <td>Current Responsibility</td>
                                     <td>
                                         <?php echo $req['CurrentDuttiesAndResponsibilities']; ?>
@@ -207,7 +244,7 @@
                                     <div class="form-group row">
                                         <fieldset class="checkbox">
                                             <label>
-                                                <input type="checkbox" value="" class="checkbox-apv-gm">Aprroved by
+                                                <input type="checkbox" value="" class="checkbox-apv-gm">Approved by
                                                 <?php echo $latest[ 'PersonnelName']; ?>
                                                 <br>&nbsp &nbsp as
                                                 <?php echo $latest[ 'Position']; ?>

@@ -1120,7 +1120,7 @@
        $('#myModal').hide();
           $('.modal-fade').hide();
           $(".modal-backdrop").remove();
-           window.location.href = '<?php echo base_url('hr_movement/movement_history');?>';
+         //  window.location.href = '<?php echo base_url('hr_movement/movement_history');?>';
     });
 
   });
