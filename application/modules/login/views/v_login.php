@@ -73,7 +73,7 @@
 
     <div class="social-auth-links text-center">
       <p>- OR -</p>
-      <a href="<?php echo site_url('login_ad/Login_adController/index');?>" class="btn btn-block btn-social btn-twitter btn-flat"> Login Using AD</a>
+      <a href="<?php echo site_url('login_ad')?>" class="btn btn-block btn-social btn-twitter btn-flat"> Login Using AD</a>
       <!-- <a href="#" class="btn btn-block btn-social btn-google btn-flat"> Log in using
         Gmail</a> -->
     </div>
