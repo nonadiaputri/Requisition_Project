@@ -6,15 +6,15 @@ class Login_ad extends CI_Controller
 
     public function index()
     {
-        if ($this->session->userdata("is_login") == TRUE) {
-            redirect('dashboard', 'refresh');
-        } else {
-            if ($this->session->flashdata('ref_url')) {
-                $redir = $this->session->flashdata('ref_url');
-                $this->session->set_flashdata('ref_url', $redir);
-            }
+        // if ($this->session->userdata("is_login") == TRUE) {
+        //     redirect('dashboard', 'refresh');
+        // } else {
+        //     if ($this->session->flashdata('ref_url')) {
+        //         $redir = $this->session->flashdata('ref_url');
+        //         $this->session->set_flashdata('ref_url', $redir);
+        //     }
             $this->load->view('v_login_ad');
-        }
+        // }
     }
 
     public function user()
