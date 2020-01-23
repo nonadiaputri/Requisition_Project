@@ -217,8 +217,10 @@ class Hire_model extends CI_Model
   }
 
   public function get_all_note($ID){
-    $q = 'select *
-      from dbo.RequisitionCommentTable 
+    $q = 'select a.*, b.Name
+      from dbo.RequisitionCommentTable a
+      left join dbo.PersonnelTable b
+      on a.PersonnelID = b.ID 
       where RequisitionID='.$ID;
     $query = $this->db->query($q);
     //$query = $this->db->get_where('dbo.RequisitionTable',$ID);
