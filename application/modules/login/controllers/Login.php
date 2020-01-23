@@ -125,6 +125,6 @@ class Login extends CI_Controller {
 	}
 
 	function active_directory(){
-		$this->load->view('login_ad/login');
+		$this->load->view('login_ad/login_ad');
 	}
 }
