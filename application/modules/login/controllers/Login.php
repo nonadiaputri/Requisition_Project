@@ -125,6 +125,192 @@ class Login extends CI_Controller {
 	}
 
 	function active_directory(){
-		redirect('login_ad');
+		$user = trim($this->input->post("uid"));
+        $pass = trim($this->input->post("pwd"));
+
+        if (!empty($user) && !empty($pass)) {
+            if (!empty($this->input->post('remember'))) {
+                $client_id = 'INRWeb';
+            } else {
+                $client_id = '';
+            }
+
+            $curl = curl_init();
+            
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "http://appdev.kmn.kompas.com/authAPI/token",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_HEADER => true,
+                CURLOPT_POSTFIELDS => "grant_type=password&username=" . $user . "&password=" . $pass . "&client_id=" . $client_id . "&client_secret=!nrWww",
+                CURLOPT_HTTPHEADER => array(
+                    "Content-Type: application/x-www-form-urlencoded"
+                ),
+            ));
+
+            $response = curl_exec($curl);
+            $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            $header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+            $body = substr($response, $header_size);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($err) {
+                redirect("login_ad/error/" . $err);
+            } else {
+                $data = json_decode($body, true);
+                var_dump($data);
+                if ($httpcode == "200") {
+                    $arrSession = array();
+                    $arrSession["name"] = $data["displayName"];
+                    $arrSession["username"] = $data["userName"];
+                    $arrSession["email"] = $data["email"];
+                    $arrSession["token"] = $data["access_token"];
+                    $arrSession["refresh_token"] = array_key_exists("refresh_token", $data) ? $data["refresh_token"] : '';
+                    $arrSession["expires_in"] = $data["expires_in"];
+                    $arrSession["expires"] = date("Y-m-d H:i:s", strtotime($data[".expires"]));
+                    $arrSession["is_login"] = TRUE;
+
+                    // additional data my profile
+                    $access_token = $data["access_token"];
+                    $curl = curl_init();
+
+                    curl_setopt_array($curl, array(
+
+                        CURLOPT_URL => "http://appdev.kmn.kompas.com/authAPI/My/Profile",
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => "",
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 30,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => "GET",
+                        CURLOPT_HEADER => true,
+                        CURLOPT_POSTFIELDS => "",
+                        CURLOPT_HTTPHEADER => array(
+                            "Authorization: Bearer " . $access_token,
+                            "cache-control: no-cache"
+                        ),
+                    ));
+
+                    $response = curl_exec($curl);
+                    $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+                    $header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+                    $body = substr($response, $header_size);
+                    $err = curl_error($curl);
+
+                    curl_close($curl);
+
+                    if ($err) {
+                        redirect("login_ad/error/" . $err);
+                    } else {
+                        $data = json_decode($body, true);
+                        if ($httpcode == "200") {
+                            $arrSession["userid"] = $data["ID"];
+                            $arrSession["byline"] = $data["Byline"];
+                            $arrSession["nik"] = $data["NIK"];
+                            $arrSession["position"] = $data["Position"];
+                            // $arrSession["unit"] = $data["Unit"];
+                            $arrSession["location"] = $data["Location"];
+                            // $arrSession["geoposition"] = $data["GeoPosition"];
+                            $arrSession["photo"] = $data["Photo"];
+                            //personal desk
+                            $arrSession["desk_id"] = 0;
+                            $arrSession["desk_icon"] = "personal.png";
+                            $arrSession["desk_name"] = "PERSONAL";
+                            //user role
+                            $arrSession["publisher_id"] = $data["PublisherId"];
+                            $arrSession["publisher_names"] = $data["PublisherName"];
+                            $arrSession["role_id"] = $data["RoleIds"];
+                            $arrSession["role_names"] = $data["RoleNames"];
+                            $arrSession["expert_id"] = $data["ExpertiseIds"];
+                            $arrSession["expert_names"] = $data["ExpertiseNames"];
+                        }
+                        if ($httpcode == "401") {
+                            redirect('login_ad/error/Unauthorized');
+                        }
+                    }
+
+                    // additional data workspace
+                    $curl = curl_init();
+                    curl_setopt_array($curl, array(
+                        // setting
+                        CURLOPT_URL => "http://esldev.kgmedia.id/ep/dashboard",
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => "",
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 30,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => "GET",
+                        CURLOPT_HEADER => true,
+                        CURLOPT_POSTFIELDS => "",
+                        CURLOPT_HTTPHEADER => array(
+                            "Authorization: Bearer " . $access_token,
+                            "cache-control: no-cache"
+                        ),
+                    ));
+                    $response = curl_exec($curl);
+                    $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+                    $header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+                    $body = substr($response, $header_size);
+                    $err = curl_error($curl);
+
+                    curl_close($curl);
+
+                    if ($err) {
+                        //what to do here
+                    } else {
+                        if ($httpcode == "200") {
+                            $personal_desk = array(
+                                "ID" => 0,
+                                "Name" => "PERSONAL",
+                                "EventExist" => false,
+                                "Level" => 1,
+                                "Parent" => NULL,
+                                "Lowest" => 1
+                            );
+                            $workspace_tree = $this->BuildTree(json_decode($body));
+                            array_unshift($workspace_tree, $personal_desk);
+                            $arrSession["workspace"] = $this->BuildWorkspace($workspace_tree);
+                        }
+                    }
+
+                    // permission
+                    // $arrSession["permissions"] = json_decode($this->getPermissions($access_token));
+                    // $mypermissions = '';
+                    // foreach ($arrSession["permissions"]->desk as $key => $value) {
+                    //     if ($value->DeskId == 0) {
+                    //         $mypermissions .= $value->SecuredObjectCodes;
+                    //     }
+                    // }
+                    // $arrSession["mypermissions"] = explode(',', $mypermissions);
+                    // if ($arrSession["permissions"]->system[0]->SecuredObjectCodes) {
+                    //     array_unshift($arrSession["mypermissions"], explode(',', $arrSession["permissions"]->system[0]->SecuredObjectCodes));
+                    // }
+
+                    // pagination
+                    $arrSession["page_size"] = 10;
+
+                    $this->session->set_userdata($arrSession);
+                    var_dump($arrSession);
+
+                    if ($this->session->flashdata('ref_url')) {
+                        redirect($this->session->flashdata('ref_url'));
+                    } else {
+                        redirect("dashboard");
+                    }
+                } else {
+                    redirect("login_ad/error/Unauthorized");
+                }
+            }
+        } else {
+            redirect('login_ad/error/Please fill in username and password');
+        }
+		$this->load->view('login_ad/v_login_ad');
 	}
 }
