@@ -849,7 +849,7 @@
                },
 
         success:function(data){
-          window.location.href = '<?php echo base_url('hr_movement/movement_history');?>';
+        //  window.location.href = '<?php echo base_url('hr_movement/movement_history');?>';
           console.log(data);
           if (data.status) {
                   alert('Save as Draft');
@@ -1120,7 +1120,7 @@
        $('#myModal').hide();
           $('.modal-fade').hide();
           $(".modal-backdrop").remove();
-         //  window.location.href = '<?php echo base_url('hr_movement/movement_history');?>';
+           window.location.href = '<?php echo base_url('hr_movement/movement_history');?>';
     });
 
   });
