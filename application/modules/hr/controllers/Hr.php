@@ -260,8 +260,10 @@ class Hr extends CI_Controller {
 
         $data2 = array (
           'RequisitionID' => $last_id,
-          'PersonnelID' => $id,
-          'Description' => $note);
+          'PersonnelID' => $requestor_id,
+          'Description' => $note,
+          'CreatedByID' => $id,
+          'LastModifiedByID' => $id);
 	      $res = $this->Hire_model->Insert_to_Approval($data1);
         $res2 = $this->Hire_model->Insert_note($data2);
 
@@ -324,8 +326,10 @@ class Hr extends CI_Controller {
 	    $last_id = $this->Hire_model->Save_data($data);
       $data1 = array (
           'RequisitionID' => $last_id,
-          'PersonnelID' => $id,
-          'Description' => $note);
+          'PersonnelID' => $requestor_id,
+          'Description' => $note,
+          'CreatedByID' => $id,
+          'LastModifiedByID' => $id);
 
 
       $res2 = $this->Hire_model->Insert_note($data1);
@@ -365,7 +369,6 @@ class Hr extends CI_Controller {
     $data['latest'] = $this->Hire_model->get_latest_apv($ID);
     $data['max'] = $this->Hire_model->get_max_apv($ID);
     $data['note'] = $this->Hire_model->get_all_note($ID);
-    var_dump($data['note']);
     $data["header"] = $this->load->view('header/v_header','',TRUE);
   	$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
   	$this->load->view('hr/v_view',$data);
@@ -433,8 +436,9 @@ class Hr extends CI_Controller {
         'LastModifiedByID' => $id_user);
 
     $data2 = array (
-          'PersonnelID' => $id_user,
-          'Description' => $note);
+          'PersonnelID' => $req_id,
+          'Description' => $note,
+          'LastModifiedByID' => $id_user);
 
     //print_r($data1);
     //echo $data['IsProcessedToHire'];
@@ -484,12 +488,14 @@ class Hr extends CI_Controller {
       'PlacementID' => $placement,
       'IsProcessedToHire' => $IsProcessedToHire,
       'RequestedCompanyID' => $company,
-      'EmploymentTypeID' => $status 
+      'EmploymentTypeID' => $status ,
+      'LastModifiedByID' => $id_user
       );
 
     $data1 = array (
-          'PersonnelID' => $id_user,
-          'Description' => $note);
+          'PersonnelID' => $requestor,
+          'Description' => $note,
+          'LastModifiedByID' => $id_user);
 
     $res = $this->Hire_model->update_saved_data($data, $ID);
     $res1 = $this->Hire_model->Update_note($data1, $ID);
@@ -504,6 +510,7 @@ class Hr extends CI_Controller {
 
   public function process($ID){
     $process = $this->input->post('process');
+    $note = $this->input->post('noted');
     $apv_id = $this->input->post('ApprovalStatusID');
     $where = array('ID' => $ID);
     $where1 = array('RequisitionID' => $ID);
@@ -527,10 +534,18 @@ class Hr extends CI_Controller {
       'CreatedByID' => $id_user,
       'LastModifiedByID' => $id_user
     );
+
+    $data2 = array (
+          'RequisitionID' => $ID,
+          'PersonnelID' => $this->session->userdata('ID2'),
+          'Description' => $note,
+          'CreatedByID' => $id_user,
+          'LastModifiedByID' => $id_user);
     //var_dump($data1);
     $res = $this->Hire_model->process_data($data, $where);
     $res1 = $this->Hire_model->process_data_approval($data1);
-      if ($res > 0 & $res1 > 0) {
+    $res2 = $this->Hire_model->Insert_note($data2);
+      if ($res > 0 & $res1 > 0 & $res2 > 0) {
         echo json_encode(array('status'=>true));
       }else{
       echo json_encode(array('status'=>false));

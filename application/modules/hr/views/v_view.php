@@ -72,12 +72,12 @@
                 </div>
                 <!-- info row -->
                 <div class="row invoice-info">
-                    <div class="col-sm-12 invoice-col"> <address>
-                <strong>Requestor</strong><br>
-                <?php echo $req['Requestor']; ?><br>
-                <?php echo $req['requestor_pos']; ?><br>
-                <?php echo $req['DeptName']; ?><br>
-                <br>
+                    
+                    <strong>Requestor</strong><br>
+                    <?php echo $req['Requestor']; ?><br>
+                    <?php echo $req['requestor_pos']; ?><br>
+                    <?php echo $req['DeptName']; ?><br>
+                    <br>
                     <div class="row invoice-info">
                         <div class="col-xs-12">
                             <h3 class="page-header">Applicant Requestor Information</h3>
@@ -157,6 +157,7 @@
                             </table>
                         </div>
                     </div>
+                </div>
             </section>
 
                 <!-- /.row -->
@@ -389,6 +390,7 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </section>
             </div>
 
@@ -399,20 +401,27 @@
                                     <div class="box-header with-border">
                                       <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
                                     </div>
+                                    <?php $num=1; ?>
+                                    <?php foreach($note as $note){ ?>
                                     <div class="box-body">
-                                      <strong> From : </strong>
-                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                                      <strong> From : <?php echo $note['Name'];?></strong>
+                                      <h4></h4>
+                                      <?php echo $note['CreatedDate'] ?>
+                                      <p><?php echo $note['Description'];?></p>
                                     </div>
+                                    <?php $num++; } ?>
                                   </div>
                         </div>
 
                 </section>
             </div>
+            
+            
 
                     <!-- /.row -->
                     <!-- this row will not appear when printing -->
                     <div class="row no-print">
-                        <div class="col-xs-12"> 
+                        <div class="col-xs-12" style="text-align: center;"> 
                            <!--  <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
                             <button type="button" class="btn btn-danger pull-center" id="button-reject" data-toggle="modal" data-target="#reject" style="margin-center: 5px;">Reject</button>
                             <button type="button" class="btn btn-warning pull-center" id="button-hold" data-toggle="modal" data-target="#hold" style="margin-center: 5px;">Hold</button>
@@ -435,7 +444,15 @@
                             <form class="form-horizontal process" method="POST" action="<?php echo base_url('hr/process/'.$req['ID']);?>">
                                 <div class="form-group row">
                                     <div class="col-md-3">
-                                        <label>Start Date</label>
+                                        <label>Add Note</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" rows="3" id="noted" name="notednotedplaceholder="Enter note..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-3">
+                                        <label>Start Date <span style="color: red;">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="date" name="process" id="process" class="form-control" min="2018-01-01" max="2030-12-31"> <span id="error_process" class="text-danger"></span> 
@@ -916,8 +933,9 @@
     
             $('#btn-process').click(function(){
                 var prcs = $("#process #process").val().trim();
+                var noted = $("#process #noted").val().trim();
                 var error_process = '';
-                console.log(prcs);
+                console.log(noted);
     
                 if(prcs == ''){
                  error_process = 'Process Start Date is required';
@@ -934,10 +952,12 @@
                 if (error_process == ''){
                 var status = '1';
                 var form_data = $('.process').serialize();
+                console.log(form_data);
                 $.ajax({
                 method: 'POST',
                 url: '<?php echo base_url('hr/Process/');?>'+id_req,
-                data: form_data,
+                data: { 'process' : prcs,
+                        'noted'  : noted },
                 success: function(data) {
                     if (status) {
                        
