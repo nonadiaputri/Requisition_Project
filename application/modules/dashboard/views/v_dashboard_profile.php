@@ -63,9 +63,9 @@
             <div class="box-body box-profile">
               <img class="profile-user-img img-responsive img-circle" src="<?= base_url(); ?>assets/dist/img/user2-160x160.jpg" alt="User profile picture">
 
-              <h3 class="profile-username text-center"><?= $_SESSION['name'];?> </br> <?= $_SESSION['nik'];?></h3>
+              <h3 class="profile-username text-center"><?= $_SESSION['name'];?> </br> <?= $_SESSION['email'];?></h3>
 
-              <p class="text-muted text-center"><?= $_SESSION['position'];?></p>
+              <p class="text-muted text-center"><?= $_SESSION['username'];?></p>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
