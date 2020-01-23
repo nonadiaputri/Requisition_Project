@@ -394,7 +394,7 @@
                 </section>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6" id="note">
                 <section class="invoice"> 
                         <div class="row">
                             <div class="box box-primary">
@@ -681,6 +681,7 @@
             }
 
      $(document).ready(function(){
+
             var id_req = '<?php echo $req['ID']; ?>';
             console.log(id_req);
     
@@ -697,8 +698,10 @@
             var app_process2 = "<?php echo $max['IsProcessedToHire']; ?>";
             var app_hold2 = "<?php echo $max['IsHold']; ?>";
             var app_reject2 = "<?php echo $max['IsRejected'] ; ?>";
-            var rec = "<?php echo $req['LastModifiedById'] ?>";
-            console.log(rec);
+            var last_modif = "<?php echo $req['LastModifiedById'] ?>";
+            var user_id = "<?php echo $this->session->userdata('UserID'); ?>";
+            //console.log(rec);
+            console.log(user_id);
 
 
             if (appstatus2 == '1') {
@@ -753,15 +756,13 @@
                     $('.checkbox-rjt-gm').prop('checked', true);
                     $('#reject-by').show();
                 }
-                if (rec == '146') {
 
-                }else{
+                if (user_id == '19') {
                     $('#button-save').show();
                     $('#cc_rec').show();
                     $('#cc').hide();
                     $('#lbl-rec-notif').show();
                     load();
-
                 }
             }
 
