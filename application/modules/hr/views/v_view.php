@@ -421,8 +421,10 @@
                     <!-- /.row -->
                     <!-- this row will not appear when printing -->
                     <div class="row no-print">
-                        <div class="col-xs-12" style="text-align: center;"> 
-                           <!--  <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
+                        <div class="col-xs-12" style="text-align: center;">   
+                            <div id="btn-print" style="display: none;">
+                                <a href="<?php echo base_url('hr/print/'.$req['ID']);?>" class="btn btn-default" id="btn-print"><i class="fa fa-print"></i> Printt</a>
+                            </div>
                             <button type="button" class="btn btn-danger pull-center" id="button-reject" data-toggle="modal" data-target="#reject" style="margin-center: 5px;">Reject</button>
                             <button type="button" class="btn btn-warning pull-center" id="button-hold" data-toggle="modal" data-target="#hold" style="margin-center: 5px;">Hold</button>
                             <button type="button" class="btn btn-success pull-center" id="button-process" data-toggle="modal" data-target="#process" style="margin-center: 5px;">Approve</button>
@@ -776,7 +778,7 @@
                     $('#button-hold').hide();
                     $('#button-reject').hide();
                     $('#button-sent-back').hide();
-                    $('#img-print').show();
+                 
                 }
                 if (app_process2 == '1') {
                     $('.checkbox-mngr').prop('checked', true);
@@ -830,6 +832,7 @@
                     $('#apv_hr').show();
                     $('#apv_cc').show();
                     $('#completed').show();
+                    $('#btn-print').show();
                 }else if (app_hold2 == '1') {
                     $('.checkbox-mngr').prop('checked', true);
                     $('.checkbox-hl-gm').prop('checked', true);
@@ -842,6 +845,7 @@
                     $('#edited-rec').show();
                     $('#hold_hr').show();
                     $('#hold_cc').show();
+                    // $('#btn-print').hide();
                 }else if (app_reject2 == '1') {
                     $('#app-status').show();
                     $('#rjt-reason').show();

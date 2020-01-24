@@ -374,6 +374,28 @@ class Hr extends CI_Controller {
   	$this->load->view('hr/v_view',$data);
  	}
 
+  public function print($ID){
+    $data['req'] = $this->Hire_model->get_hire_id($ID);
+    $data['info'] = $this->Hire_model->get_apv_info($ID);
+    $data['latest'] = $this->Hire_model->get_latest_apv($ID);
+    $data['max'] = $this->Hire_model->get_max_apv($ID);
+    $data['note'] = $this->Hire_model->get_all_note($ID);
+    var_dump($data);
+    $this->load->library('pdf');
+    $this->pdf->setPaper('A4', 'potrait');
+    $this->pdf->filename = "REQUISITION.pdf";
+    $this->pdf->load_view('hr/doc_print', $data);
+
+    // $this->load->view('hr/doc_print',$data);
+    // $html = $this->output->get_output();
+    // $this->load->library('pdf');
+    // $this->dompdf->loadHtml($html);
+    // $this->dompdf->setPaper('A4', 'landscape');
+    // $this->dompdf->render();
+    // $this->dompdf->stream("welcome.pdf", array("Attachment"=>0))
+
+  }
+
  	function edit($ID){
 	 	$ID2 = $this->session->userdata('UserID');
 		$data['person'] = $this->Hire_model->get_related_per($ID2);
@@ -515,7 +537,8 @@ class Hr extends CI_Controller {
     $where = array('ID' => $ID);
     $where1 = array('RequisitionID' => $ID);
     $status = '1';
-    $apv_id_new = $apv_id + 1 ;
+    $a = 1;
+    $apv_id_new = ($apv_id + $a) ;
     $id_user = $this->session->userdata('UserID');
 
     $data = array(
