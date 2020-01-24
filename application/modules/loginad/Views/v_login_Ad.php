@@ -38,7 +38,7 @@
 
     <p class="login-box-msg">Log in with AD</p>
 	
-    <form action="<?= base_url(); ?>login_ad/user" method="post">
+    <form action="<?= base_url(); ?>loginad/user" method="post">
       <div class="form-group has-feedback">
         <input type="text" id="uid" name="uid" class="form-control" placeholder="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

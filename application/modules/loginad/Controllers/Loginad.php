@@ -18,7 +18,7 @@ class Loginad extends CI_Controller
                 $redir = $this->session->flashdata('ref_url');
                 $this->session->set_flashdata('ref_url', $redir);
             }
-            $this->load->view('login_ad');
+            $this->load->view('loginad');
         }
     }
 
