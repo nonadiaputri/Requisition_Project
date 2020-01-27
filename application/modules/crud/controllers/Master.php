@@ -140,6 +140,8 @@ class Master extends MX_Controller {
 			$crud->columns('ID','Code','Name','Description','CostCenterID');
 			$crud->fields('Code','Name','Description','AsHead','Level','AsDirector', 'HeadAssignmentCompanyID');
 			$crud->field_type('HeadAssignmentCompanyID', 'dropdown', $arr_ids);
+			$crud->field_type('AsHead', 'dropdown', array('1' => 'Ya', '0' => 'Tidak'));
+			$crud->field_type('AsDirector', 'dropdown', array('1' => 'Ya', '0' => 'Tidak'));
 			//$crud->set_relation_n_n('HeadAssignmentCompanyID','ID','Name','id_staf','id_unit','name','');
 			
 
