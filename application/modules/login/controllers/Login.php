@@ -330,4 +330,8 @@ class Login extends CI_Controller {
             redirect('login_ad/error/Please fill in username and password');
         }
     }
+
+    public function user_google(){
+        //include the google api php libraries
+    } 
 }
