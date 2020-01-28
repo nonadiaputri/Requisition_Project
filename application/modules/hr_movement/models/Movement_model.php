@@ -673,6 +673,13 @@ class Movement_model extends CI_Model
       $data = $this->db->from('dbo.PositionTable')->get();
       return $data->result_array();
     }
+
+    function get_search_new_organization($compClue){
+      $this->db->select('*');
+      $this->db->like('Name', $compClue);
+      $data = $this->db->from('dbo.OrganizationTable')->get();
+      return $data->result_array();
+    }
     
     function get_apv_info($ID){
         $res = $this->db->query("SELECT * from dbo.MovementRequestApprovalTable where MovementRequestID=".$ID);

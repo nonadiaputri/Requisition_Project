@@ -192,6 +192,16 @@ class Hr_movement extends CI_Controller {
 			echo json_encode($data);
 	  }
 
+	  function new_organization(){
+		$json = [];
+		$this->load->database();
+		if(!empty($this->input->get("q"))){
+				$compClue = $this->input->get("q");
+				$data = $this->Movement_model->get_search_new_organization($compClue, 'Name');
+			}
+			echo json_encode($data);
+	  }
+
 	function request(){
 		$json = [];
 		$this->load->database();
@@ -312,7 +322,7 @@ class Hr_movement extends CI_Controller {
 					$mail->Host ='smtp.gmail.com';
 					$mail->SMTPAuth = true;
 					$mail->Username = 'project.test.hris@gmail.com';
-					$mail->Password = 'abcd1234@A';
+					$mail->Password = 'abcd1234@AB';
 					$mail->SMTPSecure = 'tls';
 					$mail->Port = 587;
 		  

@@ -109,11 +109,18 @@
 	                  <label class="control-label col-form-label">Movement Request Type</label>
 	                  <div id="chs-container">
 
-	                    <select class="form-control chs-select" name="request_type" id="request_type" style="width:80%" required="required">
+	                    <!-- <select class="form-control chs-select" name="request_type" id="request_type" style="width:80%" required="required">
 	                        <option default>Select Movement Request Type</option>
 	                        <?php foreach ($type as $type) { ?>
 	                        <option value="<?php echo $type['ID'];?>"><?php echo $type['Name'];?></option>
 	                        <?php } ?>
+	                    </select> -->
+                      <select class="form-control" name="request_type" id="request_type" required="required">
+	                      <option value="" selected>Pilih</option>
+                        <option value="1">Promote</option>
+	                      <option value="2">Demote</option>
+                        <option value="3">Rotation</option>
+                        <option value="4">Assignment</option> 
 	                    </select>
 	                    <br>
 
@@ -136,89 +143,106 @@
                           </div>
                         </div>
 
-                        <div class="form-group row">
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">Current Position</label>
-                              
-                              <input type="text" name="current_position" id="current_position" required="required" class="form-control" readonly>
-                              <input type="hidden" name="current_position_id" id="current_position_id" required="required" class="form-control">
-                              <!-- <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control"> -->
-                              <span id="error_current_position" class="text-danger"></span>
-                          </div>
 
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">New Position</label>
-                              
-                              <select class="new_position form-control" name="new_position" id="new_position" style="width:500px"  required="required">
-                              <option value=""></option>
-                            </select>
-                              <input type="hidden" name="new_pos_id" id="new_pos_id" required="required" class="form-control">
-                              <span id="error_new_position" class="text-danger"></span>
+
+                        <div class="row">
+                          <div class="form-group" style="display: none" id="c_org_new">
+                              <div class="col-sm-6">
+                                  <label class="control-label col-form-label">Current Organization</label>
+                                  <input type="text" name="current_org" id="current_org" required="required" class="form-control" readonly>
+                                  <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control">
+                                  <span id="error_current_org" class="text-danger"></span>
+                              </div>
+                              <div class="col-sm-6">
+                                  <label class="control-label col-form-label">New Organization</label>
+                                  <select class="new_position form-control" name="new_organization" id="new_organization" style="width:500px"  required="required">
+                                      <option value=""></option>
+                                  </select>
+                                  <!-- <input type="text" name="new_org" id="new_org" required="required" class="form-control" style="width:500px" readonly> -->
+                                  <input type="hidden" name="new_org_id" id="new_org_id" required="required" class="form-control">
+                                  <span id="error_new_org" class="text-danger"></span>
+                              </div>
                           </div>
                         </div>
 
 
-                        <div class="form-group row">
+                        <div class="row">
+                          <div class="form-group" style="display: none" id="c_pos_new">
+                              <div class="col-sm-6">
+                                  <label class="control-label col-form-label">Current Position</label>
+                                  
+                                  <input type="text" name="current_position" id="current_position" required="required" class="form-control" readonly>
+                                  <input type="hidden" name="current_position_id" id="current_position_id" required="required" class="form-control">
+                                  <!-- <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control"> -->
+                                  <span id="error_current_position" class="text-danger"></span>
+                              </div>
+
+                              <div class="col-sm-6">
+                                  <label class="control-label col-form-label">New Position</label>
+                                  
+                                  <select class="new_position form-control" name="new_position" id="new_position" style="width:500px"  required="required">
+                                      <option value=""></option>
+                                  </select>
+                                  <input type="hidden" name="new_pos_id" id="new_pos_id" required="required" class="form-control">
+                                  <span id="error_new_position" class="text-danger"></span>
+                              </div>
+                          </div>
+                        </div>
+
+
+                        <div class="row">
+                          <div class="form-group" style="display: none" id="c_com_new">
                             <div class="col-sm-6">
-                                <label class="control-label col-form-label">Current Organization</label>
-                                <input type="text" name="current_org" id="current_org" required="required" class="form-control" readonly>
-                                <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control">
-                                <span id="error_current_org" class="text-danger"></span>
+                                <label class="control-label col-form-label">Current Company</label>
+                                <input type="text" name="current_cpy" id="current_cpy" required="required" class="form-control" readonly>
+                                <input type="hidden" name="current_cpy_id" id="current_cpy_id" required="required" class="form-control">
+                                <span id="error_current_cpy" class="text-danger"></span>
                             </div>
                             <div class="col-sm-6">
-                                <label class="control-label col-form-label">New Organization</label>
-                                <input type="text" name="new_org" id="new_org" required="required" class="form-control" style="width:500px" readonly>
-                                <input type="hidden" name="new_org_id" id="new_org_id" required="required" class="form-control">
-                                <span id="error_new_org" class="text-danger"></span>
+                                <label class="control-label col-form-label">New Company</label>
+                                <input type="text" name="new_cpy" id="new_cpy" required="required" class="form-control" style="width:500px" readonly>
+                                <input type="hidden" name="new_cpy_id" id="new_cpy_id" required="required" class="form-control">
+                                <span id="error_new_cpy" class="text-danger"></span>
                             </div>
-                        </div>
-
-                        <div class="form-group row">
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">Current Company</label>
-                              <input type="text" name="current_cpy" id="current_cpy" required="required" class="form-control" readonly>
-                              <input type="hidden" name="current_cpy_id" id="current_cpy_id" required="required" class="form-control">
-                              <span id="error_current_cpy" class="text-danger"></span>
-                          </div>
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">New Company</label>
-                              <input type="text" name="new_cpy" id="new_cpy" required="required" class="form-control" style="width:500px" readonly>
-                              <input type="hidden" name="new_cpy_id" id="new_cpy_id" required="required" class="form-control">
-                              <span id="error_new_cpy" class="text-danger"></span>
                           </div>
                         </div>
 
-                        <div class="form-group row">
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">Current Cost Center</label>
-                              <input type="text" name="current_cc" id="current_cc" required="required" class="form-control" readonly>
-                              <input type="hidden" name="current_cc_id" id="current_cc_id" required="required" class="form-control">
-                              <span id="error_current_cc" class="text-danger"></span>
-                          </div>
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">New Cost Center</label>
-                              <input type="text" name="new_cc" id="new_cc" required="required" class="form-control" style="width:500px"readonly>
-                              <input type="hidden" name="new_cc_id" id="new_cc_id" required="required" class="form-control">
-                              <span id="error_new_cc" class="text-danger"></span>
-                          </div>
-                        </div>
-
-                        <div class="form-group row">
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">Current Director Placement</label>
-                              <input type="text" name="current_dp" id="current_dp" required="required" class="form-control" readonly>
-                              <input type="hidden" name="current_dp_id" id="current_dp_id" required="required" class="form-control">
-                              <span id="error_current_dp" class="text-danger"></span>
-                          </div>
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">New Director Placement</label>
-                              <input type="text" name="new_dp" id="new_dp" required="required" class="form-control" style="width:500px"readonly>
-                              <input type="hidden" name="new_dp_id" id="new_dp_id" required="required" class="form-control">
-                              <span id="error_new_dp" class="text-danger"></span>
+                        <div class="row">
+                          <div class="form-group" style="display: none" id="c_cost_new">
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label">Current Cost Center</label>
+                                <input type="text" name="current_cc" id="current_cc" required="required" class="form-control" readonly>
+                                <input type="hidden" name="current_cc_id" id="current_cc_id" required="required" class="form-control">
+                                <span id="error_current_cc" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label">New Cost Center</label>
+                                <input type="text" name="new_cc" id="new_cc" required="required" class="form-control" style="width:500px"readonly>
+                                <input type="hidden" name="new_cc_id" id="new_cc_id" required="required" class="form-control">
+                                <span id="error_new_cc" class="text-danger"></span>
+                            </div>
                           </div>
                         </div>
 
-                          <div class="form-group row">
+                        <div class="row">
+                          <div class="form-group" style="display: none" id="c_place_new">
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label">Current Director Placement</label>
+                                <input type="text" name="current_dp" id="current_dp" required="required" class="form-control" readonly>
+                                <input type="hidden" name="current_dp_id" id="current_dp_id" required="required" class="form-control">
+                                <span id="error_current_dp" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label">New Director Placement</label>
+                                <input type="text" name="new_dp" id="new_dp" required="required" class="form-control" style="width:500px"readonly>
+                                <input type="hidden" name="new_dp_id" id="new_dp_id" required="required" class="form-control">
+                                <span id="error_new_dp" class="text-danger"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group" style="display: none" id="date">
                               <div class="col-sm-6">
                                 <label class="control-label col-form-label">Started Work Date from Current Position</label>
                                 <input type="text" id="startdate" name="startdate" required="required" class="form-control" readonly>
@@ -230,7 +254,10 @@
                                 <span id="error_workdate" class="text-danger"></span>
                               </div>
                           </div>
-                          <div class="form-group row">
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group" style="display: none" id="respon">
                               <div class="col-sm-6">
                                 <label class="control-label col-form-label">Current Responsibilities</label>
                                 ​<textarea class="ckeditor" id="current_responsibilities" name="current_responsibilities"></textarea>
@@ -242,6 +269,7 @@
                                 <span id="error_new_responsibilities" class="text-danger"></span>
                               </div>
                           </div>
+                        </div>
 
                           <div class="form-group row">
                             <div class="col-sm-8">
@@ -300,21 +328,21 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="form-group">
                                     <div class="col-md-8">
                                         <label class="control-label col-form-label">Note</label>
                                       </div>
                                       <div class="col-sm-8">
                                         <div class="form-group">
-                                          <!-- <textarea id="requirement" name="requirement" rows="7" cols="70" required="required"></textarea> -->
+                                          <textarea id="requirement" name="requirement" rows="7" cols="70" required="required"></textarea> 
                                           <textarea id="noted" name="noted"rows="7" cols="110"></textarea>
                                         
                                         </div>
                                         
                                       </div>
                                 </div>
-                          </div>
+                          </div> -->
                                   
                               <div class="form-group row">
                                 <div style="width:100%;height:100%;vertical-align:middle;text-align:center;">
@@ -516,6 +544,37 @@
              
             }
           });
+
+              $('#new_organization').select2({
+                    placeholder: 'Enter The New Position',
+                    ajax:{
+                        url: "<?php echo base_url('hr_movement/new_organization'); ?>",
+                        dataType: "json",
+                        delay: 250,
+              //           processResults: function (param) {
+              //   return {
+              //     compClue: param.term,
+                  
+              //   };
+              // },
+              processResults: function(data){
+                            var results = [];
+
+                            $.each(data, function(index, item){
+                                results.push({
+                                    id: item.ID,
+                                    text: item.Name,
+                                    option_value:item.ID
+                                });
+                            });
+                            return{
+                                results: results,
+                                cache: true,
+                            };
+                        },
+                    }
+
+                });
 
 
           $('#new_position').on('select2:select', function (e) {
@@ -805,6 +864,45 @@
           $("#repname").hide();
           }
     });
+
+    $('#request_type').on('change',function(){
+        if( $('#request_type').val()=="1"){
+          $("#c_pos_new").show();
+          $("#c_org_new").show();
+          $("#c_com_new").show();
+          $("#c_cost_new").show();
+          $("#c_place_new").show();
+          $("#date").show();
+          $("#respon").show();
+          }
+          else if( $('#request_type').val()=="2"){
+            $("#c_pos_new").show();
+            $("#c_org_new").show();
+            $("#c_com_new").show();
+            $("#c_cost_new").show();
+            $("#c_place_new").show();
+            $("#date").show();
+            $("#respon").show();
+            }
+            else if( $('#request_type').val()=="3"){
+            $("#c_pos_new").show();
+            $("#c_org_new").show();
+            $("#c_com_new").show();
+            $("#c_cost_new").show();
+            $("#c_place_new").show();
+            $("#date").show();
+            $("#respon").show();
+            }
+            else{
+              $("#c_pos_new").hide();
+              $("#c_org_new").hide();
+              $("#c_com_new").hide();
+              $("#c_cost_new").hide();
+              $("#c_place_new").hide();
+              $("#date").hide();
+              $("#respon").hide();
+            }
+    });
   
 
   $('#btn-save').click(function(e){
@@ -849,7 +947,7 @@
                },
 
         success:function(data){
-        //  window.location.href = '<?php echo base_url('hr_movement/movement_history');?>';
+          window.location.href = '<?php echo base_url('hr_movement/movement_history');?>';
           console.log(data);
           if (data.status) {
                   alert('Save as Draft');
