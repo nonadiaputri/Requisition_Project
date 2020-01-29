@@ -12,7 +12,8 @@ class Login extends CI_Controller {
 	
 	function index()
 	{
-		$this->load->view('v_login');
+        $this->load->view('v_login');
+        
 	}
 	
 	function do()
@@ -333,5 +334,151 @@ class Login extends CI_Controller {
 
     public function user_google(){
         //include the google api php libraries
-    } 
+        require_once "vendor\autoload.php";
+        include_once APPPATH."libraries\google\Client.php";
+        include_once APPPATH."libraries\google\Service.php";
+        //include_once APPPATH."libraries\google\Collection.php";
+        include_once APPPATH."libraries\google\Model.php";
+        include_once APPPATH."libraries\google\Exception.php";
+        //include_once APPPATH."libraries\google\auth\src\OAuth2.php";
+        //include_once APPPATH."libraries\google\apiclient-services\src\Google\Service\Oauth2.php";
+        
+
+        // Google Project API Credentials
+        $clientId = '160949261841-e95o07cnk73js4bpck5khjoo3h5udd74.apps.googleusercontent.com';
+        $clientSecret = 'Ko6_qS2JrTy1Sq7LIcPuVu2u';
+        $redirectUrl = base_url() . 'login';
+
+        // Google Client Configuration
+        $gClient = new Google_Client();
+        $gClient->setApplicationName('Login to esldev.kgmedia.id/ep');
+        $gClient->setClientId($clientId);
+        $gClient->setClientSecret($clientSecret);
+        $gClient->setRedirectUri($redirectUrl);
+        $google_oauthV2 = new Google_Service_Oauth2($gClient);
+
+        if (isset($_REQUEST['code'])) {
+            $gClient->authenticate();
+            $this->session->set_userdata('token', $gClient->getAccessToken());
+            redirect($redirectUrl);
+        }
+
+        $token = $this->session->userdata('token');
+        if(!empty($token)){
+            $gClient->setAccessToken($token);
+        }
+
+        if($gClient->getAccessToken()){
+            $userProfile = $google_oauthV2->userinfo->get();
+            // Preparing data for database insertion
+            $userData['oauth_provider'] = 'google';
+            $userData['oauth_uid'] = $userProfile['id'];
+            $userData['first_name'] = $userProfile['given_name'];
+            $userData['last_name'] = $userProfile['family_name'];
+            $userData['email'] = $userProfile['email'];
+            $userData['gender'] = $userProfile['gender'];
+            $userData['locale'] = $userProfile['locale'];
+            $userData['profile_url'] = $userProfile['link'];
+            $userData['picture_url'] = $userProfile['picture'];
+
+            $token = $this->session->userdata('token');
+        if (!empty($token)) {
+            $gClient->setAccessToken($token);
+        }
+ 
+        if ($gClient->getAccessToken()) {
+            $userProfile = $google_oauthV2->userinfo->get();
+            // Preparing data for database insertion
+            $userData['oauth_provider'] = 'google';
+            $userData['oauth_uid'] = $userProfile['id'];
+            $userData['first_name'] = $userProfile['given_name'];
+            $userData['last_name'] = $userProfile['family_name'];
+            $userData['email'] = $userProfile['email'];
+            $userData['gender'] = $userProfile['gender'];
+            $userData['locale'] = $userProfile['locale'];
+            $userData['profile_url'] = $userProfile['link'];
+            $userData['picture_url'] = $userProfile['picture'];
+            // Insert or update user data
+            $userID = $this->user->checkUser($userData);
+            if(!empty($userID)){
+                $data['userData'] = $userData;
+                $this->session->set_userdata('userData',$userData);
+            } else {
+               $data['userData'] = array();
+            }
+        } else {
+            $data['authUrl'] = $gClient->createAuthUrl();
+        }
+
+            $this->load->view('dashboard/v_dashboard_staf', $data);
+        }
+
+    }
+
+    // public function hai()
+    // {
+    //     print_r($this->session->userdata('login'));
+    // }
+    
+    //VERSI DUA
+    public function log_with_google()
+    {
+        # cek sudah login belum
+        if (!empty($this->session->userdata('login'))) {
+            $this->load->view('dashboard/v_dashboard_staf');
+        }
+  
+        # redirect ke auth url google
+        $client = $this->get_google_client();
+        $auth_url = $client->createAuthUrl();
+        redirect($auth_url);
+    }
+
+    public function google()
+    {
+        # kalo sudah login atau tidak ada get code, redirect
+        if (!empty($this->session->userdata('login')) OR empty($_GET['code'])) {
+            $this->load->view('dashboard/v_dashboard_staf');
+        }
+  
+        $client = $this->get_google_client();
+        $client->authenticate($_GET['code']);
+  
+        # ambil profilenya
+        $plus = new Google_Service_Plus($client);
+        $profile = $plus->people->get("me");
+  
+        $this->session->set_userdata('login', $profile);
+  
+        $this->load->view('dashboard/v_dashboard_staf');
+    }
+  
+    private function get_google_client()
+    {
+        require_once "vendor\autoload.php";
+        include_once APPPATH."libraries\google\Client.php";
+        include_once APPPATH."libraries\google\Service.php";
+        //include_once APPPATH."libraries\google\Collection.php";
+        include_once APPPATH."libraries\google\Model.php";
+        include_once APPPATH."libraries\google\Exception.php";
+
+        $clientId = '160949261841-e95o07cnk73js4bpck5khjoo3h5udd74.apps.googleusercontent.com';
+        $clientSecret = 'Ko6_qS2JrTy1Sq7LIcPuVu2u';
+        $redirectUrl = base_url() . 'login';
+
+        // Google Client Configuration
+        $client = new Google_Client();
+        $client->setApplicationName('Login to esldev.kgmedia.id/ep');
+        $client->setClientId($clientId);
+        $client->setClientSecret($clientSecret);
+        $client->setRedirectUri($redirectUrl);
+        $client->setScopes(array(
+            "https://www.googleapis.com/auth/plus.login",
+            "https://www.googleapis.com/auth/userinfo.email",
+            "https://www.googleapis.com/auth/userinfo.profile",
+            "https://www.googleapis.com/auth/plus.me",
+        ));
+  
+        return $client;
+    }
 }

@@ -1,5 +1,10 @@
 <?php
 class Login_model extends CI_Model {
+
+    function __construct(){
+        // 'dbo.UsersGoogle' = 'UsersGoogle';
+        // $this->primaryKey = 'id';
+    }
 	
 	public function auth($nik, $password) {
 		try {
@@ -36,4 +41,28 @@ class Login_model extends CI_Model {
 		}
 
     }
+
+    public function checkUser($data = array()){
+        $this->db->select('id');
+        $this->db->from('dbo.UsersGoogle');
+        $this->db->where(array('oauth_provider'=>$data['oauth_provider'],'oauth_uid'=>$data['oauth_uid']));
+        $prevQuery = $this->db->get();
+        $prevCheck = $prevQuery->num_rows();
+        
+        if($prevCheck > 0){
+            $prevResult = $prevQuery->row_array();
+            $data['modified'] = date("Y-m-d H:i:s");
+            $update = $this->db->update('dbo.UsersGoogle',$data,array('id'=>$prevResult['id']));
+            $userID = $prevResult['id'];
+        }else{
+            $data['created'] = date("Y-m-d H:i:s");
+            $data['modified'] = date("Y-m-d H:i:s");
+            $insert = $this->db->insert('dbo.UsersGoogle',$data);
+            $userID = $this->db->insert_id();
+        }
+ 
+        return $userID?$userID:FALSE;
+    }
+
+
 }

@@ -74,8 +74,8 @@
     <div class="social-auth-links text-center">
       <p>- OR -</p>
       <a href="<?= base_url(); ?>login/loginad" class="btn btn-block btn-social btn-twitter btn-flat"> Login Using AD</a>
-      <!-- <a href="#" class="btn btn-block btn-social btn-google btn-flat"> Log in using
-        Gmail</a> -->
+      <a href="<?= base_url(); ?>login/log_with_google" class="btn btn-block btn-social btn-google btn-flat"> Log in using
+        Google+</a>
     </div>
     <!-- /.social-auth-links -->
 <!-- 
