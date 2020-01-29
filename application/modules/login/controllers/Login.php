@@ -455,12 +455,12 @@ class Login extends CI_Controller {
   
     private function get_google_client()
     {
-        require_once "application/config/autoload.php";
-        include_once APPPATH."libraries\google\Client.php";
-        include_once APPPATH."libraries\google\Service.php";
-        //include_once APPPATH."libraries\google\Collection.php";
-        include_once APPPATH."libraries\google\Model.php";
-        include_once APPPATH."libraries\google\Exception.php";
+        require_once "config/autoload.php";
+        include_once APPPATH."libraries/google/Client.php";
+        include_once APPPATH."libraries/google/Service.php";
+        
+        include_once APPPATH."libraries/google/Model.php";
+        include_once APPPATH."libraries/google/Exception.php";
 
         $clientId = '160949261841-e95o07cnk73js4bpck5khjoo3h5udd74.apps.googleusercontent.com';
         $clientSecret = 'Ko6_qS2JrTy1Sq7LIcPuVu2u';
