@@ -455,7 +455,7 @@ class Login extends CI_Controller {
   
     private function get_google_client()
     {
-        require_once "vendor/autoload.php";
+        require_once base_url()."vendor/autoload.php";
         include_once APPPATH."libraries/google/Client.php";
         include_once APPPATH."libraries/google/Service.php";
         
