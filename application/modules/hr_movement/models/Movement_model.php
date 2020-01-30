@@ -82,16 +82,16 @@ class Movement_model extends CI_Model
         // $request = $this->db->query("EXEC spRequestNumber N'{@RequestNumber}', N'{$RequestNumber}'");
         // return $request;
         // public function Insert_data($data){
-        //   $this->db->insert('dbo.MovementRequestTable', $data);
+        //   $this->db->insert('dbo.MovementRequestTable2', $data);
         //   $last_id = $this->db->insert_id();
         //   return $last_id;
         // }
     }
 
     public function get_promotion(){
-        //Menampilkan data dari tabel MovementRequestTable untuk tampilan menu Request Promotion
+        //Menampilkan data dari tabel MovementRequestTable2 untuk tampilan menu Request Promotion
         $query = $this->db->query("select a.*, b.Name as Department,  c.FullName as RequestorName
-               from dbo.MovementRequestTable a
+               from dbo.MovementRequestTable2 a
                join dbo.OrganizationTable b
                on a.RequestorDepartmentID = b.ID
                join dbo.PersonnelTable c
@@ -119,7 +119,7 @@ class Movement_model extends CI_Model
          b.Name as current_position, e.Name as new_position, g.Name as requestor_position, 
          a.CurrentPositionID, a.NewPositionID, d.Name as DeptName, i.Name as NewOrganizationName,
          j.Name as CurrentOrganizationName,
-         f.FullName as request_name, h.Name as MovementType from MovementRequestTable a 
+         f.FullName as request_name, h.Name as MovementType from MovementRequestTable2 a 
          left join PositionTable b on a.CurrentPositionID = b.ID 
          left join PositionTable e on e.id = a.NewPositionID
          left join PositionTable g on g.id = a.RequestorPositionID
@@ -182,7 +182,7 @@ class Movement_model extends CI_Model
           on a.OrganizationID = b.ID
           join dbo.PersonnelTable c
           on a.EmployeeID = c.ID 
-          join dbo.MovementRequestTable d
+          join dbo.MovementRequestTable2 d
           on a.MovementRequestID = d.ID
           join dbo.PersonnelTable e
           on d.RequestorID = e.ID
@@ -201,7 +201,7 @@ class Movement_model extends CI_Model
           on a.OrganizationID = b.ID
           join dbo.PersonnelTable c
           on a.EmployeeID = c.ID 
-          join dbo.MovementRequestTable d
+          join dbo.MovementRequestTable2 d
           on a.MovementRequestID = d.ID
           join dbo.PersonnelTable e
           on d.RequestorID = e.ID
@@ -220,7 +220,7 @@ class Movement_model extends CI_Model
             on a.OrganizationID = b.ID
             join dbo.PersonnelTable c
             on a.EmployeeID = c.ID 
-            join dbo.MovementRequestTable d
+            join dbo.MovementRequestTable2 d
             on a.MovementRequestID = d.ID
             join dbo.PersonnelTable e
             on d.RequestorID = e.ID
@@ -233,7 +233,7 @@ class Movement_model extends CI_Model
 
       public function get_new_promotion(){
        
-        // $query = 'select a.*, b.FullName as RequestorName from dbo.MovementRequestTable a
+        // $query = 'select a.*, b.FullName as RequestorName from dbo.MovementRequestTable2 a
         //           join dbo.PersonnelTable b
         //           on b.ID=a.RequestorID
         //           where RequestorID in 
@@ -250,7 +250,7 @@ class Movement_model extends CI_Model
         //           and IsHold = 0
         //           and IsRejected = 0';
 
-        $query = 'select a.*, b.FullName as RequestorName from dbo.MovementRequestTable a
+        $query = 'select a.*, b.FullName as RequestorName from dbo.MovementRequestTable2 a
                   join dbo.PersonnelTable b
                   on b.ID=a.RequestorID
                   where RequestorID in 
@@ -314,13 +314,13 @@ class Movement_model extends CI_Model
 
       // public function get_your_request($requestor_id){
       //   $q = "select a.*, b.Name as Department,  c.FullName as RequestorName
-      //           from dbo.MovementRequestTable a
+      //           from dbo.MovementRequestTable2 a
       //           join dbo.OrganizationTable b
       //           on a.RequestorDepartmentID = b.ID
       //           join dbo.PersonnelTable c
       //           on a.RequestorID = c.ID
       //           where a.ID in (
-      //                 select ID from dbo.MovementRequestTable 
+      //                 select ID from dbo.MovementRequestTable2 
       //                 where IsProcessed = 0 or IsProcessed =2)
       //                 and a.RequestorID = '$requestor_id'
       //                 and a.IsHold = 0 and a.IsRejected = 0
@@ -331,24 +331,24 @@ class Movement_model extends CI_Model
 
       public function get_your_request($ID){
         // $q = "select a.*, b.Name as Department,  c.FullName as RequestorName
-        //         from dbo.MovementRequestTable a
+        //         from dbo.MovementRequestTable2 a
         //         join dbo.OrganizationTable b
         //         on a.RequestorDepartmentID = b.ID
         //         join dbo.PersonnelTable c
         //         on a.RequestorID = c.ID
         //         where a.ID in (
-        //               select ID from dbo.MovementRequestTable 
+        //               select ID from dbo.MovementRequestTable2 
         //               where IsProcessed = 0 or IsProcessed =2)
         //               and a.IsHold = 0 and a.IsRejected = 0
         //               order by IsProcessed DESC";
 
         $q = " select a.*, c.Name as requestor,e.Name as DeptName
-        from dbo.MovementRequestTable a
+        from dbo.MovementRequestTable2 a
         left join dbo.PersonnelTable c
         on a.RequestorID = c.ID
         left join dbo.OrganizationTable e
         on a.RequestorDepartmentID = e.ID
-        where a.ID in (select ID from dbo.MovementRequestTable where IsProcessed = 0 or IsProcessed = 2)
+        where a.ID in (select ID from dbo.MovementRequestTable2 where IsProcessed = 0 or IsProcessed = 2)
         and a.RequestorID = $ID
         and a.IsHold = 0
         and a.IsRejected= 0
@@ -359,7 +359,7 @@ class Movement_model extends CI_Model
     
 
        public function get_new_req($ID, $req_dep){
-            $query = "select a.*, b.FullName from dbo.MovementRequestTable a
+            $query = "select a.*, b.FullName from dbo.MovementRequestTable2 a
             join DBO.PersonnelTable b on a.RequestorID = b.ID
             join dbo.OrganizationTable d on d.ID = a.RequestorDepartmentID
             where a.RequestorID = '$ID'
@@ -381,7 +381,7 @@ class Movement_model extends CI_Model
       }
 
       public function get_new_req_approval($ID, $req_dep){
-        $query = "select a.*, b.FullName from dbo.MovementRequestTable a
+        $query = "select a.*, b.FullName from dbo.MovementRequestTable2 a
                   join DBO.PersonnelTable b on a.RequestorID = b.ID
                   join dbo.MovementRequestApprovalTable c on c.MovementRequestID = a.ID
                   join dbo.OrganizationTable d on d.ID = a.RequestorDepartmentID
@@ -397,17 +397,17 @@ class Movement_model extends CI_Model
 
     
       public function Insert_data($data){
-        $this->db->insert('dbo.MovementRequestTable', $data);
+        $this->db->insert('dbo.MovementRequestTable2', $data);
         $last_id = $this->db->insert_id();
         return $last_id;
       }
 
       public function get_data_rn($ID){
-        // $this->db->get('dbo.MovementRequestTable', $data);
+        // $this->db->get('dbo.MovementRequestTable2', $data);
         // $get_last_id = $this->db->get_id();
         //  return $get_last_id;
         // $this->db->select('id');
-        // $get_last_id = $this->db->get('dbo.MovementRequestTable', $data);
+        // $get_last_id = $this->db->get('dbo.MovementRequestTable2', $data);
         $get_last_id = $this->db->query("EXEC spRequestNumber @ID = '$ID'");
         return $get_last_id;
       }
@@ -417,6 +417,10 @@ class Movement_model extends CI_Model
         return $this->db->insert('dbo.MovementRequestApprovalTable', $data1);
       }
 
+      public function Insert_note($data){
+        return $this->db->insert('dbo.MovementRequestCommentTable', $data);
+      }
+
     
       function Simpan($table, $data){
         return $this->db->insert($table, $data);
@@ -424,17 +428,17 @@ class Movement_model extends CI_Model
 
     public function Update_data($data, $ID){
       $this->db->where('ID', $ID);
-      return $this->db->update('dbo.MovementRequestTable', $data);
+      return $this->db->update('dbo.MovementRequestTable2', $data);
     }
     public function update_saved_data($data, $ID){
       $this->db->where('ID', $ID);
-      return $this->db->update('dbo.MovementRequestTable', $data);
+      return $this->db->update('dbo.MovementRequestTable2', $data);
     }
 
     
       public function process_data($data,$where){
         $this->db->where($where);
-        $this->db->update('dbo.MovementRequestTable', $data);
+        $this->db->update('dbo.MovementRequestTable2', $data);
         if ($this->db->affected_rows() > 0){
           return TRUE;
         }
@@ -451,7 +455,7 @@ class Movement_model extends CI_Model
 
       public function hold_data($data, $where){
         $this->db->where($where);
-        $this->db->update('dbo.MovementRequestTable', $data);
+        $this->db->update('dbo.MovementRequestTable2', $data);
         if ($this->db->affected_rows() > 0){
           return TRUE;
         }
@@ -467,7 +471,7 @@ class Movement_model extends CI_Model
 
       public function reject_data($data, $where){
         $this->db->where($where);
-        $this->db->update('dbo.MovementRequestTable', $data);
+        $this->db->update('dbo.MovementRequestTable2', $data);
         if ($this->db->affected_rows() > 0){
           return TRUE;
         }
@@ -494,7 +498,7 @@ class Movement_model extends CI_Model
 
       function need_approval_req($ID){
         $q = $this->db->query("select a.*, b.Name as DeptName,  c.FullName as requestor
-                          from dbo.MovementRequestTable a
+                          from dbo.MovementRequestTable2 a
                           join dbo.OrganizationTable b
                           on a.RequestorDepartmentID = b.ID
                           join dbo.PersonnelTable c
@@ -510,7 +514,7 @@ class Movement_model extends CI_Model
 
       function need_approval_hr(){
         $q = $this->db->query("select a.*, b.Name as DeptName,  c.FullName as requestor
-                            from dbo.MovementRequestTable a
+                            from dbo.MovementRequestTable2 a
                             join dbo.OrganizationTable b
                             on a.RequestorDepartmentID = b.ID
                             join dbo.PersonnelTable c
@@ -550,7 +554,7 @@ class Movement_model extends CI_Model
 
       function need_approval_hra2($requestor_id){
         $q = $this->db->query("select a.*, b.Name as DeptName,  c.FullName as requestor
-                              from dbo.MovementRequestTable a
+                              from dbo.MovementRequestTable2 a
                               join dbo.OrganizationTable b
                               on a.RequestorDepartmentID = b.ID
                               join dbo.PersonnelTable c
@@ -566,7 +570,7 @@ class Movement_model extends CI_Model
 
       function need_approval_hra3(){
         $q = $this->db->query("select a.*, b.Name as DeptName,  c.FullName as requestor
-                              from dbo.MovementRequestTable a
+                              from dbo.MovementRequestTable2 a
                               join dbo.OrganizationTable b
                               on a.RequestorDepartmentID = b.ID
                               join dbo.PersonnelTable c
@@ -612,16 +616,13 @@ class Movement_model extends CI_Model
       }
       
       function search_requestor_pro($Request){
-        // $this->db->select('a.ID as PositionID, a.Name as Position , c.FullName, c.EmploymentStartDate, C.ID as PersonnelID, e.Name as Organization, , e.ID as OrganizationID');
-        // $this->db->from('dbo.PositionTable a');
-        // $this->db->join('dbo.PersonnelPosition b','a.ID = b.PositionID');
-        // $this->db->join('dbo.PersonnelTable c','c.ID = b.PersonnelID');
-        // $this->db->join('dbo.PositionInOrganization d','a.ID = d.PositionID');
-        // $this->db->join('dbo.OrganizationTable e','d.OrganizationUnitID = e.ID');
-        // $this->db->like('c.FullName',$Request);
-        $this->db->select('*');
-        $this->db->from('dbo.PersonnelHierarchy2');
-        $this->db->like('FullName',$Request);
+
+        $this->db->select('a.*, c.Name as CompanyName, d.Name as CostCenterName, b.AsCompanyHead, b.CostCenterID, a.ID as PersonnelDirector');
+        $this->db->from('dbo.PersonnelHierarchy2 a');
+        $this->db->join('dbo.PositionTable b','a.PostionID = b.ID');
+        $this->db->join('dbo.CompanyTable c','b.AsCompanyHead = c.ID');
+        $this->db->join('dbo.CostCenterTable d','b.CostCenterID = d.id');
+        $this->db->like('a.FullName',$Request);
 
         $query = $this->db->get();
         return $query->row_array();
@@ -751,26 +752,36 @@ class Movement_model extends CI_Model
     
     
       function search_new_position($Position){
-        // $this->db->select('a.Name, b.PositionID as NewPositionID, c.ID as NewOrganizationID, c.Name as NewOrganizationName');
+        // $this->db->select('a.Name, b.PositionID as NewPositionID, d.OrganizationID as NewOrganizationID, c.name as organizationname, d.Organization, d.ParentPersonnel, d.ParentPosition');
         // $this->db->from('dbo.PositionTable a');
-        // $this->db->join('dbo.PositionInOrganization b','a.ID = b.PositionID');
+        // $this->db->join('dbo.PositionInOrganization b' , 'a.ID = b.PositionID');
         // $this->db->join('dbo.OrganizationTable c','b.OrganizationUnitID = c.ID');
-        // $this->db->like('a.Name',$Position);
+        // $this->db->join('dbo.PersonnelHierarchy2 d' , 'b.OrganizationUnitID = d.OrganizationID');
 
-        $this->db->select('a.Name, b.PositionID as NewPositionID, d.OrganizationID as NewOrganizationID, d.Organization, d.ParentPersonnel, , d.ParentPosition');
+        $this->db->select('a.*, b.name as CompanyName, c.Name as CostCenterName, e.FullName as DirectorPlacement, e.ID as PersonnelDirector');
         $this->db->from('dbo.PositionTable a');
-        $this->db->join('dbo.PositionInOrganization b' , 'a.ID = b.PositionID');
-        $this->db->join('dbo.OrganizationTable c','b.OrganizationUnitID = c.ID');
-        $this->db->join('dbo.PersonnelHierarchy2 d' , 'b.OrganizationUnitID = d.OrganizationID');
+        $this->db->join('dbo.CompanyTable b' , 'a.AsCompanyHead = b.ID');
+        $this->db->join('dbo.CostCenterTable c','a.CostCenterID = c.id');
+        $this->db->join('dbo.PersonnelHierarchy2 e','a.ID = e.PostionID');
+        
         $this->db->like('a.Name',$Position);
+        $query = $this->db->get();
+        return $query->row_array();
+      }
+
+      function search_new_organization($Organization){
+        $this->db->select('*');
+        $this->db->from('dbo.OrganizationTable');
+        $this->db->like('Name',$Organization);
         $query = $this->db->get();
         return $query->row_array();
       }
     
     
       public function save_data($data){
-        $res = $this->db->insert('dbo.MovementRequestTable', $data);
-        return $res;
+        $res = $this->db->insert('dbo.MovementRequestTable2', $data);
+        $last_id = $this->db->insert_id();
+        return $last_id;
       }
 
       public function myview_approve(){
@@ -785,7 +796,7 @@ class Movement_model extends CI_Model
       
   function my_approve($ID){
     $q = "select a.*, c.FullName as RequestorName, d.Name as DeptName
-          from dbo.MovementRequestTable a
+          from dbo.MovementRequestTable2 a
           join dbo.PersonnelTable c
           on a.RequestorID = c.ID 
           join dbo.OrganizationTable d
@@ -804,7 +815,7 @@ class Movement_model extends CI_Model
 
   function my_hold($ID){
     $q = "select a.*,  c.FullName, d.Name as DeptName
-              from dbo.MovementRequestTable a
+              from dbo.MovementRequestTable2 a
               join dbo.PersonnelTable c
               on a.RequestorID = c.ID 
               join dbo.OrganizationTable d
@@ -823,7 +834,7 @@ class Movement_model extends CI_Model
 
   function my_reject($ID){
     $q = "select a.*, c.FullName, d.Name as DeptName
-           from dbo.MovementRequestTable a
+           from dbo.MovementRequestTable2 a
            join dbo.PersonnelTable c
            on a.RequestorID = c.ID 
            join dbo.OrganizationTable d

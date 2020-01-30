@@ -182,6 +182,12 @@ class Hr_movement extends CI_Controller {
 		echo json_encode($data);
 	  }
 
+	function search_new_organization(){
+	$Position = $this->input->get('Organization');
+	$data = $this->Movement_model->search_new_organization($Organization);
+	echo json_encode($data);
+	}
+
 	  function new_position(){
 		$json = [];
 		$this->load->database();
@@ -255,13 +261,18 @@ class Hr_movement extends CI_Controller {
 	//	$current_position = $this->input->post('current_position');
 		$current_position_id = $this->input->post('current_position_id');
 		$current_org_id = $this->input->post('current_org_id');
+		$current_cpy_id = $this->input->post('current_cpy_id');
+		$current_cc_id = $this->input->post('current_cc_id');
 		$new_position = $this->input->post('new_position');
 		$new_pos_id = $this->input->post('new_pos_id');
 		$new_org_id = $this->input->post('new_org_id');
+		$new_cpy_id = $this->input->post('new_cpy_id');
+		$new_cc_id = $this->input->post('new_cc_id');
 		$workdate = $this->input->post('workdate');
 		$current_responsibilities = $this->input->post('current_responsibilities');
 		$new_responsibilities = $this->input->post('new_responsibilities');
 		$id = $this->session->userdata('UserID');
+		$note = $this->input->post('note');
 	//	var_dump($id);
 	//	$new_requirement = $this->input->post('new_requirement');
 	
@@ -276,8 +287,12 @@ class Hr_movement extends CI_Controller {
 		  'RequestedPersonnelID' => $request_name,
 		  'CurrentPositionID' => $current_position_id,
 		  'CurrentOrganizationID' => $current_org_id,
+		  'CurrentCompanyID' => $current_cpy_id,
+		  'CurrentCostCenterID' => $current_cc_id,
 		  'NewPositionID' => $new_pos_id,
 		  'NewOrganizationID' => $new_org_id,
+		  'NewCompanyID' => $new_cpy_id,
+		  'NewCostCenterID' => $new_cc_id,
 		  'ExpectedWorkStartDate' => $workdate,
 		  'CurrentDuttiesAndResponsibilities' => $current_responsibilities,
 		  'NewDuttiesAndResponsibilities' => $new_responsibilities,
@@ -302,8 +317,16 @@ class Hr_movement extends CI_Controller {
 				'CreatedById' => $id,
 				'LastModifiedById' => $id 
 			);
+
+			$data2 = array (
+				'MovementRequestID' => $last_id,
+				'PersonnelID' => $requestor_id,
+				'Description' => $note,
+				'CreatedByID' => $id,
+				'LastModifiedByID' => $id);
 			
 				$res = $this->Movement_model->Insert_to_Approval($data1);
+				$res2 = $this->Movement_model->Insert_note($data2);
 
 			//	$Request = $this->Movement_model->get_sp_request_number($get_last_id);
 			//	var_dump($data1);
@@ -577,12 +600,17 @@ class Hr_movement extends CI_Controller {
 		$request_name = $this->input->post('request_name');
 		$current_position_id = $this->input->post('current_position_id');
 		$current_org_id = $this->input->post('current_org_id');
+		$current_cpy_id = $this->input->post('current_cpy_id');
+		$current_cc_id = $this->input->post('current_cc_id');
 		$new_position = $this->input->post('new_position');
 		$new_pos_id = $this->input->post('new_pos_id');
 		$new_org_id = $this->input->post('new_org_id');
+		$new_cpy_id = $this->input->post('new_cpy_id');
+		$new_cc_id = $this->input->post('new_cc_id');
 		$workdate = $this->input->post('workdate');
 		$current_responsibilities = $this->input->post('current_responsibilities');
 		$new_responsibilities = $this->input->post('new_responsibilities');
+		$note = $this->input->post('note');
 		$IsProcessed = '2';
 		$id = $this->session->userdata('UserID');
 
@@ -594,8 +622,12 @@ class Hr_movement extends CI_Controller {
 			'RequestedPersonnelID' => $request_name,
 			'CurrentPositionID' => $current_position_id,
 			'CurrentOrganizationID' => $current_org_id,
+			'CurrentCompanyID' => $current_cpy_id,
+			'CurrentCostCenterID' => $current_cc_id,
 			'NewPositionID' => $new_pos_id,
 			'NewOrganizationID' => $new_org_id,
+			'NewCompanyID' => $new_cpy_id,
+			'NewCostCenterID' => $new_cc_id,
 			'ExpectedWorkStartDate' => $workdate,
 			'CurrentDuttiesAndResponsibilities' => $current_responsibilities,
 			'NewDuttiesAndResponsibilities' => $new_responsibilities,
@@ -604,11 +636,22 @@ class Hr_movement extends CI_Controller {
 			'LastModifiedById' => $id
 	      );
 
-	    //print_r($data);
+		//print_r($data);
+		$this->load->model('Movement_model');
+		$last_id = $this->Movement_model->Save_data($data);
+		$data1 = array (
+			'RequisitionID' => $last_id,
+			'PersonnelID' => $requestor_id,
+			'Description' => $note,
+			'CreatedByID' => $id,
+			'LastModifiedByID' => $id);
+  
+  
+		$res2 = $this->Movement_model->Insert_note($data1);
 
-	    $this->load->model('Movement_model');
-	    $res = $this->Movement_model->Save_data($data);
-	      if ($res > 0 ) {
+	    
+	 //   $res = $this->Movement_model->Save_data($data);
+		if ($last_id > 0 && $res2 > 0) {
 	        $this->movement_history();
 	      }else{
 	      echo json_encode(array('status'=>false));
@@ -625,8 +668,13 @@ class Hr_movement extends CI_Controller {
 	$request_name = $this->input->post('request_name');
 	$current_position_id = $this->input->post('current_position_id');
 	$current_org_id = $this->input->post('current_org_id');
+	$current_cpy_id = $this->input->post('current_cpy_id');
+	$current_cc_id = $this->input->post('current_cc_id');
+	$new_position = $this->input->post('new_position');
 	$new_pos_id = $this->input->post('new_pos_id');
 	$new_org_id = $this->input->post('new_org_id');
+	$new_cpy_id = $this->input->post('new_cpy_id');
+	$new_cc_id = $this->input->post('new_cc_id');
 	$workdate = $this->input->post('workdate');
 	$current_responsibilities = $this->input->post('current_responsibilities');
 	$new_responsibilities = $this->input->post('new_responsibilities');
@@ -641,8 +689,12 @@ class Hr_movement extends CI_Controller {
 		'RequestedPersonnelID' => $request_name,
 		'CurrentPositionID' => $current_position_id,
 		'CurrentOrganizationID' => $current_org_id,
+		'CurrentCompanyID' => $current_cpy_id,
+		'CurrentCostCenterID' => $current_cc_id,
 		'NewPositionID' => $new_pos_id,
 		'NewOrganizationID' => $new_org_id,
+		'NewCompanyID' => $new_cpy_id,
+		'NewCostCenterID' => $new_cc_id,
 		'ExpectedWorkStartDate' => $workdate,
 		'CurrentDuttiesAndResponsibilities' => $current_responsibilities,
 		'NewDuttiesAndResponsibilities' => $new_responsibilities,
