@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="google-signin-client_id" content="160949261841-e95o07cnk73js4bpck5khjoo3h5udd74.apps.googleusercontent.com">
   <title>KGMedia | <?php echo ucfirst($this->uri->segment(1))." ".ucfirst($this->uri->segment(2));?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -19,7 +20,7 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/css/skins/_all-skins.min.css">
-
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -52,32 +53,7 @@
 
     <!-- Main content -->
     <section class="content">
-    <!--VIEW GOOGLE USERINFO-->
-    <?php
-if(!empty($authUrl)) {
-    echo '<a href="'.$authUrl.'"><img src="'.base_url().'assets/images/glogin.png" alt=""/></a>';
-}else{
- 
-?>
-<div class="wrapper">
-    <h1>Google Profile Details </h1>
-    <?php
-    echo '<div class="welcome_txt">Welcome <b>'.$userData['first_name'].'</b></div>';
-    echo '<div class="google_box">';
-    echo '<p class="image"><img src="'.$userData['picture_url'].'" alt="" width="300" height="220"/></p>';
-    echo '<p><b>Google ID : </b>' . $userData['oauth_uid'].'</p>';
-    echo '<p><b>Name : </b>' . $userData['first_name'].' '.$userData['last_name'].'</p>';
-    echo '<p><b>Email : </b>' . $userData['email'].'</p>';
-    echo '<p><b>Gender : </b>' . $userData['gender'].'</p>';
-    echo '<p><b>Locale : </b>' . $userData['locale'].'</p>';
-    echo '<p><b>Google+ Link : </b>' . $userData['profile_url'].'</p>';
-    echo '<p><b>You are login with : </b>Google</p>';
-    //echo '<p><b>Logout from <a href="'.base_url().'user_authentication/logout">Google</a></b></p>';
-    echo '</div>';
-    ?>
-</div>
-<?php } ?>
-    <!--END GOOGLE USERINFO-->
+    
       <!-- Info boxes -->
       <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
