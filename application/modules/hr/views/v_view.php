@@ -868,7 +868,7 @@
             }
 
             if (appstatus2 == "3") {
-                if (reqstor == '1700') {
+                if (reqstor == '500') {
                     $('#button-process').show();
                     $('#button-hold').show();
                     $('#button-reject').show();
