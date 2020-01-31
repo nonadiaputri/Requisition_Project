@@ -61,7 +61,6 @@ class Login extends CI_Controller {
 	{
 		//$this->aauth->logout();
         $data = array('nik','is_login');
-        $this->session->revokeToken();
 		$this->session->unset_userdata($data);	
         $this->session->unset_userdata('token');
         $this->session->unset_userdata('userData');
