@@ -265,9 +265,10 @@ class Hr extends CI_Controller {
           'CreatedByID' => $id,
           'LastModifiedByID' => $id);
 	      $res = $this->Hire_model->Insert_to_Approval($data1);
-        $res2 = $this->Hire_model->Insert_note($data2);
-
-	      if ($res > 0 && $res2 ) {
+        if ($note != '') {
+          $res2 = $this->Hire_model->Insert_note($data2);
+        }
+	      if ($res > 0) {
 	        echo json_encode(array('status'=>true));
 	        
 	      }else{
@@ -380,7 +381,7 @@ class Hr extends CI_Controller {
     $data['latest'] = $this->Hire_model->get_latest_apv($ID);
     $data['max'] = $this->Hire_model->get_max_apv($ID);
     $data['note'] = $this->Hire_model->get_all_note($ID);
-    var_dump($data);
+    //var_dump($data);
     $this->load->library('pdf');
     $this->pdf->setPaper('A4', 'potrait');
     $this->pdf->filename = "REQUISITION.pdf";
@@ -533,13 +534,14 @@ class Hr extends CI_Controller {
   public function process($ID){
     $process = $this->input->post('process');
     $note = $this->input->post('noted');
-    $apv_id = $this->input->post('ApprovalStatusID');
+    $apv_id = $this->input->post('apv');
     $where = array('ID' => $ID);
     $where1 = array('RequisitionID' => $ID);
     $status = '1';
     $a = 1;
-    $apv_id_new = ($apv_id + $a) ;
+    $apv_id_new = $apv_id + 1;
     $id_user = $this->session->userdata('UserID');
+    //print_r($apv_id_new);
 
     $data = array(
       'ProcessStartDate' => $process,
@@ -567,12 +569,14 @@ class Hr extends CI_Controller {
     //var_dump($data1);
     $res = $this->Hire_model->process_data($data, $where);
     $res1 = $this->Hire_model->process_data_approval($data1);
-    $res2 = $this->Hire_model->Insert_note($data2);
-      if ($res > 0 & $res1 > 0 & $res2 > 0) {
-        echo json_encode(array('status'=>true));
-      }else{
-      echo json_encode(array('status'=>false));
+    if ($note != '') {
+          $res2 = $this->Hire_model->Insert_note($data2);
     }
+    if ($res > 0 & $res1 > 0) {
+      echo json_encode(array('status'=>true));
+    }else{
+    echo json_encode(array('status'=>false));
+  }
   }
 
   public function hold($ID){
@@ -583,6 +587,7 @@ class Hr extends CI_Controller {
     $status = '1';
     $apv_id_new = $apv_id + 1 ;
     $id_user = $this->session->userdata('UserID');
+    //print_r($apv_id_new);
 
     $data = array(
       'HoldEndDate' => $hold,
@@ -619,6 +624,8 @@ class Hr extends CI_Controller {
     $status = '1';
     $apv_id_new = $apv_id + 1 ;
     $id_user = $this->session->userdata('UserID');
+
+    //print_r($apv_id_new);
 
     $data = array(
       'RejectReason' => $reject,
@@ -773,11 +780,17 @@ class Hr extends CI_Controller {
   function update_cost_center($ID){
     
     $cost_center = $this->input->post('cost_center');
+    $company = $this->input->post('company');
+    $total = $this->input->post('total');
+    $emp_type = $this->input->post('emp_type');
     $modif = $this->session->userdata('ID');
     var_dump($ID);
 
     $data = array('PlacementID'=>$cost_center,
-                  'LastModifiedByID'=>$modif);
+                  'LastModifiedByID'=>$modif,
+                  'RequestedCompanyID' => $company,
+                  'NumberOfPlacement' => $total,
+                  'EmploymentTypeID' => $emp_type);
     var_dump($data);
 
     $res =$this->Hire_model->update_cost_center($data, $ID);

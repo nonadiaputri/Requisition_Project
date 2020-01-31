@@ -1,3 +1,8 @@
+<?php
+  $timezone = "Asia/Bangkok";
+  date_default_timezone_set($timezone);
+  $today = date("Y-m-d");
+?>
 <!DOCTYPE html>
 <html>
 
@@ -91,16 +96,43 @@
                                             <?php echo $req[ 'requested_pos']; ?>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="total">
                                         <td>Total Need</td>
                                         <td>
                                             <?php echo $req[ 'NumberOfPlacement']; ?>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="ttl-rec" style="display: none;">
+                                        <td>Total Need</td>
+                                        <td> 
+                                            <select class="form-control" name="ttl" id="ttl" required="required">
+                                              <option value="" selected>Pilih</option>
+                                              <option value="1">1</option>
+                                              <option value="2">2</option>
+                                              <option value="3">3</option>
+                                              <option value="4">4</option>
+                                              <option value="5">5</option>
+                                              <option value="6">6</option>
+                                              <option value="7">7</option>
+                                              <option value="8">8</option>
+                                              <option value="9">9</option>
+                                              <option value="10">10</option>  
+                                       
+                                            </select>  
+                                        </td>
+                                    </tr>
+                                    <tr id="company">
                                         <td>Company</td>
                                         <td>
                                             <?php echo $req[ 'CompanyName']; ?>
+                                        </td>
+                                    </tr>
+                                    <tr id="comp_rec" style="display: none;">
+                                        <td>Company</td>
+                                        <td> 
+                                            <select class="com form-control" name="company-rec" id="company-rec" style="width:100%;"  required="required">
+                                              <option value=""></option>
+                                            </select>
                                         </td>
                                     </tr>
                                     <tr id="cc">
@@ -123,10 +155,25 @@
                                             <?php echo $req[ 'Requisition_status']; ?>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="emp">
                                         <td>Employment Type</td>
                                         <td>
                                             <?php echo $req[ 'EmployeeType']; ?>
+                                        </td>
+                                    </tr>
+                                    <tr id="emp_rec" style="display: none;">
+                                        <td>Employment Type</td>
+                                        <td>
+                                            <select class="form-control" name="employment-rec" id="employment-rec" required="required">
+                                                <option value="" selected>Pilih</option>
+                                                <option value="1">Undefined</option>
+                                                <option value="2">Profesional Contract</option>
+                                                <option value="3">Full Contract</option>
+                                                <option value="4">Contract to Permanent</option>
+                                                <option value="5">Freelance</option>
+                                                <option value="6">Internship</option>
+                                                <option value="7">Outsourcing</option>  
+                                            </select>
                                         </td>
                                     </tr>
                                     <tr>
@@ -454,10 +501,10 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-md-3">
-                                        <label>Start Date <span style="color: red;">*</span></label>
+                                        <label>Respon Date <span style="color: red;">*</span></label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="date" name="process" id="process" class="form-control" min="2018-01-01" max="2030-12-31"> <span id="error_process" class="text-danger"></span> 
+                                        <input type="date" name="process" id="process" class="form-control" value="<?php echo $today; ?>"> <span id="error_process" class="text-danger"></span> 
                                         <input type="hidden" name="ApprovalStatusID" id="ApprovalStatusID" class="form-control" value="<?php echo $info['ApprovalStatusID']; ?>">
                                     </div>
                                 </div>
@@ -671,6 +718,30 @@
                 }
             });
 
+    $('.com').select2({
+                placeholder: 'Company Name',
+                ajax:{
+                    url: "<?php echo base_url('hr/select_company'); ?>",
+                    dataType: "json",
+                    delay: 250,
+                    processResults: function(data){
+                        var results = [];
+
+                        $.each(data, function(index, item){
+                            results.push({
+                                id: item.ID,
+                                text: item.Name,
+                                option_value:item.ID
+                            });     
+                        });
+                        return{
+                            results: results,
+                            cache: true,
+                        };
+                    },
+                }
+            });
+
     function load(){
                 if (<?php echo $req['PlacementID'];?> == '0') {
                     $('#cost-center').removeAttr('value');
@@ -680,6 +751,28 @@
                   .append('<option selected value="<?php echo $req['PlacementID'];?>"><?php echo $req['Placement'];?></option>');
                   $('#cost-center').trigger('change');
                 }
+
+                if (<?php echo $req['NumberOfPlacement'];?> == '') {
+                    $('#ttl').removeAttr('value');
+                }else{
+                  $('#ttl').val("<?php echo $req['NumberOfPlacement'];?>");
+                }
+
+                if (<?php echo $req['RequestedCompanyID'];?> == '0') {
+                    $('#company-rec').removeAttr('value');
+                }else{
+                  $('#company-rec')
+                  .empty()
+                  .append('<option selected value="<?php echo $req['RequestedCompanyID'];?>"><?php echo $req['CompanyName'];?></option>');
+                  $('#company-rec').trigger('change');
+                }
+
+                if (<?php echo $req['EmploymentTypeID'];?> == '0') {
+                    $('#employment-rec').removeAttr('value');
+                }else{
+                    $('#employment-rec').val(<?php echo $req['EmploymentTypeID']?>);
+                }
+
             }
 
      $(document).ready(function(){
@@ -764,6 +857,12 @@
                     $('#cc_rec').show();
                     $('#cc').hide();
                     $('#lbl-rec-notif').show();
+                    $('#ttl-rec').show();
+                    $('#total').hide();
+                    $('#comp_rec').show();
+                    $('#company').hide();
+                    $('#emp_rec').show();
+                    $('#emp').hide();
                     load();
                 }
             }
@@ -919,10 +1018,19 @@
 
             $('#button-save').click(function(){
                 cost_center_new = $('#cost-center').val();
+                company_new = $('#company-rec').val();
+                total_new = $('#ttl').val();
+                emp_type_new = $('#employment-rec').val();
+                console.log(company_new);
+                console.log(total_new);
+                console.log(emp_type_new);
                 $.ajax({
                 method: 'POST',
                 url: '<?php echo base_url('hr/update_cost_center/');?>'+id_req,
-                data: {cost_center : cost_center_new},
+                data: {cost_center : cost_center_new,
+                       company : company_new,
+                       total : total_new,
+                       emp_type : emp_type_new},
                 success: function(status) {
                     if (status) {
                         alert("success");
@@ -939,8 +1047,10 @@
             $('#btn-process').click(function(){
                 var prcs = $("#process #process").val().trim();
                 var noted = $("#process #noted").val().trim();
+                var apv = $('#process #ApprovalStatusID').val().trim();
                 var error_process = '';
                 console.log(noted);
+                console.log("prcs"+prcs);
     
                 if(prcs == ''){
                  error_process = 'Process Start Date is required';
@@ -962,7 +1072,8 @@
                 method: 'POST',
                 url: '<?php echo base_url('hr/Process/');?>'+id_req,
                 data: { 'process' : prcs,
-                        'noted'  : noted },
+                        'noted'  : noted,
+                        'apv' : apv },
                 success: function(data) {
                     if (status) {
                        
@@ -980,6 +1091,7 @@
     
             $('#btn-hold').click(function(){
                 var hold = $("#hold #hold").val().trim();
+                var apv = $('#hold #ApprovalStatusID').val().trim();
                 var error_hold = '';
                 console.log(hold);
     
