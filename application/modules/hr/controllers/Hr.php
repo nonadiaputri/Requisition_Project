@@ -690,18 +690,18 @@ class Hr extends CI_Controller {
     $nik = $this->session->userdata('nik');
     
     $pos = $this->session->userdata('Position');
-    $val = strpos($pos,'Transito Adimanjati Director');
+    $val = strpos($pos,'HRGA & IT Assistant Manager');
     //var_dump($val);
-    if (strpos($pos,'Transito Adimanjati Director') === false) {
+    if (strpos($pos,'HRGA & IT Assistant Manager') === false) {
       $data['need_app'] = $this->Hire_model->need_approval_req($requestor_id);
     }
-    if(strpos($pos,'Transito Adimanjati Director') === 0){
+    if(strpos($pos,'HRGA & IT Assistant Manager') === 0){
       $data['need_app']=$this->Hire_model->need_approval_hr();
     }
-    if ($nik == '026061') {
+    if ($nik == '026687') {
       $data['need_app'] = $this->Hire_model->need_approval_recruiter();
     }
-    if ($nik == '004905') {
+    if ($nik == '026867') {
       $data['need_app'] = $this->Hire_model->need_approval_cc();
     }
     
