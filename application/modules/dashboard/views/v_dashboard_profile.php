@@ -65,7 +65,7 @@
 
               <h3 class="profile-username text-center"><?= $_SESSION['name'];?> </br> <?= $_SESSION['email'];?></h3>
 
-              <p class="text-muted text-center"><?= $_SESSION['username'];?></p>
+              <!-- <p class="text-muted text-center"><?= $_SESSION['username'];?></p> -->
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
@@ -141,7 +141,6 @@
                 <span class="label label-warning">PHP</span>
                 <span class="label label-primary">Node.js</span>
               </p>
-
               <hr>
 
               <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>

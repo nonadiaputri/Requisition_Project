@@ -77,7 +77,9 @@
 	                    <input type="hidden" class="form-control" id="requestor_id" name="requestor_id" value = "<?php echo $this->session->userdata('ID'); ?>" required="required" readonly> -->
 	                </div>
 	            </div>
-	            </div>
+	          </div>
+            <br>
+
 	        <div class="row">
 	          	<div class="col-md-8">
 	                <label class="control-label">Organization Name</label>
@@ -86,6 +88,7 @@
 	                <span id="error_req_org" class="text-danger"></span>
 	          </div>
 	        </div>
+          <br>
 
 	        <div class="row">
 	         	<div class="form-group">
@@ -94,10 +97,10 @@
 		                  <input type="text" class="form-control" name="req_position" id="req_position" required="required" readonly>
 		                  <input type="hidden" class="form-control" name="req_position_id" id="req_position_id" required="required" readonly>
 		                  <span id="error_req_position" class="text-danger"></span>
-		                </div>
-		            </div>
-			</div>
-			<br>
+		              </div>
+		          </div>
+			  </div>
+		  	<br>
 			
       <div class="box-body">
             <h4 class="card-title">Request Movement Information</h4>
@@ -107,20 +110,28 @@
             	<div class="form-group">
 	                <div class="col-md-10">
 	                  <label class="control-label col-form-label">Movement Request Type</label>
+                    <span style="color: red;">*</span></label>
 	                  <div id="chs-container">
 
-	                    <select class="form-control chs-select" name="request_type" id="request_type" style="width:80%" required="required">
+	                    <!-- <select class="form-control chs-select" name="request_type" id="request_type" style="width:80%" required="required">
 	                        <option default>Select Movement Request Type</option>
 	                        <?php foreach ($type as $type) { ?>
 	                        <option value="<?php echo $type['ID'];?>"><?php echo $type['Name'];?></option>
 	                        <?php } ?>
+	                    </select> -->
+                      <select class="form-control" name="request_type" id="request_type" required="required">
+	                      <option value="" selected>Pilih</option>
+                        <option value="1">Promote</option>
+	                      <option value="2">Demote</option>
+                        <option value="3">Rotation</option>
+                        <option value="4">Assignment</option> 
 	                    </select>
 	                    <br>
 
 	                    <div class="form-group row">
                         <div class="col-md-8">
                           <label class="control-label col-form-label">Requested Name</label>
-                          
+                          <span style="color: red;">*</span></label>
                         </div>
                         
                       </div>
@@ -136,89 +147,127 @@
                           </div>
                         </div>
 
-                        <div class="form-group row">
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">Current Position</label>
-                              
-                              <input type="text" name="current_position" id="current_position" required="required" class="form-control" readonly>
-                              <input type="hidden" name="current_position_id" id="current_position_id" required="required" class="form-control">
-                              <!-- <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control"> -->
-                              <span id="error_current_position" class="text-danger"></span>
-                          </div>
 
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">New Position</label>
-                              
-                              <select class="new_position form-control" name="new_position" id="new_position" style="width:500px"  required="required">
-                              <option value=""></option>
-                            </select>
-                              <input type="hidden" name="new_pos_id" id="new_pos_id" required="required" class="form-control">
-                              <span id="error_new_position" class="text-danger"></span>
+
+                        <div class="row">
+                          <div class="form-group" style="display: none" id="c_org_new">
+                              <div class="col-sm-6">
+                                  <label class="control-label col-form-label">Current Organization</label>
+                                  <input type="text" name="current_org" id="current_org" required="required" class="form-control" readonly>
+                                  <input type="text" name="current_org_id" id="current_org_id" required="required" class="form-control">
+                                  <span id="error_current_org" class="text-danger"></span>
+                              </div>
+                              <div class="col-sm-6">
+                                  <label class="control-label col-form-label">New Organization</label>
+                                  <span style="color: red;">*</span></label>
+                                  <select class="new_organization form-control" name="new_organization" id="new_organization" style="width:500px"  required="required">
+                                      <option value=""></option>
+                                  </select>
+                                  <!-- <input type="text" name="new_org" id="new_org" required="required" class="form-control" style="width:500px" readonly> -->
+                                  <input type="hidden" name="new_org_id" id="new_org_id" required="required" class="form-control">
+                                  <span id="error_new_org" class="text-danger"></span>
+                              </div>
                           </div>
                         </div>
 
 
-                        <div class="form-group row">
+                        <div class="row">
+                          <div class="form-group" style="display: none" id="c_pos_new">
+                              <div class="col-sm-6">
+                                  <label class="control-label col-form-label">Current Position</label>
+                                  
+                                  <input type="text" name="current_position" id="current_position" required="required" class="form-control" readonly>
+                                  <input type="text" name="current_position_id" id="current_position_id" required="required" class="form-control">
+                                  <!-- <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control"> -->
+                                  <span id="error_current_position" class="text-danger"></span>
+                              </div>
+
+                              <div class="col-sm-6">
+                                  <label class="control-label col-form-label">New Position</label>
+                                  <span style="color: red;">*</span></label>
+                                  <select class="new_position form-control" name="new_position" id="new_position" style="width:500px"  required="required">
+                                      <option value=""></option>
+                                  </select>
+                                  <input type="hidden" name="new_pos_id" id="new_pos_id" required="required" class="form-control">
+                                  <span id="error_new_position" class="text-danger"></span>
+                              </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group" style="display: none" id="c_pos">
+                              <div class="col-sm-6">
+                                  <label class="control-label col-form-label">Current Position</label>
+                                  
+                                  <input type="text" name="c_pos" id="c_pos_asg" required="required" class="form-control" readonly>
+                                  <input type="text" name="c_pos_id" id="c_pos_asg_id" required="required" class="form-control">
+                                  <!-- <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control"> -->
+                                  <span id="error_c_pos" class="text-danger"></span>
+                              </div>
+
+                              <div class="col-sm-6">
+                                  <label class="control-label col-form-label">Assignment</label>
+                                  <span style="color: red;">*</span></label>
+                                  <textarea class="form-control" id="noted" name="assignment" rows="1" cols="120"></textarea>
+                                  <!-- <span id="error_assignment" class="text-danger"></span> -->
+                              </div>
+                          </div>
+                        </div>
+
+
+                        <div class="row">
+                          <div class="form-group" style="display: none" id="c_com_new">
                             <div class="col-sm-6">
-                                <label class="control-label col-form-label">Current Organization</label>
-                                <input type="text" name="current_org" id="current_org" required="required" class="form-control" readonly>
-                                <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control">
-                                <span id="error_current_org" class="text-danger"></span>
+                                <label class="control-label col-form-label">Current Company</label>
+                                <input type="text" name="current_cpy" id="current_cpy" required="required" class="form-control" readonly>
+                                <input type="text" name="current_cpy_id" id="current_cpy_id" required="required" class="form-control">
+                                <span id="error_current_cpy" class="text-danger"></span>
                             </div>
                             <div class="col-sm-6">
-                                <label class="control-label col-form-label">New Organization</label>
-                                <input type="text" name="new_org" id="new_org" required="required" class="form-control" style="width:500px" readonly>
-                                <input type="hidden" name="new_org_id" id="new_org_id" required="required" class="form-control">
-                                <span id="error_new_org" class="text-danger"></span>
+                                <label class="control-label col-form-label">New Company</label>
+                                <input type="text" name="new_cpy" id="new_cpy" required="required" class="form-control" style="width:500px" readonly>
+                                <input type="text" name="new_cpy_id" id="new_cpy_id" required="required" class="form-control">
+                                <span id="error_new_cpy" class="text-danger"></span>
                             </div>
-                        </div>
-
-                        <div class="form-group row">
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">Current Company</label>
-                              <input type="text" name="current_cpy" id="current_cpy" required="required" class="form-control" readonly>
-                              <input type="hidden" name="current_cpy_id" id="current_cpy_id" required="required" class="form-control">
-                              <span id="error_current_cpy" class="text-danger"></span>
-                          </div>
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">New Company</label>
-                              <input type="text" name="new_cpy" id="new_cpy" required="required" class="form-control" style="width:500px" readonly>
-                              <input type="hidden" name="new_cpy_id" id="new_cpy_id" required="required" class="form-control">
-                              <span id="error_new_cpy" class="text-danger"></span>
                           </div>
                         </div>
 
-                        <div class="form-group row">
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">Current Cost Center</label>
-                              <input type="text" name="current_cc" id="current_cc" required="required" class="form-control" readonly>
-                              <input type="hidden" name="current_cc_id" id="current_cc_id" required="required" class="form-control">
-                              <span id="error_current_cc" class="text-danger"></span>
-                          </div>
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">New Cost Center</label>
-                              <input type="text" name="new_cc" id="new_cc" required="required" class="form-control" style="width:500px"readonly>
-                              <input type="hidden" name="new_cc_id" id="new_cc_id" required="required" class="form-control">
-                              <span id="error_new_cc" class="text-danger"></span>
-                          </div>
-                        </div>
-
-                        <div class="form-group row">
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">Current Director Placement</label>
-                              <input type="text" name="current_dp" id="current_dp" required="required" class="form-control" readonly>
-                              <input type="hidden" name="current_dp_id" id="current_dp_id" required="required" class="form-control">
-                              <span id="error_current_dp" class="text-danger"></span>
-                          </div>
-                          <div class="col-sm-6">
-                              <label class="control-label col-form-label">New Director Placement</label>
-                              <input type="text" name="new_dp" id="new_dp" required="required" class="form-control" style="width:500px"readonly>
-                              <input type="hidden" name="new_dp_id" id="new_dp_id" required="required" class="form-control">
-                              <span id="error_new_dp" class="text-danger"></span>
+                        <div class="row">
+                          <div class="form-group" style="display: none" id="c_cost_new">
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label">Current Cost Center</label>
+                                <input type="text" name="current_cc" id="current_cc" required="required" class="form-control" readonly>
+                                <input type="text" name="current_cc_id" id="current_cc_id" required="required" class="form-control">
+                                <span id="error_current_cc" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label">New Cost Center</label>
+                                <input type="text" name="new_cc" id="new_cc" required="required" class="form-control" style="width:500px" readonly>
+                                <input type="text" name="new_cc_id" id="new_cc_id" required="required" class="form-control">
+                                <span id="error_new_cc" class="text-danger"></span>
+                            </div>
                           </div>
                         </div>
 
-                          <div class="form-group row">
+                        <div class="row">
+                          <div class="form-group" style="display: none" id="c_place_new">
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label">Current Director Placement</label>
+                                <input type="text" name="current_dp" id="current_dp" required="required" class="form-control" readonly>
+                                <input type="text" name="current_dp_id" id="current_dp_id" required="required" class="form-control">
+                                <span id="error_current_dp" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label">New Director Placement</label>
+                                <input type="text" name="new_dp" id="new_dp" required="required" class="form-control" style="width:500px"readonly>
+                                <input type="text" name="new_dp_id" id="new_dp_id" required="required" class="form-control">
+                                <span id="error_new_dp" class="text-danger"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group" style="display: none" id="date">
                               <div class="col-sm-6">
                                 <label class="control-label col-form-label">Started Work Date from Current Position</label>
                                 <input type="text" id="startdate" name="startdate" required="required" class="form-control" readonly>
@@ -230,7 +279,10 @@
                                 <span id="error_workdate" class="text-danger"></span>
                               </div>
                           </div>
-                          <div class="form-group row">
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group" style="display: none" id="respon">
                               <div class="col-sm-6">
                                 <label class="control-label col-form-label">Current Responsibilities</label>
                                 ​<textarea class="ckeditor" id="current_responsibilities" name="current_responsibilities"></textarea>
@@ -242,18 +294,11 @@
                                 <span id="error_new_responsibilities" class="text-danger"></span>
                               </div>
                           </div>
+                        </div>
 
-                          <div class="form-group row">
+                          <!-- <div class="form-group row">
                             <div class="col-sm-8">
                                     <label class="control-label col-form-label"> Human Resources Approval </label>
-                                  
-                                    <!-- <select class="form-control chs-select" name="hra" id="hra" style="width:90%" required="required">
-                                        <option default>Select Human Resources Approval</option>
-                                        <?php foreach ($pos as $pos) { ?>
-                                        <option value="<?php echo $pos['ID'];?>"><?php echo $pos['Name'];?></option>
-                                        <?php } ?>
-                                    </select> -->
-
                                     <select class="form-control chs-select" name="hra" id="hra" style="width:100%" required="required">
                                         <option default>Select Human Resources Approval</option>
                                         <?php foreach ($hra as $hra) { ?>
@@ -283,12 +328,6 @@
                         <div class="form-group row">
                             <div class="col-sm-8">
                                     <label class="control-label col-form-label"> Human Resources Approval from New Position</label>
-                                    <!-- <select class="form-control chs-select" name="hra3" id="hra3" style="width:100%" required="required">
-                                        <option default>Select Human Resources Approval</option>
-                                        <?php foreach ($hra3 as $hra3) { ?>
-                                        <option id="personnel_id" value="<?php echo $hra3['PersonnelID'];?>"><?php echo $hra3['Name'];?> &nbsp ( <?php echo $hra['ParentPosition'];?>)</option>
-                                        <?php } ?>
-                                    </select> -->
                                     <input type="text" name="hra3" id="hra3" required="required" class="form-control" readonly>
                                     <input type="hidden" name="hra3_id" id="hra3_id" required="required" class="form-control">
                                     <span id="error_hra" class="text-danger"></span>
@@ -298,7 +337,7 @@
                                     <input type="hidden" name="hra3_pos_id" id="hra3_pos_id" required="required" class="form-control">
                                     <span id="error_hra" class="text-danger"></span>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="row">
                             <div class="form-group">
@@ -307,8 +346,7 @@
                                       </div>
                                       <div class="col-sm-8">
                                         <div class="form-group">
-                                          <!-- <textarea id="requirement" name="requirement" rows="7" cols="70" required="required"></textarea> -->
-                                          <textarea id="noted" name="noted"rows="7" cols="110"></textarea>
+                                        <textarea class="form-control" id="noted" name="noted"rows="7" cols="110"></textarea>
                                         
                                         </div>
                                         
@@ -499,13 +537,21 @@
                         
                       //  $('#req_position_id').val(data.PositionID);
                         $('#current_position_id').val(data.PostionID);
+                        $('#c_pos_asg_id').val(data.PostionID);
                      //   $('#req_position').val(data.PositionName);
                         $('#current_position').val(data.Postion);
+                        $('#c_pos_asg').val(data.Postion);
                         $('#current_org_id').val(data.OrganizationID);
                         $('#current_org').val(data.Organization);
+                        $('#current_cpy').val(data.CompanyName);
+                        $('#current_cpy_id').val(data.AsCompanyHead);
+                        $('#current_cc').val(data.CostCenterName);
+                        $('#current_cc_id').val(data.CostCenterID);
+                        $('#current_dp').val(data.ParentPersonnel);
+                        $('#current_dp_id').val(data.PersonnelDirector);
                         $('#startdate').val(data.EmployeeStartDate);
-                        $('#hra2').val(data.ParentPersonnel);
-                        $('#hra2_pos').val(data.ParentPosition);
+                      //  $('#hra2').val(data.ParentPersonnel);
+                     //   $('#hra2_pos').val(data.ParentPosition);
                         
                         }
                       },
@@ -516,6 +562,31 @@
              
             }
           });
+
+              $('.new_organization').select2({
+                    placeholder: 'Enter The New Organization',
+                    ajax:{
+                        url: "<?php echo base_url('hr_movement/search_new_organization'); ?>",
+                        dataType: "json",
+                        delay: 250,
+                    processResults: function(data){
+                                  var results = [];
+
+                                  $.each(data, function(index, item){
+                                      results.push({
+                                          id: item.ID,
+                                          text: item.Name,
+                                          option_value:item.ID
+                                      });
+                                  });
+                                  return{
+                                      results: results,
+                                      cache: true,
+                                  };
+                              },
+                          }
+
+                      });
 
 
           $('#new_position').on('select2:select', function (e) {
@@ -535,7 +606,8 @@
                         //$('#c-position').show();
                         console.log(data);
                        // console.log(data.NewPosition);
-                        console.log(data.NewPositionID);
+                      //  console.log(data.ID);
+                       // console.log(data.Name);
                         
                       //  $('#req_position_id').val(data.PositionID);
                         $('#new_position').val(data.Name);
@@ -543,6 +615,12 @@
                      //   $('#req_position').val(data.PositionName);
                         $('#new_org').val(data.Organization);
                         $('#new_org_id').val(data.NewOrganizationID);
+                        $('#new_cpy').val(data.CompanyName);
+                        $('#new_cpy_id').val(data.AsCompanyHead);
+                        $('#new_cc').val(data.CostCenterName);
+                        $('#new_cc_id').val(data.CostCenterID);
+                        $('#new_dp').val(data.DirectorPlacement);
+                        $('#new_dp_id').val(data.PersonnelDirector);
                         $('#hra3').val(data.ParentPersonnel);
                         $('#hra3_pos').val(data.ParentPosition);
                         
@@ -805,6 +883,49 @@
           $("#repname").hide();
           }
     });
+
+    $('#request_type').on('change',function(){
+        if( $('#request_type').val()=="1"){
+          $("#c_pos_new").show();
+          $("#c_org_new").show();
+          $("#c_com_new").show();
+          $("#c_cost_new").show();
+          $("#c_place_new").show();
+          $("#date").show();
+          $("#respon").show();
+          $("#c_pos").hide();
+          }
+          else if( $('#request_type').val()=="2"){
+            $("#c_pos_new").show();
+            $("#c_org_new").show();
+            $("#c_com_new").show();
+            $("#c_cost_new").show();
+            $("#c_place_new").show();
+            $("#date").show();
+            $("#respon").show();
+            $("#c_pos").hide();
+            }
+            else if( $('#request_type').val()=="3"){
+            $("#c_pos_new").show();
+            $("#c_org_new").show();
+            $("#c_com_new").show();
+            $("#c_cost_new").show();
+            $("#c_place_new").show();
+            $("#date").show();
+            $("#respon").show();
+            $("#c_pos").hide();
+            }
+            else{
+              $("#c_pos_new").hide();
+              $("#c_org_new").hide();
+              $("#c_com_new").hide();
+              $("#c_cost_new").hide();
+              $("#c_place_new").hide();
+              $("#date").hide();
+              $("#respon").hide();
+              $("#c_pos").show();
+            }
+    });
   
 
   $('#btn-save').click(function(e){
@@ -818,12 +939,21 @@
         var current_position = $('#current_position').val();
         var current_position_id = $('#current_position_id').val();
         var current_org_id = $('#current_org_id').val();
+        var current_cpy = $('#current_cpy').val();
+        var current_cpy_id = $('#current_cpy_id').val();
+        var current_cc = $('#current_cc').val();
+        var current_cc_id = $('#current_cc_id').val();
         var new_position = $('#new_position').val();
         var new_pos_id = $('#new_pos_id').val();
         var new_org_id = $('#new_org_id').val();
+        var new_cpy = $('#current_cpy').val();
+        var new_cpy_id = $('#current_cpy_id').val();
+        var new_cc = $('#current_cc').val();
+        var new_cc_id = $('#current_cc_id').val();
         var workdate= $('#workdate').val();
         var current_responsibilities = CKEDITOR.instances["current_responsibilities"].getData();
         var new_responsibilities = CKEDITOR.instances["new_responsibilities"].getData();
+        var noted = $('textarea#noted').val();
       //  var new_requirement = CKEDITOR.instances["new_requirement"].getData();
       //console.log("btn click"+req_position_id);
 
@@ -838,18 +968,27 @@
                'request_name':request_name, 
                'current_position':current_position,
                'current_position_id':current_position_id,
+               'current_cpy':current_cpy,
+               'current_cpy_id':current_cpy_id,
+               'current_cc':current_cc,
+               'current_cc_id':current_cc_id,
                'current_org_id':current_org_id,
                'new_position':new_position,
                'new_pos_id' : new_pos_id,
                'new_org_id':new_org_id,
+               'new_cpy':new_cpy,
+               'new_cpy_id' : new_cpy_id,
+               'new_cc':new_cc,
+               'new_cc_id' : new_cc_id,
                'workdate':workdate,
                'current_responsibilities' : current_responsibilities,
-               'new_responsibilities' : new_responsibilities
+               'new_responsibilities' : new_responsibilities,
+               'note' : noted
               // 'new_requirement' : new_requirement
                },
 
         success:function(data){
-        //  window.location.href = '<?php echo base_url('hr_movement/movement_history');?>';
+          window.location.href = '<?php echo base_url('hr_movement/movement_history');?>';
           console.log(data);
           if (data.status) {
                   alert('Save as Draft');
@@ -872,7 +1011,11 @@
         var request_type = $('#request_type').val();
         var request_name = $('#request_name').val();
         var current_position = $('#current_position').val();
+        var current_cpy = $('#current_cpy').val();
+        var current_cc = $('#current_cc').val();
         var new_position = $('#new_position').val();
+        var new_cpy = $('#current_cpy').val();
+        var new_cc = $('#current_cc').val();
         // var startdate= $('#startdate').val();
         var workdate= $('#workdate').val();
         var current_responsibilities = CKEDITOR.instances["current_responsibilities"].getData();
@@ -1074,12 +1217,21 @@
         var current_position = $('#current_position').val();
         var current_position_id = $('#current_position_id').val();
         var current_org_id = $('#current_org_id').val();
+        var current_cpy = $('#current_cpy').val();
+        var current_cpy_id = $('#current_cpy_id').val();
+        var current_cc = $('#current_cc').val();
+        var current_cc_id = $('#current_cc_id').val();
         var new_position = $('#new_position').val();
         var new_pos_id = $('#new_pos_id').val();
         var new_org_id = $('#new_org_id').val();
+        var new_cpy = $('#current_cpy').val();
+        var new_cpy_id = $('#current_cpy_id').val();
+        var new_cc = $('#current_cc').val();
+        var new_cc_id = $('#current_cc_id').val();
         var workdate= $('#workdate').val();
         var current_responsibilities = CKEDITOR.instances["current_responsibilities"].getData();
         var new_responsibilities = CKEDITOR.instances["new_responsibilities"].getData();
+        var noted = $('textarea#noted').val();
        // var new_requirement = CKEDITOR.instances["new_requirement"].getData();
 
      // var form_data = $('#myform').serialize();
@@ -1095,13 +1247,22 @@
                'request_name':request_name, 
                'current_position':current_position,
                'current_position_id':current_position_id,
+               'current_cpy':current_cpy,
+               'current_cpy_id':current_cpy_id,
+               'current_cc':current_cc,
+               'current_cc_id':current_cc_id,
                'current_org_id':current_org_id,
                'new_position':new_position,
                'new_pos_id' : new_pos_id,
                'new_org_id':new_org_id,
+               'new_cpy':new_cpy,
+               'new_cpy_id' : new_cpy_id,
+               'new_cc':new_cc,
+               'new_cc_id' : new_cc_id,
                'workdate':workdate,
                'current_responsibilities' : current_responsibilities,
-               'new_responsibilities' : new_responsibilities
+               'new_responsibilities' : new_responsibilities,
+               'note' : noted
               // 'new_requirement' : new_requirement
                },
 
@@ -1120,7 +1281,7 @@
        $('#myModal').hide();
           $('.modal-fade').hide();
           $(".modal-backdrop").remove();
-           window.location.href = '<?php echo base_url('hr_movement/movement_history');?>';
+        //   window.location.href = '<?php echo base_url('hr_movement/movement_history');?>';
     });
 
   });

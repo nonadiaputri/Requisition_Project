@@ -12,8 +12,7 @@
           <p><?= $_SESSION['name'];?> </br> <?= $_SESSION['email'];?></p>
           <p></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        </div>
-                
+        </div>  
       </div>
       <!-- button form -->
       <ul class="user-panel" data-widget="tree" style="margin:auto; padding:10% ">
