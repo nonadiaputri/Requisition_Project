@@ -326,6 +326,31 @@
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="col-md-6" id="note">
+                        <section class="invoice"> 
+                                <div class="row">
+                                    <div class="box box-primary">
+                                            <div class="box-header with-border">
+                                            <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                                            </div>
+                                            <?php $num=1; ?>
+                                            <?php foreach($note as $note){ ?>
+                                            <div class="box-body">
+                                            <strong> From : <?php echo $note['Name'];?></strong>
+                                            <h4></h4>
+                                            <?php echo $note['CreatedDate'] ?>
+                                            <p><?php echo $note['Description'];?></p>
+                                            </div>
+                                            <?php $num++; } ?>
+                                        </div>
+                                </div>
+
+                        </section>
+                    </div>
+
+
                     <!-- /.row -->
                     <!-- this row will not appear when printing -->
                     <div class="row no-print">
