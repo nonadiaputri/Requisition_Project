@@ -819,7 +819,7 @@
             }
 
             if (appstatus2 == '2') {
-                if (position_req == 'Transito Adimanjati Director') {
+                if (position_req == 'HRGA & IT Assistant Manager') {
                     $('#button-process').show();
                     $('#button-hold').show();
                     $('#button-reject').show();
@@ -852,7 +852,7 @@
                     $('#reject-by').show();
                 }
 
-                if (user_id == '19') {
+                if (user_id == '37') {
                     $('#button-save').show();
                     $('#cc_rec').show();
                     $('#cc').hide();
