@@ -795,7 +795,7 @@ class Hire_model extends CI_Model
                           on a.RequisitionID = b.RequisitionID
                           where a.status = 2
                           and b.IsProcessedToHire = 1)x)
-                          and a.LastModifiedById = 146");
+                          and a.LastModifiedById = 565656");
     return $q->result_array();
   }
 
