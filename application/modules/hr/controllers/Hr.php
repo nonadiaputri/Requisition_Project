@@ -381,7 +381,7 @@ class Hr extends CI_Controller {
     $data['latest'] = $this->Hire_model->get_latest_apv($ID);
     $data['max'] = $this->Hire_model->get_max_apv($ID);
     $data['note'] = $this->Hire_model->get_all_note($ID);
-    //var_dump($data);
+    //var_dump($data['latest']);
     $this->load->library('pdf');
     $this->pdf->setPaper('A4', 'potrait');
     $this->pdf->filename = "REQUISITION.pdf";
@@ -744,6 +744,15 @@ class Hr extends CI_Controller {
     $this->load->view('hr/v_my_reject_request',$data);
   }
 
+  function myview_completed(){
+    $requestor_id = $this->session->userdata('PersonnelIDList');
+    $data['completed'] = $this->Hire_model->my_completed($requestor_id);
+    //var_dump($data['completed']);
+    $data["header"] = $this->load->view('header/v_header','',TRUE);
+    $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+    $this->load->view('hr/v_my_completed_request',$data);
+  }
+
   function approved_req(){
     $requestor_id = $this->session->userdata('ID2');
     $data['status'] = $this->Hire_model->get_apv_req($requestor_id);
@@ -769,6 +778,10 @@ class Hr extends CI_Controller {
     $data["header"] = $this->load->view('header/v_header','',TRUE);
     $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
     $this->load->view('hr/v_rejected_req',$data);
+  }
+
+  function completed_req(){
+
   }
 
   function chart_org(){

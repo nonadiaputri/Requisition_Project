@@ -42,7 +42,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       My Approved Request
+       My Completed Request
         <small>advanced tables</small>
       </h1>
       <ol class="breadcrumb">
@@ -100,7 +100,7 @@
                 </thead>
                 <tbody>
                     <?php $num=1; ?>
-                    <?php foreach($status as $row){ ?>
+                    <?php foreach($completed as $row){ ?>
                     <tr>
                         <td width="10%"><?php echo $num; ?></td>
                         <td width="20%"><?php echo $row['FullName']; ?></td>

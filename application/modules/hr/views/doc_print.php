@@ -31,7 +31,7 @@
     		<tr>
     			<td>Requestor Position</td>
     			<td>:</td>
-    			<td><?php echo $req['req_position']; ?></td>
+    			<td><?php echo $req['requestor_pos']; ?></td>
     		</tr>
     		<tr>
     			<td>Department</td>
@@ -56,19 +56,28 @@
     			<td><?php echo $req['requested_pos']; ?></td>
     		</tr>
     		<tr>
-    			<td>Status</td>
+    			<td>Requisition Type</td>
     			<td>:</td>
-    			<td><?php echo $req['Status']; ?></td>
+    			<td><?php if($req['RequisitionTypeID']== 1){
+            echo "Additional";
+          }else{
+            echo "Replacement";
+          };?></td>
     		</tr>
+        <tr>
+          <td>Employment Type</td>
+          <td>:</td>
+          <td><?php echo $req['EmployeeType']; ?></td>
+        </tr>
     		<tr>
     			<td>Total Need</td>
     			<td>:</td>
     			<td><?php echo $req['NumberOfPlacement']; ?></td>
     		</tr>
     		<tr>
-    			<td>Placement</td>
+    			<td>Cost Center</td>
     			<td>:</td>
-    			<td><?php echo $req['Department'];; ?></td>
+    			<td><?php echo $req['Placement']; ?></td>
     		</tr>
     		<tr>
     			<td>Expected Work Start Date</td>
@@ -146,7 +155,7 @@
     	</table>
     	<br>
     	<br>
-        <?php if($req['IsProcessedToHire']=='1'){?>
+        <!-- <?php if($req['IsProcessedToHire']=='1'){?>
         <img src="./assets/images/approved.png" width="290" height="80" align="right">
         <?php } else if($req['IsHold']=='1'){ ?>
         <img src="./assets/images/HOLD.png" width="290" height="80" align="right">
@@ -157,8 +166,66 @@
         <br>
         <br>
         <br>
-        <br>
+        <br> -->
 
+        <fieldset class="checkbox">
+          <label>
+              <input type="checkbox" value="" checked="checked" class="checkbox-mngr">Requested by
+              <?php echo $latest[0][ 'PersonnelName']; ?><br>
+              <?php echo $latest[0][ 'Position']; ?>
+          </label>
+        </fieldset>
+        <fieldset class="checkbox">
+          <label>
+              <input type="checkbox" value="" checked="checked" class="checkbox-mngr"><?php if ($latest[1]['IsProcessedToHire'] == 1) {
+                echo "Approved";
+              }else if($latest[1]['IsRejected'] == 1){
+                echo "Rejected";
+              }else if ($latest[1]['IsHold'] == 1) {
+                echo "Hold";
+              } ?> by
+              <?php echo $latest[1][ 'PersonnelName']; ?><br>
+              <?php echo $latest[1][ 'Position']; ?>
+          </label>
+        </fieldset>
+        <fieldset>
+          <label>
+            <input type="checkbox" checked="checked" name="checkbox"> Edited by recruiter
+          </label>
+        </fieldset>
+        <fieldset class="checkbox">
+          <label>
+              <input type="checkbox" value="" checked="checked" class="checkbox-mngr"><?php if ($latest[2]['IsProcessedToHire'] == 1) {
+                echo "Approved";
+              }else if($latest[2]['IsRejected'] == 1){
+                echo "Rejected";
+              }else if ($latest[2]['IsHold'] == 1) {
+                echo "Hold";
+              } ?> by
+              <?php echo $latest[2][ 'PersonnelName']; ?><br>
+              <?php echo $latest[2][ 'Position']; ?>
+          </label>
+        </fieldset>
+        <fieldset class="checkbox">
+          <label>
+              <input type="checkbox" value="" checked="checked" class="checkbox-mngr"><?php if ($latest[3]['IsProcessedToHire'] == 1) {
+                echo "Approved";
+              }else if($latest[3]['IsRejected'] == 1){
+                echo "Rejected";
+              }else if ($latest[3]['IsHold'] == 1) {
+                echo "Hold";
+              } ?> by
+              <?php echo $latest[3][ 'PersonnelName']; ?><br>
+              <?php echo $latest[3][ 'Position']; ?>
+          </label>
+        </fieldset>
+        <fieldset>
+          <label>
+            <input type="checkbox" checked="checked" name="checkbox"> Request Completed
+          </label>
+        </fieldset>
+
+<!-- 
     	<table align="right">
     		<tr>
     			<td><?php if($req['IsProcessedToHire']=='1'){
@@ -170,12 +237,12 @@
                 }
                  ?></td>
     			<td>by </td>
-    			<td><?php echo $latest['PersonnelName']; ?></td>
+    			<td><?php echo $latest[0]['PersonnelName']; ?></td>
     		</tr>
             <tr>
-                <td colspan="3"><?php echo $latest['Position']; ?></td>
+                <td colspan="3"><?php echo $latest[0]['Position']; ?></td>
             </tr>
-    	</table>
+    	</table> -->
     </main>
     <footer>
       <!-- <p align="center"><?php echo date('Y-m-d');?></p> -->

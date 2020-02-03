@@ -613,6 +613,27 @@ class Hire_model extends CI_Model
      return $query->result_array();
   }
 
+  function my_completed($ID){
+    $q = "select a.*, b.Name as Department,  c.FullName, d.Name as DeptName
+           from dbo.RequisitionTable a
+           join dbo.CostCenterTable b
+           on a.PlacementID = b.ID
+           join dbo.PersonnelTable c
+           on a.RequestorID = c.ID 
+           join dbo.OrganizationTable d
+           on a.RequestorDepartmentID = d.ID
+           where RequestorID = '$ID'
+           and a.ID in (
+           select RequisitionID from 
+           (select RequisitionID, max(ApprovalStatusID ) as status from
+            (select * 
+            from dbo.RequisitionApprovalTable
+            where ApprovalStatusID=4 and IsProcessedToHire=1)X
+            group BY  RequisitionID)Y)";
+    $query = $this->db->query($q);    
+    return $query->result_array();
+  }
+
   function get_search_placement($compClue){
     $this->db->select("*");
     $this->db->like('Name', $compClue);
@@ -795,7 +816,7 @@ class Hire_model extends CI_Model
                           on a.RequisitionID = b.RequisitionID
                           where a.status = 2
                           and b.IsProcessedToHire = 1)x)
-                          and a.LastModifiedById = 565656");
+                          and a.LastModifiedById = 146");
     return $q->result_array();
   }
 
