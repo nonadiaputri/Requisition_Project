@@ -87,7 +87,7 @@
                                         <?php echo $req['request_name']; ?>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr id="cp_promote">
                                     <td width="20%">Current Position</td>
                                     <td width="10%">
                                         <?php echo $req['current_position']; ?>
@@ -98,7 +98,20 @@
                                         <?php echo $req['new_position']; ?>
                                     </td>
                                 </tr>
-                                <tr>
+
+                                <tr id="cp_assignment">
+                                    <td width="20%">Current Position</td>
+                                    <td width="10%">
+                                        <?php echo $req['current_position']; ?>
+                                    </td>
+
+                                    <td width="15%">Assignment</td>
+                                    <td width="50%">
+                                        <?php echo $req['NewAssignment']; ?>
+                                    </td>
+                                </tr>
+
+                                <tr id="co_promote">
                                     <td width="20%">Current Organization</td>
                                     <td width="10%">
                                         <?php echo $req['CurrentOrganizationName']; ?>
@@ -109,33 +122,35 @@
                                         <?php echo $req['NewOrganizationName']; ?>
                                     </td>
                                 </tr>
-                                <tr>
+                               
 
-                                <tr>
+                                <tr id="cc_promote">
                                     <td width="20%">Current Company</td>
                                     <td width="10%">
-                                        
+                                         <?php echo $req['CurrentCompanyName']; ?>
                                     </td>
 
                                     <td width="15%">New Company</td>
                                     <td width="50%">
+                                         <?php echo $req['NewCompanyName']; ?>
                                     </td>
                                 </tr>
-                                <tr>
+                               
 
-                                <tr>
+                                <tr id="ccc_promote">
                                     <td width="20%">Current Cost Center</td>
                                     <td width="10%">
-                                        
+                                        <?php echo $req['CurrentCostCenterName']; ?>
                                     </td>
 
                                     <td width="15%">New Cost Center</td>
                                     <td width="50%">
+                                        <?php echo $req['NewCostCenterName']; ?>
                                     </td>
                                 </tr>
-                                <tr>
+                                
 
-                                <tr>
+                                <tr id="cdp_promote">
                                     <td width="20%">Current Director Placement</td>
                                     <td width="10%">
                                         
@@ -145,7 +160,8 @@
                                     <td width="50%">
                                     </td>
                                 </tr>
-                                <tr>
+
+                                <tr id="cr_promote">
 
                                     <td>Current Responsibility</td>
                                     <td>
@@ -159,6 +175,10 @@
                                 </tr>
                                 
                                 <tr>
+                                    <td>Started Work Date</td>
+                                        <td>
+                                            
+                                        </td>
                                     <td>Expected Work Date</td>
                                     <td>
                                         <?php echo $req['ExpectedWorkStartDate']; ?>
@@ -525,6 +545,44 @@
             var app_process2 = "<?php echo $latest['IsProcessed']; ?>";
             var app_hold2 = "<?php echo $latest['IsHold']; ?>";
             var app_reject2 = "<?php echo $latest['IsRejected'] ; ?>";
+            var move_type = "<?php echo $latest['MovementRequestType'] ; ?>";
+
+            if (move_type == "1") {
+                $('#cp_promote').show();
+                $('#cp_assignment').hide();
+                $('#co_promote').show();
+                $('#cc_promote').show();
+                $('#ccc_promote').show();
+                $('#cdp_promote').show();
+                $('#cr_promote').show();
+            }
+            if (move_type == '2') {
+                $('#cp_promote').show();
+                $('#cp_assignment').hide();
+                $('#co_promote').show();
+                $('#cc_promote').show();
+                $('#ccc_promote').show();
+                $('#cdp_promote').show();
+                $('#cr_promote').show();
+            }
+            if (move_type == '3') {
+                $('#cp_promote').show();
+                $('#cp_assignment').hide();
+                $('#co_promote').show();
+                $('#cc_promote').show();
+                $('#ccc_promote').show();
+                $('#cdp_promote').show();
+                $('#cr_promote').show();
+            }
+            if (move_type == '4') {
+                $('#cp_promote').hide();
+                $('#cp_assignment').show();
+                $('#co_promote').hide();
+                $('#cc_promote').hide();
+                $('#ccc_promote').hide();
+                $('#cdp_promote').hide();
+                $('#cr_promote').hide();
+            }
     
             if (appstatus2 == "3") {
                 $('#button-process').hide();
@@ -611,6 +669,9 @@
                 $('.checkbox-hr').attr("disabled", true);
               }
             }
+
+            
+            
     
     
             $('#btn-process').click(function(){

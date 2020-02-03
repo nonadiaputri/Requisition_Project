@@ -164,7 +164,7 @@
                                       <option value=""></option>
                                   </select>
                                   <!-- <input type="text" name="new_org" id="new_org" required="required" class="form-control" style="width:500px" readonly> -->
-                                  <input type="hidden" name="new_org_id" id="new_org_id" required="required" class="form-control">
+                                  <input type="text" name="new_org_id" id="new_org_id" required="required" class="form-control">
                                   <span id="error_new_org" class="text-danger"></span>
                               </div>
                           </div>
@@ -177,7 +177,7 @@
                                   <label class="control-label col-form-label">Current Position</label>
                                   
                                   <input type="text" name="current_position" id="current_position" required="required" class="form-control" readonly>
-                                  <input type="text" name="current_position_id" id="current_position_id" required="required" class="form-control">
+                                  <input type="hidden" name="current_position_id" id="current_position_id" required="required" class="form-control">
                                   <!-- <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control"> -->
                                   <span id="error_current_position" class="text-danger"></span>
                               </div>
@@ -188,7 +188,7 @@
                                   <select class="new_position form-control" name="new_position" id="new_position" style="width:500px"  required="required">
                                       <option value=""></option>
                                   </select>
-                                  <input type="hidden" name="new_pos_id" id="new_pos_id" required="required" class="form-control">
+                                  <input type="text" name="new_pos_id" id="new_pos_id" required="required" class="form-control">
                                   <span id="error_new_position" class="text-danger"></span>
                               </div>
                           </div>
@@ -208,7 +208,7 @@
                               <div class="col-sm-6">
                                   <label class="control-label col-form-label">Assignment</label>
                                   <span style="color: red;">*</span></label>
-                                  <textarea class="form-control" id="noted" name="assignment" rows="1" cols="120"></textarea>
+                                  <textarea class="form-control" id="assignment" name="assignment" rows="1" cols="120"></textarea>
                                   <!-- <span id="error_assignment" class="text-danger"></span> -->
                               </div>
                           </div>
@@ -254,13 +254,13 @@
                             <div class="col-sm-6">
                                 <label class="control-label col-form-label">Current Director Placement</label>
                                 <input type="text" name="current_dp" id="current_dp" required="required" class="form-control" readonly>
-                                <input type="text" name="current_dp_id" id="current_dp_id" required="required" class="form-control">
+                                <input type="hidden" name="current_dp_id" id="current_dp_id" required="required" class="form-control">
                                 <span id="error_current_dp" class="text-danger"></span>
                             </div>
                             <div class="col-sm-6">
                                 <label class="control-label col-form-label">New Director Placement</label>
                                 <input type="text" name="new_dp" id="new_dp" required="required" class="form-control" style="width:500px"readonly>
-                                <input type="text" name="new_dp_id" id="new_dp_id" required="required" class="form-control">
+                                <input type="hidden" name="new_dp_id" id="new_dp_id" required="required" class="form-control">
                                 <span id="error_new_dp" class="text-danger"></span>
                             </div>
                           </div>
@@ -566,7 +566,7 @@
               $('.new_organization').select2({
                     placeholder: 'Enter The New Organization',
                     ajax:{
-                        url: "<?php echo base_url('hr_movement/search_new_organization'); ?>",
+                        url: "<?php echo base_url('hr_movement/search_organization'); ?>",
                         dataType: "json",
                         delay: 250,
                     processResults: function(data){
@@ -611,7 +611,7 @@
                         
                       //  $('#req_position_id').val(data.PositionID);
                         $('#new_position').val(data.Name);
-                        $('#new_pos_id').val(data.NewPositionID);
+                        $('#new_pos_id').val(data.ID);
                      //   $('#req_position').val(data.PositionName);
                         $('#new_org').val(data.Organization);
                         $('#new_org_id').val(data.NewOrganizationID);
@@ -921,7 +921,7 @@
               $("#c_com_new").hide();
               $("#c_cost_new").hide();
               $("#c_place_new").hide();
-              $("#date").hide();
+              $("#date").show();
               $("#respon").hide();
               $("#c_pos").show();
             }
@@ -946,13 +946,14 @@
         var new_position = $('#new_position').val();
         var new_pos_id = $('#new_pos_id').val();
         var new_org_id = $('#new_org_id').val();
-        var new_cpy = $('#current_cpy').val();
-        var new_cpy_id = $('#current_cpy_id').val();
-        var new_cc = $('#current_cc').val();
-        var new_cc_id = $('#current_cc_id').val();
+        var new_cpy = $('#new_cpy').val();
+        var new_cpy_id = $('#new_cpy_id').val();
+        var new_cc = $('#new_cc').val();
+        var new_cc_id = $('#new_cc_id').val();
         var workdate= $('#workdate').val();
         var current_responsibilities = CKEDITOR.instances["current_responsibilities"].getData();
         var new_responsibilities = CKEDITOR.instances["new_responsibilities"].getData();
+        var assignment= $('#assignment').val();
         var noted = $('textarea#noted').val();
       //  var new_requirement = CKEDITOR.instances["new_requirement"].getData();
       //console.log("btn click"+req_position_id);
@@ -981,6 +982,7 @@
                'new_cc':new_cc,
                'new_cc_id' : new_cc_id,
                'workdate':workdate,
+               'assignment':assignment,
                'current_responsibilities' : current_responsibilities,
                'new_responsibilities' : new_responsibilities,
                'note' : noted
@@ -1014,16 +1016,14 @@
         var current_cpy = $('#current_cpy').val();
         var current_cc = $('#current_cc').val();
         var new_position = $('#new_position').val();
-        var new_cpy = $('#current_cpy').val();
-        var new_cc = $('#current_cc').val();
+        var new_cpy = $('#new_cpy').val();
+        var new_cc = $('#new_cc').val();
         // var startdate= $('#startdate').val();
         var workdate= $('#workdate').val();
+        var assignment= $('#assignment').val();
         var current_responsibilities = CKEDITOR.instances["current_responsibilities"].getData();
         var new_responsibilities = CKEDITOR.instances["new_responsibilities"].getData();
-      //  var new_requirement = CKEDITOR.instances["new_requirement"].getData();
-        // var responsibility = $('#responsibility').val();
-        // var requirement = $('#requirement').val();
-        // var ttl = $('#ttl').val();
+
 
         var error_requestor = '';
         var error_req_org = '';
@@ -1032,14 +1032,8 @@
         var error_request_type = '';
         var error_request = '';
         var error_current_position = '';
-        var error_new_position = '';
         // var error_startdate = '';
         var error_workdate = '';
-        var error_current_responsibilities = '';
-        var error_new_responsibilities = '';
-      //  var error_new_requirement = '';
-        
-        // var error_ttl = '';
 
         if(requestor_id == ''){
          error_requestor = 'Requestor is required';
@@ -1120,19 +1114,6 @@
          current_position = $('#current_position').val();
         }
 
-        if(new_position == ''){
-          error_new_position = 'New Position is required';
-         $('#error_new_position').text(error_new_position);
-         $('#new_position').css('border-color', '#cc0000');
-         new_position = '';
-        }else{
-          error_new_position = '';
-         console.log($('#new_position').val());
-         $('#error_new_position').text(error_new_position);
-         $('#new_position').css('border-color', '');
-         new_position = $('#new_position').val();
-        }
-
         // if(startdate == ''){
         //  error_startdate = 'Startdate is required';
         //  $('#error_startdate').text(error_startdate);
@@ -1159,46 +1140,8 @@
          workdate = $('#workdate').val();
         }
 
-        if(current_responsibilities == ''){
-         error_current_responsibilities = 'Current Responsibilities is required';
-         $('#error_current_responsibilities').text(error_current_responsibilities);
-         $('#current_responsibilities').css('border-color', '#cc0000');
-         current_responsibilities = '';
-        }else{
-         error_current_responsibilities = '';
-         console.log($('#current_responsibilities').val());
-         $('#error_current_responsibilities').text(error_current_responsibilities);
-         $('#current_responsibilities').css('border-color', '');
-         current_responsibilities = $('#current_responsibilities').val();
-        }
 
-        if(new_responsibilities == ''){
-         error_new_responsibilities = 'New Responsibilities is required';
-         $('#error_new_responsibilities').text(error_new_responsibilities);
-         $('#new_responsibilities').css('border-color', '#cc0000');
-         new_responsibilities = '';
-        }else{
-         error_new_responsibilities = '';
-         console.log($('#new_responsibilities').val());
-         $('#error_new_responsibilities').text(error_new_responsibilities);
-         $('#new_responsibilities').css('border-color', '');
-         new_responsibilities = $('#new_responsibilities').val();
-        }
-
-        // if(new_requirement == ''){
-        //  error_new_requirement = 'New requirement is required';
-        //  $('#error_new_requirement').text(error_new_requirement);
-        //  $('#new_requirement').css('border-color', '#cc0000');
-        //  new_requirement = '';
-        // }else{
-        //  error_new_requirement = '';
-        //  console.log($('#new_requirement').val());
-        //  $('#error_new_requirement').text(error_new_requirement);
-        //  $('#new_requirement').css('border-color', '');
-        //  new_requirement = $('#new_requirement').val();
-        // }
-
-        if (error_requestor == '' && error_req_position == '' && error_req_org == '' && error_request == '' && error_current_position == '' && error_new_position == '' && error_workdate == '' && error_current_responsibilities == '' && error_new_responsibilities == '' ) {
+        if (error_requestor == '' && error_req_position == '' && error_req_org == '' && error_request == '' && error_current_position == '' && error_workdate == '' ) {
           $('#myModal').modal('show'); 
         }
           
@@ -1224,14 +1167,16 @@
         var new_position = $('#new_position').val();
         var new_pos_id = $('#new_pos_id').val();
         var new_org_id = $('#new_org_id').val();
-        var new_cpy = $('#current_cpy').val();
-        var new_cpy_id = $('#current_cpy_id').val();
-        var new_cc = $('#current_cc').val();
-        var new_cc_id = $('#current_cc_id').val();
+        var new_cpy = $('#new_cpy').val();
+        var new_cpy_id = $('#new_cpy_id').val();
+        var new_cc = $('#new_cc').val();
+        var new_cc_id = $('#new_cc_id').val();
         var workdate= $('#workdate').val();
+        var assignment= $('#assignment').val();
         var current_responsibilities = CKEDITOR.instances["current_responsibilities"].getData();
         var new_responsibilities = CKEDITOR.instances["new_responsibilities"].getData();
         var noted = $('textarea#noted').val();
+        console.log(noted);
        // var new_requirement = CKEDITOR.instances["new_requirement"].getData();
 
      // var form_data = $('#myform').serialize();
@@ -1260,6 +1205,7 @@
                'new_cc':new_cc,
                'new_cc_id' : new_cc_id,
                'workdate':workdate,
+               'assignment':assignment,
                'current_responsibilities' : current_responsibilities,
                'new_responsibilities' : new_responsibilities,
                'note' : noted
@@ -1281,7 +1227,7 @@
        $('#myModal').hide();
           $('.modal-fade').hide();
           $(".modal-backdrop").remove();
-        //   window.location.href = '<?php echo base_url('hr_movement/movement_history');?>';
+          window.location.href = '<?php echo base_url('hr_movement/movement_history');?>';
     });
 
   });
