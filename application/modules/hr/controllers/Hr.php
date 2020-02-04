@@ -39,9 +39,11 @@ class Hr extends CI_Controller {
 
   public function check(){
     $nik = $this->session->userdata('nik');
+    $email = $this->session->userdata('email');
     
 
     $check = $this->Hire_model->check_personnel($nik);
+    $checkemail = $this->Hire_model->check_personnel_email($email);
     $sess = $this->Hire_model->make_session($nik);
     //var_dump($sess);
     $object = json_decode(json_encode($sess));
@@ -68,7 +70,7 @@ class Hr extends CI_Controller {
     
     $per_id = $check[0]['ID'];
     //print_r($object);
-    if ($check == 0 || $sess == '') {
+    if ($check == 0 || $sess == '' || $checkemail == 0) {
       return false;
     }else{
       $check2 = $this->Hire_model->auto_register($nik);

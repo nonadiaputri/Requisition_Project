@@ -27,6 +27,25 @@ class Hire_model extends CI_Model
      }
   }
 
+  public function check_personnel_email($email){
+    $this->db->where('Email',$email);
+    $q = $this->db->get('dbo.PersonnelTable');
+
+    if ( $q->num_rows() == 0 ) {
+      return 0;
+        //$this->db->insert('dbo.PersonnelTable',$data1);
+        // $last_id = $this->db->insert_id();
+        // return $last_id;
+     }else {
+        $this->db->select('Email');
+        $this->db->where('Email', $email);
+        $id = $this->db->from('dbo.PersonnelTable')->get();
+        return $id->result_array();
+       // $this->db->where('PersonnelNumber',$nik);
+       // $this->db->update('dbo.UserTable',$data1);      
+     }
+  }
+
    public function auto_register($nik){
      $this->db->where('PersonnelNumber',$nik);
      $q = $this->db->get('dbo.UserTable');
@@ -82,6 +101,7 @@ class Hire_model extends CI_Model
     $q = $this->db->get('dbo.PersonnelHierarchy2');
     return $q->row_array();
   }
+
 
   public function auto_regist_position($last_id, $position){
     $this->db->where('UserID',$last_id);

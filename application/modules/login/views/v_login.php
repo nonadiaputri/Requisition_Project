@@ -39,8 +39,8 @@
     <p class="login-box-msg">Log in to KGMedia Portal</p>
 	
     <form action="<?= base_url(); ?>login/do" method="post">
-      <div class="form-group has-feedback">
-        <input type="text" name="uid" class="form-control" placeholder="NIK">
+      <div class="form-group has-feedback" >
+        <input type="text" name="uid" class="form-control" placeholder="NIK" style="border-radius:5%">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
@@ -59,11 +59,15 @@
         </div>
         <!-- /.col -->
         <div class="col-xs-12" style="margin:auto;">
-          <button type="submit" class="btn btn-primary btn-block" style="border-radius:20px;">Log In</button>
+          <button type="submit" class="btn btn-primary btn-block" >Log In</button>
+        </div>
+      
+        <!-- <div class="col-xs-12" style="margin:auto;">
+          <a href="<?= base_url(); ?>login/register">Don't have an account?</a>
         </div>
         <div class="col-xs-12" style="margin:auto;">
-          <a href="<?= base_url(); ?>login/register">Don't have an account? Click here.</a>
-        </div>
+          <a href="<?= base_url(); ?>login/forgotPasswordkics">Forgot Password?</a>
+        </div> -->
         
         <!-- /.col -->
       </div>
@@ -73,18 +77,22 @@
 
     <div class="social-auth-links text-center">
       <p>- OR -</p>
-      <a href="<?= base_url(); ?>login/loginad" class="btn btn-block btn-social btn-twitter btn-flat"> Login Using AD</a>
-      <a href="<?= base_url(); ?>login/log_with_google" class="btn btn-block btn-social btn-google btn-flat"> Log in using
-        Google+</a>
+      <div class="col-xs-6">
+      <a href="<?= base_url(); ?>login/loginad" class="btn btn-primary btn-block btn-twitter"> Using AD</a>
+      </div>
+      <div class="col-xs-6">
+      <a href="<?= base_url(); ?>login/log_with_google" class="btn btn-primary btn-block btn-google"> Google+</a>
+      </div>
     </div>
     <!-- /.social-auth-links -->
-<!-- 
-    <a href="<?= base_url(); ?>login/forgot">Not Remember</a><br>
-    <a href="<?= base_url(); ?>register" class="text-center">Register a New Employee</a>
+    </br>
+    </br>
+    <a href="<?= base_url(); ?>login/forgot">Forgot Password</a><br>
+    <a href="<?= base_url(); ?>login/register" class="text-center">Register new account</a>
 
-  </div> -->
+  </div>
   <!-- /.login-box-body -->
-<!-- </div> -->
+</div>
 <!-- /.login-box -->
 
 <!-- jQuery 3 -->

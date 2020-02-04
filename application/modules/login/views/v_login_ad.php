@@ -61,9 +61,13 @@
         <div class="col-xs-12" style="margin:auto;">
           <button type="submit" class="btn btn-primary btn-block" style="border-radius:20px;">Log In</button>
         </div>
+        <!-- </br>
         <div class="col-xs-12" style="margin:auto;">
           <a href="<?= base_url(); ?>login/register">Don't have an account? Click here.</a>
         </div>
+        <div class="col-xs-12" style="margin:auto;">
+          <a href="<?= base_url(); ?>login/forgotPasswordAd">Forgot Password</a>
+        </div> -->
         
         <!-- /.col -->
       </div>
@@ -73,18 +77,21 @@
 
     <div class="social-auth-links text-center">
       <p>- OR -</p>
-      <a href="<?= base_url(); ?>login/index" class="btn btn-block btn-social btn-twitter btn-flat"> Login Using NIK</a>
-      <!-- <a href="#" class="btn btn-block btn-social btn-google btn-flat"> Log in using
-        Gmail</a> -->
+      <div class="col-xs-6">
+      <a href="<?= base_url(); ?>login/index" class="btn btn-primary btn-block btn-twitter"> Using NIK</a>
+      </div>
+      <div class="col-xs-6">
+      <a href="<?= base_url(); ?>login/log_with_google" class="btn btn-primary btn-block btn-google"> Google+</a>
+      </div>
     </div>
     <!-- /.social-auth-links -->
-<!-- 
-    <a href="<?= base_url(); ?>login/forgot">Not Remember</a><br>
-    <a href="<?= base_url(); ?>register" class="text-center">Register a New Employee</a>
+    </br>
+    </br>
+    <a href="<?= base_url(); ?>login/forgotAD">Forgot AD Pasword</a><br>
 
-  </div> -->
+  </div>
   <!-- /.login-box-body -->
-<!-- </div> -->
+</div>
 <!-- /.login-box -->
 
 <!-- jQuery 3 -->
