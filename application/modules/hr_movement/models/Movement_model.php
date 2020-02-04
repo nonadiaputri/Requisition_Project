@@ -121,7 +121,8 @@ class Movement_model extends CI_Model
          j.Name as CurrentOrganizationName,
          f.FullName as request_name, h.Name as MovementType,
          k.name as CurrentCompanyName, l.Name as CurrentCostCenterName,
-         m.Name as NewCompanyName, n.Name as NewCostCenterName from MovementRequestTable a 
+         m.Name as NewCompanyName, n.Name as NewCostCenterName,
+         o.Description as note from MovementRequestTable a 
          left join PositionTable b on a.CurrentPositionID = b.ID 
          left join PositionTable e on e.id = a.NewPositionID
          left join PositionTable g on g.id = a.RequestorPositionID
@@ -135,6 +136,7 @@ class Movement_model extends CI_Model
          left join CostCenterTable l on l.ID = b.CostCenterID
          left join CompanyTable m on m.ID = a.NewCompanyID
          left join CostCenterTable n on n.ID = a.NewCostCenterID
+         left join MovementCommentTable o on o.MovementRequestID = a.ID
          where a.ID ='.$ID);
          return $query->row_array();
          
@@ -727,10 +729,11 @@ class Movement_model extends CI_Model
       }
 
       function get_latest_apv($ID){
-        $this->db->select('a.*, b.FullName as PersonnelName, c.Name as Position');
+        $this->db->select('a.*, b.FullName as PersonnelName, c.Name as Position, d.MovementRequestTypeID');
         $this->db->from('dbo.MovementRequestApprovalTable a');
         $this->db->join('dbo.PersonnelTable b', 'a.EmployeeID = b.ID');
         $this->db->join('dbo.PositionTable c', 'a.PositionID = c.ID');
+        $this->db->join('dbo.MovementRequestTable d', 'a.MovementRequestID = d.ID');
         $this->db->where('a.MovementRequestID',$ID);
         $this->db->order_by("ApprovalStatusID", "DESC");
         $this->db->limit(1);
