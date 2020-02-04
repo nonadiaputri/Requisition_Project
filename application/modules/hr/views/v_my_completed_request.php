@@ -106,18 +106,7 @@
                         <td width="20%"><?php echo $row['FullName']; ?></td>
                         <td width="20%"><?php echo $row['DeptName']; ?></td>
                         <td width="20%"><?php echo $row['CreatedDate']; ?></td>
-                        <td><?php
-                        if ($row['IsProcessedToHire']=='' && $row['IsHold']=='' && $row['IsRejected']=='' ) {
-                            echo "Waiting for approval";
-                         }else if($row['IsProcessedToHire']=='1' && $row['IsHold']=='' && $row['IsRejected']==''){
-                            echo "Approved";
-                         }else if ($row['IsProcessedToHire']=='' && $row['IsHold']=='1' && $row['IsRejected']=='') {
-                            echo "Hold";
-                         }else if ($row['IsProcessedToHire']=='' && $row['IsHold']=='' && $row['IsRejected']=='1') {
-                            echo "Rejected";
-                        }
-                          
-                         ?></td>
+                        <td>Completed</td>
                         <td width="20%" align="center">
                              <?php
                               if ($row['IsProcessedToHire'] == 2) { ?>

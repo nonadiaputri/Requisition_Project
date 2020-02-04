@@ -42,7 +42,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       Approved Request
+       Completed Request
         <small>advanced tables</small>
       </h1>
       <ol class="breadcrumb">
@@ -100,13 +100,13 @@
                 </thead>
                 <tbody>
                     <?php $num=1; ?>
-                    <?php foreach($status as $row){ ?>
+                    <?php foreach($completed as $row){ ?>
                     <tr>
                         <td width="10%"><?php echo $num; ?></td>
                         <td width="20%"><?php echo $row['requestor']; ?></td>
                         <td width="20%"><?php echo $row['DeptName']; ?></td>
                         <td width="20%"><?php echo $row['CreatedDate']; ?></td>
-                        <td>Approved</td>
+                        <td>Completed</td>
                         <td width="20%" align="center">
                             <a href ="<?php echo base_url('hr/View/'.$row['RequisitionID']); ?>" class="btn waves-effect waves-light btn-info" role="button" aria-pressed="true">View</a>
                         </td>

@@ -755,6 +755,7 @@ class Hr extends CI_Controller {
 
   function approved_req(){
     $requestor_id = $this->session->userdata('ID2');
+    //var_dump($requestor_id);
     $data['status'] = $this->Hire_model->get_apv_req($requestor_id);
     //var_dump($data['need_app']);
     $data["header"] = $this->load->view('header/v_header','',TRUE);
@@ -781,7 +782,12 @@ class Hr extends CI_Controller {
   }
 
   function completed_req(){
-
+    $requestor_id = $this->session->userdata('ID2');
+    $data['completed'] = $this->Hire_model->get_completed_req($requestor_id);
+    //var_dump($data['need_app']);
+    $data["header"] = $this->load->view('header/v_header','',TRUE);
+    $data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+    $this->load->view('hr/v_completed_req',$data);
   }
 
   function chart_org(){
