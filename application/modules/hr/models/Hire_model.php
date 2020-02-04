@@ -559,14 +559,15 @@ class Hire_model extends CI_Model
            on a.RequestorID = c.ID 
            join dbo.OrganizationTable d
            on a.RequestorDepartmentID = d.ID
-           where RequestorID = $ID
+           where RequestorID = '$ID'
            and a.ID in (
            select RequisitionID from 
            (select RequisitionID, max(ApprovalStatusID ) as status from
             (select * 
             from dbo.RequisitionApprovalTable
             where IsProcessedToHire=1)X
-            group BY  RequisitionID)Y)";
+            group BY  RequisitionID)Y 
+            where status < 4)";
      $query = $this->db->query($q);    
      return $query->result_array();
   }

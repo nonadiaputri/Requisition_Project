@@ -65,6 +65,7 @@
           <li><a class="dropdown-item" href="<?php echo base_url('hr/myview_approve'); ?>">Approved</a></li>
           <li><a class="dropdown-item" href="<?php echo base_url('hr/myview_hold'); ?>">Hold<sup style="color:red; font-weight: bold"> <!-- <?php echo $myjml; ?> --> </sup></a></li>
           <li><a class="dropdown-item" href="<?php echo base_url('hr/myview_reject'); ?>">Rejected</a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('hr/myview_completed'); ?>">Completed</a></li>
         </ul>
       </div>
       <div class="btn-group">
@@ -77,6 +78,7 @@
           <li><a class="dropdown-item" href="<?php echo base_url('hr/approved_req'); ?>">Approved</a></li>
           <li><a class="dropdown-item" href="<?php echo base_url('hr/hold_req'); ?>">Hold<sup style="color:red; font-weight: bold"> <!-- <?php echo $myjml; ?> --> </sup></a></li>
           <li><a class="dropdown-item" href="<?php echo base_url('hr/rejected_req'); ?>">Rejected</a></li>
+          <li><a class="dropdown-item" href="<?php echo base_url('hr/completed_req'); ?>">Completed</a></li>
         </ul>
       </div>
             

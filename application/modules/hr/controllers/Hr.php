@@ -733,7 +733,7 @@ class Hr extends CI_Controller {
   }
 
   function myview_reject(){
-    $requestor_id = $this->session->userdata('PersonnelIDList');
+    $requestor_id = $this->session->userdata('ID2');
     // $data['hold'] = $this->Hire3_model->hold($requestor_id);
     // $data['jml'] = count($data['hold']);
     $data['myreject'] = $this->Hire_model->my_reject($requestor_id);
@@ -745,7 +745,7 @@ class Hr extends CI_Controller {
   }
 
   function myview_completed(){
-    $requestor_id = $this->session->userdata('PersonnelIDList');
+    $requestor_id = $this->session->userdata('ID2');
     $data['completed'] = $this->Hire_model->my_completed($requestor_id);
     //var_dump($data['completed']);
     $data["header"] = $this->load->view('header/v_header','',TRUE);
