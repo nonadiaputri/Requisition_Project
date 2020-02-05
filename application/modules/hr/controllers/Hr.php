@@ -807,6 +807,9 @@ class Hr extends CI_Controller {
     $company = $this->input->post('company');
     $total = $this->input->post('total');
     $emp_type = $this->input->post('emp_type');
+    $req_type = $this->input->post('req_type');
+    $rep_name = $this->input->post('rep_name');
+    $final_workdate = $this->input->post('workdate');
     $modif = $this->session->userdata('ID');
     var_dump($ID);
 
@@ -814,7 +817,10 @@ class Hr extends CI_Controller {
                   'LastModifiedByID'=>$modif,
                   'RequestedCompanyID' => $company,
                   'NumberOfPlacement' => $total,
-                  'EmploymentTypeID' => $emp_type);
+                  'EmploymentTypeID' => $emp_type,
+                  'RequisitionTypeID' => $req_type,
+                  'ReplacementPersonnelID' => $rep_name,
+                  'AgreedExpectedWorkdate' => $final_workdate);
     var_dump($data);
 
     $res =$this->Hire_model->update_cost_center($data, $ID);
