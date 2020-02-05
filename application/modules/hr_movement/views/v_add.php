@@ -138,7 +138,7 @@
   </section>
 </div>
 
-<!-- <div class="modal fade" role="dialog" id="myModal">
+<div class="modal fade" role="dialog" id="myModal">
   	<div class="modal-dialog">
     	<div class="modal-content">
       		<div class="modal-header">
@@ -153,7 +153,7 @@
   	</div>
 		</div>
 	</div>
-</div> -->
+</div>
       <!-- /.box -->
 
     </section>
@@ -411,13 +411,13 @@
       var personnel_id = $('#personnel_id').val();
 
       $.ajax({
-        url:"<?php echo base_url('hr/save_data_personnel');?>",
+        url:"<?php echo base_url('hr_movement/save_data_personnel');?>",
         method:"POST",
         data:{ 'user_id' : user_id,
                'personnel_id':personnel_id
                },
         success:function(data){
-         // window.location.href = '<?php echo base_url('hr/Hire_history');?>';
+         // window.location.href = '<?php echo base_url('hr_movement/movement_history');?>';
           console.log(data);
           if (data.status) {
                   alert('Save as Draft');
