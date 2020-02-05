@@ -71,14 +71,14 @@
             </ul>
           </li>
           <!-- Tasks: style can be found in dropdown.less -->
-          <!-- <li class="dropdown tasks-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">9</span>
+          <li class="dropdown tasks-menu">
+            <a href="<?= base_url(); ?>dashboard/change_password" >
+              
+              Change Password
             </a>
-            <ul class="dropdown-menu">
+            <!-- <ul class="dropdown-menu">
               <li class="header">You have 9 tasks</li>
-              <li> -->
+            </ul> -->
                 <!-- inner menu: contains the actual data -->
                 <!-- <ul class="menu"> -->
                   <!-- <li>Task item -->
