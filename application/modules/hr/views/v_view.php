@@ -77,7 +77,7 @@
                 </div>
                 <!-- info row -->
                 <div class="row invoice-info">
-                    
+                    <div class="col-xs-12">
                     <strong>Requestor</strong><br>
                     <?php echo $req['Requestor']; ?><br>
                     <?php echo $req['requestor_pos']; ?><br>
@@ -155,6 +155,10 @@
                                             <?php echo $req[ 'Requisition_status']; ?>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>Requisition Type</td>
+                                        <td></td>
+                                    </tr>
                                     <tr id="emp">
                                         <td>Employment Type</td>
                                         <td>
@@ -204,6 +208,7 @@
                             </table>
                         </div>
                     </div>
+                </div>
                 </div>
             </section>
 
@@ -496,7 +501,7 @@
                                         <label>Add Note</label>
                                     </div>
                                     <div class="col-md-9">
-                                        <textarea class="form-control" rows="3" id="noted" name="notednotedplaceholder="Enter note..."></textarea>
+                                        <textarea class="form-control" rows="3" id="noted" name="noted" placeholder="Enter note..."></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -529,11 +534,20 @@
                             <form class="form-horizontal hold" method="POST" action="<?php echo base_url('hr/hold/'.$req['ID']);?>">
                                 <div class="form-group row">
                                     <div class="col-md-3">
-                                        <label>Hold Until</label>
+                                        <label>Hold Until</label><span style="color: red;">*</span>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="date" name="hold" id="hold" class="form-control" min="2018-01-01" max="2030-12-31"> <span id="error_hold" class="text-danger"></span>
                                         <input type="hidden" name="ApprovalStatusID" id="ApprovalStatusID" class="form-control" value="<?php echo $info['ApprovalStatusID']; ?>">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-3">
+                                        <label>Hold Reason</label><span style="color: red;">*</span>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <!-- <textarea class="form-control" rows="3" id="hold-reason" name="notednoted" placeholder="Enter hold reason..."></textarea> -->
+                                        <input type="text" name="reason_hold" id="reason_hold" class="form-control"> <span id="error_reason_hold" class="text-danger"></span>
                                     </div>
                                 </div>
                             </form>
@@ -557,10 +571,11 @@
                             <form class="form-horizontal reject" method="POST" action="<?php echo base_url('hr/reject/'.$req['ID']);?>">
                                 <div class="form-group row">
                                     <div class="col-md-3">
-                                        <label>Reason</label>
+                                        <label>Reason</label><span style="color: red;">*</span>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="text" name="reason_reject" id="reason_reject" class="form-control"> <span id="error_reject" class="text-danger"></span>
+                                        <!-- <textarea class="form-control" rows="3" id="reason_reject" name="reason_reject" required placeholder="Enter reject reason..."></textarea> <span id="error_reject" class="text-danger"></span> -->
                                         <input type="hidden" name="ApprovalStatusID" id="ApprovalStatusID" class="form-control" value="<?php echo $info['ApprovalStatusID']; ?>">
                                     </div>
                                 </div>
@@ -1091,9 +1106,11 @@
     
             $('#btn-hold').click(function(){
                 var hold = $("#hold #hold").val().trim();
+                var reason_hold = $('#hold #reason_hold').val().trim();
                 var apv = $('#hold #ApprovalStatusID').val().trim();
                 var error_hold = '';
-                console.log(hold);
+                var error_reason_hold = '';
+                //console.log(reason_hold);
     
                 if(hold == ''){
                  error_hold = 'Hold End Date is required';
@@ -1107,9 +1124,25 @@
                  $("#hold #hold").css('border-color', '');
                  hold = $("#hold #hold").val().trim();
                 } 
-                if (error_hold == ''){
+
+                if (reason_hold == '') {
+                    error_hold = 'Hold Reason is required';
+                    $("#hold #error_reason_hold").text(error_hold);
+                    $("#hold #reason_hold").css('border-color', '#cc0000');
+                    hold = '';
+                }else{
+                    error_reason_hold = '';
+                    //console.log($('#reason_hold').val());
+                    $("#hold #error_reason_hold").text(error_hold);
+                    $("#hold #reason_hold").css('border-color', '');
+                    hold = $("#hold #reason_hold").val().trim();
+
+                }
+
+                if (error_hold == '' && error_reason_hold == ''){
                 var status = '1';
                 var form_data = $('.hold').serialize();
+                console.log(form_data);
                 $.ajax({
                 method: 'POST',
                 url: '<?php echo base_url('hr/hold/');?>'+id_req,
@@ -1132,23 +1165,23 @@
             $('#btn-reject').click(function(){
                 var reject = $('.modal-body input[name=reason_reject]').val();
                 var error_reject = '';
-                console.log(reject);
     
                 if(reject == ''){
                  error_reject = 'Reject Reason is required';
                  $("#reject #error_reject").text(error_reject);
-                 $("#reject #reject_reason").css('border-color', '#cc0000');
+                 $("#reject #reason_reject").css('border-color', '#cc0000');
                  reject = '';
                 }else{
                  error_reject = '';
                  console.log($('#reject').val());
                  $("#reject #error_reject").text(error_reject);
-                 $("#reject #reject_reason").css('border-color', '');
+                 $("#reject #reason_reject").css('border-color', '');
                  reject = $('.modal-body input[name=reason_reject]').val();
                 } 
                 if (error_reject == ''){
                 var status = '1';
                 var form_data = $('.reject').serialize();
+                console.log(form_data);
                 $.ajax({
                 method: 'POST',
                 url: '<?php echo base_url('hr/reject/');?>'+id_req,

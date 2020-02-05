@@ -584,6 +584,7 @@ class Hr extends CI_Controller {
   public function hold($ID){
     $hold = $this->input->post('hold');
     $apv_id = $this->input->post('ApprovalStatusID');
+    $hold_reason = $this->input->post('reason_hold');
     $where = array('ID' => $ID);
     $where1 = array('RequisitionID' => $ID);
     $status = '1';
@@ -593,7 +594,8 @@ class Hr extends CI_Controller {
 
     $data = array(
       'HoldEndDate' => $hold,
-      'IsHold' => $status
+      'IsHold' => $status,
+      'Reason' => $hold_reason
       );
 
     $data1 = array(
@@ -605,7 +607,8 @@ class Hr extends CI_Controller {
       'OrganizationID' => $this->session->userdata('OrganizationID'),
       'PositionID' => $this->session->userdata('PositionID'),
       'CreatedByID' => $id_user,
-      'LastModifiedByID' => $id_user
+      'LastModifiedByID' => $id_user,
+      'Reason' => $hold_reason
       );
 
     $res = $this->Hire_model->hold_data($data, $where);
@@ -630,12 +633,12 @@ class Hr extends CI_Controller {
     //print_r($apv_id_new);
 
     $data = array(
-      'RejectReason' => $reject,
+      'Reason' => $reject,
       'IsRejected' => $status
       );
 
     $data1 = array(
-      'RejectReason' => $reject,
+      'Reason' => $reject,
       'IsRejected' => $status,
       'ApprovalStatusID' => $apv_id_new,
       'EmployeeID' => $this->session->userdata('ID2'),
