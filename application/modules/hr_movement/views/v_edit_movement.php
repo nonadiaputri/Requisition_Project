@@ -146,7 +146,7 @@
                             <div class="col-sm-6">
                                 <label class="control-label col-form-label">Current Organization</label>
                                 <input type="text" name="current_org" id="current_org" required="required" class="form-control" value="<?php echo $row['CurrentOrganizationName']?>" readonly>
-                                <input type="hidden" name="current_org_id" id="current_org_id" required="required" class="form-control">
+                                <input type="hidden" name="current_org_id" id="current_org_id" class="current_org_id" required="required" class="form-control">
                                 <span id="error_current_org" class="text-danger"></span>
                             </div>
                             <div class="col-sm-6">
@@ -201,7 +201,7 @@
                               <div class="col-sm-6">
                                   <label class="control-label col-form-label">Assignment</label>
                                   <span style="color: red;">*</span></label>
-                                  <textarea class="form-control" id="noted" name="assignment" rows="1" cols="120"></textarea>
+                                  <textarea class="form-control" id="assignment" name="assignment" rows="1" cols="120"></textarea>
                                   <!-- <span id="error_assignment" class="text-danger"></span> -->
                               </div>
                           </div>
@@ -212,7 +212,7 @@
                           <div class="form-group" style="display: none" id="c_com_new">
                             <div class="col-sm-6">
                                 <label class="control-label col-form-label">Current Company</label>
-                                <input type="text" name="current_cpy" id="current_cpy" required="required" class="form-control" value="<?php echo $row['CompanyName']?>" readonly>
+                                <input type="text" name="current_cpy" id="current_cpy" required="required" class="form-control" value="<?php echo $row['CurrentCompanyName']?>" readonly>
                                 <input type="hidden" name="current_cpy_id" id="current_cpy_id" required="required" class="form-control">
                                 <span id="error_current_cpy" class="text-danger"></span>
                             </div>
@@ -229,7 +229,7 @@
                           <div class="form-group" style="display: none" id="c_cost_new">
                             <div class="col-sm-6">
                                 <label class="control-label col-form-label">Current Cost Center</label>
-                                <input type="text" name="current_cc" id="current_cc" required="required" class="form-control" value="<?php echo $row['CostCenterName']?>" readonly>
+                                <input type="text" name="current_cc" id="current_cc" required="required" class="form-control" value="<?php echo $row['CurrentCostCenterName']?>" readonly>
                                 <input type="hidden" name="current_cc_id" id="current_cc_id" required="required" class="form-control">
                                 <span id="error_current_cc" class="text-danger"></span>
                             </div>
@@ -291,49 +291,6 @@
                           </div>
                         </div>
 
-                          <!-- <div class="form-group row">
-                            <div class="col-sm-8">
-                                    <label class="control-label col-form-label"> Human Resources Approval </label>
-                                    <select class="form-control chs-select" name="hra" id="hra" style="width:100%" required="required">
-                                        <option default>Select Human Resources Approval</option>
-                                        <?php foreach ($hra as $hra) { ?>
-                                        <option id="personnel_id"value="<?php echo $hra['PersonnelID'];?>"><?php echo $hra['FullName'];?> &nbsp ( <?php echo $hra['Postion'];?>) </option>
-                                        <?php } ?>
-                                    </select>
-                                    <input type="hidden" name="hra_id" id="hra_id" required="required" class="form-control">
-                                    <span id="error_hra" class="text-danger"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-sm-8">
-                                    <label class="control-label col-form-label"> Human Resources Approval from Current Position</label>
-                                    <input type="text" name="hra2" id="hra2" required="required" class="form-control" readonly>
-                                    <input type="hidden" name="hra2_id" id="hra2_id" required="required" class="form-control">
-                                    <span id="error_hra" class="text-danger"></span>
-                            </div>
-
-                            <div class="col-sm-8">
-                                    <input type="text" name="hra2_pos" id="hra2_pos" required="required" class="form-control" readonly>
-                                    <input type="hidden" name="hra2_pos_id" id="hra2_pos_id" required="required" class="form-control">
-                                    <span id="error_hra" class="text-danger"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-sm-8">
-                                    <label class="control-label col-form-label"> Human Resources Approval from New Position</label>
-                                   
-                                    <input type="text" name="hra3" id="hra3" required="required" class="form-control" readonly>
-                                    <input type="hidden" name="hra3_id" id="hra3_id" required="required" class="form-control">
-                                    <span id="error_hra" class="text-danger"></span>
-                            </div>
-                            <div class="col-sm-8">
-                                    <input type="text" name="hra3_pos" id="hra3_pos" required="required" class="form-control" readonly>
-                                    <input type="hidden" name="hra3_pos_id" id="hra3_pos_id" required="required" class="form-control">
-                                    <span id="error_hra" class="text-danger"></span>
-                            </div>
-                        </div> -->
 
 
                           <div class="row">
@@ -343,7 +300,7 @@
                                       </div>
                                       <div class="col-sm-8">
                                         <div class="form-group">
-                                        <textarea class="form-control" id="noted" name="noted"rows="7" cols="110"></textarea>
+                                        <textarea class="form-control" id="noted" name="noted"rows="7" cols="110" <?php echo $row['note']?>></textarea>
                                         
                                         </div>
                                         
@@ -471,6 +428,7 @@
 <script src="<?= base_url(); ?>assets/bower_components/chart.js/Chart.js"></script>
 <script type="text/javascript">
    console.log("<?php echo $row['ID']; ?>");
+   
 
    function positionInOrg(){
       $.ajax({
@@ -555,6 +513,7 @@
             $('#current_org_id').removeAttr('value');
           }else{
           $('#current_org_id').val("<?php echo $row['CurrentOrganizationID'];?>");
+         // $('#current_org').val("<?php echo $row['CurrentOrganizationName'];?>");
           }
 
           // $('#new_position')
@@ -585,6 +544,8 @@
             var d = datetime.split(' ')[0];
             $('#workdate').val(d);  
           }
+
+          $('#noted').val("<?php echo $row['note'];?>");
          
     }
   }
@@ -919,14 +880,14 @@
         });
    });
 
-  $('#status').on('change',function(){
-        if( $('#status').val()=="2"){
-          $("#repname").show();
-          }
-          else{
-          $("#repname").hide();
-          }
-    });
+  // $('#status').on('change',function(){
+  //       if( $('#status').val()=="2"){
+  //         $("#repname").show();
+  //         }
+  //         else{
+  //         $("#repname").hide();
+  //         }
+  //   });
 
     $('#request_type').on('change',function(){
         if( $('#request_type').val()=="1"){
@@ -950,25 +911,25 @@
             $("#c_pos").hide();
             }
             else if( $('#request_type').val()=="3"){
-            $("#c_pos_new").show();
-            $("#c_org_new").show();
-            $("#c_com_new").show();
-            $("#c_cost_new").show();
-            $("#c_place_new").show();
-            $("#date").show();
-            $("#respon").show();
-            $("#c_pos").hide();
-            }
-            else{
-              $("#c_pos_new").hide();
-              $("#c_org_new").hide();
-              $("#c_com_new").hide();
-              $("#c_cost_new").hide();
-              $("#c_place_new").hide();
-              $("#date").hide();
-              $("#respon").hide();
-              $("#c_pos").show();
-            }
+              $("#c_pos_new").show();
+              $("#c_org_new").show();
+              $("#c_com_new").show();
+              $("#c_cost_new").show();
+              $("#c_place_new").show();
+              $("#date").show();
+              $("#respon").show();
+              $("#c_pos").hide();
+              }
+              else if( $('#request_type').val()=="4"){
+                $("#c_pos_new").hide();
+                $("#c_org_new").hide();
+                $("#c_com_new").hide();
+                $("#c_cost_new").hide();
+                $("#c_place_new").hide();
+                $("#date").hide();
+                $("#respon").hide();
+                $("#c_pos").show();
+              }
     });
   
 
@@ -1004,13 +965,23 @@
                'request_name':request_name, 
                'current_position':current_position,
                'current_position_id':current_position_id,
+               'current_cpy':current_cpy,
+               'current_cpy_id':current_cpy_id,
+               'current_cc':current_cc,
+               'current_cc_id':current_cc_id,
                'current_org_id':current_org_id,
                'new_position':new_position,
+               'new_pos_id' : new_pos_id,
                'new_org_id':new_org_id,
+               'new_cpy':new_cpy,
+               'new_cpy_id' : new_cpy_id,
+               'new_cc':new_cc,
+               'new_cc_id' : new_cc_id,
                'workdate':workdate,
+               'assignment':assignment,
                'current_responsibilities' : current_responsibilities,
-               'new_responsibilities' : new_responsibilities
-              // 'new_requirement' : new_requirement
+               'new_responsibilities' : new_responsibilities,
+               'note' : noted
                },
 
         success:function(data){
@@ -1037,15 +1008,16 @@
         var request_type = $('#request_type').val();
         var request_name = $('#request_name').val();
         var current_position = $('#current_position').val();
+        var current_cpy = $('#current_cpy').val();
+        var current_cc = $('#current_cc').val();
         var new_position = $('#new_position').val();
+        var new_cpy = $('#new_cpy').val();
+        var new_cc = $('#new_cc').val();
         // var startdate= $('#startdate').val();
         var workdate= $('#workdate').val();
+        var assignment= $('#assignment').val();
         var current_responsibilities = CKEDITOR.instances["current_responsibilities"].getData();
         var new_responsibilities = CKEDITOR.instances["new_responsibilities"].getData();
-      //  var new_requirement = CKEDITOR.instances["new_requirement"].getData();
-        // var responsibility = $('#responsibility').val();
-        // var requirement = $('#requirement').val();
-        // var ttl = $('#ttl').val();
 
         var error_requestor = '';
         var error_req_org = '';
@@ -1195,8 +1167,7 @@
          new_responsibilities = $('#new_responsibilities').val();
         }
 
-
-        if (error_requestor == '' && error_req_position == '' && error_req_org == '' && error_request == '' && error_current_position == '' && error_new_position == '' && error_workdate == '' && error_current_responsibilities == '' && error_new_responsibilities == '' ) {
+        if (error_requestor == '' && error_req_position == '' && error_req_org == '' && error_request == '' && error_current_position == '' && error_workdate == '' ) {
           $('#myModal').modal('show'); 
         }
           
@@ -1216,12 +1187,22 @@
         var current_position = $('#current_position').val();
         var current_position_id = $('#current_position_id').val();
         var current_org_id = $('#current_org_id').val();
+        var current_cpy = $('#current_cpy').val();
+        var current_cpy_id = $('#current_cpy_id').val();
+        var current_cc = $('#current_cc').val();
+        var current_cc_id = $('#current_cc_id').val();
         var new_position = $('#new_position').val();
+        var new_pos_id = $('#new_pos_id').val();
         var new_org_id = $('#new_org_id').val();
+        var new_cpy = $('#new_cpy').val();
+        var new_cpy_id = $('#new_cpy_id').val();
+        var new_cc = $('#new_cc').val();
+        var new_cc_id = $('#new_cc_id').val();
         var workdate= $('#workdate').val();
+        var assignment= $('#assignment').val();
         var current_responsibilities = CKEDITOR.instances["current_responsibilities"].getData();
         var new_responsibilities = CKEDITOR.instances["new_responsibilities"].getData();
-       // var new_requirement = CKEDITOR.instances["new_requirement"].getData();
+        var noted = $('textarea#noted').val();
 
      // var form_data = $('#myform').serialize();
      // console.log(form_data);
@@ -1237,13 +1218,23 @@
                'request_name':request_name, 
                'current_position':current_position,
                'current_position_id':current_position_id,
+               'current_cpy':current_cpy,
+               'current_cpy_id':current_cpy_id,
+               'current_cc':current_cc,
+               'current_cc_id':current_cc_id,
                'current_org_id':current_org_id,
                'new_position':new_position,
+               'new_pos_id' : new_pos_id,
                'new_org_id':new_org_id,
+               'new_cpy':new_cpy,
+               'new_cpy_id' : new_cpy_id,
+               'new_cc':new_cc,
+               'new_cc_id' : new_cc_id,
                'workdate':workdate,
+               'assignment':assignment,
                'current_responsibilities' : current_responsibilities,
-               'new_responsibilities' : new_responsibilities
-              // 'new_requirement' : new_requirement
+               'new_responsibilities' : new_responsibilities,
+               'note' : noted
                },
 
 

@@ -77,7 +77,7 @@
                 </div>
                 <!-- info row -->
                 <div class="row invoice-info">
-                    
+                    <div class="col-xs-12">
                     <strong>Requestor</strong><br>
                     <?php echo $req['Requestor']; ?><br>
                     <?php echo $req['requestor_pos']; ?><br>
@@ -149,11 +149,19 @@
                                             </select>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="req_type_normal">
                                         <td>Requisition Type</td>
                                         <td>
                                             <?php echo $req[ 'Requisition_status']; ?>
                                         </td>
+                                    </tr>
+                                    <tr id="req_type_rec" style="display: none;">
+                                        <td>Requisition Type</td>
+                                        <td><select class="form-control" name="req_type" id="req_type" required="required">
+                                            <option value="" selected>Pilih</option>
+                                            <option value="1">Additional</option>
+                                            <option value="2">Replacement</option>
+                                        </select></td>
                                     </tr>
                                     <tr id="emp">
                                         <td>Employment Type</td>
@@ -176,17 +184,30 @@
                                             </select>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="rep-name-normal">
                                         <td>Replacement Name</td>
                                         <td>
                                             <?php if ($req[ 'ReplacementPersonnelID']=='' ) { echo "-"; }else{ echo $req[ 'RepName']; } ?>
                                         </td>
                                     </tr>
+                                    <tr id="rep-name-rec" style="display: none;">
+                                        <td>Replacement Name</td>
+                                        <td>
+                                            <select class="rep-name form-control" name="ReplacementName" id="ReplacementName" style="width:100%;"  required="required">
+                                              <option value=""></option>
+                                            </select>
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td>Expected Work Date</td>
                                         <td>
-                                            <?php echo $req[ 'ExpectedWorkStartDate']; ?>
-                                        </td>
+                                            <?php echo $req[ 'ExpectedWorkStartDate']; ?> &nbsp&nbsp
+                                            <button type="button" id="btn-show" style="margin: auto;" class="btn-primary">Change Expected Work Date</button>
+                                        </td>   
+                                    </tr>
+                                    <tr id="final_workdate" style="display: none;">
+                                        <td>Final Expected Workdate</td>
+                                        <td><input class="form-control" type="date" id="workdate" name="workdate" min="2018-01-01" max="2030-12-31" required="required" ></td>
                                     </tr>
                                     <tr>
                                         <td>Responsibility</td>
@@ -204,6 +225,7 @@
                             </table>
                         </div>
                     </div>
+                </div>
                 </div>
             </section>
 
@@ -496,7 +518,7 @@
                                         <label>Add Note</label>
                                     </div>
                                     <div class="col-md-9">
-                                        <textarea class="form-control" rows="3" id="noted" name="notednotedplaceholder="Enter note..."></textarea>
+                                        <textarea class="form-control" rows="3" id="noted" name="noted" placeholder="Enter note..."></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -529,11 +551,20 @@
                             <form class="form-horizontal hold" method="POST" action="<?php echo base_url('hr/hold/'.$req['ID']);?>">
                                 <div class="form-group row">
                                     <div class="col-md-3">
-                                        <label>Hold Until</label>
+                                        <label>Hold Until</label><span style="color: red;">*</span>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="date" name="hold" id="hold" class="form-control" min="2018-01-01" max="2030-12-31"> <span id="error_hold" class="text-danger"></span>
                                         <input type="hidden" name="ApprovalStatusID" id="ApprovalStatusID" class="form-control" value="<?php echo $info['ApprovalStatusID']; ?>">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-3">
+                                        <label>Hold Reason</label><span style="color: red;">*</span>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <!-- <textarea class="form-control" rows="3" id="hold-reason" name="notednoted" placeholder="Enter hold reason..."></textarea> -->
+                                        <input type="text" name="reason_hold" id="reason_hold" class="form-control"> <span id="error_reason_hold" class="text-danger"></span>
                                     </div>
                                 </div>
                             </form>
@@ -557,10 +588,11 @@
                             <form class="form-horizontal reject" method="POST" action="<?php echo base_url('hr/reject/'.$req['ID']);?>">
                                 <div class="form-group row">
                                     <div class="col-md-3">
-                                        <label>Reason</label>
+                                        <label>Reason</label><span style="color: red;">*</span>
                                     </div>
                                     <div class="col-md-9">
                                         <input type="text" name="reason_reject" id="reason_reject" class="form-control"> <span id="error_reject" class="text-danger"></span>
+                                        <!-- <textarea class="form-control" rows="3" id="reason_reject" name="reason_reject" required placeholder="Enter reject reason..."></textarea> <span id="error_reject" class="text-danger"></span> -->
                                         <input type="hidden" name="ApprovalStatusID" id="ApprovalStatusID" class="form-control" value="<?php echo $info['ApprovalStatusID']; ?>">
                                     </div>
                                 </div>
@@ -694,6 +726,30 @@
                 }
             });
 
+    $('.rep-name').select2({
+                placeholder: 'Replacement Name',
+                ajax:{
+                    url: "<?php echo base_url('hr/select_personnel1'); ?>",
+                    dataType: "json",
+                    delay: 250,
+                    processResults: function(data){
+                        var results = [];
+
+                        $.each(data, function(index, item){
+                            results.push({
+                                id: item.ID,
+                                text: item.FullName,
+                                option_value:item.ID
+                            });     
+                        });
+                        return{
+                            results: results,
+                            cache: true,
+                        };
+                    },
+                }
+            });
+
     $('.cc').select2({
                 placeholder: 'Cost Center Name',
                 ajax:{
@@ -773,9 +829,32 @@
                     $('#employment-rec').val(<?php echo $req['EmploymentTypeID']?>);
                 }
 
+                if (<?php echo $req['RequisitionTypeID'];?> == '0') {
+                    $('#req_type').removeAttr('value');
+                }else{
+                    $('#req_type').val(<?php echo $req['RequisitionTypeID']?>);
+                }
+
             }
 
      $(document).ready(function(){
+
+            $('#req_type').on('change',function(){
+                if( $('#req_type').val()=="2"){
+                  $("#rep-name-rec").show();
+                  $('#rep-name-normal').hide();
+                  }
+                  else{
+                  $("#rep-name-normal").show();
+                  $('#rep-name-rec').hide();
+                  }
+            });
+
+        
+
+        $('#btn-show').click(function(e){
+            $('#final_workdate').toggle();
+        });
 
             var id_req = '<?php echo $req['ID']; ?>';
             console.log(id_req);
@@ -863,6 +942,8 @@
                     $('#company').hide();
                     $('#emp_rec').show();
                     $('#emp').hide();
+                    $('#req_type_normal').hide();
+                    $('#req_type_rec').show();
                     load();
                 }
             }
@@ -1021,16 +1102,26 @@
                 company_new = $('#company-rec').val();
                 total_new = $('#ttl').val();
                 emp_type_new = $('#employment-rec').val();
+                req_type_new = $('#req_type').val();
+                rep_name_new = $('#ReplacementName').val();
+                workdate_new = $('#workdate').val();
+
                 console.log(company_new);
                 console.log(total_new);
                 console.log(emp_type_new);
+                console.log(req_type_new);
+                console.log(rep_name_new);
+                console.log(workdate_new);
                 $.ajax({
                 method: 'POST',
                 url: '<?php echo base_url('hr/update_cost_center/');?>'+id_req,
                 data: {cost_center : cost_center_new,
                        company : company_new,
                        total : total_new,
-                       emp_type : emp_type_new},
+                       emp_type : emp_type_new,
+                       req_type : req_type_new,
+                       rep_name : rep_name_new,
+                       workdate : workdate_new},
                 success: function(status) {
                     if (status) {
                         alert("success");
@@ -1091,9 +1182,11 @@
     
             $('#btn-hold').click(function(){
                 var hold = $("#hold #hold").val().trim();
+                var reason_hold = $('#hold #reason_hold').val().trim();
                 var apv = $('#hold #ApprovalStatusID').val().trim();
                 var error_hold = '';
-                console.log(hold);
+                var error_reason_hold = '';
+                //console.log(reason_hold);
     
                 if(hold == ''){
                  error_hold = 'Hold End Date is required';
@@ -1107,9 +1200,25 @@
                  $("#hold #hold").css('border-color', '');
                  hold = $("#hold #hold").val().trim();
                 } 
-                if (error_hold == ''){
+
+                if (reason_hold == '') {
+                    error_hold = 'Hold Reason is required';
+                    $("#hold #error_reason_hold").text(error_hold);
+                    $("#hold #reason_hold").css('border-color', '#cc0000');
+                    hold = '';
+                }else{
+                    error_reason_hold = '';
+                    //console.log($('#reason_hold').val());
+                    $("#hold #error_reason_hold").text(error_hold);
+                    $("#hold #reason_hold").css('border-color', '');
+                    hold = $("#hold #reason_hold").val().trim();
+
+                }
+
+                if (error_hold == '' && error_reason_hold == ''){
                 var status = '1';
                 var form_data = $('.hold').serialize();
+                console.log(form_data);
                 $.ajax({
                 method: 'POST',
                 url: '<?php echo base_url('hr/hold/');?>'+id_req,
@@ -1132,23 +1241,23 @@
             $('#btn-reject').click(function(){
                 var reject = $('.modal-body input[name=reason_reject]').val();
                 var error_reject = '';
-                console.log(reject);
     
                 if(reject == ''){
                  error_reject = 'Reject Reason is required';
                  $("#reject #error_reject").text(error_reject);
-                 $("#reject #reject_reason").css('border-color', '#cc0000');
+                 $("#reject #reason_reject").css('border-color', '#cc0000');
                  reject = '';
                 }else{
                  error_reject = '';
                  console.log($('#reject').val());
                  $("#reject #error_reject").text(error_reject);
-                 $("#reject #reject_reason").css('border-color', '');
+                 $("#reject #reason_reject").css('border-color', '');
                  reject = $('.modal-body input[name=reason_reject]').val();
                 } 
                 if (error_reject == ''){
                 var status = '1';
                 var form_data = $('.reject').serialize();
+                console.log(form_data);
                 $.ajax({
                 method: 'POST',
                 url: '<?php echo base_url('hr/reject/');?>'+id_req,

@@ -87,17 +87,6 @@
                                         <?php echo $req['request_name']; ?>
                                     </td>
                                 </tr>
-                                <tr id="cp_promote">
-                                    <td width="20%">Current Position</td>
-                                    <td width="10%">
-                                        <?php echo $req['current_position']; ?>
-                                    </td>
-
-                                    <td width="15%">New Position</td>
-                                    <td width="50%">
-                                        <?php echo $req['new_position']; ?>
-                                    </td>
-                                </tr>
 
                                 <tr id="cp_assignment">
                                     <td width="20%">Current Position</td>
@@ -110,6 +99,20 @@
                                         <?php echo $req['NewAssignment']; ?>
                                     </td>
                                 </tr>
+
+                                <tr id="cp_promote">
+                                    <td width="20%">Current Position</td>
+                                    <td width="10%">
+                                        <?php echo $req['current_position']; ?>
+                                    </td>
+
+                                    <td width="15%">New Position</td>
+                                    <td width="50%">
+                                        <?php echo $req['new_position']; ?>
+                                    </td>
+                                </tr>
+
+                                
 
                                 <tr id="co_promote">
                                     <td width="20%">Current Organization</td>
@@ -545,7 +548,8 @@
             var app_process2 = "<?php echo $latest['IsProcessed']; ?>";
             var app_hold2 = "<?php echo $latest['IsHold']; ?>";
             var app_reject2 = "<?php echo $latest['IsRejected'] ; ?>";
-            var move_type = "<?php echo $latest['MovementRequestType'] ; ?>";
+            var move_type = "<?php echo $latest['MovementRequestTypeID'] ; ?>";
+            console.log(move_type);
 
             if (move_type == "1") {
                 $('#cp_promote').show();
@@ -670,9 +674,6 @@
               }
             }
 
-            
-            
-    
     
             $('#btn-process').click(function(){
                 var prcs = $("#process #process").val().trim();

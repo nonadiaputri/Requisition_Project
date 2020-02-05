@@ -249,7 +249,7 @@
                   </div>
                 </div>
 	        </div>
-
+          <br>
 	        <div class="row">
 	        	<div class="form-group" style="display: none" id="repname">
                   <div class="col-md-8">
@@ -696,8 +696,8 @@
    }
    });
 
-  $('#status').on('change',function(){
-        if( $('#status').val()=="2"){
+  $('#req_type').on('change',function(){
+        if( $('#req_type').val()=="2"){
           $("#repname").show();
           }
           else{
@@ -876,7 +876,7 @@
          status = $('#status').val();
         }
 
-        if ($('#status').val() == '2') {
+        if ($('#req_type').val() == '2') {
           if($('#ReplacementName').val() == ''){
             error_replacementName = 'Replacement Name is required';
            $('#error_replacementName').text(error_replacementName);
