@@ -202,7 +202,7 @@
                                         <td>Expected Work Date</td>
                                         <td>
                                             <?php echo $req[ 'ExpectedWorkStartDate']; ?> &nbsp&nbsp
-                                            <button type="button" id="btn-show" style="margin: auto;" class="btn-primary">Change Expected Work Date</button>
+                                            <button type="button" id="btn-show" style="margin: auto;display: none;" class="btn-primary">Change Expected Work Date</button>
                                         </td>   
                                     </tr>
                                     <tr id="final_workdate" style="display: none;">
@@ -497,7 +497,7 @@
                             <button type="button" class="btn btn-danger pull-center" id="button-reject" data-toggle="modal" data-target="#reject" style="margin-center: 5px;">Reject</button>
                             <button type="button" class="btn btn-warning pull-center" id="button-hold" data-toggle="modal" data-target="#hold" style="margin-center: 5px;">Hold</button>
                             <button type="button" class="btn btn-success pull-center" id="button-process" data-toggle="modal" data-target="#process" style="margin-center: 5px;">Approve</button>
-                            <button type="button" class="btn btn-success pull-center" id="button-save"  style="margin-center: 5px;display: none;">Save</button>
+                            <button type="button" class="btn btn-success pull-center" id="button-save"  data-toggle="modal" data-target="#save" style="margin-center: 5px;display: none;">Save</button>
                         </div>
                     </div>
 
@@ -600,6 +600,36 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" id="btn-reject" class="btn btn-info waves-effect">OK</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div id="save" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Save Changes</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal save" method="" action="">
+                                <span style="color: red;">Fill the notes with the changes you made</span>
+                                <br>
+                                <br>
+                                <div class="form-group row">
+                                    <div class="col-md-3">
+                                        <label>Note</label><span style="color: red;">*</span>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" rows="3" id="note_save" name="note_save" required placeholder="Enter note..."></textarea> <span id="error_note" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="btn-save-note" class="btn btn-info waves-effect">OK</button>
                         </div>
                         
                     </div>
@@ -944,6 +974,7 @@
                     $('#emp').hide();
                     $('#req_type_normal').hide();
                     $('#req_type_rec').show();
+                    $('#btn-show').show();
                     load();
                 }
             }
@@ -1097,7 +1128,7 @@
             });
             });
 
-            $('#button-save').click(function(){
+            $('#btn-save-note').click(function(){
                 cost_center_new = $('#cost-center').val();
                 company_new = $('#company-rec').val();
                 total_new = $('#ttl').val();
@@ -1105,6 +1136,7 @@
                 req_type_new = $('#req_type').val();
                 rep_name_new = $('#ReplacementName').val();
                 workdate_new = $('#workdate').val();
+                note = $('#save #note_save').val();
 
                 console.log(company_new);
                 console.log(total_new);
@@ -1112,6 +1144,7 @@
                 console.log(req_type_new);
                 console.log(rep_name_new);
                 console.log(workdate_new);
+                console.log(note);
                 $.ajax({
                 method: 'POST',
                 url: '<?php echo base_url('hr/update_cost_center/');?>'+id_req,
@@ -1121,7 +1154,8 @@
                        emp_type : emp_type_new,
                        req_type : req_type_new,
                        rep_name : rep_name_new,
-                       workdate : workdate_new},
+                       workdate : workdate_new,
+                       note : note},
                 success: function(status) {
                     if (status) {
                         alert("success");
@@ -1129,9 +1163,10 @@
                     }   
                    },
                 error: function() {
-                    alert('Approval failed');
+                    alert('Update failed');
                 }
             });
+
             });
     
     

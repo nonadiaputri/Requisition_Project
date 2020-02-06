@@ -7,6 +7,7 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?= base_url();?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
@@ -58,13 +59,17 @@
       <div >
         <a href ="<?php echo base_url('hr/hire_history'); ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">Your Request</a>
         <a href ="<?php echo base_url('hr/need_approval'); ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">Need Approval</a>
+        <!-- <a href="" id="create_excel" name="create_excel" class="btn btn-success"></a> -->
+        <button name="create_excel" id="create_excel" class="btn btn-success"><i class="fa fa-print"></i></button>
       </div>
+      
             
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
             <!-- /.box-header -->
             <div class="box-body">
+             
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr align="center">
@@ -199,6 +204,14 @@
 <script src="<?= base_url();?>assets/dist/js/demo.js"></script>
 <!-- page script -->
 <script>
+
+ // function Export() {
+        //     $("#example1").table2excel({
+        //         filename: "Table.xls"
+        //     });
+        // }
+
+
   $(function () {
     $('#example1').DataTable()
     $('#example2').DataTable({
@@ -210,6 +223,17 @@
       'autoWidth'   : false
     })
   });
+
+  $('#create_excel').click(function(){  
+    //alert("try");
+    var excel_data = $('#example1').html(); 
+    //console.log(excel_data); 
+    //var page = 
+    //console.log(page);  
+    window.location = "<?php echo base_url('hr/excel');?>"+excel_data;
+  });  
+
+  
 </script>
 </body>
 </html>
