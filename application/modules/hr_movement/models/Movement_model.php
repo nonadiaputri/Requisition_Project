@@ -26,9 +26,29 @@ class Movement_model extends CI_Model
      }
   }
 
+  public function check_personnel_email($email){
+    $this->db->where('Email',$email);
+    $q = $this->db->get('dbo.PersonnelTable');
+
+    if ( $q->num_rows() == 0 ) {
+      return 0;
+        //$this->db->insert('dbo.PersonnelTable',$data1);
+        // $last_id = $this->db->insert_id();
+        // return $last_id;
+     }else {
+        $this->db->select('Email');
+        $this->db->where('Email', $email);
+        $id = $this->db->from('dbo.PersonnelTable')->get();
+        return $id->result_array();
+       // $this->db->where('PersonnelNumber',$nik);
+       // $this->db->update('dbo.UserTable',$data1);      
+     }
+  }
+
+
   public function make_session($nik){
     $this->db->where('PersonnelNumber',$nik);
-    $q = $this->db->get('dbo.PersonnelHierarchy');
+    $q = $this->db->get('dbo.PersonnelHierarchy2');
     return $q->row_array();
   }
 
@@ -192,6 +212,54 @@ class Movement_model extends CI_Model
         //$query = $this->db->get_where('dbo.RequisitionTable',$ID);
         return $query->result_array();
       }
+
+      public function get_organization($OrganizationID)
+      { 
+          // $res = $this->db->query("select distinct a.OrganizationID, b.Name as OrganizationName from dbo.UserTable a
+          //                         join dbo.OrganizationTable b on a.OrganizationID = b.ID
+          //                         where a.OrganizationID =".$OrganizationID);
+          // return $res->result_array();
+    
+          $res = $this->db->query("select distinct Organization from dbo.PersonnelHierarchy2
+                                  where OrganizationID =".$OrganizationID);
+          return $res->result_array();
+         
+      }
+
+      public function get_userid($name)
+        { 
+            $res = $this->db->query("select a.ID as UserID from dbo.UserTable a
+                                    join dbo.OrganizationTable b on a.OrganizationID = b.ID
+                                    where a.Name like '%$name%'");
+            return $res->result_array();
+        }
+
+        public function get_member_organization($OrganizationID, $PersonnelNumber)
+  { 
+
+    // $res = $this->db->query("select a.id, a.name, a.organizationid, e.id as PersonnelID,
+    //                     e.fullname as PersonnelName, f.Name as PositionName, f.ID as PositionID
+    //                      from dbo.UserTable a
+    //                     join dbo.OrganizationTable b on a.OrganizationID = b.id
+    //                   join dbo.PositionInOrganization c on b.id = c.PositionID
+    //                   join dbo.PersonnelPosition d on d.ID = c.PositionID
+    //                     join dbo.PersonnelTable e on a.Name = e.FullName
+    //                   join dbo.PositionTable f on f.ID = d.PositionID
+    //                     where b.ID ='$OrganizationID' and a.PersonnelNumber != '$PersonnelNumber'");
+
+    $res = $this->db->query("select a.id, a.name, a.organizationid, e.id as PersonnelID,
+                        e.fullname as PersonnelName, f.Name as PositionName, f.ID as PositionID
+                         from dbo.UserTable a
+                        join dbo.OrganizationTable b on a.OrganizationID = b.id
+                        join dbo.PositionInOrganization c on b.id = c.PositionID
+                        join dbo.PersonnelPosition d on d.ID = c.PositionID
+                        join dbo.PersonnelTable e on a.Name = e.FullName
+                        join dbo.PositionTable f on f.ID = d.PositionID
+                        where b.ID ='$OrganizationID' and e.ID not in 
+                        (select PersonnelID from dbo.UserXPersonnel)");
+
+        return $res->result_array();
+  }
 
       function get_apv_req($ID){
         $q = " select a.MovementRequestID, max(a.ApprovalStatusID) as max_status, 
@@ -515,6 +583,8 @@ class Movement_model extends CI_Model
          return $query->result_array();
       }
 
+
+
       function need_approval_req($ID){
         $q = $this->db->query("select a.*, b.Name as DeptName,  c.FullName as requestor
                           from dbo.MovementRequestTable a
@@ -805,7 +875,7 @@ class Movement_model extends CI_Model
         $this->db->join('dbo.CompanyTable b' , 'a.AsCompanyHead = b.ID');
         $this->db->join('dbo.CostCenterTable c','a.CostCenterID = c.id');
         $this->db->join('dbo.PersonnelHierarchy2 e','a.ID = e.PostionID');
-        
+      //  $this->db->where('e.OrganizationID', 184);
         $this->db->like('a.Name',$Position);
         $query = $this->db->get();
         return $query->row_array();

@@ -159,11 +159,11 @@
                               </div>
                               <div class="col-sm-6">
                                   <label class="control-label col-form-label">New Organization</label>
-                                  <span style="color: red;">*</span></label>
+                                  <!-- <span style="color: red;">*</span></label>
                                   <select class="new_organization form-control" name="new_organization" id="new_organization" style="width:500px"  required="required">
                                       <option value=""></option>
-                                  </select>
-                                  <!-- <input type="text" name="new_org" id="new_org" required="required" class="form-control" style="width:500px" readonly> -->
+                                  </select> -->
+                                  <input type="text" name="new_org" id="new_org" required="required" class="form-control" style="width:500px" readonly>
                                   <input type="text" name="new_org_id" id="new_org_id" required="required" class="form-control">
                                   <span id="error_new_org" class="text-danger"></span>
                               </div>
@@ -687,6 +687,8 @@
             $('#req_position').val(data.Postion);
             $('#org_id').val(data.OrganizationID);
             $('#req_org_id').val(data.Organization);
+            $('#new_org_id').val(data.OrganizationID);
+            $('#new_org').val(data.Organization);
 
             $('#parent_org').val(data.ParentOrganization);
             $('#organization').val(data.Organization);

@@ -5,7 +5,7 @@ class Hr_movement extends CI_Controller {
     
 	public function __construct() {
         parent::__construct();
-        $this->load->library('Aauth');
+      //  $this->load->library('Aauth');
 		$this->load->database('db1');
 		$this->load->model('Movement_model');
 
@@ -78,13 +78,17 @@ class Hr_movement extends CI_Controller {
 		//$Request = $this->Movement_model->get_sp_request_number($RequestNumber);
 
 	}
-	
+
 	  public function check(){
 	    $nik = $this->session->userdata('nik');
-	    
+	    $email = $this->session->userdata('email');
 
-	    $check = $this->Movement_model->check_personnel($nik);
-	    $sess = $this->Movement_model->make_session($nik);
+		$check = $this->Movement_model->check_personnel($nik);
+		//print_r($check);
+		$checkemail = $this->Movement_model->check_personnel_email($email);
+	//	print_r($checkemail);
+		$sess = $this->Movement_model->make_session($nik);
+	//	print_r($sess);
 	    //var_dump($sess);
 	    $object = json_decode(json_encode($sess));
 	    if ($sess != '') {
@@ -109,14 +113,15 @@ class Hr_movement extends CI_Controller {
 	    }
 	    
 	    $per_id = $check[0]['ID'];
-	    //print_r($object);
-	    if ($check == 0 || $sess == '') {
-	      return false;
+	    //print_r($per_id);
+	    if ($check == 0 || $sess == '' || $checkemail == 0) {
+		  return false;
+		//   print_r("false");
 	    }else{
 	      $check2 = $this->Movement_model->auto_register($nik);
-	      //var_dump($check2);
+	    //  print_r($check2);
 	      $dt = $check2['ID'];
-	      //var_dump($dt);
+	    //  var_dump($dt);
 	    
 	      $last_id = $object->ID;
 	      $position = $object->Postion;
@@ -125,9 +130,58 @@ class Hr_movement extends CI_Controller {
 	      $this->session->set_userdata($data2);
 	      $check3 = $this->Movement_model->auto_register2($dt, $per_id);
 	      $check4 = $this->Movement_model->auto_regist_position($last_id, $position);
-	      return $dt;
+		  return $dt;
+		//   print_r("true");
 	    }
 	  }
+
+	  public function add_access()
+	{
+		$this->check();
+		$nik = $this->session->userdata('nik');
+
+		$check = $this->Movement_model->check_personnel($nik);
+		$sess = $this->Movement_model->make_session($nik);
+		$object = json_decode(json_encode($sess));
+		//var_dump($object->Postion);
+		//var_dump($count($sess));
+		if ($sess != '') {
+		$data = array(
+			'Name2'    => $object->FullName,
+			'NIK2'     => $object->PersonnelNumber,
+			'ID2'    => $object->ID,
+			'Position'   => $object->Postion,
+			'PositionID' => $object->PostionID,
+			'Organization' =>$object->Organization,
+			'OrganizationID' =>$object->OrganizationID,
+			'ParentOrganization' =>$object->ParentOrganization,
+			'ParentOrganizationID' => $object->ParentOrganizationID,
+			'ParentPosition' =>$object->ParentPosition,
+			'ParentPositionID'=>$object->ParentPositionID,
+			'ParentPersonnel' => $object->ParentPersonnel,
+			'ParentPersonnelID' => $object->ParentPersonnelID
+		);
+		//var_dump($data);
+
+		$this->session->set_userdata($data);
+		}
+
+		$OrganizationID = $this->session->userdata('OrganizationID');
+		$PersonnelNumber = $this->session->userdata('NIK2');
+		$name = $this->session->userdata('Name2');
+		$ID = $this->session->userdata('ID2');
+		$data['org'] = $this->Movement_model->get_organization($OrganizationID);
+		$data['user'] = $this->Movement_model->get_userid($name);
+		// var_dump($data['org']);
+			$data['member'] = $this->Movement_model->get_member_organization($OrganizationID, $PersonnelNumber);
+		// $data['org'] = $this->Hire_model->get_organization($dept_id);
+			// $data['member'] = $this->Hire_model->get_member_organization($dept_id);
+			// $data['person'] = $this->Hire_model->get_related_per($ID);
+			// $data['org'] = $this->Hire_model->choose_org();	
+			$data["header"] = $this->load->view('header/v_header','',TRUE);
+			$data["sidebar"] = $this->load->view('sidebar/v_sidebar','',TRUE);
+			$this->load->view('hr/v_add',$data);
+		}
 
 			function position(){
 				$json = [];
@@ -653,7 +707,25 @@ class Hr_movement extends CI_Controller {
     }
   }
 
+	function save_data_personnel(){
+		$user_id = $this->input->post('user_id');
+		$personnel_id= $this->input->post('personnel_id');
 
+		$data = array(
+		'UserID' => $user_id,
+		'PersonnelID' => $personnel_id
+		);
+
+		//print_r($data);
+
+		$this->load->model('Movement_model');
+		$res = $this->Movement_model->save_data_personnel($data);
+		// if ($res > 0 ) {
+		//   $this->hire_history();
+		// }else{
+		// echo json_encode(array('status'=>false));
+		// }
+	}
 
 	public function View($ID){
 		$data['req'] = $this->Movement_model->get_movement_id($ID);
