@@ -72,7 +72,7 @@ class Login extends CI_Controller {
 	}
 
 	function register(){
-		$api_url = "http://kics.kompas.com/api/unit";
+		$api_url = "https://kics.kompas.com/api/unit";
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
 				CURLOPT_URL => $api_url,
@@ -99,7 +99,7 @@ class Login extends CI_Controller {
 			$body = json_decode($body, true);
 			//var_dump($body);
 			//API GET POSITION
-			$api_url2 = "http://kics.kompas.com/api/position";
+			$api_url2 = "https://kics.kompas.com/api/position";
 			$curl2 = curl_init();
 			curl_setopt_array($curl2, array(
 				CURLOPT_URL => $api_url2,

@@ -9,7 +9,7 @@ class Register extends CI_Controller{
 
     public function get_subunit($id){
         //$id = $_REQUEST['id'];
-        $api_url = "http://kics.kompas.com/api/subunit?id=".$id;
+        $api_url = "https://kics.kompas.com/api/subunit?id=".$id;
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
 				CURLOPT_URL => $api_url,
@@ -77,7 +77,7 @@ class Register extends CI_Controller{
 		
 				$curl = curl_init();
 				curl_setopt_array($curl, array(
-					CURLOPT_URL => "http://kics.kompas.com/api/register",
+					CURLOPT_URL => "https://kics.kompas.com/api/register",
 					CURLOPT_RETURNTRANSFER => true,
 					CURLOPT_ENCODING => "",
 					CURLOPT_MAXREDIRS => 10,
