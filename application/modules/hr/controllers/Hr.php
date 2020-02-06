@@ -716,6 +716,11 @@ class Hr extends CI_Controller {
     
   }
 
+  public function excel($data){
+    //$data["sidebar"] = $this->load->view('hr/excel','',TRUE);
+    $this->load->view('hr/excel',$data);
+  }
+
   public function myview_approve(){
     $this->check();
     $requestor_id = $this->session->userdata('ID2');

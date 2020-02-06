@@ -228,9 +228,9 @@
     //alert("try");
     var excel_data = $('#example1').html(); 
     //console.log(excel_data); 
-    var page = "excel.php?data=" + excel_data;
+    //var page = 
     //console.log(page);  
-    window.location = page;  
+    window.location = "<?php echo base_url('hr/excel');?>"+excel_data;
   });  
 
   
