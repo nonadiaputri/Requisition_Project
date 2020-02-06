@@ -18,7 +18,7 @@ class Login extends CI_Controller {
 	
 	function do()
 	{
-        echo "status";
+        //echo "status";
 		$uid = $this->input->post('uid');		
         $pwd = sha1($this->input->post('pwd') . $this->config->item('encryption_key'));
         $login = $this->Login_model->auth($uid, $pwd);

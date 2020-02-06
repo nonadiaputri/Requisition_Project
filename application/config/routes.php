@@ -55,3 +55,4 @@ $route['master/(:any)'] = 'crud/master';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['generatepdf'] = "hr/print";
+$route['halo'] = "dashboard";
