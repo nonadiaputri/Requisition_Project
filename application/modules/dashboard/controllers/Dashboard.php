@@ -54,7 +54,7 @@ class Dashboard extends CI_Controller {
         ldap_set_option($ldap_conn, LDAP_OPT_PROTOCOL_VERSION, 3);  
 
         $password = $this->session->userdata('password');
-        $binddn = "CN=Administrator,CN=Users,DC=kompas,DC=com";
+        $binddn = "CN=Person,CN=Schema,CN=Configuration,DC=kompas,DC=com";
         $result = ldap_bind( $ldap_conn, $binddn, $password ) or die("  Error: Couldn't bind to server using provided credentials!");
         if($result) {
         return $ldap_conn; 
@@ -74,14 +74,14 @@ class Dashboard extends CI_Controller {
     }
 
     public function pwd_encryption() {
-        // $newPassword = "\"" . $newPassword . "\"";
-        // $len = strlen( $newPassword ); 
-        // $newPassw = "";
-        // for ( $i = 0; $i < $len; $i++ )
-        // {
-        //     $newPassw .= "{$newPassword {$i}}\000";
-        // } 
-		//$userdata["unicodePwd"] = $newPassw;  return $userdata; 
+        $newPassword = "\"" . $newPassword . "\"";
+        $len = strlen( $newPassword ); 
+        $newPassw = "";
+        for ( $i = 0; $i < $len; $i++ )
+        {
+            $newPassw .= "{$newPassword {$i}}\000";
+        } 
+		$userdata["unicodePwd"] = $newPassw;  return $userdata; 
 		$ldap_conn = $this->create_ldap_connection(); 
         $user_name = "(sAMAccountName=" . $ldap_conn['username'] . ")"; //Dont remove parentheses brackets 
         $user_password = $this->input->post('newPassword');   
