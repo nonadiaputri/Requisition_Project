@@ -837,12 +837,12 @@ class Hire_model extends CI_Model
                           on a.RequisitionID = b.RequisitionID
                           where a.status = 2
                           and b.IsProcessedToHire = 1)x)
-                          and a.LastModifiedById = 146");
+                          and a.LastModifiedById = 37");
     return $q->result_array();
   }
 
   function need_approval_recruiter(){
-    $modify = $this->session->userdata('ID');
+    $modify = $this->session->userdata('UserID');
     $q = $this->db->query("select a.*, b.Name as DeptName,  c.FullName as requestor
                           from dbo.RequisitionTable a
                           join dbo.OrganizationTable b

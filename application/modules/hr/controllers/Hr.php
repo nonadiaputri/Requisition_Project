@@ -811,20 +811,35 @@ class Hr extends CI_Controller {
     $rep_name = $this->input->post('rep_name');
     $final_workdate = $this->input->post('workdate');
     $modif = $this->session->userdata('ID');
+    $userid = $this->session->userdata('UserID');
+    $note = $this->input->post('note');
     var_dump($ID);
-
+    var_dump($userid);
     $data = array('PlacementID'=>$cost_center,
-                  'LastModifiedByID'=>$modif,
+                  'LastModifiedByID'=>$userid,
                   'RequestedCompanyID' => $company,
                   'NumberOfPlacement' => $total,
                   'EmploymentTypeID' => $emp_type,
                   'RequisitionTypeID' => $req_type,
                   'ReplacementPersonnelID' => $rep_name,
-                  'AgreedExpectedWorkdate' => $final_workdate);
+                  'AgreedExpectedDate' => $final_workdate);
     var_dump($data);
 
+    $data1 = array (
+          'RequisitionID' => $ID,
+          'PersonnelID' => $this->session->userdata('ID2'),
+          'Description' => $note,
+          'CreatedByID' => $userid,
+          'LastModifiedByID' => $userid);
+    var_dump($data1);
+
     $res =$this->Hire_model->update_cost_center($data, $ID);
-    if ($res > 0) {
+
+    if ($note != '') {
+          $res2 = $this->Hire_model->Insert_note($data1);
+    }
+
+    if ($res > 0 && $res2 > 0) {
        echo json_encode(array('status'=>true));
        $this->need_approval();
       }else{
