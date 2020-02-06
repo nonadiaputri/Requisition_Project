@@ -23,15 +23,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-<<<<<<< HEAD
 //$config['base_url'] = 'http://localhost/Kompas/home/';
 $root = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "https");
 $root .= "://".$_SERVER['HTTP_HOST'];
 $root .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
 $config['base_url'] = $root;
-=======
-$config['base_url'] = 'https://esldev.kgmedia.id/ep/';
->>>>>>> 425e149d2f5eaa1e7b8d1e6fc32cade1699c00c3
 
 /*
 |--------------------------------------------------------------------------
