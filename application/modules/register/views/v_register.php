@@ -53,15 +53,15 @@
 	
     <form action="#" method="post">
         <div class="form-group has-feedback">
-            <input type="text" name="nik" id="nik" class="form-control" placeholder="NIK">
+            <input type="text" name="nik" id="nik" class="form-control" placeholder="NIK" required="required">
             <span class="glyphicon glyphicon-briefcase form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-            <input type="text" name="name" id="name" class="form-control" placeholder="Your Name">
+            <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" required="required">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-            <input type="password" name="pass" id="pass" class="form-control" placeholder="Password">
+            <input type="password" name="pass" id="pass" class="form-control" placeholder="Password" required="required">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <div class="row">

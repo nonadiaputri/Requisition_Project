@@ -101,6 +101,7 @@ class Register extends CI_Controller{
 				curl_close($curl);
 
 				var_dump($body);
+				
 
 				
 
