@@ -18,6 +18,7 @@ class Login extends CI_Controller {
 	
 	function do()
 	{
+        //echo "status";
 		$uid = $this->input->post('uid');		
         $pwd = sha1($this->input->post('pwd') . $this->config->item('encryption_key'));
         $login = $this->Login_model->auth($uid, $pwd);
@@ -71,7 +72,7 @@ class Login extends CI_Controller {
 	}
 
 	function register(){
-		$api_url = "http://kics.kompas.com/api/unit";
+		$api_url = "https://kics.kompas.com/api/unit";
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
 				CURLOPT_URL => $api_url,
@@ -81,7 +82,8 @@ class Login extends CI_Controller {
 				CURLOPT_TIMEOUT => 30,
 				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 				CURLOPT_CUSTOMREQUEST => "GET",
-				CURLOPT_HEADER => true,
+                CURLOPT_HEADER => true,
+                CURLOPT_SSL_VERIFYPEER => false,     // Disabled SSL Cert checks
 				CURLOPT_HTTPHEADER => array(
 					"Accept: application/json",
 					"Header: Access-Control-Allow-Origin"
@@ -97,7 +99,7 @@ class Login extends CI_Controller {
 			$body = json_decode($body, true);
 			//var_dump($body);
 			//API GET POSITION
-			$api_url2 = "http://kics.kompas.com/api/position";
+			$api_url2 = "https://kics.kompas.com/api/position";
 			$curl2 = curl_init();
 			curl_setopt_array($curl2, array(
 				CURLOPT_URL => $api_url2,
@@ -107,7 +109,8 @@ class Login extends CI_Controller {
 				CURLOPT_TIMEOUT => 30,
 				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 				CURLOPT_CUSTOMREQUEST => "GET",
-				CURLOPT_HEADER => true,
+                CURLOPT_HEADER => true,
+                CURLOPT_SSL_VERIFYPEER => false,     // Disabled SSL Cert checks
 				CURLOPT_HTTPHEADER => array(
 					"Accept: application/json"
 				),
@@ -127,9 +130,43 @@ class Login extends CI_Controller {
 		$this->load->view('register/v_register', $data);
 	}
 
-	// function active_directory(){
-	// 	$this->load->view('loginad/v_login_Ad');
-	// }
+	function testunit(){
+        $curl = curl_init();
+		$response = curl_exec($curl);
+			$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+			$header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+			$body = substr($response, $header_size);
+			$err = curl_error($curl);
+			curl_close($curl);
+			$body = json_decode($body, true);
+			//var_dump($body);
+			//API GET POSITION
+			$api_url2 = "https://kics.kompas.com/api/position";
+			$curl2 = curl_init();
+			curl_setopt_array($curl2, array(
+				CURLOPT_URL => $api_url2,
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => "",
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 30,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => "GET",
+                CURLOPT_HEADER => true,
+                CURLOPT_SSL_VERIFYPEER => false,     // Disabled SSL Cert checks
+				CURLOPT_HTTPHEADER => array(
+					"Accept: application/json"
+				),
+			));
+
+			$response2 = curl_exec($curl2);
+			$httpcode2 = curl_getinfo($curl2, CURLINFO_HTTP_CODE);
+			$header_size2 = curl_getinfo($curl2, CURLINFO_HEADER_SIZE);
+			$body2 = substr($response2, $header_size2);
+			$err2 = curl_error($curl2);
+			curl_close($curl2);
+            $body2 = json_decode($body2, true);
+            echo $body2;
+	}
 
 	public function loginad()
     {
