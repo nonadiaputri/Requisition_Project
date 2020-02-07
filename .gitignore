@@ -1,5 +1,5 @@
 .DS_Store
-!application/config/config.php
+application/config/config.php
 application/cache/*
 !application/cache/index.html
 
@@ -7,7 +7,7 @@ application/logs/*
 !application/logs/index.html
 
 !application/*/.htaccess
-.htaccess
+!.htaccess
 
 composer.lock
 
